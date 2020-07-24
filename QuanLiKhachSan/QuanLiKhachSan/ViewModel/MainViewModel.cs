@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLiKhachSan.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,11 @@ namespace QuanLiKhachSan.ViewModel
         {
             if (isLoaded != true)
             {
-                MessageBox.Show("hii");
+                //MessageBox.Show("hii");
+                //NHANVIEN b = new NHANVIEN();
+                //b = DataProvider.ISCreated.DB.NHANVIENs.First();
+                //List<NHANVIEN> a = DatabaseQuery.danhSachNhanVien();
             }
-
         }
     }
 }
