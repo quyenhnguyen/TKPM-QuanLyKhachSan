@@ -144,6 +144,10 @@
     <Compile Include="View\LeTan_TraCuu.xaml.cs">
       <DependentUpon>LeTan_TraCuu.xaml</DependentUpon>
     </Compile>
+    <Page Include="DictionaryResources\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

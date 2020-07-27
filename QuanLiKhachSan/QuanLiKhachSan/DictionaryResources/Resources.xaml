@@ -12,36 +12,6 @@
     <viewmodel:LeTanLayoutViewModel x:Key="LeTanLayoutVM" />
 
 
-    <!--  Màu sử dụng  cho app  -->
-    <SolidColorBrush x:Key="MauSlideBarTrai" Color="#004C77" />
-    <SolidColorBrush x:Key="MauChinh2" Color="#026FAD" />
-    <SolidColorBrush x:Key="MauChuHeader" Color="#E91E63" />
-
-    <!--  Số sử dụng trong app  -->
-    <System:Double x:Key="CoChuLon">24</System:Double>
-
-
-    <!--  Style của app  -->
-    <Style
-        x:Key="StyleBtnSlideBarActive"
-        BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"
-        TargetType="{x:Type Button}">
-        <Style.Triggers>
-            <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Background" Value="{StaticResource MauChinh2}" />
-                <Setter Property="BorderBrush" Value="{StaticResource MauChinh2}" />
-                <Setter Property="Opacity" Value="1" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-    <Style
-        x:Key="StyleButtonSlidebar"
-        BasedOn="{StaticResource StyleBtnSlideBarActive}"
-        TargetType="Button">
-        <Setter Property="Height" Value="60" />
-        <Setter Property="Background" Value="{StaticResource MauSlideBarTrai}" />
-        <Setter Property="BorderBrush" Value="{StaticResource MauSlideBarTrai}" />
-    </Style>
 
 
 

@@ -1,14 +1,125 @@
-﻿<UserControl x:Class="QuanLiKhachSan.View.LeTan_DatPhong"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:QuanLiKhachSan.View"
-             mc:Ignorable="d" 
-             
-             DataContext="{StaticResource LeTanDatPhongVM}"
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+﻿<UserControl
+    x:Class="QuanLiKhachSan.View.LeTan_DatPhong"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:QuanLiKhachSan.View"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    DataContext="{StaticResource LeTanDatPhongVM}"
+    mc:Ignorable="d">
+    <Grid Background="White">
+        <StackPanel Orientation="Vertical">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <materialDesign:Card
+                        Padding="40,20"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                        Content="{Binding SLPhong}" />
+                    <Label
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        FontSize="{StaticResource CoChuThuong}">
+                        Tất cả
+                    </Label>
+                </StackPanel>
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <materialDesign:Card
+                        Padding="40,20"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                        Content="{Binding SLPhongTrong}" />
+                    <Label
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        FontSize="{StaticResource CoChuThuong}">
+                        Còn trống
+                    </Label>
+                </StackPanel>
+                <StackPanel
+                    Grid.Column="2"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <materialDesign:Card
+                        Padding="40,20"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                        Content="{Binding SLPhongDangThue}" />
+                    <Label
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        FontSize="{StaticResource CoChuThuong}">
+                        Đang thuê
+                    </Label>
+                </StackPanel>
+            </Grid>
+            <Separator Margin="0,10" />
+            <!--  ds phòng  -->
+            <ListView
+                ItemsSource="{Binding DSPhong}"
+                ScrollViewer.CanContentScroll="True"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                SelectedItem="{Binding PhongChon}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Width="150"
+                            Background="{StaticResource XamNhat}"
+                            BorderThickness="0"
+                            CornerRadius="8"
+                            Cursor="Hand">
+                            <StackPanel Orientation="Vertical">
+                                <materialDesign:Card
+                                    Margin="0,0,0,5"
+                                    Padding="7"
+                                    HorizontalContentAlignment="Center"
+                                    materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                    Background="{StaticResource XamDam}"
+                                    Foreground="{StaticResource MauTenPhong}">
+                                    <TextBlock
+                                        FontSize="{StaticResource CoChuNho}"
+                                        FontWeight="Bold"
+                                        Text="{Binding TenPhong}"
+                                        TextAlignment="Center" />
+                                </materialDesign:Card>
+                                <StackPanel Height="70" Orientation="Vertical">
+                                    <TextBlock
+                                        Padding="10,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        FontFamily="Arial"
+                                        FontSize="{StaticResource CoChuNho}"
+                                        Text="Thường , đơn"
+                                        TextWrapping="Wrap" />
+                                    <materialDesign:PackIcon
+                                        Width="100"
+                                        Height="40"
+                                        Margin="60,10,0,0"
+                                        Foreground="{StaticResource ResourceKey=DenHoiNhat}"
+                                        Kind="Bed" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
 
     </Grid>
+
 </UserControl>
