@@ -32,7 +32,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <!--  Menu trai  -->
@@ -99,15 +99,15 @@
             Grid.Row="0"
             Grid.Column="1"
             VerticalAlignment="Center">
+            <!--  Header  -->
             <TextBlock
-                Margin="0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="{DynamicResource CoChuLon}"
                 FontWeight="Bold"
                 Foreground="{DynamicResource MauChuHeader}"
                 Text="{Binding txtTitle}" />
-            <Separator Margin="0,10,0,0" />
+            <!--<Separator />-->
         </StackPanel>
         <ContentControl
             Grid.Row="1"

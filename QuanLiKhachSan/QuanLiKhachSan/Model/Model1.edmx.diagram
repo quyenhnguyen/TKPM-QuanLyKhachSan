@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="QLKHACHSANModel.DICHVU" Width="1.5" PointX="3" PointY="18.25" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.HOADONTHUEPHONG" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.KHACHHANG" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLKHACHSANModel.LICHSUTHEMDICHVU" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKHACHSANModel.LICHSUTHEMDICHVU" Width="2.25" PointX="5.25" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.LOAIDV" Width="1.5" PointX="0.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.LOAIPHONG" Width="1.5" PointX="1.5" PointY="15.5" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.NHANVIEN" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />

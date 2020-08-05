@@ -1,0 +1,617 @@
+﻿<UserControl
+    x:Class="QuanLiKhachSan.View.LeTan_CheckinPhongTrong"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local="clr-namespace:QuanLiKhachSan.View"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="checkin"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid Background="{StaticResource XamNhat}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="320" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Title check in phòng  -->
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <StackPanel
+                Margin="10,8"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal">
+                <materialDesign:PackIcon
+                    Width="29"
+                    Height="26"
+                    Margin="10,0,10,5"
+                    Foreground="{StaticResource MauChuHeader}"
+                    Kind="Home" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="{StaticResource CoChuThuong}"
+                    FontWeight="Bold"
+                    Foreground="{StaticResource MauChuHeader}"
+                    Text="{Binding title}" />
+            </StackPanel>
+            <Separator />
+        </StackPanel>
+
+        <!--  Main content  -->
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <!--  TÌm kiếm  -->
+            <StackPanel
+                x:Name="TimKiemDichVu"
+                Margin="10,20"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Border
+                    Padding="10,5"
+                    Background="White"
+                    BorderBrush="{DynamicResource MaterialDesignDivider}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <TextBox
+                        Width="340"
+                        Margin="10,0"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Tìm kiếm dịch vụ "
+                        Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        TextWrapping="Wrap" />
+                </Border>
+                <Button
+                    x:Name="btnSearch"
+                    Height="35"
+                    Margin="10,0,0,0"
+                    Background="{StaticResource MauSlideBarTrai}"
+                    BorderBrush="{StaticResource MauSlideBarTrai}"
+                    Command="{Binding SearchMonAnCommand}"
+                    CommandParameter="{Binding ElementName=btnSearch}"
+                    IsDefault="True">
+                    <materialDesign:PackIcon
+                        Width="25"
+                        Height="22"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Kind="Search" />
+                </Button>
+            </StackPanel>
+
+            <!--  LIst loại dịch vụ  -->
+            <ListBox
+                Margin="0,0,0,20"
+                HorizontalAlignment="Center"
+                ItemsSource="{Binding DSLoaiDichVu}"
+                SelectedItem="{Binding LoaiDichVuChon}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Button
+                                        Width="180"
+                                        Margin="5,5,0,0"
+                                        Command="{Binding DataContext.loaiDichVuCommand, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                                        CommandParameter="{Binding}"
+                                        Content="{Binding TenLoai}"
+                                        Style="{StaticResource StyleButtonLoaiDV}" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+            <!--  HIện danh sách dịch vụ  -->
+            <ListView
+                Name="dsDichVu"
+                ItemsSource="{Binding DSDichVuTheoLoai}"
+                ScrollViewer.CanContentScroll="True"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                SelectedItem="{Binding DichVuChon}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Width="160"
+                            Height="120"
+                            Padding="5,5"
+                            Background="White"
+                            BorderBrush="{StaticResource XamDam}"
+                            BorderThickness="0"
+                            Cursor="Hand">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Grid.Column="0"
+                                    Margin="0,0,4,0"
+                                    HorizontalAlignment="Left"
+                                    Source="C:\images\5.jpg" />
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        HorizontalAlignment="Center"
+                                        FontSize="{StaticResource CoChuSieuNho}"
+                                        FontWeight="Bold"
+                                        Text="{Binding TenDichVu}"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Margin="0,5"
+                                        Padding="10,0,0,0"
+                                        FontFamily="Arial"
+                                        FontSize="{StaticResource CoChuNho}"
+                                        FontWeight="Bold"
+                                        Foreground="Red"
+                                        Text="{Binding GiaBan}"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Margin="0,5"
+                                        Padding="10,0,0,0"
+                                        FontFamily="Arial"
+                                        FontSize="{StaticResource CoChuSieuNho}"
+                                        FontWeight="Bold"
+                                        Foreground="{StaticResource MauTenPhong}"
+                                        Text="{Binding DonVi}"
+                                        TextAlignment="Center"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+        <!--  Hóa đơn  -->
+        <Grid
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Background="{StaticResource MauSlideBarTrai}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="205" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Background="{StaticResource MauXanhVua}">
+                <!--  Header của hóa đơn  -->
+                <StackPanel Background="{StaticResource MauSlideBarTrai}">
+                    <DockPanel Margin="5,0">
+                        <TextBlock Style="{StaticResource StyleTextBlockHoaDon}">
+                            Thông tin phòng phòng
+                        </TextBlock>
+                        <TextBlock
+                            Margin="5"
+                            HorizontalAlignment="Right"
+                            FontSize="{StaticResource CoChuNho}"
+                            FontWeight="Bold"
+                            Foreground="White">
+                            P101
+                        </TextBlock>
+                    </DockPanel>
+                    <TextBlock
+                        Margin="0,0,10,0"
+                        HorizontalAlignment="Right"
+                        FontSize="{StaticResource CoChuSieuNho}"
+                        FontWeight="Bold"
+                        Foreground="White">
+                        Thường, đơn
+                    </TextBlock>
+                    <Button
+                        Margin="10,0,10,5"
+                        Background="{StaticResource CamVua}"
+                        BorderBrush="{StaticResource CamVua}"
+                        Command="{Binding checkinBtnCommand}"
+                        Content="CHECK IN"
+                        Style="{StaticResource StyleBtnCoBan}" />
+                </StackPanel>
+                <!--  THông tin khách hàng  -->
+                <StackPanel>
+                    <TextBlock Style="{StaticResource StyleTextBlockHoaDon}">
+                        Thông tin khách thuê phòng
+                    </TextBlock>
+                    <DockPanel>
+                        <Button
+                            Command="{Binding KhachThuePhongBtnCommand}"
+                            Content="Khách thuê phòng"
+                            Style="{StaticResource StyleBtnCoBan}" />
+                        <Button
+                            Width="140"
+                            Margin="0"
+                            Command="{Binding ChinhSuaKhachBtnCommand}"
+                            Content="Chỉnh sửa"
+                            Style="{StaticResource StyleBtnCoBan}" />
+                    </DockPanel>
+                </StackPanel>
+                <!--  Danh sách dịch vụ thêm  -->
+                <StackPanel Margin="10,0,0,5">
+                    <TextBlock Style="{StaticResource StyleTextBlockHoaDon}" Text="Dịch vụ đã thêm" />
+                    <ListView
+                        Height="210"
+                        HorizontalAlignment="Center"
+                        Grid.IsSharedSizeScope="True"
+                        ItemsSource="{Binding listDoanhThu}"
+                        ScrollViewer.CanContentScroll="True"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Background" Value="White" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.View>
+                            <GridView ColumnHeaderContainerStyle="{StaticResource HeaderCuaBang}">
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding monAn.TENMON}"
+                                    Header="STT" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding monAn.TENMON}"
+                                    Header="Tên Dịch Vụ" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding monAn.MALOAI}"
+                                    Header="Giá" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding SoLuotMua}"
+                                    Header="Số Lượng" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding TongTienThu}"
+                                    Header="Thành tiền" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+                <Separator
+                    Height="0.5"
+                    Margin="0,0,0,5"
+                    VerticalAlignment="Bottom"
+                    Background="{StaticResource MauTenPhong}" />
+                <!--  Thông tin thanh toán tiền  -->
+                <DockPanel>
+                    <TextBlock Style="{StaticResource StyleLableTinhTien}" Text="Tổng thanh toán" />
+                    <materialDesign:Card
+                        Width="100"
+                        Height="30"
+                        Margin="0,0,5,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                        Foreground="Black">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Text="0"
+                            TextAlignment="Center" />
+                    </materialDesign:Card>
+                </DockPanel>
+                <!--<Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <DockPanel Grid.Column="0">
+                        <TextBlock Style="{StaticResource StyleLableTinhTien}" Text="Tổng tiền" />
+                        <materialDesign:Card
+                            Width="60"
+                            Height="30"
+                            Margin="0,0,5,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                            Foreground="Black">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="0"
+                                TextAlignment="Center" />
+                        </materialDesign:Card>
+                    </DockPanel>
+                    <DockPanel Grid.Row="1" Grid.Column="0">
+                        <TextBlock Style="{StaticResource StyleLableTinhTien}" Text="Phí phụ thu" />
+                        <materialDesign:Card
+                            Width="60"
+                            Height="30"
+                            Margin="0,0,5,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                            Foreground="Black">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="0"
+                                TextAlignment="Center" />
+                        </materialDesign:Card>
+                    </DockPanel>
+                    <DockPanel Grid.Row="0" Grid.Column="1">
+                        <TextBlock Style="{StaticResource StyleLableTinhTien}" Text="Giảm bill" />
+                        <materialDesign:Card
+                            Width="60"
+                            Height="30"
+                            Margin="0,0,5,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                            Foreground="Black">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="0"
+                                TextAlignment="Center" />
+                        </materialDesign:Card>
+                    </DockPanel>
+                    <DockPanel Grid.Row="1" Grid.Column="1">
+                        <TextBlock Style="{StaticResource StyleLableTinhTien}" Text="$ PHẢI TRẢ" />
+                        <materialDesign:Card
+                            Width="60"
+                            Height="30"
+                            Margin="0,0,5,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                            Foreground="Black">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="0"
+                                TextAlignment="Center" />
+                        </materialDesign:Card>
+                    </DockPanel>
+                </Grid>-->
+            </StackPanel>
+
+            <StackPanel
+                Grid.Row="1"
+                Margin="0,3,0,0"
+                Background="{StaticResource MauXanhVua}">
+                <TextBlock FontSize="{StaticResource CoChuNho}" Style="{StaticResource StyleTextBlockHoaDon}">
+                    Dịch vụ cần thêm
+                </TextBlock>
+                <!--  item  -->
+                <Grid
+                    Width="290"
+                    Height="Auto"
+                    Margin="0,0,0,2"
+                    HorizontalAlignment="Center"
+                    Background="{StaticResource MauSlideBarTrai}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="35*" />
+                        <ColumnDefinition Width="18*" />
+                        <ColumnDefinition Width="5*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <!--  Name and exit  -->
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        FontSize="{StaticResource CoChuSieuNho}"
+                        Style="{StaticResource StyleLableTinhTien}"
+                        Text="Sting dâu lon"
+                        TextWrapping="Wrap" />
+                    <Button
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Padding="0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Command="{Binding DataContext.RemoveDrink, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                        CommandParameter="{Binding}"
+                        Style="{StaticResource StyleBtnSoLuong}">
+                        <materialDesign:PackIcon
+                            Width="10"
+                            Height="10"
+                            Margin="0"
+                            Foreground="{StaticResource HongDam}"
+                            Kind="CloseThick" />
+                    </Button>
+                    <!--  Amount  -->
+                    <Grid Grid.RowSpan="2" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="28*" />
+                            <ColumnDefinition Width="25*" />
+                            <ColumnDefinition Width="28*" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            Grid.Column="0"
+                            Width="20"
+                            Height="20"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="{StaticResource CamVua}"
+                            BorderBrush="{StaticResource CamVua}"
+                            Command="{Binding DataContext.DecreaseAmount, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                            CommandParameter="{Binding}"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                            ToolTip="MaterialDesignFloatingActionMiniButton">
+                            <materialDesign:PackIcon Foreground="White" Kind="WindowMinimize" />
+                        </Button>
+                        <Button
+                            Grid.Column="2"
+                            Width="20"
+                            Height="20"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="{StaticResource CamVua}"
+                            BorderBrush="{StaticResource CamVua}"
+                            Command="{Binding DataContext.IncreaseAmount, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                            CommandParameter="{Binding}"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                            ToolTip="MaterialDesignFloatingActionMiniButton">
+                            <materialDesign:PackIcon Foreground="White" Kind="PlusThick" />
+                        </Button>
+                        <Border
+                            Grid.Column="1"
+                            Width="25"
+                            Height="25"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="{StaticResource MauSlideBarTrai}"
+                            CornerRadius="50">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="{StaticResource CoChuThuong}"
+                                Foreground="White"
+                                Text="2" />
+                        </Border>
+                    </Grid>
+                </Grid>
+                <!--  Danh sách dịch vụ tạm thời cần thêm  -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Height="120">
+                        <ListView ItemsSource="{Binding items}" SelectedItem="{Binding DataContext.SelectedOrderItem, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListViewItem">
+                                                <Grid
+                                                    Width="290"
+                                                    Height="Auto"
+                                                    Margin="0,0,0,2"
+                                                    HorizontalAlignment="Center"
+                                                    Background="{StaticResource MauSlideBarTrai}">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="35*" />
+                                                        <ColumnDefinition Width="18*" />
+                                                        <ColumnDefinition Width="5*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="30" />
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="*" />
+                                                    </Grid.RowDefinitions>
+                                                    <!--  tên dịch vụ  -->
+                                                    <TextBlock
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        Grid.ColumnSpan="3"
+                                                        FontSize="{StaticResource CoChuSieuNho}"
+                                                        Style="{StaticResource StyleLableTinhTien}"
+                                                        Text="{Binding TenDichVu}"
+                                                        TextWrapping="Wrap" />
+                                                    <Button
+                                                        Grid.Row="0"
+                                                        Grid.Column="2"
+                                                        Padding="0"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Top"
+                                                        Command="{Binding DataContext.RemoveDrink, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{StaticResource StyleBtnSoLuong}">
+                                                        <materialDesign:PackIcon
+                                                            Width="10"
+                                                            Height="10"
+                                                            Margin="0"
+                                                            Foreground="{StaticResource HongDam}"
+                                                            Kind="CloseThick" />
+                                                    </Button>
+                                                    <!--  Amount  -->
+                                                    <Grid Grid.RowSpan="2" Grid.Column="1">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="28*" />
+                                                            <ColumnDefinition Width="25*" />
+                                                            <ColumnDefinition Width="28*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Button
+                                                            Grid.Column="0"
+                                                            Width="20"
+                                                            Height="20"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Background="{StaticResource CamVua}"
+                                                            BorderBrush="{StaticResource CamVua}"
+                                                            Command="{Binding DataContext.DecreaseAmount, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                                                            CommandParameter="{Binding}"
+                                                            Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                                            ToolTip="MaterialDesignFloatingActionMiniButton">
+                                                            <materialDesign:PackIcon Foreground="White" Kind="WindowMinimize" />
+                                                        </Button>
+                                                        <Button
+                                                            Grid.Column="2"
+                                                            Width="20"
+                                                            Height="20"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Background="{StaticResource CamVua}"
+                                                            BorderBrush="{StaticResource CamVua}"
+                                                            Command="{Binding DataContext.IncreaseAmount, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                                                            CommandParameter="{Binding}"
+                                                            Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                                            ToolTip="MaterialDesignFloatingActionMiniButton">
+                                                            <materialDesign:PackIcon Foreground="White" Kind="PlusThick" />
+                                                        </Button>
+                                                        <Border
+                                                            Grid.Column="1"
+                                                            Width="25"
+                                                            Height="25"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Background="{StaticResource MauSlideBarTrai}"
+                                                            CornerRadius="50">
+                                                            <TextBlock
+                                                                HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center"
+                                                                FontSize="{StaticResource CoChuThuong}"
+                                                                Foreground="White"
+                                                                Text="2" />
+                                                        </Border>
+                                                    </Grid>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                    </StackPanel>
+                </ScrollViewer>
+                <Button
+                    Margin="15,5"
+                    HorizontalAlignment="Right"
+                    Command="{Binding troVeCommand}"
+                    CommandParameter="{Binding ElementName=dsPhong}"
+                    Content="Thêm"
+                    Style="{StaticResource StyleBtnCoBan}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

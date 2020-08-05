@@ -9,5 +9,5 @@
     d:DesignWidth="800"
     DataContext="{StaticResource LeTanTraCuuVM}"
     mc:Ignorable="d">
-    <Grid/>
+    <Grid Background="Red" />
 </UserControl>
