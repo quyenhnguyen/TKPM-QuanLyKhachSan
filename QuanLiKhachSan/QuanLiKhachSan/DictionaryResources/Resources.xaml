@@ -11,7 +11,6 @@
     <viewmodel:LeTanTraCuuViewModel x:Key="LeTanTraCuuVM" />
     <viewmodel:LeTanLayoutViewModel x:Key="LeTanLayoutVM" />
     <viewmodel:LeTanKhachHangViewModel x:Key="LeTanKhachHangVM" />
-    <!--<viewmodel:LeTanCheckInViewModel x:Key="LeTanCheckIn" />-->
 
 
 

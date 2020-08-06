@@ -113,6 +113,60 @@
                         <WrapPanel Orientation="Horizontal" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Style.Triggers>
+                            <!--  Phòng đã thuê có template riêng  -->
+                            <DataTrigger Binding="{Binding TinhTrangThue}" Value="True">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Border
+                                                Width="150"
+                                                Margin="3,0"
+                                                Background="{StaticResource XanhHoiNhat}"
+                                                BorderThickness="0"
+                                                CornerRadius="8"
+                                                Cursor="Hand">
+                                                <StackPanel Orientation="Vertical">
+                                                    <materialDesign:Card
+                                                        Margin="0,0,0,5"
+                                                        Padding="7"
+                                                        HorizontalContentAlignment="Center"
+                                                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                                        Background="{StaticResource XanhNhat}"
+                                                        Foreground="{StaticResource MauTenPhong}">
+                                                        <TextBlock
+                                                            FontSize="{StaticResource CoChuNho}"
+                                                            FontWeight="Bold"
+                                                            Text="{Binding TenPhong}"
+                                                            TextAlignment="Center" />
+                                                    </materialDesign:Card>
+                                                    <StackPanel Height="70" Orientation="Vertical">
+                                                        <TextBlock
+                                                            Padding="10,0,0,0"
+                                                            HorizontalAlignment="Left"
+                                                            FontFamily="Arial"
+                                                            FontSize="{StaticResource CoChuNho}"
+                                                            Text="{Binding LoaiPhongID}"
+                                                            TextWrapping="Wrap" />
+                                                        <materialDesign:PackIcon
+                                                            Width="100"
+                                                            Height="40"
+                                                            Margin="60,10,0,0"
+                                                            Foreground="{StaticResource ResourceKey=DenHoiNhat}"
+                                                            Kind="Bed" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <!--<Setter TargetName="dsPhong" Property="BorderBrush" Value="Yellow" />-->
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Border
@@ -141,7 +195,7 @@
                                         HorizontalAlignment="Left"
                                         FontFamily="Arial"
                                         FontSize="{StaticResource CoChuNho}"
-                                        Text="Thường , đơn"
+                                        Text="{Binding LoaiPhongID}"
                                         TextWrapping="Wrap" />
                                     <materialDesign:PackIcon
                                         Width="100"

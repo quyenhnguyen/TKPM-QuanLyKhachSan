@@ -54,7 +54,7 @@
                 Grid.Row="0"
                 Grid.Column="1"
                 Style="{StaticResource StyleInputForm}"
-                Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding HoTenInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock
                 Grid.Row="1"
                 Grid.Column="0"
@@ -64,7 +64,7 @@
                 Grid.Row="1"
                 Grid.Column="1"
                 Style="{StaticResource StyleInputForm}"
-                Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding DiaChiInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock
                 Grid.Row="2"
                 Grid.Column="0"
@@ -74,7 +74,7 @@
                 Grid.Row="2"
                 Grid.Column="1"
                 Style="{StaticResource StyleInputForm}"
-                Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding CMNDInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock
                 Grid.Row="3"
                 Grid.Column="0"
@@ -84,7 +84,7 @@
                 Grid.Row="3"
                 Grid.Column="1"
                 Style="{StaticResource StyleInputForm}"
-                Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding DienThoaiInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock
                 Grid.Row="4"
                 Grid.Column="0"
@@ -107,6 +107,8 @@
                 Height="35"
                 Background="{StaticResource CamNhat}"
                 BorderThickness="0"
+                Command="{Binding ThemMoiBtnCommand}"
+                CommandParameter="{Binding ElementName=WindowKhachHang}"
                 Style="{StaticResource StyleBtnCoBan}">
                 THÊM MỚI
             </Button>

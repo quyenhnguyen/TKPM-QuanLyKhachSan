@@ -25,32 +25,34 @@ namespace QuanLiKhachSan.ViewModel
         private int _slPhongDangThue;
         public int SlPhongDangThue { get => _slPhongDangThue; set => OnPropertyChanged(ref _slPhongDangThue, value); }
 
+
+        private int _tenPhongItem;
+        public int TenPhongItem
+        {
+            get => _tenPhongItem;
+            set => OnPropertyChanged(ref _tenPhongItem, value);
+        }
+
         private List<PHONG> _dsPhong;
         public List<PHONG> DSPhong { get => _dsPhong; set => OnPropertyChanged(ref _dsPhong, value); }
 
         private PHONG _phongChon;
-        public PHONG PhongChon
-        {
-            get => _phongChon;
-            set
-            {
-                OnPropertyChanged(ref _phongChon, value);
-
-            }
-        }
+        public PHONG PhongChon { get => _phongChon; set { OnPropertyChanged(ref _phongChon, value); } }
 
         public ICommand PhongChonCommand { get; set; }
         public ICommand troVeCommand { get; set; }
 
+
+        //*************************************************************************
         public LeTanDatPhongViewModel()
         {
             DSPhong = DatabaseQuery.danhSachPhong();
+            //***Su dụng listPhongTT thay cho DSPhong
 
             //KHi click vao 1 phong
             PhongChonCommand = new RelayCommand<ListView>((p) => { return true; }, (p) =>
                {
                    CheckinContext = new LeTanCheckInViewModel(PhongChon.PhongID);
-
                    FrameworkElement parent = p;
                    while (parent.Parent != null)
                    {

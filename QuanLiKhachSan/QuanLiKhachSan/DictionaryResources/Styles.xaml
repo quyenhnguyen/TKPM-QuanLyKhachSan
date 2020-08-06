@@ -17,6 +17,14 @@
     <SolidColorBrush x:Key="CamDisable" Color="#F3E0B7" />
     <SolidColorBrush x:Key="CamVua" Color="#F2994A" />
     <SolidColorBrush x:Key="HongDam" Color="#FF5588" />
+    <SolidColorBrush x:Key="XanhNhat" Color="#81D4FA" />
+    <SolidColorBrush x:Key="XanhHoiNhat" Color="#B2EBF2" />
+    <SolidColorBrush x:Key="XanhNhatMauNen" Color="#E8F1FB" />
+
+
+
+
+
 
     <!--  Số sử dụng trong app  -->
     <System:Double x:Key="CoChuLon">24</System:Double>
@@ -26,18 +34,7 @@
 
 
     <!--  Style của app  -->
-    <Style
-        x:Key="StyleBtnSlideBarActive"
-        BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"
-        TargetType="{x:Type Button}">
-        <Style.Triggers>
-            <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Background" Value="{StaticResource MauChinh2}" />
-                <Setter Property="BorderBrush" Value="{StaticResource MauChinh2}" />
-                <Setter Property="Opacity" Value="1" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
+
     <Style x:Key="StyleLableTinhTien" TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="White" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -53,6 +50,13 @@
         <Setter Property="FontStyle" Value="Italic" />
         <Setter Property="TextAlignment" Value="Right" />
         <Setter Property="Margin" Value="0,0,10,0" />
+    </Style>
+    <Style x:Key="StyleTextInfoForm" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="Gray" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
+        <Setter Property="TextAlignment" Value="Right" />
+        <Setter Property="Margin" Value="0,0,110,0" />
     </Style>
     <Style x:Key="StyleInputForm" TargetType="{x:Type TextBox}">
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -71,39 +75,44 @@
         <Setter Property="Margin" Value="10,5" />
     </Style>
     <Style
-        x:Key="StyleBtnCoBanActive"
-        BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"
-        TargetType="{x:Type Button}">
-        <Style.Triggers>
-            <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Background" Value="{StaticResource CamDisable}" />
-                <Setter Property="BorderBrush" Value="{StaticResource CamDisable}" />
-                <Setter Property="Opacity" Value="1" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-    <Style
         x:Key="StyleBtnCoBan"
-        BasedOn="{StaticResource StyleBtnCoBanActive}"
+        BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"
         TargetType="{x:Type Button}">
         <Setter Property="Height" Value="30" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="Background" Value="{StaticResource CamNhat}" />
         <Setter Property="BorderBrush" Value="{StaticResource CamNhat}" />
         <Setter Property="Margin" Value="10,0" />
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" Value="0.5" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
+
     <Style
         x:Key="StyleButtonSlidebar"
-        BasedOn="{StaticResource StyleBtnSlideBarActive}"
+        BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"
         TargetType="Button">
         <Setter Property="Height" Value="60" />
         <Setter Property="Background" Value="{StaticResource MauSlideBarTrai}" />
         <Setter Property="BorderBrush" Value="{StaticResource MauSlideBarTrai}" />
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Background" Value="{StaticResource MauChinh2}" />
+                <Setter Property="BorderBrush" Value="{StaticResource MauChinh2}" />
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
+
     <Style
-        x:Key="StyleBtnLoaiDVActive"
+        x:Key="StyleButtonLoaiDV"
         BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"
-        TargetType="{x:Type Button}">
+        TargetType="Button">
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Background" Value="{StaticResource MauButtonLoaiDV}" />
+        <Setter Property="BorderBrush" Value="{StaticResource MauButtonLoaiDV}" />
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Background" Value="#7BC7CE" />
@@ -111,14 +120,6 @@
                 <Setter Property="Opacity" Value="1" />
             </Trigger>
         </Style.Triggers>
-    </Style>
-    <Style
-        x:Key="StyleButtonLoaiDV"
-        BasedOn="{StaticResource StyleBtnLoaiDVActive}"
-        TargetType="Button">
-        <Setter Property="Height" Value="30" />
-        <Setter Property="Background" Value="{StaticResource MauButtonLoaiDV}" />
-        <Setter Property="BorderBrush" Value="{StaticResource MauButtonLoaiDV}" />
     </Style>
     <Style x:Key="StyleBtnSoLuong" TargetType="Button">
         <Setter Property="Margin" Value="0" />

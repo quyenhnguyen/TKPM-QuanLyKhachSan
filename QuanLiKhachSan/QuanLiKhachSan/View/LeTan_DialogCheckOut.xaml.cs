@@ -1,5 +1,4 @@
-﻿using QuanLiKhachSan.Model;
-using QuanLiKhachSan.ViewModel;
+﻿using QuanLiKhachSan.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +16,19 @@ using System.Windows.Shapes;
 namespace QuanLiKhachSan.View
 {
     /// <summary>
-    /// Interaction logic for LeTan_KhachHang.xaml
+    /// Interaction logic for LeTan_DialogCheckOut.xaml
     /// </summary>
-    public partial class LeTan_KhachHang : Window
+    public partial class LeTan_DialogCheckOut : Window
     {
-        public LeTan_KhachHang()
+        public LeTan_DialogCheckOut()
         {
             InitializeComponent();
+        }
+        public LeTan_DialogCheckOut(int maHD)
+        {
+            InitializeComponent();
+            this.DataContext = new LeTanDialogCheckOutViewModel(maHD);
+            ((LeTanDialogCheckOutViewModel)DataContext).MaHoaDon = maHD;
         }
     }
 }

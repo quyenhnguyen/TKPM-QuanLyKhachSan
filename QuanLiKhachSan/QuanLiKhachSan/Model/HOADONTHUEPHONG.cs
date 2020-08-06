@@ -11,7 +11,7 @@ namespace QuanLiKhachSan.Model
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class HOADONTHUEPHONG
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,16 +19,16 @@ namespace QuanLiKhachSan.Model
         {
             this.LICHSUTHEMDICHVUs = new HashSet<LICHSUTHEMDICHVU>();
         }
-    
+
         public int MaHoaDon { get; set; }
         public System.DateTime ThoiGianThue { get; set; }
-        public System.DateTime ThoiGianTra { get; set; }
+        public Nullable<System.DateTime> ThoiGianTra { get; set; }
         public Nullable<double> TongTien { get; set; }
         public int NhanVienTaoHoaDon { get; set; }
         public string Phong { get; set; }
-        public int MaKhachHang { get; set; }
+        public Nullable<int> MaKhachHang { get; set; }
         public System.DateTime NgayTao { get; set; }
-    
+
         public virtual KHACHHANG KHACHHANG { get; set; }
         public virtual NHANVIEN NHANVIEN { get; set; }
         public virtual PHONG PHONG1 { get; set; }

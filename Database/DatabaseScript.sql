@@ -12,7 +12,7 @@ GO
 CREATE TABLE HOADONTHUEPHONG(
 	MaHoaDon int NOT NULL,
 	ThoiGianThue datetime NOT NULL,
-	ThoiGianTra datetime NOT NULL,
+	ThoiGianTra datetime NULL,
 	TongTien float NULL,
 	NhanVienTaoHoaDon int NOT NULL,
 	Phong varchar(10) NOT NULL,

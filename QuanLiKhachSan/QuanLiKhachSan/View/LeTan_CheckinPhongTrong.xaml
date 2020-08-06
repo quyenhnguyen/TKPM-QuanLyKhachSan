@@ -11,7 +11,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Grid Background="{StaticResource XamNhat}">
+    <Grid Background="{Binding MauNen}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="320" />
@@ -19,14 +19,12 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="55" />
         </Grid.RowDefinitions>
 
         <!--  Title check in phòng  -->
         <StackPanel Grid.Row="0" Grid.Column="0">
-            <StackPanel
-                Margin="10,8"
-                HorizontalAlignment="Left"
-                Orientation="Horizontal">
+            <DockPanel Margin="10,8">
                 <materialDesign:PackIcon
                     Width="29"
                     Height="26"
@@ -35,11 +33,20 @@
                     Kind="Home" />
                 <TextBlock
                     VerticalAlignment="Center"
+                    DockPanel.Dock="Right"
+                    FontSize="{StaticResource CoChuThuong}"
+                    FontWeight="Bold"
+                    Foreground="{StaticResource MauChuHeader}"
+                    Text="#HÓA ĐƠN: HD1"
+                    Visibility="{Binding HienThiDangThue}" />
+                <TextBlock
+                    VerticalAlignment="Center"
                     FontSize="{StaticResource CoChuThuong}"
                     FontWeight="Bold"
                     Foreground="{StaticResource MauChuHeader}"
                     Text="{Binding title}" />
-            </StackPanel>
+
+            </DockPanel>
             <Separator />
         </StackPanel>
 
@@ -102,7 +109,7 @@
                                     <Button
                                         Width="180"
                                         Margin="5,5,0,0"
-                                        Command="{Binding DataContext.loaiDichVuCommand, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                                        Command="{Binding DataContext.LoaiDichVuCommand, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
                                         CommandParameter="{Binding}"
                                         Content="{Binding TenLoai}"
                                         Style="{StaticResource StyleButtonLoaiDV}" />
@@ -181,11 +188,57 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
+        </StackPanel>
+        <!--  In hóa đơn  -->
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="0"
+            Visibility="{Binding HienThiDangThue}">
+            <Separator Margin="0,0,0,3" Background="DarkGray" />
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button
+                    Width="80"
+                    Height="Auto"
+                    Padding="5"
+                    Background="{StaticResource XamDam}"
+                    BorderThickness="0"
+                    Command="{Binding InHoaDonCommand}"
+                    Foreground="Black"
+                    Style="{StaticResource StyleBtnCoBan}">
+                    <StackPanel>
+                        <materialDesign:PackIcon
+                            Width="18"
+                            Height="18"
+                            HorizontalAlignment="Center"
+                            Kind="Printer" />
+                        <TextBlock FontSize="12" Text="In hóa đơn" />
+                    </StackPanel>
+                </Button>
+                <Button
+                    Width="80"
+                    Height="Auto"
+                    Padding="5"
+                    Background="{StaticResource MauButtonLoaiDV}"
+                    BorderThickness="0"
+                    Command="{Binding LuuHoaDonCommand}"
+                    Style="{StaticResource StyleBtnCoBan}">
+                    <StackPanel>
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            HorizontalAlignment="Center"
+                            Kind="ContentSave" />
+                        <TextBlock FontSize="12" Text="Lưu hóa đơn" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
         </StackPanel>
         <!--  Hóa đơn  -->
         <Grid
             Grid.Row="0"
-            Grid.RowSpan="2"
+            Grid.RowSpan="3"
             Grid.Column="1"
             Background="{StaticResource MauSlideBarTrai}">
             <Grid.RowDefinitions>
@@ -205,25 +258,51 @@
                             HorizontalAlignment="Right"
                             FontSize="{StaticResource CoChuNho}"
                             FontWeight="Bold"
-                            Foreground="White">
-                            P101
-                        </TextBlock>
+                            Foreground="White"
+                            Text="{Binding MaPhong}" />
                     </DockPanel>
                     <TextBlock
                         Margin="0,0,10,0"
                         HorizontalAlignment="Right"
                         FontSize="{StaticResource CoChuSieuNho}"
                         FontWeight="Bold"
-                        Foreground="White">
-                        Thường, đơn
-                    </TextBlock>
-                    <Button
-                        Margin="10,0,10,5"
-                        Background="{StaticResource CamVua}"
-                        BorderBrush="{StaticResource CamVua}"
-                        Command="{Binding checkinBtnCommand}"
-                        Content="CHECK IN"
-                        Style="{StaticResource StyleBtnCoBan}" />
+                        Foreground="White"
+                        Text="{Binding TenLoaiPhong}" />
+
+                    <DockPanel Visibility="{Binding HienThiConTrong}">
+                        <Button
+                            Margin="10,0,10,5"
+                            Background="{StaticResource CamVua}"
+                            BorderBrush="{StaticResource CamVua}"
+                            Command="{Binding CheckinBtnCommand}"
+                            Content="CHECK IN"
+                            Style="{StaticResource StyleBtnCoBan}" />
+                        <TextBlock
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            FontSize="{StaticResource CoChuSieuNho}"
+                            Foreground="{StaticResource XanhHoiNhat}"
+                            Text="{Binding NgayCheckIn}"
+                            TextAlignment="Right" />
+                    </DockPanel>
+                    <DockPanel Visibility="{Binding HienThiDangThue}">
+                        <Button
+                            Margin="10,0,10,5"
+                            Background="{StaticResource CamVua}"
+                            BorderBrush="{StaticResource CamVua}"
+                            Command="{Binding CheckOutBtnCommand}"
+                            Content="CHECK OUT"
+                            Style="{StaticResource StyleBtnCoBan}" />
+                        <TextBlock
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            FontSize="{StaticResource CoChuSieuNho}"
+                            Foreground="{StaticResource XanhHoiNhat}"
+                            Text="{Binding NgayCheckIn}"
+                            TextAlignment="Right" />
+
+                    </DockPanel>
+
                 </StackPanel>
                 <!--  THông tin khách hàng  -->
                 <StackPanel>
@@ -613,5 +692,7 @@
                     Style="{StaticResource StyleBtnCoBan}" />
             </StackPanel>
         </Grid>
+
+
     </Grid>
 </UserControl>

@@ -133,6 +133,7 @@
     <Compile Include="ViewModel\DangNhapViewModel.cs" />
     <Compile Include="ViewModel\LeTanCheckInViewModel.cs" />
     <Compile Include="ViewModel\LeTanDatPhongViewModel.cs" />
+    <Compile Include="ViewModel\LeTanDialogCheckOutViewModel.cs" />
     <Compile Include="ViewModel\LeTanKhachHangViewModel.cs" />
     <Compile Include="ViewModel\LeTanLayoutViewModel.cs" />
     <Compile Include="ViewModel\LeTanTaiKhoanViewModel.cs" />
@@ -146,6 +147,9 @@
     </Compile>
     <Compile Include="View\LeTan_DatPhong.xaml.cs">
       <DependentUpon>LeTan_DatPhong.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LeTan_DialogCheckOut.xaml.cs">
+      <DependentUpon>LeTan_DialogCheckOut.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LeTan_KhachHang.xaml.cs">
       <DependentUpon>LeTan_KhachHang.xaml</DependentUpon>
@@ -190,6 +194,10 @@
     <Page Include="View\LeTan_DatPhong.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\LeTan_DialogCheckOut.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LeTan_KhachHang.xaml">
       <SubType>Designer</SubType>

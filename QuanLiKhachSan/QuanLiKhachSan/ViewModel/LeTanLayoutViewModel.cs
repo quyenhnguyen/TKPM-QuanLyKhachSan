@@ -48,7 +48,9 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     txtTitle = "TRANG CHỦ ĐẶT PHÒNG";
                     //Cần gán DataContext bên View qua mà ko lấy được-> Dùng biến
-                    CurrentDataContext = new LeTanDatPhongViewModel();//load lại mỗi khi click vào
+                    //CurrentDataContext = new LeTanDatPhongViewModel();//load lại mỗi khi click vào
+                    //edit vào 6/8/2020
+                    CurrentDataContext = ucDatPhong;
                 });
             btnTraCuu_Command = new RelayCommand<object>((p) => { return CurrentDataContext != ucTraCuu; }, (p) =>
               {
