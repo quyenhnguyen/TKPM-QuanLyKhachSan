@@ -42,7 +42,7 @@ namespace QuanLiKhachSan.ViewModel
             object ucDatPhong = new LeTanDatPhongViewModel();
             object ucTraCuu = new LeTanTraCuuViewModel();
             object ucTaiKhoan = new LeTanTaiKhoanViewModel();
-            CurrentDataContext = ucDatPhong;
+            CurrentDataContext = ucTraCuu;
             txtTitle = "TRANG CHỦ ĐẶT PHÒNG";
             btnDatPhong_Command = new RelayCommand<object>((p) => { return CurrentDataContext != ucDatPhong; }, (p) =>
                 {

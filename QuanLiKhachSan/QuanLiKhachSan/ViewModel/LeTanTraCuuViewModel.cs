@@ -8,5 +8,10 @@ namespace QuanLiKhachSan.ViewModel
 {
     public class LeTanTraCuuViewModel : BaseViewModel
     {
+        //*****CONSTRUCTOR**********88
+        public LeTanTraCuuViewModel()
+        {
+
+        }
     }
 }

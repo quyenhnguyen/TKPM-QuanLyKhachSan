@@ -7,9 +7,9 @@
     <viewmodel:MainViewModel x:Key="MainVM" />
     <viewmodel:DangNhapViewModel x:Key="DangNhapVM" />
     <viewmodel:LeTanDatPhongViewModel x:Key="LeTanDatPhongVM" />
+    <viewmodel:LeTanLayoutViewModel x:Key="LeTanLayoutVM" />
     <viewmodel:LeTanTaiKhoanViewModel x:Key="LeTanTaiKhoanVM" />
     <viewmodel:LeTanTraCuuViewModel x:Key="LeTanTraCuuVM" />
-    <viewmodel:LeTanLayoutViewModel x:Key="LeTanLayoutVM" />
     <viewmodel:LeTanKhachHangViewModel x:Key="LeTanKhachHangVM" />
 
 

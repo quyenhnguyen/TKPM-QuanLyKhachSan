@@ -4,10 +4,218 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:QuanLiKhachSan.View"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     DataContext="{StaticResource LeTanTraCuuVM}"
     mc:Ignorable="d">
-    <Grid Background="Red" />
+    <Grid Background="GhostWhite">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <Separator Background="{StaticResource XamDam}" />
+        </StackPanel>
+        <TabControl Grid.Row="1" BorderThickness="0,0.5,0,0">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border
+                                    Name="Border"
+                                    Width="120"
+                                    Height="40"
+                                    BorderBrush="#BDBDBD"
+                                    BorderThickness="1,1,1,0"
+                                    CornerRadius="4,4,0,0"
+                                    Cursor="Hand">
+                                    <ContentPresenter
+                                        x:Name="ContentSite"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        ContentSource="Header"
+                                        TextBlock.TextAlignment="Center" />
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="White" />
+                                        <Setter TargetName="Border" Property="Height" Value="45" />
+
+                                        <Setter TargetName="ContentSite" Property="TextBlock.FontWeight" Value="Bold" />
+
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="{StaticResource XamDam}" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="FontSize" Value="{StaticResource CoChuThuong}" />
+                </Style>
+            </TabControl.Resources>
+            <!--  Tab Hóa Đơn  -->
+            <TabItem Header="Hóa đơn">
+                <StackPanel>
+                    <StackPanel
+                        x:Name="TimKiemDichVu"
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Border
+                            Padding="10,5"
+                            Background="GhostWhite"
+                            BorderBrush="{DynamicResource MaterialDesignDivider}"
+                            BorderThickness="1"
+                            CornerRadius="8">
+                            <TextBox
+                                Width="340"
+                                Margin="10,0"
+                                VerticalAlignment="Center"
+                                materialDesign:HintAssist.Hint="Tìm kiếm hóa đơn "
+                                Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Border>
+                        <Button
+                            x:Name="btnSearch"
+                            Height="35"
+                            Margin="10,0,0,0"
+                            Background="{StaticResource MauChuHeader}"
+                            BorderBrush="{StaticResource HongDam}"
+                            Command="{Binding SearchMonAnCommand}"
+                            CommandParameter="{Binding ElementName=btnSearch}"
+                            IsDefault="True">
+                            <materialDesign:PackIcon
+                                Width="25"
+                                Height="22"
+                                Margin="5"
+                                VerticalAlignment="Center"
+                                Kind="Search" />
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <!--  Tab Phòng  -->
+            <TabItem Header="Phòng">
+                <StackPanel>
+                    <StackPanel
+                        Margin="10,20"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Border
+                            Padding="10,5"
+                            Background="White"
+                            BorderBrush="{DynamicResource MaterialDesignDivider}"
+                            BorderThickness="1"
+                            CornerRadius="8">
+                            <TextBox
+                                Width="340"
+                                Margin="10,0"
+                                VerticalAlignment="Center"
+                                materialDesign:HintAssist.Hint="Tìm kiếm hóa đơn "
+                                Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap" />
+                        </Border>
+                        <Button
+                            Height="35"
+                            Margin="10,0,0,0"
+                            Background="{StaticResource MauChuHeader}"
+                            BorderBrush="{StaticResource HongDam}"
+                            Command="{Binding SearchMonAnCommand}"
+                            CommandParameter="{Binding ElementName=btnSearch}"
+                            IsDefault="True">
+                            <materialDesign:PackIcon
+                                Width="25"
+                                Height="22"
+                                Margin="5"
+                                VerticalAlignment="Center"
+                                Kind="Search" />
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <!--  Tab Dịch vụ  -->
+            <TabItem Header="Dịch vụ">
+                <StackPanel>
+                    <StackPanel
+                        Margin="10,20"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Border
+                            Padding="10,5"
+                            Background="White"
+                            BorderBrush="{DynamicResource MaterialDesignDivider}"
+                            BorderThickness="1"
+                            CornerRadius="8">
+                            <TextBox
+                                Width="340"
+                                Margin="10,0"
+                                VerticalAlignment="Center"
+                                materialDesign:HintAssist.Hint="Tìm kiếm hóa đơn "
+                                Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap" />
+                        </Border>
+                        <Button
+                            Height="35"
+                            Margin="10,0,0,0"
+                            Background="{StaticResource MauChuHeader}"
+                            BorderBrush="{StaticResource HongDam}"
+                            Command="{Binding SearchMonAnCommand}"
+                            CommandParameter="{Binding ElementName=btnSearch}"
+                            IsDefault="True">
+                            <materialDesign:PackIcon
+                                Width="25"
+                                Height="22"
+                                Margin="5"
+                                VerticalAlignment="Center"
+                                Kind="Search" />
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <!--  Tab Nhân viên  -->
+            <TabItem Header="Nhân viên">
+                <StackPanel>
+                    <StackPanel
+                        Margin="10,20"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Border
+                            Padding="10,5"
+                            Background="White"
+                            BorderBrush="{DynamicResource MaterialDesignDivider}"
+                            BorderThickness="1"
+                            CornerRadius="8">
+                            <TextBox
+                                Width="340"
+                                Margin="10,0"
+                                VerticalAlignment="Center"
+                                materialDesign:HintAssist.Hint="Tìm kiếm hóa đơn "
+                                Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextWrapping="Wrap" />
+                        </Border>
+                        <Button
+                            Height="35"
+                            Margin="10,0,0,0"
+                            Background="{StaticResource MauChuHeader}"
+                            BorderBrush="{StaticResource HongDam}"
+                            Command="{Binding SearchMonAnCommand}"
+                            CommandParameter="{Binding ElementName=btnSearch}"
+                            IsDefault="True">
+                            <materialDesign:PackIcon
+                                Width="25"
+                                Height="22"
+                                Margin="5"
+                                VerticalAlignment="Center"
+                                Kind="Search" />
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
 </UserControl>
