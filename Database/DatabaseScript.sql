@@ -238,3 +238,6 @@ VALUES('DV001', N'Giặt ủi sấy khô', 50000, 30000, 'GIAT', N'Kí'),
 ('DV003', N'Nước tăng lực Sting dâu chai 330ml', 15000, 8000, 'UONG', N'Chai'),
 ('DV004', N'Mì Handy Hảo Hảo tôm chua cay ly 67g', 15000, 9000, 'THUCPHAM', N'Ly'),
 ('DV005', N'Snack pho mát miếng Oishi gói 40g', 8000, 5000, 'GIAT', N'Bịt')
+
+GO
+INSERT INTO KHACHHANG(HoTen, SDT, CMND, DiaChi, NgayTao) VALUES(N'Nguyễn Hoàng Quyên',0343650858,312395992,N'KTX Trần Hưng Đạo',CAST(N'2020-08-05' AS Date))

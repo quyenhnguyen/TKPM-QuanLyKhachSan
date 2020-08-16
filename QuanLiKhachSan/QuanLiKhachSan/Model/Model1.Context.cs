@@ -36,5 +36,6 @@ namespace QuanLiKhachSan.Model
         public virtual DbSet<NVLETAN> NVLETANs { get; set; }
         public virtual DbSet<NVQUANLI> NVQUANLIs { get; set; }
         public virtual DbSet<PHONG> PHONGs { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

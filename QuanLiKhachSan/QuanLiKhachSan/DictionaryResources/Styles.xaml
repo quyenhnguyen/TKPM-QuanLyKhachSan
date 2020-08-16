@@ -95,7 +95,7 @@
         <Setter Property="Height" Value="30" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="Background" Value="{StaticResource CamNhat}" />
-        <Setter Property="BorderBrush" Value="{StaticResource CamNhat}" />
+        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Margin" Value="10,0" />
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">
@@ -126,7 +126,7 @@
         TargetType="Button">
         <Setter Property="Height" Value="30" />
         <Setter Property="Background" Value="{StaticResource MauButtonLoaiDV}" />
-        <Setter Property="BorderBrush" Value="{StaticResource MauButtonLoaiDV}" />
+        <Setter Property="BorderThickness" Value="0" />
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Background" Value="#7BC7CE" />
