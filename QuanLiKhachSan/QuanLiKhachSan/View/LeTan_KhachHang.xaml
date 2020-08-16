@@ -64,7 +64,8 @@
                 Grid.Row="1"
                 Grid.Column="1"
                 Style="{StaticResource StyleInputForm}"
-                Text="{Binding DiaChiInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding DiaChiInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                VerticalScrollBarVisibility="Auto" />
             <TextBlock
                 Grid.Row="2"
                 Grid.Column="0"

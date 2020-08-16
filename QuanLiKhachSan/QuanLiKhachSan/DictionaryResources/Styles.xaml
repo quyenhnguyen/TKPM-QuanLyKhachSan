@@ -77,7 +77,8 @@
         <Setter Property="FontSize" Value="{StaticResource CoChuSieuNho}" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="Margin" Value="10,0,70,5" />
-        <Setter Property="Height" Value="30" />
+        <Setter Property="Padding" Value="10,0" />
+        <Setter Property="Height" Value="35" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="BorderBrush" Value="{StaticResource MauTenPhong}" />
