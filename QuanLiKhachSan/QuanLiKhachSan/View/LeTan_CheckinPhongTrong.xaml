@@ -37,7 +37,7 @@
                     FontSize="{StaticResource CoChuThuong}"
                     FontWeight="Bold"
                     Foreground="{StaticResource MauChuHeader}"
-                    Text="#HÓA ĐƠN: HD1"
+                    Text="{Binding HoaDonDangThue.MaHoaDon, StringFormat={}MÃ HÓA ĐƠN - #{0}}"
                     Visibility="{Binding HienThiDangThue}" />
                 <TextBlock
                     VerticalAlignment="Center"
@@ -126,6 +126,11 @@
                 ScrollViewer.CanContentScroll="True"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 SelectedItem="{Binding DichVuChon}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding DichVuChonCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal" />
@@ -229,7 +234,7 @@
                             Height="20"
                             HorizontalAlignment="Center"
                             Kind="ContentSave" />
-                        <TextBlock FontSize="12" Text="Lưu hóa đơn" />
+                        <TextBlock FontSize="12" Text="Xem hóa đơn" />
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -282,7 +287,7 @@
                             VerticalAlignment="Center"
                             FontSize="{StaticResource CoChuSieuNho}"
                             Foreground="{StaticResource XanhHoiNhat}"
-                            Text="{Binding NgayCheckIn}"
+                            Text="{Binding HoaDonDangThue.ThoiGianThue}"
                             TextAlignment="Right" />
                     </DockPanel>
                     <DockPanel Visibility="{Binding HienThiDangThue}">
@@ -298,7 +303,7 @@
                             VerticalAlignment="Center"
                             FontSize="{StaticResource CoChuSieuNho}"
                             Foreground="{StaticResource XanhHoiNhat}"
-                            Text="{Binding NgayCheckIn}"
+                            Text="{Binding HoaDonDangThue.ThoiGianThue, StringFormat={}{0: dd/MM/yyyy  HH:mm:ss}}"
                             TextAlignment="Right" />
 
                     </DockPanel>
@@ -329,13 +334,18 @@
                         Height="210"
                         HorizontalAlignment="Center"
                         Grid.IsSharedSizeScope="True"
-                        ItemsSource="{Binding listDoanhThu}"
+                        ItemsSource="{Binding DanhSachDichVuDaThem}"
                         ScrollViewer.CanContentScroll="True"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                                 <Setter Property="Background" Value="White" />
+                                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                <Setter Property="VerticalContentAlignment" Value="Center" />
+                                <Setter Property="BorderBrush" Value="{StaticResource XamNhat}" />
+                                <Setter Property="BorderThickness" Value="0,0,0,1" />
+                                <Setter Property="Padding" Value="0,3,0,3" />
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.ItemsPanel>
@@ -346,25 +356,22 @@
                         <ListView.View>
                             <GridView ColumnHeaderContainerStyle="{StaticResource HeaderCuaBang}">
                                 <GridViewColumn
-                                    Width="Auto"
-                                    DisplayMemberBinding="{Binding monAn.TENMON}"
-                                    Header="STT" />
+                                    Width="70"
+                                    DisplayMemberBinding="{Binding ThoiGianThem, StringFormat={}{0: dd/MM/yyyy HH:mm}}"
+                                    Header="Thời Gian" />
                                 <GridViewColumn
-                                    Width="Auto"
-                                    DisplayMemberBinding="{Binding monAn.TENMON}"
+                                    Width="120"
+                                    DisplayMemberBinding="{Binding TenDichVu}"
                                     Header="Tên Dịch Vụ" />
                                 <GridViewColumn
                                     Width="Auto"
-                                    DisplayMemberBinding="{Binding monAn.MALOAI}"
-                                    Header="Giá" />
+                                    DisplayMemberBinding="{Binding DonGia, StringFormat={}{0:N0}}"
+                                    Header="Đơn Giá" />
                                 <GridViewColumn
                                     Width="Auto"
-                                    DisplayMemberBinding="{Binding SoLuotMua}"
-                                    Header="Số Lượng" />
-                                <GridViewColumn
-                                    Width="Auto"
-                                    DisplayMemberBinding="{Binding TongTienThu}"
-                                    Header="Thành tiền" />
+                                    DisplayMemberBinding="{Binding SoLuong}"
+                                    Header="SL" />
+
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -388,7 +395,10 @@
                         Foreground="Black">
                         <TextBlock
                             VerticalAlignment="Center"
-                            Text="0"
+                            FontSize="{StaticResource CoChuNho}"
+                            FontWeight="Bold"
+                            Foreground="{StaticResource MauChuHeader}"
+                            Text="{Binding TongThanhToan, StringFormat={}{0:N0}}"
                             TextAlignment="Center" />
                     </materialDesign:Card>
                 </DockPanel>
@@ -479,104 +489,15 @@
                 <TextBlock FontSize="{StaticResource CoChuNho}" Style="{StaticResource StyleTextBlockHoaDon}">
                     Dịch vụ cần thêm
                 </TextBlock>
-                <!--  item  -->
-                <Grid
-                    Width="290"
-                    Height="Auto"
-                    Margin="0,0,0,2"
-                    HorizontalAlignment="Center"
-                    Background="{StaticResource MauSlideBarTrai}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="35*" />
-                        <ColumnDefinition Width="18*" />
-                        <ColumnDefinition Width="5*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <!--  Name and exit  -->
-                    <TextBlock
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="3"
-                        FontSize="{StaticResource CoChuSieuNho}"
-                        Style="{StaticResource StyleLableTinhTien}"
-                        Text="Sting dâu lon"
-                        TextWrapping="Wrap" />
-                    <Button
-                        Grid.Row="0"
-                        Grid.Column="2"
-                        Padding="0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        Command="{Binding DataContext.RemoveDrink, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
-                        CommandParameter="{Binding}"
-                        Style="{StaticResource StyleBtnSoLuong}">
-                        <materialDesign:PackIcon
-                            Width="10"
-                            Height="10"
-                            Margin="0"
-                            Foreground="{StaticResource HongDam}"
-                            Kind="CloseThick" />
-                    </Button>
-                    <!--  Amount  -->
-                    <Grid Grid.RowSpan="2" Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="28*" />
-                            <ColumnDefinition Width="25*" />
-                            <ColumnDefinition Width="28*" />
-                        </Grid.ColumnDefinitions>
-                        <Button
-                            Grid.Column="0"
-                            Width="20"
-                            Height="20"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="{StaticResource CamVua}"
-                            BorderBrush="{StaticResource CamVua}"
-                            Command="{Binding DataContext.DecreaseAmount, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
-                            CommandParameter="{Binding}"
-                            Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                            ToolTip="MaterialDesignFloatingActionMiniButton">
-                            <materialDesign:PackIcon Foreground="White" Kind="WindowMinimize" />
-                        </Button>
-                        <Button
-                            Grid.Column="2"
-                            Width="20"
-                            Height="20"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="{StaticResource CamVua}"
-                            BorderBrush="{StaticResource CamVua}"
-                            Command="{Binding DataContext.IncreaseAmount, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
-                            CommandParameter="{Binding}"
-                            Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                            ToolTip="MaterialDesignFloatingActionMiniButton">
-                            <materialDesign:PackIcon Foreground="White" Kind="PlusThick" />
-                        </Button>
-                        <Border
-                            Grid.Column="1"
-                            Width="25"
-                            Height="25"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="{StaticResource MauSlideBarTrai}"
-                            CornerRadius="50">
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                FontSize="{StaticResource CoChuThuong}"
-                                Foreground="White"
-                                Text="2" />
-                        </Border>
-                    </Grid>
-                </Grid>
+
                 <!--  Danh sách dịch vụ tạm thời cần thêm  -->
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Height="120">
-                        <ListView ItemsSource="{Binding items}" SelectedItem="{Binding DataContext.SelectedOrderItem, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}">
+                    <StackPanel>
+                        <ListView
+                            Height="120"
+                            ItemsSource="{Binding DanhSachDichVuTam, Mode=TwoWay}"
+                            ScrollViewer.CanContentScroll="True"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="Template">
@@ -589,31 +510,23 @@
                                                     HorizontalAlignment="Center"
                                                     Background="{StaticResource MauSlideBarTrai}">
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="35*" />
-                                                        <ColumnDefinition Width="18*" />
-                                                        <ColumnDefinition Width="5*" />
+                                                        <ColumnDefinition Width="40*" />
+                                                        <ColumnDefinition Width="14*" />
+                                                        <ColumnDefinition Width="4*" />
                                                     </Grid.ColumnDefinitions>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="30" />
-                                                        <RowDefinition Height="*" />
-                                                        <RowDefinition Height="*" />
-                                                    </Grid.RowDefinitions>
                                                     <!--  tên dịch vụ  -->
                                                     <TextBlock
-                                                        Grid.Row="0"
                                                         Grid.Column="0"
-                                                        Grid.ColumnSpan="3"
                                                         FontSize="{StaticResource CoChuSieuNho}"
                                                         Style="{StaticResource StyleLableTinhTien}"
                                                         Text="{Binding TenDichVu}"
                                                         TextWrapping="Wrap" />
                                                     <Button
-                                                        Grid.Row="0"
                                                         Grid.Column="2"
                                                         Padding="0"
                                                         HorizontalAlignment="Right"
                                                         VerticalAlignment="Top"
-                                                        Command="{Binding DataContext.RemoveDrink, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                                                        Command="{Binding DataContext.XoaDichVuThemCommand, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
                                                         CommandParameter="{Binding}"
                                                         Style="{StaticResource StyleBtnSoLuong}">
                                                         <materialDesign:PackIcon
@@ -623,8 +536,7 @@
                                                             Foreground="{StaticResource HongDam}"
                                                             Kind="CloseThick" />
                                                     </Button>
-                                                    <!--  Amount  -->
-                                                    <Grid Grid.RowSpan="2" Grid.Column="1">
+                                                    <Grid Grid.Column="1">
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="28*" />
                                                             <ColumnDefinition Width="25*" />
@@ -638,7 +550,7 @@
                                                             VerticalAlignment="Center"
                                                             Background="{StaticResource CamVua}"
                                                             BorderBrush="{StaticResource CamVua}"
-                                                            Command="{Binding DataContext.DecreaseAmount, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                                                            Command="{Binding DataContext.GiamSoLuongCommand, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
                                                             CommandParameter="{Binding}"
                                                             Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                                             ToolTip="MaterialDesignFloatingActionMiniButton">
@@ -652,7 +564,7 @@
                                                             VerticalAlignment="Center"
                                                             Background="{StaticResource CamVua}"
                                                             BorderBrush="{StaticResource CamVua}"
-                                                            Command="{Binding DataContext.IncreaseAmount, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
+                                                            Command="{Binding DataContext.TangSoLuongCommand, RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
                                                             CommandParameter="{Binding}"
                                                             Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                                             ToolTip="MaterialDesignFloatingActionMiniButton">
@@ -671,7 +583,7 @@
                                                                 VerticalAlignment="Center"
                                                                 FontSize="{StaticResource CoChuThuong}"
                                                                 Foreground="White"
-                                                                Text="2" />
+                                                                Text="{Binding SoLuong, Mode=TwoWay}" />
                                                         </Border>
                                                     </Grid>
                                                 </Grid>
@@ -684,10 +596,9 @@
                     </StackPanel>
                 </ScrollViewer>
                 <Button
-                    Margin="15,5"
+                    Margin="15,10"
                     HorizontalAlignment="Right"
-                    Command="{Binding troVeCommand}"
-                    CommandParameter="{Binding ElementName=dsPhong}"
+                    Command="{Binding ThemDichVuBtnCommand}"
                     Content="Thêm"
                     Style="{StaticResource StyleBtnCoBan}" />
             </StackPanel>

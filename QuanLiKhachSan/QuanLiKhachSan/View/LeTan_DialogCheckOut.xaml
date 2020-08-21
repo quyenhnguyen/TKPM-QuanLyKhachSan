@@ -54,7 +54,7 @@
                 Grid.Row="0"
                 Grid.Column="1"
                 Style="{StaticResource StyleTextInfoForm}"
-                Text="{Binding TienPhong}" />
+                Text="{Binding HoaDon.MaHoaDon}" />
             <TextBlock
                 Grid.Row="1"
                 Grid.Column="0"
@@ -64,7 +64,7 @@
                 Grid.Row="1"
                 Grid.Column="1"
                 Style="{StaticResource StyleTextInfoForm}"
-                Text="{Binding TienPhong}" />
+                Text="{Binding KH.HoTen}" />
             <TextBlock
                 Grid.Row="2"
                 Grid.Column="0"
@@ -74,7 +74,7 @@
                 Grid.Row="2"
                 Grid.Column="1"
                 Style="{StaticResource StyleTextInfoForm}"
-                Text="{Binding TienPhong}" />
+                Text="{Binding KH.CMND}" />
             <TextBlock
                 Grid.Row="3"
                 Grid.Column="0"
@@ -84,7 +84,7 @@
                 Grid.Row="3"
                 Grid.Column="1"
                 Style="{StaticResource StyleTextInfoForm}"
-                Text="{Binding NgayCheckIn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding HoaDon.ThoiGianThue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0: dd/MM/yyyy  HH:mm:ss}}" />
             <TextBlock
                 Grid.Row="4"
                 Grid.Column="0"
@@ -94,7 +94,7 @@
                 Grid.Row="4"
                 Grid.Column="1"
                 Style="{StaticResource StyleTextInfoForm}"
-                Text="{Binding NgayCheckOut, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding NgayCheckOut, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0: dd/MM/yyyy  HH:mm:ss}}" />
 
         </Grid>
         <Separator Grid.Row="2" Background="{StaticResource XamDam}" />
@@ -110,32 +110,41 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock
-                Grid.Row="0"
+                Grid.Row="1"
                 Grid.Column="0"
                 Style="{StaticResource StyleTextForm}"
                 Text="Tổng tiền phải trả" />
             <TextBlock
-                Grid.Row="0"
+                Grid.Row="1"
                 Grid.Column="1"
                 FontSize="{StaticResource CoChuThuong}"
                 FontWeight="Bold"
                 Foreground="Red"
                 Style="{StaticResource StyleTextInfoForm}"
-                Text="250000" />
+                Text="{Binding TienPhong, StringFormat={}{0:N0}}" />
             <TextBlock
-                Grid.Row="1"
+                Grid.Row="0"
                 Grid.Column="0"
                 Style="{StaticResource StyleTextForm}"
                 Text="Tiền khách đưa" />
             <TextBox
-                Grid.Row="1"
+                Name="TienKhachDuaTxtBox"
+                Grid.Row="0"
                 Grid.Column="1"
                 Margin="20,0,110,0"
+                Padding="0"
                 FontSize="{StaticResource CoChuThuong}"
                 Foreground="{StaticResource MauChinh2}"
                 Style="{StaticResource StyleInputForm}"
-                Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                TextAlignment="Right" />
+                Text="{Binding x, StringFormat={}{0:N0}}"
+                TextAlignment="Right">
+                <TextBox.InputBindings>
+                    <KeyBinding
+                        Key="Return"
+                        Command="{Binding TienKhachDuaEnterCommand}"
+                        CommandParameter="{Binding ElementName=TienKhachDuaTxtBox}" />
+                </TextBox.InputBindings>
+            </TextBox>
             <TextBlock
                 Grid.Row="2"
                 Grid.Column="0"
@@ -148,7 +157,7 @@
                 FontWeight="Bold"
                 Foreground="{StaticResource MauTenPhong}"
                 Style="{StaticResource StyleTextInfoForm}"
-                Text="250000" />
+                Text="{Binding TienTraLai, StringFormat={}{0:N0}}" />
         </Grid>
         <StackPanel
             Grid.Row="4"

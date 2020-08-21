@@ -67,7 +67,6 @@ namespace QuanLiKhachSan.ViewModel
             dsDichVu = DatabaseQuery.truyVanDanhSachDichVu();
             dsLoaiDichVu = DatabaseQuery.danhSachLoaiDichVu();
 
-
             foreach (HOADONTHUEPHONG HD in dsHoaDon)
             {
                 TinhTrangTT = HD.ThoiGianTra == null ? true : false;

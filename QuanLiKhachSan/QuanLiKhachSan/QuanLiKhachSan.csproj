@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\BusinessModel.cs" />
     <Compile Include="Model\DatabaseQuery.cs" />
     <Compile Include="Model\DataProvider.cs" />
     <Compile Include="Model\DICHVU.cs">
@@ -135,6 +136,7 @@
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DangNhapViewModel.cs" />
     <Compile Include="ViewModel\LeTanCheckInViewModel.cs" />
+    <Compile Include="ViewModel\LeTanChiTietHoaDonViewModel.cs" />
     <Compile Include="ViewModel\LeTanDatPhongViewModel.cs" />
     <Compile Include="ViewModel\LeTanDialogCheckOutViewModel.cs" />
     <Compile Include="ViewModel\LeTanKhachHangViewModel.cs" />
@@ -147,6 +149,9 @@
     </Compile>
     <Compile Include="View\LeTan_CheckinPhongTrong.xaml.cs">
       <DependentUpon>LeTan_CheckinPhongTrong.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LeTan_ChiTietHoaDon.xaml.cs">
+      <DependentUpon>LeTan_ChiTietHoaDon.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LeTan_DatPhong.xaml.cs">
       <DependentUpon>LeTan_DatPhong.xaml</DependentUpon>
@@ -191,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LeTan_CheckinPhongTrong.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LeTan_ChiTietHoaDon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

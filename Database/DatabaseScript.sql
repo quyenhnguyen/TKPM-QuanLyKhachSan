@@ -10,7 +10,7 @@ USE QLKHACHSAN
 GO
 
 CREATE TABLE HOADONTHUEPHONG(
-	MaHoaDon int NOT NULL,
+	MaHoaDon int IDENTITY(1,1) NOT NULL,
 	ThoiGianThue datetime NOT NULL,
 	ThoiGianTra datetime NULL,
 	TongTien float NULL,

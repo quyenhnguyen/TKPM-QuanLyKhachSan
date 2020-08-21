@@ -2,7 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
-    xmlns:local="clr-namespace:QuanLiKhachSan.DictionaryResources">
+    xmlns:local="clr-namespace:QuanLiKhachSan.DictionaryResources"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <!--  Màu sử dụng  cho app  -->
     <SolidColorBrush x:Key="MauSlideBarTrai" Color="#004C77" />
     <SolidColorBrush x:Key="MauChinh2" Color="#026FAD" />
@@ -34,6 +35,10 @@
 
 
     <!--  Style của app  -->
+    <Style x:Key="StyleCardSLPhong" TargetType="{x:Type materialDesign:Card}">
+        <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
+        <Setter Property="Padding" Value="40,10" />
+    </Style>
     <Style x:Key="StyleTextCoBan" TargetType="{x:Type TextBlock}">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
@@ -153,4 +158,10 @@
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="8,5" />
     </Style>
+    <Style x:Key="BoderHoaDon" TargetType="{x:Type Border}">
+        <Setter Property="BorderBrush" Value="{StaticResource DenHoiNhat}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="Padding" Value="3" />
+    </Style>
+
 </ResourceDictionary>

@@ -111,7 +111,7 @@
                         Grid.IsSharedSizeScope="True"
                         ItemsSource="{Binding dsHoaDon}"
                         ScrollViewer.CanContentScroll="True"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -161,6 +161,10 @@
                                     Width="Auto"
                                     DisplayMemberBinding="{Binding ThoiGianTra, StringFormat={}{0: dd/MM/yyyy  HH:mm:ss}}"
                                     Header="Ngày Trả Phòng" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding Phong}"
+                                    Header="Mã Phòng" />
                                 <GridViewColumn
                                     Width="Auto"
                                     DisplayMemberBinding="{Binding TongTien, StringFormat={}{0:N0}đ}"
