@@ -1,10 +1,13 @@
 ﻿using QuanLiKhachSan.Model;
+using QuanLiKhachSan.View;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace QuanLiKhachSan.ViewModel
@@ -12,11 +15,11 @@ namespace QuanLiKhachSan.ViewModel
     public class LeTanTraCuuViewModel : BaseViewModel
     {
 
-        private List<HOADONTHUEPHONG> _dsHoaDon;
-        public List<HOADONTHUEPHONG> dsHoaDon { get => _dsHoaDon; set => OnPropertyChanged(ref _dsHoaDon, value); }
+        private BindingList<HOADONTHUEPHONG> _dsHoaDon;
+        public BindingList<HOADONTHUEPHONG> dsHoaDon { get => _dsHoaDon; set => OnPropertyChanged(ref _dsHoaDon, value); }
 
-        private List<PHONG> _dsPhong;
-        public List<PHONG> dsPhong { get => _dsPhong; set => OnPropertyChanged(ref _dsPhong, value); }
+        private BindingList<PHONG> _dsPhong;
+        public BindingList<PHONG> dsPhong { get => _dsPhong; set => OnPropertyChanged(ref _dsPhong, value); }
 
         private bool _TinhTrangThue;
         public bool TinhTrangThue { get => _TinhTrangThue; set => OnPropertyChanged(ref _TinhTrangThue, value); }
@@ -24,12 +27,21 @@ namespace QuanLiKhachSan.ViewModel
         private bool _TinhTrangTT;
         public bool TinhTrangTT { get => _TinhTrangTT; set => OnPropertyChanged(ref _TinhTrangTT, value); }
 
-        private List<DICHVU> _dsDichVu;
-        public List<DICHVU> dsDichVu { get => _dsDichVu; set => OnPropertyChanged(ref _dsDichVu, value); }
+        private BindingList<DICHVU> _dsDichVu;
+        public BindingList<DICHVU> dsDichVu { get => _dsDichVu; set => OnPropertyChanged(ref _dsDichVu, value); }
 
         private List<LOAIDV> _dsLoaiDV;
         public List<LOAIDV> dsLoaiDichVu { get => _dsLoaiDV; set => OnPropertyChanged(ref _dsLoaiDV, value); }
-
+        private HOADONTHUEPHONG _HoaDonChon;
+        public HOADONTHUEPHONG HoaDonChon
+        {
+            get => _HoaDonChon; set
+            {
+                OnPropertyChanged(ref _HoaDonChon, value);
+                LeTan_ChiTietHoaDon dialog = new LeTan_ChiTietHoaDon(_HoaDonChon.MaHoaDon);
+                dialog.ShowDialog();
+            }
+        }
         private LOAIDV _selectedLoai { get; set; }
         public LOAIDV selectedLoai
         {
@@ -44,8 +56,12 @@ namespace QuanLiKhachSan.ViewModel
                 }
             }
         }
+        private string _txtSearch;
+        public string txtSearch { get => _txtSearch; set => OnPropertyChanged(ref _txtSearch, value); }
         bool isChoose { get; set; }
         public ICommand TatCaDichVuBtnCommand { get; set; }
+        public ICommand TimKiemBtnCommand { get; set; }
+
 
 
 
@@ -62,9 +78,9 @@ namespace QuanLiKhachSan.ViewModel
         {
             isChoose = true;
             //MessageBox.Show("hihi");
-            dsHoaDon = DatabaseQuery.truyVanDanhSachHoaDon();
-            dsPhong = DatabaseQuery.truyVanDanhSachPhong();
-            dsDichVu = DatabaseQuery.truyVanDanhSachDichVu();
+            dsHoaDon = new BindingList<HOADONTHUEPHONG>(DatabaseQuery.truyVanDanhSachHoaDon());
+            dsPhong = new BindingList<PHONG>(DatabaseQuery.truyVanDanhSachPhong());
+            dsDichVu = new BindingList<DICHVU>(DatabaseQuery.truyVanDanhSachDichVu());
             dsLoaiDichVu = DatabaseQuery.danhSachLoaiDichVu();
 
             foreach (HOADONTHUEPHONG HD in dsHoaDon)
@@ -80,8 +96,33 @@ namespace QuanLiKhachSan.ViewModel
             TatCaDichVuBtnCommand = new RelayCommand<object>((p) => { return isChoose == true; }, (p) =>
             {
                 isChoose = false;
-                dsDichVu = DatabaseQuery.truyVanDanhSachDichVu();
+                dsDichVu = new BindingList<DICHVU>(DatabaseQuery.truyVanDanhSachDichVu());
                 //Xem thông tin trong csdl
+            });
+
+            TimKiemBtnCommand = new RelayCommand<TabControl>((p) => { return isChoose == true; }, (p) =>
+            {
+                int TabDangChon = p.SelectedIndex;
+                switch (TabDangChon)
+                {
+                    //hóa đơn
+                    case 0:
+                        dsHoaDon = DatabaseQuery.TimKiemHoaDon(txtSearch);
+                        break;
+                    //phòng
+                    case 1:
+                        dsPhong = DatabaseQuery.TimKiemPhong(txtSearch);
+                        break;
+                    //dịch vụ
+                    case 2:
+                        dsDichVu = DatabaseQuery.TimKiemDichVu(txtSearch);
+                        break;
+
+                    default:
+                        break;
+                }
+
+
             });
         }
     }

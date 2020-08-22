@@ -24,6 +24,7 @@ namespace QuanLiKhachSan.View
         public LeTan_KhachHang()
         {
             InitializeComponent();
+            this.DataContext = new LeTanKhachHangViewModel();
         }
         public LeTan_KhachHang(int maHD, bool flag)
         {

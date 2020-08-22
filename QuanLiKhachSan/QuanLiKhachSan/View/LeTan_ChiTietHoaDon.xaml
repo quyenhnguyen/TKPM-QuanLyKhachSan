@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:QuanLiKhachSan.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="LeTan_ChiTietHoaDon"
+    Title="{Binding HD.MaHoaDon, StringFormat={}Chi tiết hóa đơn - #{0}}"
     Width="650"
     Height="730"
     WindowStartupLocation="CenterScreen"
@@ -15,14 +15,24 @@
         Padding="10"
         BorderBrush="{StaticResource DenHoiNhat}"
         BorderThickness="2">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding isCheckOut}" Value="False">
+                        <Setter Property="Background" Value="#FFE7EF" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
         <Grid>
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.25*" />
                 <RowDefinition Height="1.5*" />
-                <RowDefinition Height="2*" />
+                <RowDefinition Height="2.25*" />
                 <RowDefinition Height="5*" />
-                <RowDefinition Height="1.5*" />
-                <RowDefinition Height="3*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="2.25*" />
             </Grid.RowDefinitions>
             <!--  Tên hóa đơn  -->
             <Border Grid.Row="0" Style="{StaticResource BoderHoaDon}">
@@ -43,15 +53,29 @@
                             Text="HÓA ĐƠN THANH TOÁN"
                             TextAlignment="Center"
                             TextWrapping="Wrap" />
-                        <TextBlock Text="Ngày 08 tháng 08 năm 2020" TextWrapping="Wrap" />
                     </StackPanel>
                     <StackPanel
                         Grid.Column="2"
                         Margin="10,0,0,0"
                         HorizontalAlignment="Left">
                         <TextBlock Text="Mẫu số: 0AXSD-22WSASA-EDSSA5" />
-                        <TextBlock Text="Mã hóa đơn: 1" />
-                        <TextBlock Text="Số: 1" />
+                        <TextBlock Text="{Binding HD.MaHoaDon, StringFormat={}Mã hóa đơn: {0}}" />
+                        <TextBlock FontWeight="Bold">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding isCheckOut}" Value="False">
+                                            <Setter Property="Text" Value="ĐANG THUÊ ~ CHƯA THANH TOÁN" />
+                                            <Setter Property="Foreground" Value="Red" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding isCheckOut}" Value="True">
+                                            <Setter Property="Text" Value="ĐÃ THANH TOÁN" />
+                                            <Setter Property="Foreground" Value="{StaticResource MauTenPhong}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -91,7 +115,7 @@
                     <TextBlock
                         Grid.Row="2"
                         Grid.Column="1"
-                        Text="Khách sạn: " />
+                        Text="0938851478925" />
                     <TextBlock
                         Grid.Row="3"
                         Grid.Column="0"
@@ -129,7 +153,7 @@
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="1"
-                            Text="Trần Ngọc Quang" />
+                            Text="{Binding HD.KHACHHANG.HoTen}" />
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="0"
@@ -137,7 +161,7 @@
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="1"
-                            Text="227 đường Nguyễn Văn Cừ, phường 4, quận 5, thành phố Hồ Chí Minh "
+                            Text="{Binding HD.KHACHHANG.DiaChi}"
                             TextWrapping="Wrap" />
                         <TextBlock
                             Grid.Row="2"
@@ -146,7 +170,7 @@
                         <TextBlock
                             Grid.Row="2"
                             Grid.Column="1"
-                            Text="012341412" />
+                            Text="{Binding HD.KHACHHANG.CMND}" />
                         <TextBlock
                             Grid.Row="3"
                             Grid.Column="0"
@@ -154,7 +178,7 @@
                         <TextBlock
                             Grid.Row="3"
                             Grid.Column="1"
-                            Text="(0343)650858" />
+                            Text="{Binding HD.KHACHHANG.SDT}" />
                     </Grid>
                     <!--  Nhân viên  -->
                     <Border
@@ -179,7 +203,7 @@
                             <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="1"
-                                Text="P101" />
+                                Text="{Binding HD.Phong}" />
                             <TextBlock
                                 Grid.Row="1"
                                 Grid.Column="0"
@@ -187,7 +211,7 @@
                             <TextBlock
                                 Grid.Row="1"
                                 Grid.Column="1"
-                                Text="20/08/2020 16:55:20" />
+                                Text="{Binding HD.ThoiGianThue, StringFormat={}{0: dd/MM/yyyy  HH:mm:ss}}" />
                             <TextBlock
                                 Grid.Row="2"
                                 Grid.Column="0"
@@ -195,7 +219,7 @@
                             <TextBlock
                                 Grid.Row="2"
                                 Grid.Column="1"
-                                Text="20/08/2020 16:55:20" />
+                                Text="{Binding HD.ThoiGianTra, StringFormat={}{0: dd/MM/yyyy  HH:mm:ss}}" />
                             <TextBlock
                                 Grid.Row="3"
                                 Grid.Column="0"
@@ -203,7 +227,7 @@
                             <TextBlock
                                 Grid.Row="3"
                                 Grid.Column="1"
-                                Text="Nguyễn Hoàng Quyên" />
+                                Text="{Binding HD.NHANVIEN.HoTen}" />
                         </Grid>
                     </Border>
                 </Grid>
@@ -270,13 +294,15 @@
                     </ListView.View>
                 </ListView>
             </Border>
+            <!--  Tiền thanh toán  -->
             <Border Grid.Row="4" Style="{StaticResource BoderHoaDon}">
-                <Grid Margin="10,0" HorizontalAlignment="Right">
+                <Grid Margin="50,0" HorizontalAlignment="Right">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.75*" />
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
@@ -284,30 +310,114 @@
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="0"
-                        Text="Tổng cộng tiền hàng: " />
+                        Text="TIỀN DỊCH VỤ: " />
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="1"
-                        Text="{Binding TongThanhToan, StringFormat={}{0:N0}}" />
+                        Text="{Binding TienDichVu, StringFormat={}{0:N0}}"
+                        TextAlignment="Right" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="0"
-                        Text="Tiền GTGT: " />
+                        Text="TIỀN PHÒNG: " />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="1"
-                        Text="" />
+                        TextAlignment="Right">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding isCheckOut}" Value="False">
+                                        <Setter Property="Text" Value="ĐANG THUÊ" />
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding isCheckOut}" Value="True">
+                                        <Setter Property="Text" Value="{Binding TienPhong, StringFormat={}{0:N0}}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                     <TextBlock
                         Grid.Row="2"
                         Grid.Column="0"
-                        Text="Tổng cộng thanh toán: " />
+                        Text="TIỀN PHỤ THU: " />
                     <TextBlock
                         Grid.Row="2"
+                        Grid.Column="1"
+                        Text="0"
+                        TextAlignment="Right" />
+                    <TextBlock
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Text="TỔNG CỘNG THANH TOÁN:   " />
+                    <TextBlock
+                        Grid.Row="3"
                         Grid.Column="1"
                         FontWeight="Bold"
-                        Text="{Binding TongThanhToan, StringFormat={}{0:N0}}" />
+                        Text="{Binding HD.TongTien, StringFormat={}{0:N0}}"
+                        TextAlignment="Right" />
                 </Grid>
             </Border>
+            <!--  Kí tên  -->
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3.5*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                    <TextBlock
+                        FontWeight="Bold"
+                        Text="Người mua hàng"
+                        TextAlignment="Center" />
+                    <TextBlock Text="(Kí và ghi rõ họ tên)" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                    <TextBlock
+                        FontWeight="Bold"
+                        Text="Nhân viên"
+                        TextAlignment="Center" />
+                    <TextBlock Text="(Kí và ghi rõ họ tên)" />
+                </StackPanel>
+                <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                    <TextBlock
+                        FontWeight="Bold"
+                        Text="Quản lí"
+                        TextAlignment="Center" />
+                    <TextBlock Text="(Kí và ghi rõ họ tên)" />
+                </StackPanel>
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    BorderBrush="{StaticResource DenHoiNhat}"
+                    BorderThickness="0,1,0,0">
+                    <TextBlock
+                        VerticalAlignment="Bottom"
+                        FontFamily="Cambria"
+                        FontStyle="Italic"
+                        TextAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding isCheckOut}" Value="False">
+                                        <Setter Property="Text" Value="CHƯA THANH TOÁN" />
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding isCheckOut}" Value="True">
+                                        <Setter Property="Text" Value="~ Cảm Ơn Quý Khách, Hẹn Gặp Lại ~" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Border>
+            </Grid>
         </Grid>
     </Border>
 </Window>

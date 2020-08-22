@@ -24,13 +24,13 @@ namespace QuanLiKhachSan.Model
 
         public static List<NHANVIEN> danhSachNhanVien()
         {
-            return DataProvider.ISCreated.DB.NHANVIENs.ToList();
+            return DataProvider.ISCreated.DB.NHANVIENs.Where(x => x.TinhTrang == false).ToList();
         }
 
         public static List<PHONG> danhSachPhong()
         {
 
-            return DataProvider.ISCreated.DB.PHONGs.ToList();
+            return DataProvider.ISCreated.DB.PHONGs.Where(x => x.TinhTrangTonTai == false).ToList();
         }
         public static int truyVanSoLuongPhongTrong()
         {
@@ -38,36 +38,37 @@ namespace QuanLiKhachSan.Model
         }
         public static int truyVanSoLuongDangThue()
         {
-            return DataProvider.ISCreated.DB.PHONGs.Where(x => x.TinhTrangThue == true).ToList().Count;
+            return DataProvider.ISCreated.DB.PHONGs.Where(x => x.TinhTrangThue == true && x.TinhTrangTonTai == false).ToList().Count;
         }
         public static List<LOAIDV> danhSachLoaiDichVu()
         {
 
-            return DataProvider.ISCreated.DB.LOAIDVs.ToList();
+            return DataProvider.ISCreated.DB.LOAIDVs.Where(x => x.TinhTrang == false).ToList();
         }
 
-        public static List<DICHVU> danhSachDichVuTheoLoai(string maLoai)
+        public static BindingList<DICHVU> danhSachDichVuTheoLoai(string maLoai)
         {
-            List<DICHVU> dsPhong = new List<DICHVU>();
-            return DataProvider.ISCreated.DB.DICHVUs.Where(x => x.LoaiDVID == maLoai).ToList();
+            List<DICHVU> dsPhong = DataProvider.ISCreated.DB.DICHVUs.Where(x => x.LoaiDVID == maLoai && x.TinhTrangTonTai == false).ToList();
+            BindingList<DICHVU> res = new BindingList<DICHVU>(dsPhong);
+            return res;
         }
 
         public static string truyVanTenLoaiPhong(string phongID)
         {
-            string res = DataProvider.ISCreated.DB.Database.SqlQuery<string>("SELECT LP.TenLoai FROM PHONG P JOIN LOAIPHONG LP ON   P.LoaiPhongID=LP.LoaiPhongID WHERE P.PhongID=@id", new SqlParameter("@id", phongID)).FirstOrDefault();
+            string res = DataProvider.ISCreated.DB.Database.SqlQuery<string>("SELECT LP.TenLoai FROM PHONG P JOIN LOAIPHONG LP ON   P.LoaiPhongID=LP.LoaiPhongID WHERE P.PhongID=@id and P.TinhTrangTonTai=0", new SqlParameter("@id", phongID)).FirstOrDefault();
             return res;
         }
 
         public static PHONG truyVanTenPhongMaHoaDon(int MaHoaDon)
         {
-            PHONG res = DataProvider.ISCreated.DB.Database.SqlQuery<PHONG>("SELECT P.* FROM PHONG P JOIN HOADONTHUEPHONG LP ON   P.PhongID=LP.Phong WHERE LP.MaHoaDon=@id", new SqlParameter("@id", MaHoaDon)).FirstOrDefault();
+            PHONG res = DataProvider.ISCreated.DB.Database.SqlQuery<PHONG>("SELECT P.* FROM PHONG P JOIN HOADONTHUEPHONG LP ON   P.PhongID=LP.Phong WHERE LP.MaHoaDon=@id and P.TinhTrangTonTai=0", new SqlParameter("@id", MaHoaDon)).FirstOrDefault();
             return res;
         }
 
         public static PHONG truyVanPhong(string phongID)
         {
             PHONG res = new PHONG();
-            res = DataProvider.ISCreated.DB.Database.SqlQuery<PHONG>("SELECT * FROM PHONG WHERE PhongID=@id", new SqlParameter("@id", phongID)).FirstOrDefault();
+            res = DataProvider.ISCreated.DB.Database.SqlQuery<PHONG>("SELECT * FROM PHONG WHERE PhongID=@id and TinhTrangTonTai=0", new SqlParameter("@id", phongID)).FirstOrDefault();
             return res;
         }
 
@@ -80,10 +81,7 @@ namespace QuanLiKhachSan.Model
         }
         public static HOADONTHUEPHONG truyVanHoaDonDangThueMaHD(int maHD)
         {
-
-            HOADONTHUEPHONG res = new HOADONTHUEPHONG();
-            res = DataProvider.ISCreated.DB.Database.SqlQuery<HOADONTHUEPHONG>("SELECT * FROM HOADONTHUEPHONG  WHERE MaHoaDon = @id", new SqlParameter("@id", maHD)).FirstOrDefault();
-            return res;
+            return DataProvider.ISCreated.DB.Database.SqlQuery<HOADONTHUEPHONG>("SELECT * FROM HOADONTHUEPHONG  WHERE MaHoaDon = @id", new SqlParameter("@id", maHD)).FirstOrDefault();
         }
         public static KHACHHANG truyVanKhachHangMaHD(int maHD)
         {
@@ -96,14 +94,14 @@ namespace QuanLiKhachSan.Model
         {
 
             NHANVIEN res = new NHANVIEN();
-            res = DataProvider.ISCreated.DB.Database.SqlQuery<NHANVIEN>("SELECT KH.* FROM HOADONTHUEPHONG HD JOIN NHANVIEN KH ON HD.NhanVienTaoHoaDon=KH.NhanVienID  WHERE MaHoaDon = @id", new SqlParameter("@id", maHD)).FirstOrDefault();
+            res = DataProvider.ISCreated.DB.Database.SqlQuery<NHANVIEN>("SELECT KH.* FROM HOADONTHUEPHONG HD JOIN NHANVIEN KH ON HD.NhanVienTaoHoaDon=KH.NhanVienID  WHERE HD.MaHoaDon = @id and KH.TinhTrang=0", new SqlParameter("@id", maHD)).FirstOrDefault();
             return res;
         }
         public static LOAIPHONG truyVanLoaiPhong(string maPhong)
         {
 
             LOAIPHONG res = new LOAIPHONG();
-            res = DataProvider.ISCreated.DB.Database.SqlQuery<LOAIPHONG>("SELECT LP.* FROM PHONG P JOIN LOAIPHONG LP ON P.LoaiPhongID=LP.LoaiPhongID  WHERE P.PhongID = @id", new SqlParameter("@id", maPhong)).FirstOrDefault();
+            res = DataProvider.ISCreated.DB.Database.SqlQuery<LOAIPHONG>("SELECT LP.* FROM PHONG P JOIN LOAIPHONG LP ON P.LoaiPhongID=LP.LoaiPhongID  WHERE P.PhongID = @id and P.TinhTrangTonTai=0", new SqlParameter("@id", maPhong)).FirstOrDefault();
             return res;
         }
         public static List<HOADONTHUEPHONG> truyVanDanhSachHoaDon()
@@ -112,18 +110,18 @@ namespace QuanLiKhachSan.Model
         }
         public static List<PHONG> truyVanDanhSachPhong()
         {
-            return DataProvider.ISCreated.DB.PHONGs.ToList();
+            return DataProvider.ISCreated.DB.PHONGs.Where(x => x.TinhTrangTonTai == false).ToList();
         }
         public static LOAIDV truyVanLoaiDichVu(string maDichVu)
         {
 
             LOAIDV res = new LOAIDV();
-            res = DataProvider.ISCreated.DB.Database.SqlQuery<LOAIDV>("SELECT LP.* FROM DICHVU P JOIN LOAIDV LP ON P.LoaiDVID=LP.LoaiDVID  WHERE P.DichVuID = @id", new SqlParameter("@id", maDichVu)).FirstOrDefault();
+            res = DataProvider.ISCreated.DB.Database.SqlQuery<LOAIDV>("SELECT LP.* FROM DICHVU P JOIN LOAIDV LP ON P.LoaiDVID=LP.LoaiDVID  WHERE P.DichVuID = @id and P.TinhTrangTonTai=0", new SqlParameter("@id", maDichVu)).FirstOrDefault();
             return res;
         }
         public static List<DICHVU> truyVanDanhSachDichVu()
         {
-            return DataProvider.ISCreated.DB.DICHVUs.ToList();
+            return DataProvider.ISCreated.DB.DICHVUs.Where(x => x.TinhTrangTonTai == false).ToList();
         }
 
         /// <summary>
@@ -133,8 +131,7 @@ namespace QuanLiKhachSan.Model
         public static HOADONTHUEPHONG themHoaDonThuePhong(HOADONTHUEPHONG HD)
         {
             HD.NgayTao = DateTime.Now;
-            HOADONTHUEPHONG res = new HOADONTHUEPHONG();
-            res = DataProvider.ISCreated.DB.HOADONTHUEPHONGs.Add(HD);
+            HOADONTHUEPHONG res = DataProvider.ISCreated.DB.HOADONTHUEPHONGs.Add(HD);
             DataProvider.ISCreated.DB.SaveChanges();
             return res;
         }
@@ -155,18 +152,23 @@ namespace QuanLiKhachSan.Model
             old.SDT = KH.SDT;
             capNhatCSDL();
         }
-        public static HOADONTHUEPHONG checkOutHoaDon(HOADONTHUEPHONG HD)
+        public static HOADONTHUEPHONG checkOutHoaDon(HOADONTHUEPHONG HD, DateTime GioRa)
         {
             HOADONTHUEPHONG res = DataProvider.ISCreated.DB.HOADONTHUEPHONGs.Where(x => x.MaHoaDon == HD.MaHoaDon).SingleOrDefault();
-            res.ThoiGianTra = HD.ThoiGianTra;
-            res.TongTien = HD.TongTien;
-            //TIỀN DỊCH VỤ
-            //for list dv thêm và cộng lại
+            res.ThoiGianTra = GioRa;
+            //TÍnh tiền thanh toán
+            res.TongTien = TinhTongThanhToan(res, GioRa, res.PHONG1.DonGia);
 
             //Cập nhật lại tình trạng phòng
             res.PHONG1.TinhTrangThue = false;
             capNhatCSDL();
             return res;
+        }
+        public static double TinhTongThanhToan(HOADONTHUEPHONG HD, DateTime ThoiGianTra, double DonGiaPhong)
+        {
+            double TienDichVu = TinhTienDichVuHoaDon(HD.MaHoaDon);
+            double TienPhong = TinhTienThuePhong(HD.ThoiGianThue, ThoiGianTra, DonGiaPhong);
+            return TienPhong + TienDichVu;
         }
         public static double TinhTienDichVuHoaDon(int MaHoaDon)
         {
@@ -176,18 +178,21 @@ namespace QuanLiKhachSan.Model
                 tien += item.SoLuong * item.DICHVU.GiaBan;
             return tien;
         }
-        public static double TinhTienThuePhongHoaDon(HOADONTHUEPHONG HD)
-        {
-            double tien = 0;
-            if (HD.ThoiGianTra != null)
-            {
-                tien = TinhTienThuePhong(HD.ThoiGianThue, (DateTime)HD.ThoiGianTra, HD.PHONG1.DonGia);
-            }
-            return tien;
-        }
         public static double TinhTienThuePhong(DateTime ThoiGianThue, DateTime ThoiGianTra, double GiaPhong)
         {
             double TienThue;
+            int ThoiGianCheckIn1 = int.Parse(DataProvider.ISCreated.DB.BANGTHAMSOes.Where(x => x.MaThamSo == "THOIGIANIN1").SingleOrDefault().GiaTri);
+            int ThoiGianCheckIn2 = int.Parse(DataProvider.ISCreated.DB.BANGTHAMSOes.Where(x => x.MaThamSo == "THOIGIANIN2").SingleOrDefault().GiaTri);
+            int ThoiGianCheckIn3 = int.Parse(DataProvider.ISCreated.DB.BANGTHAMSOes.Where(x => x.MaThamSo == "THOIGIANIN3").SingleOrDefault().GiaTri);
+
+            int ThoiGianCheckOut1 = int.Parse(DataProvider.ISCreated.DB.BANGTHAMSOes.Where(x => x.MaThamSo == "THOIGIANOUT1").SingleOrDefault().GiaTri);
+            int ThoiGianCheckOut2 = int.Parse(DataProvider.ISCreated.DB.BANGTHAMSOes.Where(x => x.MaThamSo == "THOIGIANOUT2").SingleOrDefault().GiaTri);
+            int ThoiGianCheckOut3 = int.Parse(DataProvider.ISCreated.DB.BANGTHAMSOes.Where(x => x.MaThamSo == "THOIGIANOUT3").SingleOrDefault().GiaTri);
+
+            int Gia30 = int.Parse(DataProvider.ISCreated.DB.BANGTHAMSOes.Where(x => x.MaThamSo == "GIA1").SingleOrDefault().GiaTri);
+            int Gia50 = int.Parse(DataProvider.ISCreated.DB.BANGTHAMSOes.Where(x => x.MaThamSo == "GIA2").SingleOrDefault().GiaTri);
+            int Gia100 = int.Parse(DataProvider.ISCreated.DB.BANGTHAMSOes.Where(x => x.MaThamSo == "GIA3").SingleOrDefault().GiaTri);
+
             //DateTime ThoiGianThue = DateTime.ParseExact("2020-02-17 14:00", "yyyy-MM-dd HH:mm", null);
             //DateTime ThoiGianTra = DateTime.ParseExact("2020-02-18 18:00", "yyyy-MM-dd HH:mm", null);
             if (DateTime.Compare(ThoiGianThue.Date, ThoiGianTra.Date) == 0) return (double)GiaPhong / 2;
@@ -198,37 +203,37 @@ namespace QuanLiKhachSan.Model
             //////CHECK IN
             TienThue = SoNgay * GiaPhong;
             DateTime DateCheckIn1 = ThoiGianThue;
-            TimeSpan ts = new TimeSpan(9, 00, 0);
+            TimeSpan ts = new TimeSpan(ThoiGianCheckIn2, 00, 0);
             DateCheckIn1 = DateCheckIn1.Date + ts;
 
             DateTime DateCheckIn2 = ThoiGianThue;
-            ts = new TimeSpan(14, 00, 0);
+            ts = new TimeSpan(ThoiGianCheckIn3, 00, 0);
             DateCheckIn2 = DateCheckIn2.Date + ts;
 
             int res1 = DateTime.Compare(ThoiGianThue, DateCheckIn1);
             int res2 = DateTime.Compare(ThoiGianThue, DateCheckIn2);
             //check in trước 9h-> được hưởng giá 50% giá gốc
             if (res1 < 0)
-                TienThue = TienThue + ((double)50 / 100) * GiaPhong;
+                TienThue = TienThue + ((double)Gia50 / 100) * GiaPhong;
             else
                 //check in 9h<checkIn<14h
                 if (res2 < 0)
-                TienThue = TienThue + ((double)30 / 100) * GiaPhong;
+                TienThue = TienThue + ((double)Gia30 / 100) * GiaPhong;
             //sau 14h
             else
-                TienThue = TienThue + GiaPhong;
+                TienThue = TienThue + GiaPhong * ((double)Gia100 / 100);
 
             /////CHECKOUT, tính tiền phụ thu
             DateTime DateCheckOut1 = ThoiGianTra;
-            ts = new TimeSpan(12, 00, 0);
+            ts = new TimeSpan(ThoiGianCheckOut1, 00, 0);
             DateCheckOut1 = DateCheckOut1.Date + ts;
 
             DateTime DateCheckOut2 = ThoiGianTra;
-            ts = new TimeSpan(15, 00, 0);
+            ts = new TimeSpan(ThoiGianCheckOut2, 00, 0);
             DateCheckOut2 = DateCheckOut2.Date + ts;
 
             DateTime DateCheckOut3 = ThoiGianTra;
-            ts = new TimeSpan(18, 00, 0);
+            ts = new TimeSpan(ThoiGianCheckOut3, 00, 0);
             DateCheckOut3 = DateCheckOut3.Date + ts;
 
             int res3 = DateTime.Compare(ThoiGianTra, DateCheckOut1);
@@ -239,17 +244,17 @@ namespace QuanLiKhachSan.Model
             if (res3 >= 0)
                 //check out 12h<checkOut<15h
                 if (res4 < 0)
-                    TienThue = TienThue + ((double)30 / 100) * GiaPhong;
+                    TienThue = TienThue + ((double)Gia30 / 100) * GiaPhong;
                 //check out 12h<=checkOut<=15h
                 else if (res5 < 0)
-                    TienThue = TienThue + ((double)50 / 100) * GiaPhong;
-                else TienThue = TienThue + GiaPhong;
+                    TienThue = TienThue + ((double)Gia50 / 100) * GiaPhong;
+                else TienThue = TienThue + ((double)Gia100 / 100) * GiaPhong;
             return TienThue;
         }
 
         public static DICHVU truyVanDichVu(string DichVuID)
         {
-            return DataProvider.ISCreated.DB.DICHVUs.Where(x => x.DichVuID == DichVuID).SingleOrDefault();
+            return DataProvider.ISCreated.DB.DICHVUs.Where(x => x.DichVuID == DichVuID && x.TinhTrangTonTai == false).SingleOrDefault();
         }
         public static HOADONTHUEPHONG truyVanHoaDon(int ma)
         {
@@ -281,6 +286,146 @@ namespace QuanLiKhachSan.Model
             BindingList<LICHSUTHEMDICHVU> res = new BindingList<LICHSUTHEMDICHVU>(list);
             return res;
         }
+
+        public static BindingList<DICHVU> TimKiemDichVu(string searchStr)
+        {
+            BindingList<DICHVU> DanhSachDichVu = new BindingList<DICHVU>();
+            var temp = new BindingList<DICHVU>(DataProvider.ISCreated.DB.DICHVUs.Where(x => x.TinhTrangTonTai == false).ToList());
+            foreach (var item in temp)
+            {
+                if (item.TenDichVu.ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!DanhSachDichVu.Contains(item))
+                    {
+                        DanhSachDichVu.Add(item);
+                    }
+                }
+                if (item.LOAIDV.TenLoai.ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!DanhSachDichVu.Contains(item))
+                    {
+                        DanhSachDichVu.Add(item);
+                    }
+                }
+                if (item.GiaBan.ToString().ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!DanhSachDichVu.Contains(item))
+                    {
+                        DanhSachDichVu.Add(item);
+                    }
+                }
+            }
+            return DanhSachDichVu;
+        }
+        public static BindingList<HOADONTHUEPHONG> TimKiemHoaDon(string searchStr)
+        {
+            BindingList<HOADONTHUEPHONG> res = new BindingList<HOADONTHUEPHONG>();
+            var temp = new BindingList<HOADONTHUEPHONG>(DataProvider.ISCreated.DB.HOADONTHUEPHONGs.ToList());
+            foreach (var item in temp)
+            {
+                if (item.MaHoaDon.ToString().ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!res.Contains(item))
+                    {
+                        res.Add(item);
+                    }
+                }
+                if (item.Phong.ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!res.Contains(item))
+                    {
+                        res.Add(item);
+                    }
+                }
+                if (item.KHACHHANG.HoTen.ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!res.Contains(item))
+                    {
+                        res.Add(item);
+                    }
+                }
+                if (item.KHACHHANG.CMND.ToString().ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!res.Contains(item))
+                    {
+                        res.Add(item);
+                    }
+                }
+                if (item.KHACHHANG.SDT.ToString().ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!res.Contains(item))
+                    {
+                        res.Add(item);
+                    }
+                }
+                if (item.NHANVIEN.HoTen.ToString().ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!res.Contains(item))
+                    {
+                        res.Add(item);
+                    }
+                }
+                if (item.NHANVIEN.CMND.ToString().ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!res.Contains(item))
+                    {
+                        res.Add(item);
+                    }
+                }
+                if (item.NHANVIEN.SDT.ToString().ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!res.Contains(item))
+                    {
+                        res.Add(item);
+                    }
+                }
+            }
+            return res;
+        }
+        public static BindingList<PHONG> TimKiemPhong(string searchStr)
+        {
+            BindingList<PHONG> res = new BindingList<PHONG>();
+            var temp = new BindingList<PHONG>(DataProvider.ISCreated.DB.PHONGs.Where(X => X.TinhTrangTonTai == false).ToList());
+            foreach (var item in temp)
+            {
+                if (item.PhongID.ToString().ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!res.Contains(item))
+                    {
+                        res.Add(item);
+                    }
+                }
+                if (item.LoaiPhongID.ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!res.Contains(item))
+                    {
+                        res.Add(item);
+                    }
+                }
+                if (item.LOAIPHONG.TenLoai.ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!res.Contains(item))
+                    {
+                        res.Add(item);
+                    }
+                }
+                if (item.DonGia.ToString().ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!res.Contains(item))
+                    {
+                        res.Add(item);
+                    }
+                }
+
+            }
+            return res;
+        }
+
+        public static NHANVIEN truyVanNhanVien(int MaNV)
+        {
+            return DataProvider.ISCreated.DB.NHANVIENs.Where(x => x.NhanVienID == MaNV && x.TinhTrang == false).SingleOrDefault();
+        }
+
         public static void MyMessageBox(string messageBoxText)
         {
             string caption = "Notification";

@@ -12,32 +12,20 @@ namespace QuanLiKhachSan.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class NHANVIEN
+    public partial class LOAINHANVIEN
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NHANVIEN()
+        public LOAINHANVIEN()
         {
-            this.HOADONTHUEPHONGs = new HashSet<HOADONTHUEPHONG>();
+            this.NHANVIENs = new HashSet<NHANVIEN>();
         }
     
-        public int NhanVienID { get; set; }
-        public string TenDangNhap { get; set; }
-        public string MatKhau { get; set; }
+        public int LoaiNVID { get; set; }
+        public string TenLoai { get; set; }
         public bool TinhTrang { get; set; }
-        public string HoTen { get; set; }
-        public string DiaChi { get; set; }
-        public System.DateTime NgaySinh { get; set; }
-        public decimal SDT { get; set; }
-        public decimal CMND { get; set; }
-        public string Email { get; set; }
-        public int Loai { get; set; }
         public System.DateTime NgayTao { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HOADONTHUEPHONG> HOADONTHUEPHONGs { get; set; }
-        public virtual NVKETOAN NVKETOAN { get; set; }
-        public virtual NVLETAN NVLETAN { get; set; }
-        public virtual NVQUANLI NVQUANLI { get; set; }
-        public virtual LOAINHANVIEN LOAINHANVIEN { get; set; }
+        public virtual ICollection<NHANVIEN> NHANVIENs { get; set; }
     }
 }

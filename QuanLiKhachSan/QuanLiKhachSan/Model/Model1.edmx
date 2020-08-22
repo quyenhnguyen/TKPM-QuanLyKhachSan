@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="QLKHACHSANModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BANGTHAMSO">
+          <Key>
+            <PropertyRef Name="MaThamSo" />
+          </Key>
+          <Property Name="MaThamSo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TenThamSo" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="TinhTrang" Type="bit" Nullable="false" />
+          <Property Name="KieuDuLieu" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="GiaTri" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="NgayTao" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="DICHVU">
           <Key>
             <PropertyRef Name="DichVuID" />
@@ -59,6 +70,15 @@
             <PropertyRef Name="LoaiDVID" />
           </Key>
           <Property Name="LoaiDVID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TenLoai" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="TinhTrang" Type="bit" Nullable="false" />
+          <Property Name="NgayTao" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LOAINHANVIEN">
+          <Key>
+            <PropertyRef Name="LoaiNVID" />
+          </Key>
+          <Property Name="LoaiNVID" Type="int" Nullable="false" />
           <Property Name="TenLoai" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="TinhTrang" Type="bit" Nullable="false" />
           <Property Name="NgayTao" Type="datetime" Nullable="false" />
@@ -201,6 +221,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_NHANVIEN_LOAINHANVIEN">
+          <End Role="LOAINHANVIEN" Type="Self.LOAINHANVIEN" Multiplicity="1" />
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAINHANVIEN">
+              <PropertyRef Name="LoaiNVID" />
+            </Principal>
+            <Dependent Role="NHANVIEN">
+              <PropertyRef Name="Loai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_NVKETOAN_NHANVIEN">
           <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="1" />
           <End Role="NVKETOAN" Type="Self.NVKETOAN" Multiplicity="0..1" />
@@ -250,11 +282,13 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="QLKHACHSANModelStoreContainer">
+          <EntitySet Name="BANGTHAMSO" EntityType="Self.BANGTHAMSO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DICHVU" EntityType="Self.DICHVU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HOADONTHUEPHONG" EntityType="Self.HOADONTHUEPHONG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LICHSUTHEMDICHVU" EntityType="Self.LICHSUTHEMDICHVU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOAIDV" EntityType="Self.LOAIDV" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOAINHANVIEN" EntityType="Self.LOAINHANVIEN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOAIPHONG" EntityType="Self.LOAIPHONG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NHANVIEN" EntityType="Self.NHANVIEN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NVKETOAN" EntityType="Self.NVKETOAN" Schema="dbo" store:Type="Tables" />
@@ -285,6 +319,10 @@
           <AssociationSet Name="FK_LICHSUTHEMDICHVU_HOADONTHUEPHONG" Association="Self.FK_LICHSUTHEMDICHVU_HOADONTHUEPHONG">
             <End Role="HOADONTHUEPHONG" EntitySet="HOADONTHUEPHONG" />
             <End Role="LICHSUTHEMDICHVU" EntitySet="LICHSUTHEMDICHVU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NHANVIEN_LOAINHANVIEN" Association="Self.FK_NHANVIEN_LOAINHANVIEN">
+            <End Role="LOAINHANVIEN" EntitySet="LOAINHANVIEN" />
+            <End Role="NHANVIEN" EntitySet="NHANVIEN" />
           </AssociationSet>
           <AssociationSet Name="FK_NVKETOAN_NHANVIEN" Association="Self.FK_NVKETOAN_NHANVIEN">
             <End Role="NHANVIEN" EntitySet="NHANVIEN" />
@@ -405,6 +443,7 @@
           <NavigationProperty Name="NVKETOAN" Relationship="Self.FK_NVKETOAN_NHANVIEN" FromRole="NHANVIEN" ToRole="NVKETOAN" />
           <NavigationProperty Name="NVLETAN" Relationship="Self.FK_NVLETAN_NHANVIEN" FromRole="NHANVIEN" ToRole="NVLETAN" />
           <NavigationProperty Name="NVQUANLI" Relationship="Self.FK_NVQUANLI_NHANVIEN" FromRole="NHANVIEN" ToRole="NVQUANLI" />
+          <NavigationProperty Name="LOAINHANVIEN" Relationship="QLKHACHSANModel.FK_NHANVIEN_LOAINHANVIEN" FromRole="NHANVIEN" ToRole="LOAINHANVIEN" />
         </EntityType>
         <EntityType Name="NVKETOAN">
           <Key>
@@ -624,7 +663,46 @@
             <End Role="NHANVIEN" EntitySet="NHANVIENs" />
             <End Role="NVQUANLI" EntitySet="NVQUANLIs" />
           </AssociationSet>
+          <EntitySet Name="LOAINHANVIENs" EntityType="QLKHACHSANModel.LOAINHANVIEN" />
+          <AssociationSet Name="FK_NHANVIEN_LOAINHANVIEN" Association="QLKHACHSANModel.FK_NHANVIEN_LOAINHANVIEN">
+            <End Role="LOAINHANVIEN" EntitySet="LOAINHANVIENs" />
+            <End Role="NHANVIEN" EntitySet="NHANVIENs" />
+          </AssociationSet>
+          <EntitySet Name="BANGTHAMSOes" EntityType="QLKHACHSANModel.BANGTHAMSO" />
         </EntityContainer>
+        <EntityType Name="LOAINHANVIEN">
+          <Key>
+            <PropertyRef Name="LoaiNVID" />
+          </Key>
+          <Property Name="LoaiNVID" Type="Int32" Nullable="false" />
+          <Property Name="TenLoai" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TinhTrang" Type="Boolean" Nullable="false" />
+          <Property Name="NgayTao" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="NHANVIENs" Relationship="QLKHACHSANModel.FK_NHANVIEN_LOAINHANVIEN" FromRole="LOAINHANVIEN" ToRole="NHANVIEN" />
+        </EntityType>
+        <Association Name="FK_NHANVIEN_LOAINHANVIEN">
+          <End Type="QLKHACHSANModel.LOAINHANVIEN" Role="LOAINHANVIEN" Multiplicity="1" />
+          <End Type="QLKHACHSANModel.NHANVIEN" Role="NHANVIEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAINHANVIEN">
+              <PropertyRef Name="LoaiNVID" />
+            </Principal>
+            <Dependent Role="NHANVIEN">
+              <PropertyRef Name="Loai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BANGTHAMSO">
+          <Key>
+            <PropertyRef Name="MaThamSo" />
+          </Key>
+          <Property Name="MaThamSo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TenThamSo" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TinhTrang" Type="Boolean" Nullable="false" />
+          <Property Name="KieuDuLieu" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="GiaTri" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NgayTao" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -762,6 +840,28 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOAINHANVIENs">
+            <EntityTypeMapping TypeName="QLKHACHSANModel.LOAINHANVIEN">
+              <MappingFragment StoreEntitySet="LOAINHANVIEN">
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
+                <ScalarProperty Name="LoaiNVID" ColumnName="LoaiNVID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BANGTHAMSOes">
+            <EntityTypeMapping TypeName="QLKHACHSANModel.BANGTHAMSO">
+              <MappingFragment StoreEntitySet="BANGTHAMSO">
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="GiaTri" ColumnName="GiaTri" />
+                <ScalarProperty Name="KieuDuLieu" ColumnName="KieuDuLieu" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="TenThamSo" ColumnName="TenThamSo" />
+                <ScalarProperty Name="MaThamSo" ColumnName="MaThamSo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

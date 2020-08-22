@@ -90,9 +90,21 @@
                         <TextBlock VerticalAlignment="Center">ĐĂNG XUẤT</TextBlock>
                     </StackPanel>
                 </Button>
-
             </StackPanel>
-
+            <Separator
+                Margin="0,140,0,10"
+                BorderBrush="{StaticResource XamDam}"
+                BorderThickness="1" />
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Text="{Binding NhanVienDangNhap.HoTen}" />
+                <TextBlock
+                    Margin="5,0"
+                    Foreground="White"
+                    Text="{Binding NhanVienDangNhap.LOAINHANVIEN.TenLoai}" />
+            </StackPanel>
         </StackPanel>
         <!--  View chính  -->
         <StackPanel

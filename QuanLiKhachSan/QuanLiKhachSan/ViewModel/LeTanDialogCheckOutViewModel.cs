@@ -22,7 +22,7 @@ namespace QuanLiKhachSan.ViewModel
         private DateTime _ngayCheckOut;
         public DateTime NgayCheckOut { get => _ngayCheckOut; set => OnPropertyChanged(ref _ngayCheckOut, value); }
         private double _tienPhong;
-        public double TienPhong { get => _tienPhong; set => OnPropertyChanged(ref _tienPhong, value); }
+        public double TongTien { get => _tienPhong; set => OnPropertyChanged(ref _tienPhong, value); }
         private double _tienTraLai;
         public double TienTraLai { get => _tienTraLai; set => OnPropertyChanged(ref _tienTraLai, value); }
 
@@ -33,12 +33,12 @@ namespace QuanLiKhachSan.ViewModel
         public LeTanDialogCheckOutViewModel(int maHD)
         {
             MaHoaDon = maHD;
-            HoaDon = DatabaseQuery.truyVanHoaDonDangThueMaHD(MaHoaDon);
+            HoaDon = DatabaseQuery.truyVanHoaDon(MaHoaDon);
             KH = DatabaseQuery.truyVanKhachHangMaHD(MaHoaDon);
             PHONG phong = DatabaseQuery.truyVanTenPhongMaHoaDon(MaHoaDon);
 
             NgayCheckOut = DateTime.Now;
-            TienPhong = DatabaseQuery.TinhTienThuePhong(HoaDon.ThoiGianThue, NgayCheckOut, phong.DonGia);
+            TongTien = DatabaseQuery.TinhTongThanhToan(HoaDon, NgayCheckOut, HoaDon.PHONG1.DonGia);
 
             ThoatBtnComamand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
@@ -52,7 +52,7 @@ namespace QuanLiKhachSan.ViewModel
             });
             TienKhachDuaEnterCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
             {
-                TienTraLai = Convert.ToDouble(p.Text.ToString()) - TienPhong;
+                TienTraLai = Convert.ToDouble(p.Text.ToString()) - TongTien;
             });
 
         }

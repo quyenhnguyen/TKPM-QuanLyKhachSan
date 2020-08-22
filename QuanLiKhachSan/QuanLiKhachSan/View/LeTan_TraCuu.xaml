@@ -19,7 +19,10 @@
         <StackPanel>
             <Separator Background="{StaticResource XamDam}" />
         </StackPanel>
-        <TabControl Grid.Row="1" BorderThickness="0,0.5,0,0">
+        <TabControl
+            x:Name="TabQuanLi"
+            Grid.Row="1"
+            BorderThickness="0,0.5,0,0">
             <TabControl.Resources>
                 <Style TargetType="TabItem">
                     <Setter Property="Template">
@@ -84,16 +87,15 @@
                                 VerticalAlignment="Center"
                                 materialDesign:HintAssist.Hint="Tìm kiếm hóa đơn "
                                 FontSize="{StaticResource CoChuNho}"
-                                Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Text="{Binding txtSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Border>
                         <Button
-                            x:Name="btnSearch"
                             Height="35"
                             Margin="10,0,0,0"
                             Background="{StaticResource MauChuHeader}"
                             BorderBrush="{StaticResource HongDam}"
-                            Command="{Binding SearchMonAnCommand}"
-                            CommandParameter="{Binding ElementName=btnSearch}"
+                            Command="{Binding TimKiemBtnCommand}"
+                            CommandParameter="{Binding ElementName=TabQuanLi}"
                             IsDefault="True">
                             <materialDesign:PackIcon
                                 Width="25"
@@ -111,7 +113,8 @@
                         Grid.IsSharedSizeScope="True"
                         ItemsSource="{Binding dsHoaDon}"
                         ScrollViewer.CanContentScroll="True"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        SelectedItem="{Binding HoaDonChon}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -198,15 +201,15 @@
                                 VerticalAlignment="Center"
                                 materialDesign:HintAssist.Hint="Tìm kiếm phòng "
                                 FontSize="{StaticResource CoChuNho}"
-                                Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Text="{Binding txtSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Border>
                         <Button
                             Height="35"
                             Margin="10,0,0,0"
                             Background="{StaticResource MauChuHeader}"
                             BorderBrush="{StaticResource HongDam}"
-                            Command="{Binding SearchMonAnCommand}"
-                            CommandParameter="{Binding ElementName=btnSearch}"
+                            Command="{Binding TimKiemBtnCommand}"
+                            CommandParameter="{Binding ElementName=TabQuanLi}"
                             IsDefault="True">
                             <materialDesign:PackIcon
                                 Width="25"
@@ -264,7 +267,7 @@
                                     Header="Tên Phòng" />
                                 <GridViewColumn
                                     Width="Auto"
-                                    DisplayMemberBinding="{Binding DonGia}"
+                                    DisplayMemberBinding="{Binding DonGia, StringFormat={}{0:N0}}"
                                     Header="Đơn Giá" />
                                 <GridViewColumn Width="Auto" Header="Tình Trạng Thuê">
                                     <GridViewColumn.CellTemplate>
@@ -322,15 +325,15 @@
                                 VerticalAlignment="Center"
                                 materialDesign:HintAssist.Hint="Tìm kiếm dịch vụ "
                                 FontSize="{StaticResource CoChuNho}"
-                                Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Text="{Binding txtSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Border>
                         <Button
                             Height="35"
                             Margin="10,0,0,0"
                             Background="{StaticResource MauChuHeader}"
                             BorderBrush="{StaticResource HongDam}"
-                            Command="{Binding SearchMonAnCommand}"
-                            CommandParameter="{Binding ElementName=btnSearch}"
+                            Command="{Binding TimKiemBtnCommand}"
+                            CommandParameter="{Binding ElementName=TabQuanLi}"
                             IsDefault="True">
                             <materialDesign:PackIcon
                                 Width="25"
@@ -432,11 +435,11 @@
                                     Header="Tên Dịch Vụ" />
                                 <GridViewColumn
                                     Width="Auto"
-                                    DisplayMemberBinding="{Binding GiaCungCap}"
+                                    DisplayMemberBinding="{Binding GiaCungCap, StringFormat={}{0:N0}}"
                                     Header="Giá Cung Cấp" />
                                 <GridViewColumn
                                     Width="Auto"
-                                    DisplayMemberBinding="{Binding GiaBan}"
+                                    DisplayMemberBinding="{Binding GiaBan, StringFormat={}{0:N0}}"
                                     Header="Giá Bán" />
                                 <GridViewColumn
                                     Width="Auto"

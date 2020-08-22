@@ -50,7 +50,7 @@ namespace QuanLiKhachSan.ViewModel
             ThemMoiBtnCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
 
-                if (HoTenInput == null || DiaChiInput == null || CMNDInput == null || DienThoaiInput == null)
+                if (string.IsNullOrEmpty(HoTenInput) || string.IsNullOrEmpty(DiaChiInput) || string.IsNullOrEmpty(CMNDInput) || string.IsNullOrEmpty(DienThoaiInput))
                 {
                     DatabaseQuery.MyMessageBox("Chưa điền đầy đủ thông tin !");
                 }
@@ -86,13 +86,7 @@ namespace QuanLiKhachSan.ViewModel
 
             LuuThongTinBtnCommand = new RelayCommand<Window>((p) => { return IsUpdate; }, (p) =>
              {
-                 KHMoi = new KHACHHANG();
-                 KHMoi.HoTen = HoTenInput;
-                 KHMoi.DiaChi = DiaChiInput;
-                 KHMoi.CMND = decimal.Parse(CMNDInput);
-                 KHMoi.SDT = decimal.Parse(DienThoaiInput);
-                 KHMoi.NgayTao = DateTime.Now;
-                 if (HoTenInput == null || DiaChiInput == null || CMNDInput == null || DienThoaiInput == null)
+                 if (string.IsNullOrEmpty(HoTenInput) || string.IsNullOrEmpty(DiaChiInput) || string.IsNullOrEmpty(CMNDInput) || string.IsNullOrEmpty(DienThoaiInput))
                  {
                      DatabaseQuery.MyMessageBox("Chưa điền đầy đủ thông tin !");
                  }

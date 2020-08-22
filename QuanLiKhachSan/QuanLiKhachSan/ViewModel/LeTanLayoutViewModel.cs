@@ -29,6 +29,16 @@ namespace QuanLiKhachSan.ViewModel
             get => _txtTitle;
             set { _txtTitle = value; OnPropertyChanged(); }
         }
+        private NHANVIEN _NhanVienDangNhap;
+        public NHANVIEN NhanVienDangNhap
+        {
+            get => _NhanVienDangNhap;
+            set
+            {
+                _NhanVienDangNhap = value;
+                OnPropertyChanged();
+            }
+        }
         #region All Command
         public ICommand btnDatPhong_Command { get; set; }
         public ICommand btnTaiKhoan_Command { get; set; }
@@ -36,10 +46,8 @@ namespace QuanLiKhachSan.ViewModel
         #endregion
         public LeTanLayoutViewModel()
         {
-
-            //NHANVIEN b = new NHANVIEN();
-            //b = DataProvider.ISCreated.DB.NHANVIENs.First();
-            //MessageBox.Show(b.DiaChi);
+            int MaNhanVien = 1;
+            NhanVienDangNhap = DatabaseQuery.truyVanNhanVien(MaNhanVien);
             object ucDatPhong = new LeTanDatPhongViewModel();
             object ucTraCuu = new LeTanTraCuuViewModel();
             object ucTaiKhoan = new LeTanTaiKhoanViewModel();

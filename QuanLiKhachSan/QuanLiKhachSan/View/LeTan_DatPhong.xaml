@@ -115,7 +115,7 @@
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 SelectedItem="{Binding PhongChon}">
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
                         <i:InvokeCommandAction Command="{Binding PhongChonCommand}" CommandParameter="{Binding ElementName=dsPhong}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>

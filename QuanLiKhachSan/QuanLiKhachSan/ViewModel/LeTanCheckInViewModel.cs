@@ -32,17 +32,11 @@ namespace QuanLiKhachSan.ViewModel
         private LOAIDV _LoaiDVChon;
         public LOAIDV LoaiDichVuChon { get => _LoaiDVChon; set { OnPropertyChanged(ref _LoaiDVChon, value); } }
 
-        private List<DICHVU> _DSDichVuTheoLoai;
-        public List<DICHVU> DSDichVuTheoLoai { get => _DSDichVuTheoLoai; set => OnPropertyChanged(ref _DSDichVuTheoLoai, value); }
+        private BindingList<DICHVU> _DSDichVuTheoLoai;
+        public BindingList<DICHVU> DSDichVuTheoLoai { get => _DSDichVuTheoLoai; set => OnPropertyChanged(ref _DSDichVuTheoLoai, value); }
 
         private DICHVU _DichVuChon;
-        public DICHVU DichVuChon
-        {
-            get => _DichVuChon; set
-            {
-                OnPropertyChanged(ref _DichVuChon, value);
-            }
-        }
+        public DICHVU DichVuChon { get => _DichVuChon; set { OnPropertyChanged(ref _DichVuChon, value); } }
         bool isCheckin { get; set; }
         bool isCheckout { get; set; }
 
@@ -81,6 +75,11 @@ namespace QuanLiKhachSan.ViewModel
         private double _TongThanhToan;
         public double TongThanhToan { get => _TongThanhToan; set => OnPropertyChanged(ref _TongThanhToan, value); }
 
+        private string _txtTimKiemDichVu;
+        public string txtTimKiemDichVu { get => _txtTimKiemDichVu; set => OnPropertyChanged(ref _txtTimKiemDichVu, value); }
+        private PHONG _PhongHienTai;
+        public PHONG PhongHienTai { get => _PhongHienTai; set { OnPropertyChanged(ref _PhongHienTai, value); } }
+
         //Command
         public ICommand LoaiDichVuCommand { get; set; }
         public ICommand CheckinBtnCommand { get; set; }
@@ -94,6 +93,7 @@ namespace QuanLiKhachSan.ViewModel
         public ICommand GiamSoLuongCommand { get; set; }
         public ICommand ThemDichVuBtnCommand { get; set; }
         public ICommand XoaDichVuThemCommand { get; set; }
+        public ICommand TimKiemDichVuBtnCommand { get; set; }
 
 
 
@@ -108,7 +108,7 @@ namespace QuanLiKhachSan.ViewModel
         public LeTanCheckInViewModel(string ma)
         {
             MaPhong = ma;
-            PHONG phongHienTai = DatabaseQuery.truyVanPhong(MaPhong);
+            PhongHienTai = DatabaseQuery.truyVanPhong(MaPhong);
             MaNhanVien = 1;
             isCheckin = false;
             isCheckout = false;
@@ -117,7 +117,7 @@ namespace QuanLiKhachSan.ViewModel
             SoLuongDichVu = 1;
 
             //HIỆN THỊ GIAO DIỆN
-            if (phongHienTai.TinhTrangThue == false) giaoDienPhongTrong();
+            if (PhongHienTai.TinhTrangThue == false) giaoDienPhongTrong();
             else
             {
                 giaoDienPhongDaThue();
@@ -129,7 +129,6 @@ namespace QuanLiKhachSan.ViewModel
                 //Hiện thị ds dv đã thêm
                 BusinessModel.ThemDichVuVaoDanhSachDaThem(DanhSachDichVuDaThem, LichSuThemDichVu);
                 TongThanhToan = DatabaseQuery.TinhTienDichVuHoaDon(HoaDonDangThue.MaHoaDon);
-
             }
             //HIỆN THỊ loại dịch vụ
             TenLoaiPhong = DatabaseQuery.truyVanTenLoaiPhong(MaPhong);
@@ -153,12 +152,12 @@ namespace QuanLiKhachSan.ViewModel
                     //Thêm khách hàng mới vào csdl
                     KHDangthue = DatabaseQuery.themKhachHangMoi(KH);
                     //Thêm hóa đơn mới vào csdl
-                    HoaDonDangThue = new HOADONTHUEPHONG();
-                    HoaDonDangThue.MaKhachHang = KHDangthue.MaKH;
-                    HoaDonDangThue.NhanVienTaoHoaDon = MaNhanVien;
-                    HoaDonDangThue.Phong = MaPhong;
-                    HoaDonDangThue.ThoiGianThue = DateTime.Now;
-                    HoaDonDangThue = DatabaseQuery.themHoaDonThuePhong(HoaDonDangThue);//them hoa don
+                    HOADONTHUEPHONG temp = new HOADONTHUEPHONG();
+                    temp.MaKhachHang = KHDangthue.MaKH;
+                    temp.NhanVienTaoHoaDon = MaNhanVien;
+                    temp.Phong = MaPhong;
+                    temp.ThoiGianThue = DateTime.Now;
+                    HoaDonDangThue = DatabaseQuery.themHoaDonThuePhong(temp);//them hoa don
 
                     //Cập nhật csdl tình trạng phòng đã bị thuê
                     HoaDonDangThue.PHONG1.TinhTrangThue = true;
@@ -178,14 +177,13 @@ namespace QuanLiKhachSan.ViewModel
             // ****************CHECK OUT ********************
             InHoaDonCommand = new RelayCommand<object>((p) => { return isCheckout == true; }, (p) =>
             {
-
-                DatabaseQuery.MyMessageBox("Đã in thành công hóa đơn");
-            });
-            LuuHoaDonCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
-            {
-                //DatabaseQuery.MyMessageBox("Đã lưu thành công hóa đơn");
                 LeTan_ChiTietHoaDon dialog = new LeTan_ChiTietHoaDon(HoaDonDangThue.MaHoaDon);
-                dialog.Show();
+                dialog.ShowDialog();
+            });
+            LuuHoaDonCommand = new RelayCommand<object>((p) => { return isCheckout == true; }, (p) =>
+            {
+                LeTan_ChiTietHoaDon dialog = new LeTan_ChiTietHoaDon(HoaDonDangThue.MaHoaDon);
+                dialog.ShowDialog();
             });
             CheckOutBtnCommand = new RelayCommand<object>((p) => { return isCheckout == false; }, (p) =>
             {
@@ -193,37 +191,36 @@ namespace QuanLiKhachSan.ViewModel
 
                 if (dialog.ShowDialog() == true)
                 {
+                    //Cập nhật lại hóa đơn hiện tại với ngày checkout vào csdl
+                    DateTime TG = ((LeTanDialogCheckOutViewModel)dialog.DataContext).NgayCheckOut;
+                    HoaDonDangThue = DatabaseQuery.checkOutHoaDon(HoaDonDangThue, TG);
+
                     //Thêm vào lịch sử thêm dịch vụ CHECKOUT, số lượng:1, Giá là tiền phòng
                     LSTHEMDICHVU dvDaThem = new LSTHEMDICHVU();
                     dvDaThem.SoLuong = 1;
                     dvDaThem.TenDichVu = "TIỀN THUÊ PHÒNG";
-                    dvDaThem.DonGia = ((LeTanDialogCheckOutViewModel)dialog.DataContext).TienPhong;
-                    dvDaThem.ThoiGianThem = DateTime.Now;
+                    dvDaThem.DonGia = DatabaseQuery.TinhTienThuePhong(HoaDonDangThue.ThoiGianThue, (DateTime)HoaDonDangThue.ThoiGianTra, HoaDonDangThue.PHONG1.DonGia);
+                    dvDaThem.ThoiGianThem = (DateTime)HoaDonDangThue.ThoiGianTra;
                     DanhSachDichVuDaThem.Add(dvDaThem);
-                    TongThanhToan += DatabaseQuery.TinhTienThuePhongHoaDon(HoaDonDangThue);
 
-                    //Cập nhật lại hóa đơn hiện tại với ngày checkout vào csdl
-                    HoaDonDangThue.ThoiGianTra = ((LeTanDialogCheckOutViewModel)dialog.DataContext).NgayCheckOut;
-                    HoaDonDangThue.TongTien = ((LeTanDialogCheckOutViewModel)dialog.DataContext).TienPhong;
-                    HoaDonDangThue = DatabaseQuery.checkOutHoaDon(HoaDonDangThue);
-
+                    //Tiền thanh toán ở giao diện thêm dịch vụ
+                    TongThanhToan = (double)HoaDonDangThue.TongTien;
 
                     //ĐỔi giao diện
                     DatabaseQuery.MyMessageBox("Check out thành công!");
-                    //giaoDienPhongTrong();//hienj giao diện đã thuê
                     isCheckout = true;
                 }
             });
             //*****************END CHECK OUT *****************
             #endregion
 
-            KhachThuePhongBtnCommand = new RelayCommand<object>((p) => { return isCheckin == true; }, (p) =>
-            {
-                //Xem thông tin khách thuê phòng
-                LeTan_KhachHang wd = new LeTan_KhachHang(HoaDonDangThue.MaHoaDon, false);
-                wd.ShowDialog();
-            });
-            ChinhSuaKhachBtnCommand = new RelayCommand<object>((p) => { return isCheckin == true; }, (p) =>
+            KhachThuePhongBtnCommand = new RelayCommand<object>((p) => { return isCheckin == true && isCheckout == false; }, (p) =>
+                {
+                    //Xem thông tin khách thuê phòng
+                    LeTan_KhachHang wd = new LeTan_KhachHang(HoaDonDangThue.MaHoaDon, false);
+                    wd.ShowDialog();
+                });
+            ChinhSuaKhachBtnCommand = new RelayCommand<object>((p) => { return isCheckin == true && isCheckout == false; }, (p) =>
             {
                 //chỉnh sửa thông tin khách thuê
                 LeTan_KhachHang wd = new LeTan_KhachHang(HoaDonDangThue.MaHoaDon, true);
@@ -237,8 +234,19 @@ namespace QuanLiKhachSan.ViewModel
                 }
             });
 
+            TimKiemDichVuBtnCommand = new RelayCommand<object>((p) =>
+            {
+                return (!string.IsNullOrEmpty(txtTimKiemDichVu));
+            }, (p) =>
+      {
+          DSDichVuTheoLoai = DatabaseQuery.TimKiemDichVu(txtTimKiemDichVu);
+          LoaiDichVuChon = null;
+
+
+      });
+
             //Xử lí khi chọn 1 dịch vụ sẽ thêm vào ds các dịch vụ tạm cho hóa đơn đó
-            DichVuChonCommand = new RelayCommand<object>((p) => { return (phongHienTai.TinhTrangThue == true && isCheckout == false) || (phongHienTai.TinhTrangThue == false && isCheckin == true); }, (p) =>
+            DichVuChonCommand = new RelayCommand<object>((p) => { return (PhongHienTai.TinhTrangThue == true && isCheckout == false) || (PhongHienTai.TinhTrangThue == false && isCheckin == true); }, (p) =>
             {
                 LSTHEMDICHVU ls = new LSTHEMDICHVU();
                 ls.DichVuID = DichVuChon.DichVuID;
@@ -249,7 +257,7 @@ namespace QuanLiKhachSan.ViewModel
                 ls.ThoiGianThem = DateTime.Now;
                 DanhSachDichVuTam.Add(ls);
             });
-            GiamSoLuongCommand = new RelayCommand<LSTHEMDICHVU>((p) => { return p.SoLuong > 0; }, (p) =>
+            GiamSoLuongCommand = new RelayCommand<LSTHEMDICHVU>((p) => { return p.SoLuong > 1; }, (p) =>
               {
                   p.SoLuong--;
               });
