@@ -142,6 +142,11 @@
     <Compile Include="ViewModel\LeTanTaiKhoanViewModel.cs" />
     <Compile Include="ViewModel\LeTanTraCuuViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\QuanLyDichVu_LoaiDVViewModel.cs" />
+    <Compile Include="ViewModel\QuanLyNhanVienViewModel.cs" />
+    <Compile Include="ViewModel\QuanLyPhong_LoaiPhongViewModel.cs" />
+    <Compile Include="ViewModel\QuanLyTaiKhoanViewModel.cs" />
+    <Compile Include="ViewModel\QuanLy_LayoutViewModel.cs" />
     <Compile Include="View\DangNhap.xaml.cs">
       <DependentUpon>DangNhap.xaml</DependentUpon>
     </Compile>
@@ -165,6 +170,21 @@
     </Compile>
     <Compile Include="View\LeTan_TraCuu.xaml.cs">
       <DependentUpon>LeTan_TraCuu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QuanLyDichVu_LoaiDV.xaml.cs">
+      <DependentUpon>QuanLyDichVu_LoaiDV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QuanLyNhanVien.xaml.cs">
+      <DependentUpon>QuanLyNhanVien.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QuanLyPhong_LoaiPhong.xaml.cs">
+      <DependentUpon>QuanLyPhong_LoaiPhong.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QuanLy_Layout.xaml.cs">
+      <DependentUpon>QuanLy_Layout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QuanLy_TaiKhoan.xaml.cs">
+      <DependentUpon>QuanLy_TaiKhoan.xaml</DependentUpon>
     </Compile>
     <Page Include="DictionaryResources\Styles.xaml">
       <SubType>Designer</SubType>
@@ -217,6 +237,26 @@
     <Page Include="View\LeTan_TraCuu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\QuanLyDichVu_LoaiDV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QuanLyNhanVien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QuanLyPhong_LoaiPhong.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QuanLy_Layout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QuanLy_TaiKhoan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
