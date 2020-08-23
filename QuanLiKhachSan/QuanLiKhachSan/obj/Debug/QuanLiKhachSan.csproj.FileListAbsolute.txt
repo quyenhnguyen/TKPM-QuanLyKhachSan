@@ -18,3 +18,4 @@ E:\Code_Workplace\Online\TKPM\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\
 E:\Code_Workplace\Online\TKPM\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\GeneratedInternalTypeHelper.g.cs
 E:\Code_Workplace\Online\TKPM\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\QuanLiKhachSan_MarkupCompile.cache
 E:\Code_Workplace\Online\TKPM\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\QuanLiKhachSan_MarkupCompile.lref
+E:\Code_Workplace\Online\TKPM\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\View\LeTan_ChiTietHoaDon.g.cs

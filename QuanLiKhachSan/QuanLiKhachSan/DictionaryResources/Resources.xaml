@@ -11,10 +11,4 @@
     <viewmodel:LeTanTaiKhoanViewModel x:Key="LeTanTaiKhoanVM" />
     <viewmodel:LeTanTraCuuViewModel x:Key="LeTanTraCuuVM" />
     <viewmodel:LeTanKhachHangViewModel x:Key="LeTanKhachHangVM" />
-
-
-
-
-
-
 </ResourceDictionary>

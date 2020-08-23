@@ -28,12 +28,21 @@
         <Button
             x:Name="btn_TroVe"
             Grid.Row="0"
-            Width="100"
             HorizontalAlignment="Left"
+            Background="White"
+            BorderBrush="WhiteSmoke"
             Command="{Binding troVeCommand}"
             CommandParameter="{Binding ElementName=dsPhong}"
-            Content="TRỞ VỀ"
-            Visibility="Collapsed" />
+            Foreground="Gray"
+            Visibility="Collapsed">
+            <materialDesign:PackIcon
+                Width="40"
+                Height="30"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontWeight="Bold"
+                Kind="ArrowLeft" />
+        </Button>
         <StackPanel
             x:Name="QuanLiPhong"
             Grid.Row="1"
@@ -50,9 +59,9 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <materialDesign:Card
-                        Padding="40,20"
                         materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                        Content="{Binding SLPhong}" />
+                        Content="{Binding SLPhong}"
+                        Style="{StaticResource StyleCardSLPhong}" />
                     <Label
                         Margin="10,0,0,0"
                         VerticalAlignment="Center"
@@ -66,9 +75,10 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <materialDesign:Card
-                        Padding="40,20"
                         materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                        Content="{Binding SLPhongTrong}" />
+                        Background="{StaticResource XamNhat}"
+                        Content="{Binding SLPhongTrong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource StyleCardSLPhong}" />
                     <Label
                         Margin="10,0,0,0"
                         VerticalAlignment="Center"
@@ -82,9 +92,10 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <materialDesign:Card
-                        Padding="40,20"
                         materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                        Content="{Binding SLPhongDangThue}" />
+                        Background="{StaticResource XanhHoiNhat}"
+                        Content="{Binding SLPhongDangThue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource StyleCardSLPhong}" />
                     <Label
                         Margin="10,0,0,0"
                         VerticalAlignment="Center"

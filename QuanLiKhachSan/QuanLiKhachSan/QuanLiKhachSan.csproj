@@ -153,6 +153,9 @@
     <Compile Include="View\LeTan_CheckinPhongTrong.xaml.cs">
       <DependentUpon>LeTan_CheckinPhongTrong.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\LeTan_ChiTietHoaDon.xaml.cs">
+      <DependentUpon>LeTan_ChiTietHoaDon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LeTan_DatPhong.xaml.cs">
       <DependentUpon>LeTan_DatPhong.xaml</DependentUpon>
     </Compile>
@@ -213,6 +216,10 @@
     <Page Include="View\LeTan_CheckinPhongTrong.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LeTan_ChiTietHoaDon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\LeTan_DatPhong.xaml">
       <Generator>MSBuild:Compile</Generator>

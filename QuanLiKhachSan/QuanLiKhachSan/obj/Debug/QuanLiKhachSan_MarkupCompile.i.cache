@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 E:\Code_Workplace\Online\TKPM\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\App.xaml
-16-1229724496
+17-2034011962
 2-1556844510
-54-295013760
+551080299759
 20-1216399810
-DictionaryResources\Styles.xaml;MainWindow.xaml;DictionaryResources\Resources.xaml;View\DangNhap.xaml;View\LeTan_CheckinPhongTrong.xaml;View\LeTan_DatPhong.xaml;View\LeTan_DialogCheckOut.xaml;View\LeTan_KhachHang.xaml;View\LeTan_Layout.xaml;View\LeTan_TaiKhoan.xaml;View\LeTan_TraCuu.xaml;View\QuanLyDichVu_LoaiDV.xaml;View\QuanLyNhanVien.xaml;View\QuanLyPhong_LoaiPhong.xaml;View\QuanLy_Layout.xaml;View\QuanLy_TaiKhoan.xaml;
+DictionaryResources\Styles.xaml;MainWindow.xaml;DictionaryResources\Resources.xaml;View\DangNhap.xaml;View\LeTan_CheckinPhongTrong.xaml;View\LeTan_ChiTietHoaDon.xaml;View\LeTan_DatPhong.xaml;View\LeTan_DialogCheckOut.xaml;View\LeTan_KhachHang.xaml;View\LeTan_Layout.xaml;View\LeTan_TaiKhoan.xaml;View\LeTan_TraCuu.xaml;View\QuanLyDichVu_LoaiDV.xaml;View\QuanLyNhanVien.xaml;View\QuanLyPhong_LoaiPhong.xaml;View\QuanLy_Layout.xaml;View\QuanLy_TaiKhoan.xaml;
 
-False
+True
 

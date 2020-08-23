@@ -1,7 +1,7 @@
-﻿using QuanLiKhachSan.Model;
-using QuanLiKhachSan.ViewModel;
+﻿using QuanLiKhachSan.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,21 +17,21 @@ using System.Windows.Shapes;
 namespace QuanLiKhachSan.View
 {
     /// <summary>
-    /// Interaction logic for LeTan_KhachHang.xaml
+    /// Interaction logic for LeTan_ChiTietHoaDon.xaml
     /// </summary>
-    public partial class LeTan_KhachHang : Window
+    public partial class LeTan_ChiTietHoaDon : Window
     {
-        public LeTan_KhachHang()
+        public LeTan_ChiTietHoaDon()
         {
             InitializeComponent();
         }
-        public LeTan_KhachHang(int maHD, bool flag)
+        public LeTan_ChiTietHoaDon(int maHD)
         {
             InitializeComponent();
-            ((LeTanKhachHangViewModel)DataContext).MaHoaDon = maHD;
-            ((LeTanKhachHangViewModel)DataContext).IsUpdate = flag;
+            this.DataContext = new LeTanChiTietHoaDonViewModel(maHD);
+            ((LeTanChiTietHoaDonViewModel)DataContext).MaHoaDon = maHD;
 
-            this.DataContext = new LeTanKhachHangViewModel(maHD, flag);
         }
     }
+
 }
