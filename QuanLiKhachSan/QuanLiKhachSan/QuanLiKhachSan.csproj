@@ -56,6 +56,12 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Entity.Design" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -79,7 +85,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\BANGTHAMSO.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BusinessModel.cs" />
     <Compile Include="Model\DatabaseQuery.cs" />
+    <Compile Include="Model\DatabaseQueryTN.cs" />
     <Compile Include="Model\DataProvider.cs" />
     <Compile Include="Model\DICHVU.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -94,6 +105,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\LOAIDV.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\LOAINHANVIEN.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\LOAIPHONG.cs">
@@ -129,12 +143,12 @@
     <Compile Include="Model\PHONG.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Model\SecurityModel.cs" />
+    <Compile Include="Model\UserService.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DangNhapViewModel.cs" />
     <Compile Include="ViewModel\LeTanCheckInViewModel.cs" />
+    <Compile Include="ViewModel\LeTanChiTietHoaDonViewModel.cs" />
     <Compile Include="ViewModel\LeTanDatPhongViewModel.cs" />
     <Compile Include="ViewModel\LeTanDialogCheckOutViewModel.cs" />
     <Compile Include="ViewModel\LeTanKhachHangViewModel.cs" />
@@ -298,13 +312,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\logo.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\avatar.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Model\Model1.Context.tt">

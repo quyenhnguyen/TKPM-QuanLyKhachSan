@@ -1,0 +1,47 @@
+﻿using QuanLiKhachSan.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace QuanLiKhachSan.Model
+{
+    public class LSTHEMDICHVU : BaseViewModel
+    {
+        private int _sl;
+        public int SoLuong { get => _sl; set { OnPropertyChanged(ref _sl, value); } }
+        private DateTime _ThoiGianThem;
+        public DateTime ThoiGianThem { get => _ThoiGianThem; set { OnPropertyChanged(ref _ThoiGianThem, value); } }
+
+        private double _DonGia;
+        public double DonGia { get => _DonGia; set { OnPropertyChanged(ref _DonGia, value); } }
+        private double _ThanhTien;
+        public double ThanhTien { get => _ThanhTien; set { OnPropertyChanged(ref _ThanhTien, value); } }
+        public string DichVuID { get; set; }
+        public string _TenDichVu;
+        public string TenDichVu { get => _TenDichVu; set { OnPropertyChanged(ref _TenDichVu, value); } }
+        public string _DonVi;
+        public string DonVi { get => _DonVi; set { OnPropertyChanged(ref _DonVi, value); } }
+    }
+
+    public class BusinessModel
+    {
+        public static void ThemDichVuVaoDanhSachDaThem(BindingList<LSTHEMDICHVU> DanhSachDichVuDaThem, BindingList<LICHSUTHEMDICHVU> list)
+        {
+            foreach (LICHSUTHEMDICHVU ls in list)
+            {
+                LSTHEMDICHVU dvDaThem = new LSTHEMDICHVU();
+                DICHVU dv = DatabaseQuery.truyVanDichVu(ls.DichVuID);
+                dvDaThem.SoLuong = ls.SoLuong;
+                dvDaThem.TenDichVu = dv.TenDichVu;
+                dvDaThem.DonGia = dv.GiaBan;
+                dvDaThem.ThoiGianThem = ls.ThoiGianThem;
+                dvDaThem.ThanhTien = dv.GiaBan * ls.SoLuong;
+                dvDaThem.DonVi = dv.DonVi;
+                DanhSachDichVuDaThem.Add(dvDaThem);
+            }
+        }
+    }
+}
