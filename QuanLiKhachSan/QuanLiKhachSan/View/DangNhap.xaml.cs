@@ -23,5 +23,15 @@ namespace QuanLiKhachSan.View
         {
             InitializeComponent();
         }
+
+        private void SigninBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Remember_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
