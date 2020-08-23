@@ -25,6 +25,7 @@ namespace QuanLiKhachSan.ViewModel
 
         public ICommand LoginCommand { get; set; }
         public ICommand PassWordEnter { get; set; }
+        public ICommand PasswordChangedCommand { get; set; }
         private SecurityModel security = new SecurityModel();
         private bool checkCondition()
         {
@@ -40,9 +41,9 @@ namespace QuanLiKhachSan.ViewModel
             }
             return true;
         }
-        private void Login(PasswordBox p)
+        private void Login(Window p)
         {
-            _PassInput = p.Password.ToString();
+            //_PassInput = p.Password.ToString();
             if (checkCondition())
             {
                 isLogin = checkUserPassword();
@@ -52,31 +53,32 @@ namespace QuanLiKhachSan.ViewModel
                     UserService.LoadUser(userLogin);
                     if (loai == 1)
                     {
-                        MessageBox.Show("Admin");
-                       
+
+                        QuanLy_Layout quanliwd = new QuanLy_Layout();
+                        quanliwd.Show();
                     }
-                    else if (loai == 2)///
+                    else if (loai == 2)
                     {
-                        MessageBox.Show("Lễ Tân");
-                        LeTan_Layout LetanWindow = new LeTan_Layout();
-                        // close cai man hinh login nua ủa
-                        LetanWindow.Show();
+                        KeToan_Layout keToan = new KeToan_Layout();
+                        keToan.Show();
                     }
                     else
                     {
-                        MessageBox.Show("Kế toán");
+                        LeTan_Layout LetanWindow = new LeTan_Layout();
+                        LetanWindow.Show();
                     }
                 }
                 else
                 {
                     MessageBox.Show("Sai tài khoản hoặc mật khẩu");
                 }
+                p.Close();
             }
         }
         private bool checkUserPassword()
         {
-            List<NHANVIEN> res =  DatabaseQueryTN.thongtinDangNhap(_UserInput, SecurityModel.Encrypt(_PassInput));
-            if(res.Count < 1)
+            List<NHANVIEN> res = DatabaseQueryTN.thongtinDangNhap(_UserInput, SecurityModel.Encrypt(_PassInput));
+            if (res.Count < 1)
             {
                 return false;
             }
@@ -93,8 +95,9 @@ namespace QuanLiKhachSan.ViewModel
             if (!isLoaded)
             {
                 isRemember = false;
-                LoginCommand = new RelayCommand<PasswordBox>(
-                    (p) => {
+                LoginCommand = new RelayCommand<Window>(
+                    (p) =>
+                    {
                         return true;
                     },
                     (p) =>
@@ -104,8 +107,9 @@ namespace QuanLiKhachSan.ViewModel
                     });
 
 
-                PassWordEnter = new RelayCommand<PasswordBox>(
-                    (p) => {
+                PassWordEnter = new RelayCommand<Window>(
+                    (p) =>
+                    {
                         return true;
                     },
                     (p) =>
@@ -113,6 +117,7 @@ namespace QuanLiKhachSan.ViewModel
                         isLoaded = true;
                         Login(p);
                     });
+                PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { _PassInput = p.Password; });
             }
         }
     }

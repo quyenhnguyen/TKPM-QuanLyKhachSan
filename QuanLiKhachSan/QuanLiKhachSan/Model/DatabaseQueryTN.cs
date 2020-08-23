@@ -79,6 +79,7 @@ namespace QuanLiKhachSan.Model
             old.CMND = nv.CMND;
             old.Loai = nv.Loai;
             old.Email = nv.Email;
+            old.AnhDaiDien = nv.AnhDaiDien;
             capNhatCSDL();
         }
 
@@ -87,6 +88,11 @@ namespace QuanLiKhachSan.Model
             NHANVIEN old = DataProvider.ISCreated.DB.NHANVIENs.Where(x => x.NhanVienID == nv.NhanVienID).SingleOrDefault();
             old.TinhTrang = true;
             capNhatCSDL();
+        }
+        public static bool isDeleteUser(string userName, string email)
+        {
+            bool res = DataProvider.ISCreated.DB.Database.SqlQuery<bool>("SELECT TinhTrang FROM NHANVIEN WHERE TenDangNhap = @user or Email = @email", new SqlParameter("@user", userName), new SqlParameter("@email", email)).FirstOrDefault();
+            return res;
         }
     }
 }

@@ -134,10 +134,10 @@ namespace QuanLiKhachSan.ViewModel
 
         private string _Loai;
         public string txtLoai { get => _Loai; set => OnPropertyChanged(ref _Loai, value); }
-        
+
         public void showDetails()
         {
-            
+
             if (selectItem != null)
             {
                 txtNhanVienID = selectItem.NhanVienID;
@@ -153,13 +153,15 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     txtLoai = "Quản Lý";
                 }
-                else if(selectItem.Loai==2)
+                else if (selectItem.Loai == 2)
                 {
                     txtLoai = "Kế Toán";
-                } else
-                {
-                    txtLoai = "Nhân Viên";
                 }
+                else
+                {
+                    txtLoai = "Lễ Tân";
+                }
+                HinhAnhNhanVien = SecurityModel.LoadImage(selectItem.AnhDaiDien);
                 txtSDT = selectItem.SDT.ToString();//hiện ddcuo r á, CHITIETNHANVIEN chua khai bao kai
                 //HinhAnhNhanVien = SeviceData.LoadImage(selectItem.HINHANH);
                 isAddUser = false;
@@ -176,7 +178,7 @@ namespace QuanLiKhachSan.ViewModel
         }
         public QuanLyNhanVienViewModel()
         {
-            listNhanVien = new BindingList<NHANVIEN>( DatabaseQuery.danhSachNhanVien());
+            listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());
             listChucVu = new BindingList<string>(new List<string> { "Kế Toán", "Lễ Tân", "Quản Lý" });
             txtLoai = listChucVu[0];
             ChonAnhChiTietNhanVienCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -185,9 +187,7 @@ namespace QuanLiKhachSan.ViewModel
                 if (openFileDialog.ShowDialog() == true)
                 {
                     Uri fileUri = new Uri(openFileDialog.FileName);
-                    string file = "Images/Avatar/" + openFileDialog.SafeFileName;
-                    File.Move(openFileDialog.FileName,file);
-                    HinhAnhNhanVien = new BitmapImage(new Uri(file, UriKind.Relative));
+                    HinhAnhNhanVien = new BitmapImage(new Uri(openFileDialog.FileName));
                 }
             }
             );
@@ -231,8 +231,9 @@ namespace QuanLiKhachSan.ViewModel
                 //hmm, 
             });
             // Thêm Mới hoặc Cập Nhật
-            confirmButtonCommmand = new RelayCommand<Object>((p) => {
-                if(string.IsNullOrEmpty(txtLoai.ToString()) ||
+            confirmButtonCommmand = new RelayCommand<Object>((p) =>
+            {
+                if (string.IsNullOrEmpty(txtLoai.ToString()) ||
                 string.IsNullOrEmpty(txtNgaySinh.ToString("dd/mm/yyyy")) ||
                 string.IsNullOrEmpty(txtDiaChi) ||
                 string.IsNullOrEmpty(txtTenDangNhap.ToString()) ||
@@ -256,6 +257,7 @@ namespace QuanLiKhachSan.ViewModel
                 newNV.NgaySinh = txtNgaySinh;
                 newNV.SDT = int.Parse(txtSDT);
                 newNV.CMND = int.Parse(txtCMND);
+                newNV.AnhDaiDien = SecurityModel.ImageToByte2(HinhAnhNhanVien);
                 if (txtLoai == "Quản Lý") newNV.Loai = 1;
                 else if (txtLoai == "Kế Toán") newNV.Loai = 2;
                 else newNV.Loai = 3;
@@ -264,8 +266,11 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     if (DatabaseQueryTN.kiemtraTonTai(txtTenDangNhap, txtEmail))
                     {
-                        MessageBox.Show("Tài khoản đã tồn tại");
-                        return;
+                        if (!DatabaseQueryTN.isDeleteUser(txtTenDangNhap, txtEmail)) // true --> delete
+                        {
+                            MessageBox.Show("Tài khoản đã tồn tại");
+                            return;
+                        }
                     }
                     newNV.MatKhau = SecurityModel.Encrypt(newNV.CMND.ToString());
                     //Hinh anh
