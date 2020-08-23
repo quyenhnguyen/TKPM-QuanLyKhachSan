@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\App.xaml
-16-1462026098
+21-1577158793
 31058672071
-59-128680007
+64-162070445
 22-1140125639
-DictionaryResources\Styles.xaml;MainWindow.xaml;DictionaryResources\Resources.xaml;View\DangNhap.xaml;View\KeToan_BaoCaoThongKe.xaml;View\KeToan_Layout.xaml;View\KeToan_QuanLiNhanVien.xaml;View\KeToan_TaiKhoan.xaml;View\LeTan_CheckinPhongTrong.xaml;View\LeTan_ChiTietHoaDon.xaml;View\LeTan_DatPhong.xaml;View\LeTan_DialogCheckOut.xaml;View\LeTan_KhachHang.xaml;View\LeTan_Layout.xaml;View\LeTan_TaiKhoan.xaml;View\LeTan_TraCuu.xaml;
+DictionaryResources\Styles.xaml;MainWindow.xaml;DictionaryResources\Resources.xaml;View\DangNhap.xaml;View\KeToan_BaoCaoThongKe.xaml;View\KeToan_Layout.xaml;View\KeToan_QuanLiNhanVien.xaml;View\KeToan_TaiKhoan.xaml;View\LeTan_CheckinPhongTrong.xaml;View\LeTan_ChiTietHoaDon.xaml;View\LeTan_DatPhong.xaml;View\LeTan_DialogCheckOut.xaml;View\LeTan_KhachHang.xaml;View\LeTan_Layout.xaml;View\LeTan_TaiKhoan.xaml;View\LeTan_TraCuu.xaml;View\QuanLyDichVu_LoaiDV.xaml;View\QuanLyNhanVien.xaml;View\QuanLyPhong_LoaiPhong.xaml;View\QuanLy_Layout.xaml;View\QuanLy_TaiKhoan.xaml;
 
-False
+True
 
