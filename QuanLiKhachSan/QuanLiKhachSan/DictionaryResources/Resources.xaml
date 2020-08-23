@@ -11,6 +11,16 @@
     <viewmodel:LeTanTaiKhoanViewModel x:Key="LeTanTaiKhoanVM" />
     <viewmodel:LeTanTraCuuViewModel x:Key="LeTanTraCuuVM" />
     <viewmodel:LeTanKhachHangViewModel x:Key="LeTanKhachHangVM" />
+
+
+
+
+    <viewmodel:QuanLy_LayoutViewModel x:Key="QuanLyLayoutVM" />
+    <viewmodel:QuanLyDichVu_LoaiDVViewModel x:Key="QuanLyDichVu_LoaiDV" />
+    <viewmodel:QuanLyNhanVienViewModel x:Key="QuanLyNhanVienVM" />
+    <viewmodel:QuanLyPhong_LoaiPhongViewModel x:Key="QuanLYPhong_LoaiPhongVM" />
+    <viewmodel:QuanLyTaiKhoanViewModel x:Key="QuanLyTaiKhoanVM" />
+    
     <viewmodel:LeTanChiTietHoaDonViewModel x:Key="LeTanChiTietHDVM" />
 
 
