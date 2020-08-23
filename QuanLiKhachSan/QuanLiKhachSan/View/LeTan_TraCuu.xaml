@@ -19,7 +19,10 @@
         <StackPanel>
             <Separator Background="{StaticResource XamDam}" />
         </StackPanel>
-        <TabControl Grid.Row="1" BorderThickness="0,0.5,0,0">
+        <TabControl
+            x:Name="TabQuanLi"
+            Grid.Row="1"
+            BorderThickness="0,0.5,0,0">
             <TabControl.Resources>
                 <Style TargetType="TabItem">
                     <Setter Property="Template">
@@ -56,14 +59,19 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
-                    <Setter Property="FontSize" Value="{StaticResource CoChuThuong}" />
+                    <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
                 </Style>
             </TabControl.Resources>
             <!--  Tab Hóa Đơn  -->
             <TabItem Header="Hóa đơn">
-                <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="8*" />
+                    </Grid.RowDefinitions>
+                    <!--  TÌm kiếm  -->
                     <StackPanel
-                        x:Name="TimKiemDichVu"
+                        x:Name="TimKiemHoaDon"
                         Margin="10"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
@@ -78,16 +86,16 @@
                                 Margin="10,0"
                                 VerticalAlignment="Center"
                                 materialDesign:HintAssist.Hint="Tìm kiếm hóa đơn "
-                                Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                FontSize="{StaticResource CoChuNho}"
+                                Text="{Binding txtSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Border>
                         <Button
-                            x:Name="btnSearch"
                             Height="35"
                             Margin="10,0,0,0"
                             Background="{StaticResource MauChuHeader}"
                             BorderBrush="{StaticResource HongDam}"
-                            Command="{Binding SearchMonAnCommand}"
-                            CommandParameter="{Binding ElementName=btnSearch}"
+                            Command="{Binding TimKiemBtnCommand}"
+                            CommandParameter="{Binding ElementName=TabQuanLi}"
                             IsDefault="True">
                             <materialDesign:PackIcon
                                 Width="25"
@@ -97,18 +105,93 @@
                                 Kind="Search" />
                         </Button>
                     </StackPanel>
-                </StackPanel>
+                    <!--  Danh sách tìm kiếm  -->
+                    <ListView
+                        Grid.Row="1"
+                        Margin="0,10"
+                        HorizontalAlignment="Center"
+                        Grid.IsSharedSizeScope="True"
+                        ItemsSource="{Binding dsHoaDon}"
+                        ScrollViewer.CanContentScroll="True"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        SelectedItem="{Binding HoaDonChon}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="VerticalContentAlignment" Value="Center" />
+                                <Setter Property="BorderBrush" Value="{StaticResource XamNhat}" />
+                                <Setter Property="BorderThickness" Value="0,0,0,1" />
+                                <Setter Property="Padding" Value="0,3,0,3" />
+                                <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
+                                <Setter Property="Height" Value="30" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.View>
+                            <GridView>
+                                <GridView.ColumnHeaderContainerStyle>
+                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                        <Setter Property="Background" Value="{StaticResource MauChinh2}" />
+                                        <Setter Property="Foreground" Value="White" />
+                                        <Setter Property="BorderBrush" Value="{x:Null}" />
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="Padding" Value="10,5,10,5" />
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
+                                    </Style>
+                                </GridView.ColumnHeaderContainerStyle>
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding MaHoaDon}"
+                                    Header="Mã Hóa Đơn" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding KHACHHANG.HoTen}"
+                                    Header="Tên Khách Hàng" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding NHANVIEN.HoTen}"
+                                    Header="Nhân Viên" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding ThoiGianThue, StringFormat={}{0: dd/MM/yyyy  HH:mm:ss}}"
+                                    Header="Ngày Lập HD" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding ThoiGianTra, StringFormat={}{0: dd/MM/yyyy  HH:mm:ss}}"
+                                    Header="Ngày Trả Phòng" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding Phong}"
+                                    Header="Mã Phòng" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding TongTien, StringFormat={}{0:N0}đ}"
+                                    Header="Tổng Thanh Toán" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
             </TabItem>
             <!--  Tab Phòng  -->
             <TabItem Header="Phòng">
-                <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="8*" />
+                    </Grid.RowDefinitions>
+                    <!--  TÌm kiếm  phòng  -->
                     <StackPanel
-                        Margin="10,20"
+                        Margin="10"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
                         <Border
                             Padding="10,5"
-                            Background="White"
+                            Background="GhostWhite"
                             BorderBrush="{DynamicResource MaterialDesignDivider}"
                             BorderThickness="1"
                             CornerRadius="8">
@@ -116,17 +199,17 @@
                                 Width="340"
                                 Margin="10,0"
                                 VerticalAlignment="Center"
-                                materialDesign:HintAssist.Hint="Tìm kiếm hóa đơn "
-                                Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                TextWrapping="Wrap" />
+                                materialDesign:HintAssist.Hint="Tìm kiếm phòng "
+                                FontSize="{StaticResource CoChuNho}"
+                                Text="{Binding txtSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Border>
                         <Button
                             Height="35"
                             Margin="10,0,0,0"
                             Background="{StaticResource MauChuHeader}"
                             BorderBrush="{StaticResource HongDam}"
-                            Command="{Binding SearchMonAnCommand}"
-                            CommandParameter="{Binding ElementName=btnSearch}"
+                            Command="{Binding TimKiemBtnCommand}"
+                            CommandParameter="{Binding ElementName=TabQuanLi}"
                             IsDefault="True">
                             <materialDesign:PackIcon
                                 Width="25"
@@ -136,18 +219,103 @@
                                 Kind="Search" />
                         </Button>
                     </StackPanel>
-                </StackPanel>
+                    <!--  Danh sách tìm kiếm phòng  -->
+                    <ListView
+                        Grid.Row="1"
+                        Margin="0,10"
+                        HorizontalAlignment="Center"
+                        Grid.IsSharedSizeScope="True"
+                        ItemsSource="{Binding dsPhong}"
+                        ScrollViewer.CanContentScroll="True"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="VerticalContentAlignment" Value="Center" />
+                                <Setter Property="BorderBrush" Value="{StaticResource XamNhat}" />
+                                <Setter Property="BorderThickness" Value="0,0,0,1" />
+                                <Setter Property="Padding" Value="0,3,0,3" />
+                                <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
+                                <Setter Property="Height" Value="30" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.View>
+                            <GridView>
+                                <GridView.ColumnHeaderContainerStyle>
+                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                        <Setter Property="Background" Value="{StaticResource MauChinh2}" />
+                                        <Setter Property="Foreground" Value="White" />
+                                        <Setter Property="BorderBrush" Value="{x:Null}" />
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="Padding" Value="10,5,10,5" />
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
+                                    </Style>
+                                </GridView.ColumnHeaderContainerStyle>
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding PhongID}"
+                                    Header="Mã Phòng" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding TenPhong}"
+                                    Header="Tên Phòng" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding DonGia, StringFormat={}{0:N0}}"
+                                    Header="Đơn Giá" />
+                                <GridViewColumn Width="Auto" Header="Tình Trạng Thuê">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding TinhTrangThue}" Value="True">
+                                                                <Setter Property="Text" Value="Đang thuê" />
+                                                                <Setter Property="Foreground" Value="{StaticResource MauTenPhong}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding TinhTrangThue}" Value="False">
+                                                                <Setter Property="Text" Value="Còn trống" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding LOAIPHONG.TenLoai}"
+                                    Header="Loại Phòng" />
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
             </TabItem>
             <!--  Tab Dịch vụ  -->
             <TabItem Header="Dịch vụ">
-                <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="7*" />
+                    </Grid.RowDefinitions>
+                    <!--  TÌm kiếm  -->
                     <StackPanel
-                        Margin="10,20"
+                        Margin="10"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
                         <Border
                             Padding="10,5"
-                            Background="White"
+                            Background="GhostWhite"
                             BorderBrush="{DynamicResource MaterialDesignDivider}"
                             BorderThickness="1"
                             CornerRadius="8">
@@ -155,17 +323,17 @@
                                 Width="340"
                                 Margin="10,0"
                                 VerticalAlignment="Center"
-                                materialDesign:HintAssist.Hint="Tìm kiếm hóa đơn "
-                                Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                TextWrapping="Wrap" />
+                                materialDesign:HintAssist.Hint="Tìm kiếm dịch vụ "
+                                FontSize="{StaticResource CoChuNho}"
+                                Text="{Binding txtSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Border>
                         <Button
                             Height="35"
                             Margin="10,0,0,0"
                             Background="{StaticResource MauChuHeader}"
                             BorderBrush="{StaticResource HongDam}"
-                            Command="{Binding SearchMonAnCommand}"
-                            CommandParameter="{Binding ElementName=btnSearch}"
+                            Command="{Binding TimKiemBtnCommand}"
+                            CommandParameter="{Binding ElementName=TabQuanLi}"
                             IsDefault="True">
                             <materialDesign:PackIcon
                                 Width="25"
@@ -175,46 +343,120 @@
                                 Kind="Search" />
                         </Button>
                     </StackPanel>
-                </StackPanel>
-            </TabItem>
-            <!--  Tab Nhân viên  -->
-            <TabItem Header="Nhân viên">
-                <StackPanel>
+                    <!--  Chọn loại  -->
                     <StackPanel
-                        Margin="10,20"
-                        HorizontalAlignment="Center"
+                        Grid.Row="1"
+                        Margin="100,0,0,0"
                         Orientation="Horizontal">
-                        <Border
-                            Padding="10,5"
-                            Background="White"
-                            BorderBrush="{DynamicResource MaterialDesignDivider}"
-                            BorderThickness="1"
-                            CornerRadius="8">
-                            <TextBox
-                                Width="340"
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                materialDesign:HintAssist.Hint="Tìm kiếm hóa đơn "
-                                Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                TextWrapping="Wrap" />
-                        </Border>
                         <Button
-                            Height="35"
-                            Margin="10,0,0,0"
+                            Height="40"
                             Background="{StaticResource MauChuHeader}"
-                            BorderBrush="{StaticResource HongDam}"
-                            Command="{Binding SearchMonAnCommand}"
-                            CommandParameter="{Binding ElementName=btnSearch}"
-                            IsDefault="True">
-                            <materialDesign:PackIcon
-                                Width="25"
-                                Height="22"
-                                Margin="5"
-                                VerticalAlignment="Center"
-                                Kind="Search" />
+                            Command="{Binding TatCaDichVuBtnCommand}"
+                            Foreground="Black"
+                            Style="{StaticResource StyleButtonLoaiDV}">
+                            Tất cả dịch vụ
                         </Button>
+                        <Border
+                            Width="150"
+                            Height="40"
+                            Margin="3,0"
+                            Padding="5,0"
+                            HorizontalAlignment="Left"
+                            Background="{StaticResource MauChuHeader}"
+                            CornerRadius="3">
+                            <ComboBox
+                                Padding="5,0"
+                                materialDesign:HintAssist.FloatingOffset="0, -50"
+                                materialDesign:HintAssist.FloatingScale="1"
+                                materialDesign:HintAssist.Hint="Loại Dịch Vụ"
+                                BorderThickness="0"
+                                FontSize="{StaticResource CoChuSieuNho}"
+                                FontWeight="Bold"
+                                IsEditable="False"
+                                ItemsSource="{Binding dsLoaiDichVu}"
+                                SelectedItem="{Binding selectedLoai, Mode=TwoWay}"
+                                SelectedValuePath="Name">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            Cursor="Hand"
+                                            FontSize="{StaticResource CoChuSieuNho}"
+                                            Text="{Binding TenLoai}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </Border>
                     </StackPanel>
-                </StackPanel>
+                    <!--  Danh sách tìm kiếm  -->
+                    <ListView
+                        Grid.Row="2"
+                        Margin="0,10"
+                        HorizontalAlignment="Center"
+                        Grid.IsSharedSizeScope="True"
+                        ItemsSource="{Binding dsDichVu}"
+                        ScrollViewer.CanContentScroll="True"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="VerticalContentAlignment" Value="Center" />
+                                <Setter Property="BorderBrush" Value="{StaticResource XamNhat}" />
+                                <Setter Property="BorderThickness" Value="0,0,0,1" />
+                                <Setter Property="Padding" Value="0,3,0,3" />
+                                <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
+                                <Setter Property="Height" Value="30" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.View>
+                            <GridView>
+                                <GridView.ColumnHeaderContainerStyle>
+                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                        <Setter Property="Background" Value="{StaticResource MauChinh2}" />
+                                        <Setter Property="Foreground" Value="White" />
+                                        <Setter Property="BorderBrush" Value="{x:Null}" />
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="Padding" Value="10,5,10,5" />
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
+                                    </Style>
+                                </GridView.ColumnHeaderContainerStyle>
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding DichVuID}"
+                                    Header="Mã Dịch Vụ" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding TenDichVu}"
+                                    Header="Tên Dịch Vụ" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding GiaCungCap, StringFormat={}{0:N0}}"
+                                    Header="Giá Cung Cấp" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding GiaBan, StringFormat={}{0:N0}}"
+                                    Header="Giá Bán" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding DonVi}"
+                                    Header="Đơn Vị" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding NgayTao}"
+                                    Header="Ngày Tạo" />
+                                <GridViewColumn
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding LOAIDV.TenLoai}"
+                                    Header="Loại Dịch Vụ" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

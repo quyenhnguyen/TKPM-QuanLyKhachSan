@@ -10,7 +10,7 @@ USE QLKHACHSAN
 GO
 
 CREATE TABLE HOADONTHUEPHONG(
-	MaHoaDon int NOT NULL,
+	MaHoaDon int IDENTITY(1,1) NOT NULL,
 	ThoiGianThue datetime NOT NULL,
 	ThoiGianTra datetime NULL,
 	TongTien float NULL,
@@ -58,6 +58,7 @@ CREATE TABLE LOAIDV(
 	CONSTRAINT DF_LOAIDV_NgayTao  DEFAULT (getdate()),
 	CONSTRAINT PK_LOAIDV 
 	PRIMARY KEY CLUSTERED (LoaiDVID ASC))
+
 
 GO
 CREATE TABLE DICHVU(
@@ -139,6 +140,7 @@ CREATE TABLE NVQUANLI(
 
 -- set default value tinhTrang=0-> chua xoa
 ALTER TABLE DICHVU ADD  CONSTRAINT DF_DICHVU_TinhTrangTonTai  DEFAULT ((0)) FOR TinhTrangTonTai
+
 GO
 ALTER TABLE KHACHHANG ADD  CONSTRAINT DF_KHACHHANG_TinhTrang  DEFAULT ((0)) FOR TinhTrang
 GO
@@ -238,3 +240,83 @@ VALUES('DV001', N'Giặt ủi sấy khô', 50000, 30000, 'GIAT', N'Kí'),
 ('DV003', N'Nước tăng lực Sting dâu chai 330ml', 15000, 8000, 'UONG', N'Chai'),
 ('DV004', N'Mì Handy Hảo Hảo tôm chua cay ly 67g', 15000, 9000, 'THUCPHAM', N'Ly'),
 ('DV005', N'Snack pho mát miếng Oishi gói 40g', 8000, 5000, 'GIAT', N'Bịt')
+
+GO
+INSERT INTO KHACHHANG(HoTen, SDT, CMND, DiaChi, NgayTao) VALUES(N'Nguyễn Hoàng Quyên',0343650858,312395992,N'KTX Trần Hưng Đạo',CAST(N'2020-08-05' AS Date))
+
+CREATE TABLE LOAINHANVIEN(
+	LoaiNVID int NOT NULL,
+	TenLoai nvarchar(200) NOT NULL,
+	TinhTrang bit NOT NULL,
+	NgayTao datetime NOT NULL
+	CONSTRAINT FK_LOAINV_NgayTao  DEFAULT (getdate()),
+	CONSTRAINT PK_LoaiNV 
+	PRIMARY KEY CLUSTERED LoaiNVID ASC))
+ALTER TABLE NHANVIEN WITH CHECK ADD  CONSTRAINT FK_NHANVIEN_LOAINHANVIEN FOREIGN KEY(Loai)
+REFERENCES LOAINHANVIEN(LoaiNVID )
+GO
+ALTER TABLE NHANVIEN CHECK CONSTRAINT FK_NHANVIEN_LOAINHANVIEN
+GO
+ALTER TABLE LOAINHANVIEN ADD  CONSTRAINT DF_LOAINV_TinhTrang  DEFAULT ((0)) FOR TinhTrang
+GO
+
+GO
+INSERT INTO LOAIDV(LoaiDVID, TenLoai)
+VALUES('1', N'Nhân viên quản lí'),
+('2', N'Nhân viên kế Toán'),
+('3', N'Nhân viên lễ tân')
+
+CREATE TABLE LOAINHANVIEN(
+	LoaiNVID int NOT NULL,
+	TenLoai nvarchar(200) NOT NULL,
+	TinhTrang bit NOT NULL,
+	NgayTao datetime NOT NULL
+	CONSTRAINT FK_LOAINV_NgayTao  DEFAULT (getdate()),
+	CONSTRAINT PK_LoaiNV 
+	PRIMARY KEY CLUSTERED (LoaiNVID ASC))
+ALTER TABLE LOAINHANVIEN ADD  CONSTRAINT DF_LOAINV_TinhTrang  DEFAULT ((0)) FOR TinhTrang
+GO
+
+ALTER TABLE NHANVIEN WITH CHECK ADD  CONSTRAINT FK_NHANVIEN_LOAINHANVIEN FOREIGN KEY(Loai)
+REFERENCES LOAINHANVIEN(LoaiNVID )
+GO
+ALTER TABLE NHANVIEN CHECK CONSTRAINT FK_NHANVIEN_LOAINHANVIEN
+GO
+
+GO
+INSERT INTO LOAINHANVIEN(LoaiNVID, TenLoai)
+VALUES('1', N'Nhân viên quản lí'),
+('2', N'Nhân viên kế Toán'),
+('3', N'Nhân viên lễ tân')
+
+CREATE TABLE BANGTHAMSO(
+	MaThamSo varchar(50) NOT NULL,
+	TenThamSo nvarchar(200) NOT NULL,
+	TinhTrang bit NOT NULL,
+	KieuDuLieu varchar(200) NOT NULL,
+	GiaTri varchar(200) NOT NULL,
+	NgayTao datetime NOT NULL
+	CONSTRAINT FK_BANGTHAMSO_NgayTao  DEFAULT (getdate()),
+	CONSTRAINT PK_BANGTHAMSO 
+	PRIMARY KEY CLUSTERED (MaThamSo ASC))
+ALTER TABLE BANGTHAMSO ADD  CONSTRAINT DF_BANGTHAMSO_TinhTrang  DEFAULT ((0)) FOR TinhTrang
+GO
+GO
+INSERT INTO BANGTHAMSO(MaThamSo, TenThamSo, KieuDuLieu, GiaTri)
+VALUES('GIA1', N'Phần trăm giá thứ 1', 'INT', '30'),
+('GIA2', N'Phần trăm giá thứ 2', 'INT', '50'),
+('GIA3', N'Phần trăm giá thứ 3', 'INT', '100'),
+('THOIGIANIN1', N'Khung giờ check in thứ 1', 'INT', '5'),
+('THOIGIANIN2', N'Khung giờ check in thứ 2', 'INT', '9'),
+('THOIGIANIN3', N'Khung giờ check in thứ 3', 'INT', '14'),
+('THOIGIANOUT1', N'Khung giờ check out thứ 1', 'INT', '12'),
+('THOIGIANOUT2', N'Khung giờ check out thứ 2', 'INT', '15'),
+('THOIGIANOUT3', N'Khung giờ check out thứ 3', 'INT', '18')
+
+GO
+ALTER TABLE NHANVIEN
+ADD AnhDaiDien Image
+
+GO
+ALTER TABLE DICHVU
+ADD HinhAnh Image 

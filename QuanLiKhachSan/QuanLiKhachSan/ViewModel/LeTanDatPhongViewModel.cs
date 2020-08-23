@@ -17,13 +17,27 @@ namespace QuanLiKhachSan.ViewModel
         private object _checkin;
         public object CheckinContext { get => _checkin; set => OnPropertyChanged(ref _checkin, value); }
         private int _slPhong;
-        public int SlPhong { get => _slPhong; set => OnPropertyChanged(ref _slPhong, value); }
+        public int SLPhong { get => _slPhong; set => OnPropertyChanged(ref _slPhong, value); }
 
         private int _slPhongTrong;
-        public int SlPhongTrong { get => _slPhongTrong; set => OnPropertyChanged(ref _slPhongTrong, value); }
+        public int SLPhongTrong
+        {
+            get
+            {
+                return DatabaseQuery.truyVanSoLuongPhongTrong();
+            }
+            set => OnPropertyChanged(ref _slPhongTrong, value);
+        }
 
         private int _slPhongDangThue;
-        public int SlPhongDangThue { get => _slPhongDangThue; set => OnPropertyChanged(ref _slPhongDangThue, value); }
+        public int SLPhongDangThue
+        {
+            get
+            {
+                return DatabaseQuery.truyVanSoLuongDangThue();
+            }
+            set => OnPropertyChanged(ref _slPhongDangThue, value);
+        }
 
 
         private int _tenPhongItem;
@@ -47,6 +61,8 @@ namespace QuanLiKhachSan.ViewModel
         public LeTanDatPhongViewModel()
         {
             DSPhong = DatabaseQuery.danhSachPhong();
+            SLPhong = DSPhong.Count;
+
             //***Su dụng listPhongTT thay cho DSPhong
 
             //KHi click vao 1 phong
@@ -85,14 +101,15 @@ namespace QuanLiKhachSan.ViewModel
             ucCheckIn.Visibility = Visibility.Collapsed;
         }
 
-        void hienManHinhCheckIn(UserControl uc)
+        void hienManHinhCheckIn(UserControl userConTrol)
         {
-            var stack = uc.FindName("QuanLiPhong") as StackPanel;
-            stack.Visibility = Visibility.Collapsed;
-            var btn = uc.FindName("btn_TroVe") as Button;
-            btn.Visibility = Visibility.Visible;
-            var ucCheckIn = uc.FindName("CheckIn") as ContentControl;
-            ucCheckIn.Visibility = Visibility.Visible;
+            var stack = userConTrol.FindName("QuanLiPhong") as StackPanel;
+            string a = userConTrol.Name;
+            if (stack != null) stack.Visibility = Visibility.Collapsed;
+            var btn = userConTrol.FindName("btn_TroVe") as Button;
+            if (btn != null) btn.Visibility = Visibility.Visible;
+            var ucCheckIn = userConTrol.FindName("CheckIn") as ContentControl;
+            if (ucCheckIn != null) ucCheckIn.Visibility = Visibility.Visible;
         }
     }
 }

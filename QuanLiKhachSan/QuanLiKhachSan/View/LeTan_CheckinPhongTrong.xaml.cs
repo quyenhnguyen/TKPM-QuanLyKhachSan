@@ -32,5 +32,9 @@ namespace QuanLiKhachSan.View
             this.DataContext = new LeTanCheckInViewModel(maPhong);
         }
 
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -16,23 +16,13 @@ using System.Windows.Shapes;
 namespace QuanLiKhachSan.View
 {
     /// <summary>
-    /// Interaction logic for LeTan_TraCuu.xaml
+    /// Interaction logic for KeToan_QuanLiNhanVien.xaml
     /// </summary>
-    public partial class LeTan_TraCuu : UserControl
+    public partial class KeToan_QuanLiNhanVien : UserControl
     {
-        public LeTan_TraCuu()
+        public KeToan_QuanLiNhanVien()
         {
             InitializeComponent();
-        }
-
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void ListView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

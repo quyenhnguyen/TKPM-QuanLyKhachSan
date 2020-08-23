@@ -79,6 +79,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\BANGTHAMSO.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BusinessModel.cs" />
     <Compile Include="Model\DatabaseQuery.cs" />
     <Compile Include="Model\DataProvider.cs" />
     <Compile Include="Model\DICHVU.cs">
@@ -94,6 +98,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\LOAIDV.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\LOAINHANVIEN.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\LOAIPHONG.cs">
@@ -134,7 +141,12 @@
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DangNhapViewModel.cs" />
+    <Compile Include="ViewModel\KeToanBaoCaoViewModel.cs" />
+    <Compile Include="ViewModel\KeToanLayoutViewModel.cs" />
+    <Compile Include="ViewModel\KeToanQLNhanVienViewModel.cs" />
+    <Compile Include="ViewModel\KeToanTaiKhoanViewModel.cs" />
     <Compile Include="ViewModel\LeTanCheckInViewModel.cs" />
+    <Compile Include="ViewModel\LeTanChiTietHoaDonViewModel.cs" />
     <Compile Include="ViewModel\LeTanDatPhongViewModel.cs" />
     <Compile Include="ViewModel\LeTanDialogCheckOutViewModel.cs" />
     <Compile Include="ViewModel\LeTanKhachHangViewModel.cs" />
@@ -145,8 +157,23 @@
     <Compile Include="View\DangNhap.xaml.cs">
       <DependentUpon>DangNhap.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\KeToan_BaoCaoThongKe.xaml.cs">
+      <DependentUpon>KeToan_BaoCaoThongKe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\KeToan_Layout.xaml.cs">
+      <DependentUpon>KeToan_Layout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\KeToan_QuanLiNhanVien.xaml.cs">
+      <DependentUpon>KeToan_QuanLiNhanVien.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\KeToan_TaiKhoan.xaml.cs">
+      <DependentUpon>KeToan_TaiKhoan.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LeTan_CheckinPhongTrong.xaml.cs">
       <DependentUpon>LeTan_CheckinPhongTrong.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LeTan_ChiTietHoaDon.xaml.cs">
+      <DependentUpon>LeTan_ChiTietHoaDon.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LeTan_DatPhong.xaml.cs">
       <DependentUpon>LeTan_DatPhong.xaml</DependentUpon>
@@ -190,7 +217,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\KeToan_BaoCaoThongKe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\KeToan_Layout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\KeToan_QuanLiNhanVien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\KeToan_TaiKhoan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\LeTan_CheckinPhongTrong.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LeTan_ChiTietHoaDon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -260,6 +307,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\avatar.png" />
     <Content Include="Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>

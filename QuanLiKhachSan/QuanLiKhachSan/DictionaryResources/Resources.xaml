@@ -11,6 +11,10 @@
     <viewmodel:LeTanTaiKhoanViewModel x:Key="LeTanTaiKhoanVM" />
     <viewmodel:LeTanTraCuuViewModel x:Key="LeTanTraCuuVM" />
     <viewmodel:LeTanKhachHangViewModel x:Key="LeTanKhachHangVM" />
+    <viewmodel:LeTanChiTietHoaDonViewModel x:Key="LeTanChiTietHDVM" />
+    <viewmodel:KeToanLayoutViewModel x:Key="KeToanLayoutVM" />
+
+
 
 
 

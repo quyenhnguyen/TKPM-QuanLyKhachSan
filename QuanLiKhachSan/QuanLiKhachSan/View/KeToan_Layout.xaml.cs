@@ -10,29 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace QuanLiKhachSan.View
 {
     /// <summary>
-    /// Interaction logic for LeTan_TraCuu.xaml
+    /// Interaction logic for KeToan_Layout.xaml
     /// </summary>
-    public partial class LeTan_TraCuu : UserControl
+    public partial class KeToan_Layout : Window
     {
-        public LeTan_TraCuu()
+        public KeToan_Layout()
         {
             InitializeComponent();
-        }
-
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void ListView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

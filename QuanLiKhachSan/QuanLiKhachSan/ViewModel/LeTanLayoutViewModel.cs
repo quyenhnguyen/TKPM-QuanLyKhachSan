@@ -29,6 +29,16 @@ namespace QuanLiKhachSan.ViewModel
             get => _txtTitle;
             set { _txtTitle = value; OnPropertyChanged(); }
         }
+        private NHANVIEN _NhanVienDangNhap;
+        public NHANVIEN NhanVienDangNhap
+        {
+            get => _NhanVienDangNhap;
+            set
+            {
+                _NhanVienDangNhap = value;
+                OnPropertyChanged();
+            }
+        }
         #region All Command
         public ICommand btnDatPhong_Command { get; set; }
         public ICommand btnTaiKhoan_Command { get; set; }
@@ -36,20 +46,19 @@ namespace QuanLiKhachSan.ViewModel
         #endregion
         public LeTanLayoutViewModel()
         {
-            //NHANVIEN b = new NHANVIEN();
-            //b = DataProvider.ISCreated.DB.NHANVIENs.First();
-            //MessageBox.Show(b.DiaChi);
+            int MaNhanVien = 1;
+            NhanVienDangNhap = DatabaseQuery.truyVanNhanVien(MaNhanVien);
             object ucDatPhong = new LeTanDatPhongViewModel();
             object ucTraCuu = new LeTanTraCuuViewModel();
             object ucTaiKhoan = new LeTanTaiKhoanViewModel();
-            CurrentDataContext = ucTraCuu;
-            txtTitle = "TRANG CHỦ ĐẶT PHÒNG";
+
+            CurrentDataContext = ucDatPhong;
+
+            txtTitle = "TRANG CHỦ THUÊ, TRẢ PHÒNG";
             btnDatPhong_Command = new RelayCommand<object>((p) => { return CurrentDataContext != ucDatPhong; }, (p) =>
                 {
-                    txtTitle = "TRANG CHỦ ĐẶT PHÒNG";
-                    //Cần gán DataContext bên View qua mà ko lấy được-> Dùng biến
-                    //CurrentDataContext = new LeTanDatPhongViewModel();//load lại mỗi khi click vào
-                    //edit vào 6/8/2020
+                    txtTitle = "TRANG CHỦ THUÊ, TRẢ PHÒNG";
+                    ucDatPhong = new LeTanDatPhongViewModel();
                     CurrentDataContext = ucDatPhong;
                 });
             btnTraCuu_Command = new RelayCommand<object>((p) => { return CurrentDataContext != ucTraCuu; }, (p) =>
@@ -59,7 +68,7 @@ namespace QuanLiKhachSan.ViewModel
               });
             btnTaiKhoan_Command = new RelayCommand<object>((p) => { return CurrentDataContext != ucTaiKhoan; }, (p) =>
               {
-                  txtTitle = "TRANG CÁ NHÂN";
+                  txtTitle = "QUẢN LÍ TÀI KHOẢN";
                   CurrentDataContext = ucTaiKhoan;
               });
         }

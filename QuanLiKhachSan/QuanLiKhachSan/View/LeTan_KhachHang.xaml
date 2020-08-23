@@ -53,6 +53,7 @@
             <TextBox
                 Grid.Row="0"
                 Grid.Column="1"
+                IsEnabled="{Binding IsUpdate}"
                 Style="{StaticResource StyleInputForm}"
                 Text="{Binding HoTenInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock
@@ -63,8 +64,10 @@
             <TextBox
                 Grid.Row="1"
                 Grid.Column="1"
+                IsEnabled="{Binding IsUpdate}"
                 Style="{StaticResource StyleInputForm}"
-                Text="{Binding DiaChiInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding DiaChiInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                VerticalScrollBarVisibility="Auto" />
             <TextBlock
                 Grid.Row="2"
                 Grid.Column="0"
@@ -73,6 +76,7 @@
             <TextBox
                 Grid.Row="2"
                 Grid.Column="1"
+                IsEnabled="{Binding IsUpdate}"
                 Style="{StaticResource StyleInputForm}"
                 Text="{Binding CMNDInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock
@@ -83,6 +87,7 @@
             <TextBox
                 Grid.Row="3"
                 Grid.Column="1"
+                IsEnabled="{Binding IsUpdate}"
                 Style="{StaticResource StyleInputForm}"
                 Text="{Binding DienThoaiInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock
@@ -93,6 +98,7 @@
             <TextBox
                 Grid.Row="4"
                 Grid.Column="1"
+                IsEnabled="{Binding IsUpdate}"
                 Style="{StaticResource StyleInputForm}"
                 Text="{Binding searchMonAnStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
@@ -109,8 +115,19 @@
                 BorderThickness="0"
                 Command="{Binding ThemMoiBtnCommand}"
                 CommandParameter="{Binding ElementName=WindowKhachHang}"
-                Style="{StaticResource StyleBtnCoBan}">
+                Style="{StaticResource StyleBtnCoBan}"
+                Visibility="{Binding ThemMoi}">
                 THÊM MỚI
+            </Button>
+            <Button
+                Height="35"
+                Background="{StaticResource CamNhat}"
+                BorderThickness="0"
+                Command="{Binding LuuThongTinBtnCommand}"
+                CommandParameter="{Binding ElementName=WindowKhachHang}"
+                Style="{StaticResource StyleBtnCoBan}"
+                Visibility="{Binding IsCapNhat}">
+                LƯU THÔNG TIN
             </Button>
             <Button
                 Width="120"

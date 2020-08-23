@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace QuanLiKhachSan.ViewModel
@@ -13,23 +14,31 @@ namespace QuanLiKhachSan.ViewModel
     {
         public int MaHoaDon { get; set; }
 
-        public HOADONTHUEPHONG HoaDon { get; set; }
-        private string _ngayCheckIn;
-        public string NgayCheckIn { get => _ngayCheckIn; set => OnPropertyChanged(ref _ngayCheckIn, value); }
-        private string _ngayCheckOut;
-        public string NgayCheckOut { get => _ngayCheckOut; set => OnPropertyChanged(ref _ngayCheckOut, value); }
-        private string _tienPhong;
-        public string TienPhong { get => _tienPhong; set => OnPropertyChanged(ref _tienPhong, value); }
+        public HOADONTHUEPHONG _HoaDon;
+        public HOADONTHUEPHONG HoaDon { get => _HoaDon; set => OnPropertyChanged(ref _HoaDon, value); }
+        public KHACHHANG _KH;
+        public KHACHHANG KH { get => _KH; set => OnPropertyChanged(ref _KH, value); }
+
+        private DateTime _ngayCheckOut;
+        public DateTime NgayCheckOut { get => _ngayCheckOut; set => OnPropertyChanged(ref _ngayCheckOut, value); }
+        private double _tienPhong;
+        public double TongTien { get => _tienPhong; set => OnPropertyChanged(ref _tienPhong, value); }
+        private double _tienTraLai;
+        public double TienTraLai { get => _tienTraLai; set => OnPropertyChanged(ref _tienTraLai, value); }
 
         public ICommand ThoatBtnComamand { get; set; }
         public ICommand DongYBtnCommand { get; set; }
+        public ICommand TienKhachDuaEnterCommand { get; set; }
+
         public LeTanDialogCheckOutViewModel(int maHD)
         {
             MaHoaDon = maHD;
-            HoaDon = DatabaseQuery.truyVanHoaDonDangThueMaHD(MaHoaDon);
-            //tính tiền phòng: (lấy ngày ra - ngày vào)* đơn giá
-            NgayCheckIn = HoaDon.ThoiGianThue.ToString("dd/mm/yyyy-HH:mm:ss");
-            NgayCheckOut = DateTime.Now.ToString("dd/mm/yyyy-HH:mm:ss");
+            HoaDon = DatabaseQuery.truyVanHoaDon(MaHoaDon);
+            KH = DatabaseQuery.truyVanKhachHangMaHD(MaHoaDon);
+            PHONG phong = DatabaseQuery.truyVanTenPhongMaHoaDon(MaHoaDon);
+
+            NgayCheckOut = DateTime.Now;
+            TongTien = DatabaseQuery.TinhTongThanhToan(HoaDon, NgayCheckOut, HoaDon.PHONG1.DonGia);
 
             ThoatBtnComamand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
@@ -41,6 +50,11 @@ namespace QuanLiKhachSan.ViewModel
                 p.DialogResult = true;
                 //lưu xún csdl cả hóa đơn với đầy đủ các trường
             });
+            TienKhachDuaEnterCommand = new RelayCommand<TextBox>((p) => { return true; }, (p) =>
+            {
+                TienTraLai = Convert.ToDouble(p.Text.ToString()) - TongTien;
+            });
+
         }
     }
 }
