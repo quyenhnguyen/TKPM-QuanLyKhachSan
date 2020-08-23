@@ -312,3 +312,11 @@ VALUES('GIA1', N'Phần trăm giá thứ 1', 'INT', '30'),
 ('THOIGIANOUT1', N'Khung giờ check out thứ 1', 'INT', '12'),
 ('THOIGIANOUT2', N'Khung giờ check out thứ 2', 'INT', '15'),
 ('THOIGIANOUT3', N'Khung giờ check out thứ 3', 'INT', '18')
+
+GO
+ALTER TABLE NHANVIEN
+ADD AnhDaiDien Image
+
+GO
+ALTER TABLE DICHVU
+ADD HinhAnh Image 

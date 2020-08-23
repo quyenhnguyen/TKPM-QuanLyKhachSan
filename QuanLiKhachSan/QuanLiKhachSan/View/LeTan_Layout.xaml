@@ -54,7 +54,7 @@
                             Margin="10,0,10,5"
                             Foreground="White"
                             Kind="Home" />
-                        <TextBlock VerticalAlignment="Center">ĐẶT PHÒNG</TextBlock>
+                        <TextBlock VerticalAlignment="Center">THUÊ, TRẢ PHÒNG</TextBlock>
                     </StackPanel>
                 </Button>
                 <Button Command="{Binding btnTraCuu_Command}" Style="{StaticResource StyleButtonSlidebar}">

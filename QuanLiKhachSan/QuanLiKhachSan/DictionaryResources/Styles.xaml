@@ -125,7 +125,23 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <Style
+        x:Key="StyleButtonSlidebarKeToan"
+        BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"
+        TargetType="Button">
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Foreground" Value="{StaticResource DenHoiNhat}" />
+        <Setter Property="Background" Value="#F6F6F6" />
+        <Setter Property="BorderThickness" Value="1,1,1,0" />
 
+        <Setter Property="BorderBrush" Value="#BDBDBD" />
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Background" Value="{StaticResource XamDam}" />
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
     <Style
         x:Key="StyleButtonLoaiDV"
         BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"

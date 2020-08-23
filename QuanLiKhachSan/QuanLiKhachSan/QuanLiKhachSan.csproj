@@ -141,6 +141,10 @@
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DangNhapViewModel.cs" />
+    <Compile Include="ViewModel\KeToanBaoCaoViewModel.cs" />
+    <Compile Include="ViewModel\KeToanLayoutViewModel.cs" />
+    <Compile Include="ViewModel\KeToanQLNhanVienViewModel.cs" />
+    <Compile Include="ViewModel\KeToanTaiKhoanViewModel.cs" />
     <Compile Include="ViewModel\LeTanCheckInViewModel.cs" />
     <Compile Include="ViewModel\LeTanChiTietHoaDonViewModel.cs" />
     <Compile Include="ViewModel\LeTanDatPhongViewModel.cs" />
@@ -152,6 +156,18 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\DangNhap.xaml.cs">
       <DependentUpon>DangNhap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\KeToan_BaoCaoThongKe.xaml.cs">
+      <DependentUpon>KeToan_BaoCaoThongKe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\KeToan_Layout.xaml.cs">
+      <DependentUpon>KeToan_Layout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\KeToan_QuanLiNhanVien.xaml.cs">
+      <DependentUpon>KeToan_QuanLiNhanVien.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\KeToan_TaiKhoan.xaml.cs">
+      <DependentUpon>KeToan_TaiKhoan.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LeTan_CheckinPhongTrong.xaml.cs">
       <DependentUpon>LeTan_CheckinPhongTrong.xaml</DependentUpon>
@@ -198,6 +214,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\DangNhap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\KeToan_BaoCaoThongKe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\KeToan_Layout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\KeToan_QuanLiNhanVien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\KeToan_TaiKhoan.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
