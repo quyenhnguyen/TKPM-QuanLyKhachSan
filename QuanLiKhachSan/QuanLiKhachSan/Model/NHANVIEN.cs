@@ -32,12 +32,13 @@ namespace QuanLiKhachSan.Model
         public string Email { get; set; }
         public int Loai { get; set; }
         public System.DateTime NgayTao { get; set; }
+        public byte[] AnhDaiDien { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOADONTHUEPHONG> HOADONTHUEPHONGs { get; set; }
+        public virtual LOAINHANVIEN LOAINHANVIEN { get; set; }
         public virtual NVKETOAN NVKETOAN { get; set; }
         public virtual NVLETAN NVLETAN { get; set; }
         public virtual NVQUANLI NVQUANLI { get; set; }
-        public virtual LOAINHANVIEN LOAINHANVIEN { get; set; }
     }
 }
