@@ -30,6 +30,9 @@ namespace QuanLiKhachSan.ViewModel
         public HOADONTHUEPHONG HD { get => _HD; set => OnPropertyChanged(ref _HD, value); }
         private bool _isCheckOut;
         public bool isCheckOut { get => _isCheckOut; set => OnPropertyChanged(ref _isCheckOut, value); }
+        public LeTanChiTietHoaDonViewModel()
+        { }
+
         public LeTanChiTietHoaDonViewModel(int MaHD)
         {
             MaHoaDon = MaHD;
