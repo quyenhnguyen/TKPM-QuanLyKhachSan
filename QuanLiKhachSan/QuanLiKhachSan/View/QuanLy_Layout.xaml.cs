@@ -23,5 +23,6 @@ namespace QuanLiKhachSan.View
         {
             InitializeComponent();
         }
+
     }
 }
