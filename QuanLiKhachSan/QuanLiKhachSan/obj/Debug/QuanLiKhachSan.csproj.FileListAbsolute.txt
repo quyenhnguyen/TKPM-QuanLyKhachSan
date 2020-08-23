@@ -58,3 +58,13 @@ D:\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\QuanLiKhachSan.cs
 D:\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\QuanLiKhachSan.csproj.CopyComplete
 D:\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\QuanLiKhachSan.exe
 D:\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\QuanLiKhachSan.pdb
+D:\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\View\QuanLyDichVu_LoaiDV.g.cs
+D:\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\View\QuanLyNhanVien.g.cs
+D:\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\View\QuanLyPhong_LoaiPhong.g.cs
+D:\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\View\QuanLy_Layout.g.cs
+D:\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\View\QuanLy_TaiKhoan.g.cs
+D:\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\View\QuanLyDichVu_LoaiDV.baml
+D:\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\View\QuanLyNhanVien.baml
+D:\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\View\QuanLyPhong_LoaiPhong.baml
+D:\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\View\QuanLy_Layout.baml
+D:\TKPM-QuanLyKhachSan\QuanLiKhachSan\QuanLiKhachSan\obj\Debug\View\QuanLy_TaiKhoan.baml

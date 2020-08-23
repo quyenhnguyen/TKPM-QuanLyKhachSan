@@ -6,6 +6,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <!--  Màu sử dụng  cho app  -->
     <SolidColorBrush x:Key="MauSlideBarTrai" Color="#004C77" />
+    <SolidColorBrush x:Key="MauSlideBarTraiQL" Color="#004D77" />
     <SolidColorBrush x:Key="MauChinh2" Color="#026FAD" />
     <SolidColorBrush x:Key="MauXanhVua" Color="#00598B" />
     <SolidColorBrush x:Key="MauChuHeader" Color="#E91E63" />
