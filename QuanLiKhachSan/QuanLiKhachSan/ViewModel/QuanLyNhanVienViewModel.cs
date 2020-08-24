@@ -53,16 +53,16 @@ namespace QuanLiKhachSan.ViewModel
             }
         }
 
-        private BindingList<string> _listChucVu;
-        public BindingList<string> listChucVu
+        private BindingList<LOAINHANVIEN> _listLoaiNV;
+        public BindingList<LOAINHANVIEN> listLoaiNV
         {
             get
             {
-                return _listChucVu;
+                return _listLoaiNV;
             }
             set
             {
-                _listChucVu = value;
+                _listLoaiNV = value;
                 OnPropertyChanged();
             }
         }
@@ -102,7 +102,21 @@ namespace QuanLiKhachSan.ViewModel
                 }
             }
         }
+        
 
+        private LOAINHANVIEN itemLoaiNV { get; set; }
+        public LOAINHANVIEN selecteLoaiNV
+        {
+            get { return itemLoaiNV; }
+            set
+            {
+                if (itemLoaiNV != value)
+                {
+                    itemLoaiNV = value;
+
+                }
+            }
+        }
         private int _NhanVienID;
         public int txtNhanVienID { get => _NhanVienID; set => OnPropertyChanged(ref _NhanVienID, value); }
 
@@ -177,8 +191,7 @@ namespace QuanLiKhachSan.ViewModel
         public QuanLyNhanVienViewModel()
         {
             listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());
-            listChucVu = new BindingList<string>(new List<string> { "Kế Toán", "Lễ Tân", "Quản Lý" });
-            txtLoai = listChucVu[0];
+            listLoaiNV = new BindingList<LOAINHANVIEN>(DatabaseQueryTN.danhSachLoaiNV());
             timNhanVienCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
                 listNhanVien = new BindingList<NHANVIEN>(DatabaseQueryTN.timKiemNhanVien(timNhanVienInput));

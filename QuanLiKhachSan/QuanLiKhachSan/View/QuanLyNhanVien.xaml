@@ -70,7 +70,7 @@
                             ItemsSource="{Binding listNhanVien}"
                             SelectedItem="{Binding selectItem, Mode=TwoWay}"
                             ScrollViewer.CanContentScroll="True"
-                            ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1" Height="554" Width="632" >
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1" Height="554" Width="754" >
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -110,15 +110,15 @@
                                     DisplayMemberBinding="{Binding HoTen}"
                                     Header="Tên Nhân Viên" />
                                     <GridViewColumn
-                                    Width="Auto"
+                                    Width="150px"
                                     DisplayMemberBinding="{Binding NgayTao, StringFormat={}{0: dd/MM/yyyy  HH:mm:ss}}"
                                     Header="Ngày Tham Gia" />
                                     <GridViewColumn
-                                    Width="100px"
-                                    DisplayMemberBinding="{Binding Loai}"
+                                    Width="200px"
+                                    DisplayMemberBinding="{Binding LOAINHANVIEN.TenLoai}"
                                     Header="Chức Vụ" />
                                     <GridViewColumn
-                                    Width="Auto"
+                                    Width="150px"
                                     DisplayMemberBinding="{Binding TenDangNhap}"
                                     Header="Tài Khoản" />
                                 </GridView>
@@ -126,116 +126,117 @@
                         </ListView>
                     </ScrollViewer>
                     <!--CHI TIẾT NHÂN VIÊN-->
-                    <ScrollViewer Grid.Row="1" Margin="0,0,0,0" Width="517">
-                        <StackPanel>
-                            <TextBlock Text="CHI TIẾT NHÂN VIÊN" HorizontalAlignment="Center" FontSize="25"/>
-                            <Canvas Height="158" >
-                                <Ellipse
+                    <materialDesign:Card
+  Width="370" Margin="15,0,0,0">
+                        <ScrollViewer  Grid.Row="1" Margin="10,10,10,0">
+                            <StackPanel>
+                                <TextBlock Text="CHI TIẾT NHÂN VIÊN" HorizontalAlignment="Center" FontSize="25"/>
+
+                                <materialDesign:Card
+                      Background="{DynamicResource PrimaryHueLightBrush}"
+                      Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
+                      Width="299"
+                      Padding="8" Height="159">
+                                    <Canvas Height="158" >
+                                        <Ellipse
 				                        HorizontalAlignment="Center"
 				                        Width="150"
-				                        Height="150" Canvas.Left="108" Canvas.Top="-2">
-                                    <Ellipse.Fill>
-                                        <ImageBrush
+				                        Height="150" Canvas.Left="10" Stroke="{DynamicResource DenHoiNhat}">
+                                            <Ellipse.Fill>
+                                                <ImageBrush
 						                ImageSource="{Binding HinhAnhNhanVien}"
 						                    >
-                                        </ImageBrush>
-                                    </Ellipse.Fill>
-                                </Ellipse>
-                                <Button
+                                                </ImageBrush>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <Button
 				                IsDefault="True"
 				                Style="{StaticResource MaterialDesignRaisedButton}"    
 				                Width="110"  
 				                Command="{Binding ChonAnhChiTietNhanVienCommand}"
 				                CommandParameter="{Binding ElementName=chonAnhWindow}"
-				                ToolTip="Resource name: MaterialDesignRaisedButton" Content="Chọn ảnh" Canvas.Left="290" Canvas.Top="58"/>
-                            </Canvas>
-                            <StackPanel>
-                                <ComboBox
-                                Name="loaiNhanVien"
-                                materialDesign:HintAssist.FloatingOffset="0, -24"
-                                materialDesign:HintAssist.FloatingScale="1"
-                                materialDesign:HintAssist.Foreground="Black"
-                                ItemsSource="{Binding listChucVu}"
-                                SelectedItem="{Binding txtLoai, Mode=TwoWay}"
-                                SelectedValuePath="Name"
-                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border
-											Padding="5,0,0,0"
-                                            BorderBrush="WhiteSmoke"
-                                            BorderThickness="0,0,0,1">
-                                                <TextBlock
-                                                Cursor="Hand"
-                                                FontFamily="Arial"
-                                                Text="{Binding Path=txtLoai,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                                            </Border>
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
-                                <TextBox
-                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
-                                VerticalAlignment="Top"
-                                AcceptsReturn="True"
-                                TextWrapping="Wrap"
+				                ToolTip="Resource name: MaterialDesignRaisedButton" Content="Chọn ảnh" Canvas.Left="173" Canvas.Top="62"/>
+                                    </Canvas>
+                                </materialDesign:Card>
+                                <StackPanel Margin="10 0 10 0"    >
+
+                                    <TextBox
+                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                  VerticalAlignment="Center"
                                 materialDesign:HintAssist.Hint="Họ tên:" 
                                 Text="{Binding txtHoTen, Mode=TwoWay}"/>
-                                <TextBox
-                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                    <TextBox
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Top"
                                 AcceptsReturn="True"
                                 TextWrapping="Wrap"
                                 materialDesign:HintAssist.Hint="Địa chỉ:" 
                                 Text="{Binding txtDiaChi, Mode=TwoWay}"/>
-                                <TextBox
-                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                    <TextBox
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Top"
                                 AcceptsReturn="True"
                                 TextWrapping="Wrap"
                                 materialDesign:HintAssist.Hint="Ngày sinh:" 
                                 Text="{Binding txtNgaySinh, StringFormat=dd-MM-yyyy, Mode=TwoWay}"/>
-                                <TextBox
-                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                    <TextBox
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Top"
                                 AcceptsReturn="True"
                                 TextWrapping="Wrap"
                                 materialDesign:HintAssist.Hint="Số CMND:" 
                                 Text="{Binding txtCMND, Mode=TwoWay}"/>
-                                <TextBox
-                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                    <TextBox
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Top"
                                 AcceptsReturn="True"
                                 TextWrapping="Wrap"
                                 materialDesign:HintAssist.Hint="Số điện thoại:" 
                                 Text="{Binding txtSDT, Mode=TwoWay}"/>
-                                <TextBox
-                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
-                                VerticalAlignment="Top"
-                                AcceptsReturn="True"
-                                TextWrapping="Wrap"
-                                materialDesign:HintAssist.Hint="Chức vụ:" 
-                                Text="{Binding txtLoai, Mode=TwoWay}"/>
-                                <TextBox
-                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+
+                                    <TextBox
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Top"
                                 AcceptsReturn="True"
                                 TextWrapping="Wrap"
                                 materialDesign:HintAssist.Hint="Tai khoan:" 
                                 Text="{Binding txtTenDangNhap, Mode=TwoWay}"/>
-                                <TextBox
-                                Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                                    <TextBox
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Top"
                                 AcceptsReturn="True"
                                 TextWrapping="Wrap"
                                 materialDesign:HintAssist.Hint="Email:" 
                                 Text="{Binding txtEmail, Mode=TwoWay}"/>
+                                    <ComboBox
+                                        materialDesign:HintAssist.Hint="Loại Nhân Viên"
+                                Name="loaiNhanVien"
+                                materialDesign:HintAssist.FloatingScale="1"
+                                materialDesign:HintAssist.Foreground="Black"
+                                ItemsSource="{Binding listLoaiNV}"
+                                SelectedItem="{Binding selecteLoaiNV, Mode=TwoWay}"
+                                SelectedValuePath="Name"
+                                        Margin="0,5,0,0">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border
+											Padding="5,0,0,0"
+                                            BorderBrush="WhiteSmoke"
+                                            BorderThickness="0,0,0,1">
+                                                    <TextBlock
+                                                Cursor="Hand"
+                                                FontFamily="Arial"
+                                                Text="{Binding Path=TenLoai,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </StackPanel>
+
                             </StackPanel>
-
-                        </StackPanel>
-                    </ScrollViewer>
-
+                        </ScrollViewer>
+                    </materialDesign:Card>
                 </StackPanel>
-
                 <Grid Margin="0,0,10,10" Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
@@ -245,10 +246,10 @@
                     <Button Grid.Column="0" Margin="20 0 100 0"
                                 Command="{Binding addNhanVienCommand}"
                                    Content="THÊM NHÂN VIÊN"/>
-                    <Button Grid.Column="1" Margin="300 0 -100 0"
+                    <Button Grid.Column="2" Margin="10,19,234,19"
                                 Command="{Binding cancelButtonCommmand}"
                                    Content="{Binding cancelButtonName}"/>
-                    <Button Grid.Column="2" Margin="150 0 50 0"
+                    <Button Grid.Column="2" Margin="224,19,24,19"
                                 Command="{Binding confirmButtonCommmand}"
                                     Content="{Binding confirmButtonName}"/>
                 </Grid>
