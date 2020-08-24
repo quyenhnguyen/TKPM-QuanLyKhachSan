@@ -26,11 +26,24 @@ namespace QuanLiKhachSan.Model
             return DataProvider.ISCreated.DB.NHANVIENs.Where(x => (x.TinhTrang == false)).ToList();
         }
 
+        public static List<LOAIPHONG> danhsachLoaiPhong()
+        {
+            return DataProvider.ISCreated.DB.LOAIPHONGs.Where(x => (x.TinhTrang == false)).ToList();
+        }
+
         public static NHANVIEN themNhanVienMoi(NHANVIEN nv)
         {
             nv.NgayTao = DateTime.Now;
             NHANVIEN res = new NHANVIEN();
             res = DataProvider.ISCreated.DB.NHANVIENs.Add(nv);
+            DataProvider.ISCreated.DB.SaveChanges();
+            return res;
+        }
+        public static LOAIPHONG themMoiLoaiPhong(LOAIPHONG nv)
+        {
+            nv.NgayTao = DateTime.Now;
+            LOAIPHONG res = new LOAIPHONG();
+            res = DataProvider.ISCreated.DB.LOAIPHONGs.Add(nv);
             DataProvider.ISCreated.DB.SaveChanges();
             return res;
         }
@@ -63,11 +76,22 @@ namespace QuanLiKhachSan.Model
         }
         public static bool kiemtraTonTai(string user, string email)
         {
-             int res = DataProvider.ISCreated.DB.NHANVIENs.Where(x => (x.TenDangNhap == user || x.Email == email)).ToList().Count;
+            int res = DataProvider.ISCreated.DB.NHANVIENs.Where(x => (x.TenDangNhap == user || x.Email == email)).ToList().Count;
+            if (res > 0) return true;
+            return false;
+        }
+        public static bool kiemTraTonTaiLoaiPhong(string loaiPhongID)
+        {
+            int res = DataProvider.ISCreated.DB.LOAIPHONGs.Where(x => (x.LoaiPhongID == loaiPhongID)).ToList().Count;
             if (res > 0) return true;
             return false;
         }
 
+        public static bool isDeleteRoom(string loaiPhongID)
+        {
+            bool res = DataProvider.ISCreated.DB.Database.SqlQuery<bool>("SELECT TinhTrang FROM LOAIPHONG WHERE LoaiPhongID = @loaiPhongID", new SqlParameter("@loaiPhongID", loaiPhongID)).FirstOrDefault();
+            return res;
+        }
         public static void capNhatNhanVien(NHANVIEN nv)
         {
             NHANVIEN old = DataProvider.ISCreated.DB.NHANVIENs.Where(x => x.NhanVienID == nv.NhanVienID).SingleOrDefault();
@@ -83,9 +107,22 @@ namespace QuanLiKhachSan.Model
             capNhatCSDL();
         }
 
+        public static void capNhatLoaiPhong(LOAIPHONG nv)
+        {
+            LOAIPHONG old = DataProvider.ISCreated.DB.LOAIPHONGs.Where(x => x.LoaiPhongID == nv.LoaiPhongID).SingleOrDefault();
+            old.TenLoai = nv.TenLoai;
+            old.LoaiPhongID = nv.LoaiPhongID;
+            capNhatCSDL();
+        }
         public static void xoaNhanVien(NHANVIEN nv)
         {
             NHANVIEN old = DataProvider.ISCreated.DB.NHANVIENs.Where(x => x.NhanVienID == nv.NhanVienID).SingleOrDefault();
+            old.TinhTrang = true;
+            capNhatCSDL();
+        }
+        public static void xoaLoaiPhong(LOAIPHONG nv)
+        {
+            LOAIPHONG old = DataProvider.ISCreated.DB.LOAIPHONGs.Where(x => x.LoaiPhongID == nv.LoaiPhongID).SingleOrDefault();
             old.TinhTrang = true;
             capNhatCSDL();
         }
@@ -151,5 +188,41 @@ namespace QuanLiKhachSan.Model
                 return NHANVIENs;
             return null;
         }
+
+        public static BindingList<LOAIPHONG> timKiemLoaiPhong(string value)
+        {
+            BindingList<LOAIPHONG> NHANVIENs = new BindingList<LOAIPHONG>();
+            BindingList<LOAIPHONG> temp = new BindingList<LOAIPHONG>(DataProvider.ISCreated.DB.LOAIPHONGs.ToArray());
+            foreach (var item in temp)
+            {
+                if (item.LoaiPhongID.ToLower().Contains(value.ToLower()))
+                {
+                    if (!NHANVIENs.Contains(item))
+                    {
+                        NHANVIENs.Add(item);
+                    }
+                }
+                else if (item.TenLoai.ToLower().Contains(value.ToLower()))
+                {
+                    if (!NHANVIENs.Contains(item))
+                    {
+                        NHANVIENs.Add(item);
+                    }
+
+                }
+                else if (item.NgayTao.ToString("dd/mm/yyyy").ToLower().Contains(value.ToLower()))
+                {
+                    if (!NHANVIENs.Contains(item))
+                    {
+                        NHANVIENs.Add(item);
+                    }
+
+                }
+            }
+            if (NHANVIENs != null)
+                return NHANVIENs;
+            return null;
+        }
+        // END
     }
 }
