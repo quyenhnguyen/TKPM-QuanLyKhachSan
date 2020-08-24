@@ -22,15 +22,13 @@ namespace QuanLiKhachSan.ViewModel
         public ICommand cancelButtonCommmand { get; set; }
         public ICommand addNhanVienCommand { get; set; }
         public ICommand ChonAnhChiTietNhanVienCommand { get; set; }
-        BitmapImage temp;
-
-        private string _queryString = "";
-        public string queryString
+        private string _timNhanVienInput = "";
+        public string timNhanVienInput
         {
-            get => _queryString;
+            get => _timNhanVienInput;
             set
             {
-                _queryString = value;
+                _timNhanVienInput = value;
                 OnPropertyChanged();
             }
         }
@@ -181,6 +179,10 @@ namespace QuanLiKhachSan.ViewModel
             listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());
             listChucVu = new BindingList<string>(new List<string> { "Kế Toán", "Lễ Tân", "Quản Lý" });
             txtLoai = listChucVu[0];
+            timNhanVienCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
+            {
+                listNhanVien = new BindingList<NHANVIEN>(DatabaseQueryTN.timKiemNhanVien(timNhanVienInput));
+            });
             ChonAnhChiTietNhanVienCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();

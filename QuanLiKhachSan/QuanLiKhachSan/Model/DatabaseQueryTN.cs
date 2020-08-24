@@ -56,7 +56,7 @@ namespace QuanLiKhachSan.Model
             return res;
         }
 
-        public static int layNhanVien(string user)
+        public static int layNHANVIEN(string user)
         {
             int res = DataProvider.ISCreated.DB.Database.SqlQuery<int>("SELECT LOAI FROM NHANVIEN WHERE TenDangNhap = @user or Email = @user", new SqlParameter("@user", user)).FirstOrDefault();
             return res;
@@ -93,6 +93,63 @@ namespace QuanLiKhachSan.Model
         {
             bool res = DataProvider.ISCreated.DB.Database.SqlQuery<bool>("SELECT TinhTrang FROM NHANVIEN WHERE TenDangNhap = @user or Email = @email", new SqlParameter("@user", userName), new SqlParameter("@email", email)).FirstOrDefault();
             return res;
+        }
+
+        public static BindingList<NHANVIEN> timKiemNhanVien(string value)
+        {
+            BindingList<NHANVIEN> NHANVIENs = new BindingList<NHANVIEN>();
+            BindingList<NHANVIEN> temp = new BindingList<NHANVIEN>(DataProvider.ISCreated.DB.NHANVIENs.Where(x => x.TinhTrang != true).ToArray());
+            foreach (var item in temp)
+            {
+                if (item.HoTen.ToLower().Contains(value.ToLower()))
+                {
+                    if (!NHANVIENs.Contains(item))
+                    {
+                        NHANVIENs.Add(item);
+                    }
+                }
+                else if (item.DiaChi.ToLower().Contains(value.ToLower()))
+                {
+                    if (!NHANVIENs.Contains(item))
+                    {
+                        NHANVIENs.Add(item);
+                    }
+
+                }
+                else if (item.CMND.ToString().ToLower().Contains(value.ToLower()))
+                {
+                    if (!NHANVIENs.Contains(item))
+                    {
+                        NHANVIENs.Add(item);
+                    }
+
+                }
+                else if (item.NgaySinh.ToString("dd/mm/yyyy").ToLower().Contains(value.ToLower()))
+                {
+                    if (!NHANVIENs.Contains(item))
+                    {
+                        NHANVIENs.Add(item);
+                    }
+
+                }
+                else if (item.SDT.ToString().ToLower().Contains(value.ToLower()))
+                {
+                    if (!NHANVIENs.Contains(item))
+                    {
+                        NHANVIENs.Add(item);
+                    }
+                }
+                else if (item.TenDangNhap.ToString().ToLower().Contains(value.ToLower()))
+                {
+                    if (!NHANVIENs.Contains(item))
+                    {
+                        NHANVIENs.Add(item);
+                    }
+                }
+            }
+            if (NHANVIENs != null)
+                return NHANVIENs;
+            return null;
         }
     }
 }

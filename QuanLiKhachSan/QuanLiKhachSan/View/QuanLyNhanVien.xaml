@@ -81,7 +81,7 @@
                                 Width="340"
                                 Margin="10,0"
                                 VerticalAlignment="Center"
-                                materialDesign:HintAssist.Hint="Tìm kiếm phòng "
+                                materialDesign:HintAssist.Hint="Tìm kiếm nhân viên"
                                 FontSize="{StaticResource CoChuNho}"
                                 Text="{Binding timNhanVienInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Border>
