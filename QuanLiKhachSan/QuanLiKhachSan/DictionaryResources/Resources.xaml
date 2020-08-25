@@ -19,10 +19,5 @@
     <viewmodel:QuanLyNhanVienViewModel x:Key="QuanLyNhanVienVM" />
     <viewmodel:QuanLyPhong_LoaiPhongViewModel x:Key="QuanLYPhong_LoaiPhongVM" />
     <viewmodel:QuanLyTaiKhoanViewModel x:Key="QuanLyTaiKhoanVM" />
-
-
-
-
-
-
+    <viewmodel:QuanLy_ThamSoViewModel x:Key="QuanLyThamSoVM" />
 </ResourceDictionary>

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using QuanLiKhachSan.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace QuanLiKhachSan.ViewModel
@@ -31,6 +33,10 @@ namespace QuanLiKhachSan.ViewModel
         public ICommand btnQuanLy_Phong { get; set; }
         public ICommand btnQuanLy_DichVu { get; set; }
         public ICommand btnQuanLy_TaiKhoan { get; set; }
+        public ICommand btnQuanLy_ThamSo { get; set; }
+        public ICommand btnQuanLy_DangXuat { get; set; }
+
+
         #endregion
 
         public QuanLy_LayoutViewModel()
@@ -39,10 +45,9 @@ namespace QuanLiKhachSan.ViewModel
             object ucPhong = new QuanLyPhong_LoaiPhongViewModel();
             object ucDichVu = new QuanLyDichVu_LoaiDVViewModel();
             object ucTaiKhoan = new QuanLyTaiKhoanViewModel();
+            object ucThamSo = new QuanLy_ThamSoViewModel();
             CurrentQuanLyDataContext = ucNhanVien;
             QuanLyTitle = "QUẢN LÝ NHÂN VIÊN";
-
-
             btnQuanLy_NhanVien = new RelayCommand<object>((p) => { return CurrentQuanLyDataContext != ucNhanVien; }, (p) =>
             {
                 QuanLyTitle = "QUẢN LÝ NHÂN VIÊN";
@@ -65,6 +70,18 @@ namespace QuanLiKhachSan.ViewModel
             {
                 QuanLyTitle = "QUẢN LÝ TÀI KHOẢN";
                 CurrentQuanLyDataContext = ucTaiKhoan;
+            });
+
+            btnQuanLy_ThamSo = new RelayCommand<object>((p) => { return CurrentQuanLyDataContext != ucThamSo; }, (p) =>
+            {
+                QuanLyTitle = "QUẢN LÝ THAM SỐ";
+                CurrentQuanLyDataContext = ucThamSo;
+            });
+            btnQuanLy_DangXuat = new RelayCommand<object>((p) => { return CurrentQuanLyDataContext != ucThamSo; }, (p) =>
+            {
+                DangNhap login = new DangNhap();
+                login.Show();
+                ((Window)p).Close();
             });
 
 
