@@ -209,7 +209,7 @@
                                 materialDesign:HintAssist.Hint="Email:" 
                                 Text="{Binding txtEmail, Mode=TwoWay}"/>
                                     <ComboBox
-                                        materialDesign:HintAssist.Hint="Loại Nhân Viên"
+                                        materialDesign:HintAssist.Hint="{Binding currentLoaiNV}"
                                 Name="loaiNhanVien"
                                 materialDesign:HintAssist.FloatingScale="1"
                                 materialDesign:HintAssist.Foreground="Black"

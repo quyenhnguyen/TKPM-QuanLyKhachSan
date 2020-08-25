@@ -52,7 +52,16 @@ namespace QuanLiKhachSan.ViewModel
                 OnPropertyChanged();
             }
         }
-
+        private string _currentLNV = "Loại Nhân Viên";
+        public string currentLoaiNV
+        {
+            get => _currentLNV;
+            set
+            {
+                _currentLNV = value;
+                OnPropertyChanged();
+            }
+        }
         private BindingList<LOAINHANVIEN> _listLoaiNV;
         public BindingList<LOAINHANVIEN> listLoaiNV
         {
@@ -98,7 +107,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     item = value;
 
-                    showDetails();
+                    showDetails(); // Hiển thị thông tin lên ScrollView
                 }
             }
         }
@@ -146,10 +155,24 @@ namespace QuanLiKhachSan.ViewModel
 
         private string _Loai;
         public string txtLoai { get => _Loai; set => OnPropertyChanged(ref _Loai, value); }
-
+        public void reset()
+        {
+            isAddUser = true;
+            cancelButtonName = "HỦY";
+            confirmButtonName = "THÊM";
+            currentLoaiNV = "Loại nhân viên";
+            txtNhanVienID = 0;
+            txtHoTen = null;
+            txtSDT = null;
+            txtTenDangNhap = null;
+            txtNgaySinh = DateTime.MinValue;
+            txtCMND = null;
+            txtDiaChi = null;
+            txtEmail = null;
+            HinhAnhNhanVien = null;
+        }
         public void showDetails()
         {
-
             if (selectItem != null)
             {
                 txtNhanVienID = selectItem.NhanVienID;
@@ -161,6 +184,7 @@ namespace QuanLiKhachSan.ViewModel
                 txtDiaChi = selectItem.DiaChi;
                 txtEmail = selectItem.Email;
                 txtEmail = selectItem.Email;
+                currentLoaiNV = selectItem.LOAINHANVIEN.TenLoai;
                 if (selectItem.Loai == 1)
                 {
                     txtLoai = "Quản Lý";
@@ -174,8 +198,7 @@ namespace QuanLiKhachSan.ViewModel
                     txtLoai = "Lễ Tân";
                 }
                 HinhAnhNhanVien = SecurityModel.LoadImage(selectItem.AnhDaiDien);
-                txtSDT = selectItem.SDT.ToString();//hiện ddcuo r á, CHITIETNHANVIEN chua khai bao kai
-                //HinhAnhNhanVien = SeviceData.LoadImage(selectItem.HINHANH);
+                txtSDT = selectItem.SDT.ToString();
                 isAddUser = false;
                 cancelButtonName = "XÓA";
                 confirmButtonName = "LƯU";
@@ -186,7 +209,19 @@ namespace QuanLiKhachSan.ViewModel
                 cancelButtonName = "HỦY";
                 confirmButtonName = "THÊM";
             }
-            // DisplayedImagePath = selectItem.HINHANH;
+        }
+        private bool checkCondition()
+        {
+            return (string.IsNullOrEmpty(txtLoai.ToString()) ||
+                string.IsNullOrEmpty(txtNgaySinh.ToString("dd/mm/yyyy")) ||
+                string.IsNullOrEmpty(txtDiaChi) ||
+                string.IsNullOrEmpty(txtTenDangNhap.ToString()) ||
+                string.IsNullOrEmpty(txtSDT.ToString()) ||
+                string.IsNullOrEmpty(txtCMND.ToString()) ||
+                string.IsNullOrEmpty(txtEmail.ToString()) ||
+                string.IsNullOrEmpty(txtNhanVienID.ToString()) ||
+                string.IsNullOrEmpty(txtNgayTao.ToString()) ||
+                string.IsNullOrEmpty(txtHoTen.ToString()));
         }
         public QuanLyNhanVienViewModel()
         {
@@ -211,6 +246,8 @@ namespace QuanLiKhachSan.ViewModel
                 isAddUser = true;
                 cancelButtonName = "HỦY";
                 confirmButtonName = "THÊM";
+                currentLoaiNV = "Loại nhân viên";
+                reset();
                 DatabaseQuery.capNhatCSDL();
             });
             // Huỷ Thêm hoặc Xoá
@@ -220,10 +257,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     try
                     {
-                        selectItem = listNhanVien[0];
-                        isAddUser = false;
-                        cancelButtonName = "XOÁ";
-                        confirmButtonName = "LƯU";
+                        reset();
                         DatabaseQuery.capNhatCSDL();
                     }
                     catch (Exception) { };
@@ -236,7 +270,7 @@ namespace QuanLiKhachSan.ViewModel
                         DatabaseQueryTN.xoaNhanVien(selectItem);
                         MessageBox.Show("Đã xoá nhân viên này");
                         listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());
-
+                        reset();
                     }
                     catch (Exception)
                     {
@@ -248,21 +282,15 @@ namespace QuanLiKhachSan.ViewModel
             // Thêm Mới hoặc Cập Nhật
             confirmButtonCommmand = new RelayCommand<Object>((p) =>
             {
-                if (string.IsNullOrEmpty(txtLoai.ToString()) ||
-                string.IsNullOrEmpty(txtNgaySinh.ToString("dd/mm/yyyy")) ||
-                string.IsNullOrEmpty(txtDiaChi) ||
-                string.IsNullOrEmpty(txtTenDangNhap.ToString()) ||
-                string.IsNullOrEmpty(txtSDT.ToString()) ||
-                string.IsNullOrEmpty(txtCMND.ToString()) ||
-                string.IsNullOrEmpty(txtEmail.ToString()) ||
-                string.IsNullOrEmpty(txtNhanVienID.ToString()) ||
-                string.IsNullOrEmpty(txtNgayTao.ToString()) ||
-                string.IsNullOrEmpty(txtHoTen.ToString()))
+                if (checkCondition())
                     return false;
                 return true;
             }, (p) =>
             {
+                if (checkCondition()) { MessageBox.Show("Điền đầy đủ thông tin");  return; }
                 NHANVIEN newNV = new NHANVIEN();
+                try
+                {
                 newNV.NhanVienID = txtNhanVienID;
                 newNV.TenDangNhap = txtTenDangNhap;
                 newNV.Email = txtEmail;
@@ -271,11 +299,17 @@ namespace QuanLiKhachSan.ViewModel
                 newNV.DiaChi = txtDiaChi;
                 newNV.NgaySinh = txtNgaySinh;
                 newNV.SDT = int.Parse(txtSDT);
+                newNV.Loai = selecteLoaiNV.LoaiNVID;
+                newNV.LOAINHANVIEN = selecteLoaiNV;
                 newNV.CMND = int.Parse(txtCMND);
                 newNV.AnhDaiDien = SecurityModel.ImageToByte2(HinhAnhNhanVien);
-                if (txtLoai == "Quản Lý") newNV.Loai = 1;
-                else if (txtLoai == "Kế Toán") newNV.Loai = 2;
-                else newNV.Loai = 3;
+                txtLoai = selecteLoaiNV.LoaiNVID.ToString();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Thông báo :" + e.ToString());
+                    return;
+                }
                 // Neu dang o che do them User
                 if (isAddUser)
                 {

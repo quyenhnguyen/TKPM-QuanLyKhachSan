@@ -71,6 +71,7 @@ namespace QuanLiKhachSan.ViewModel
                 else
                 {
                     MessageBox.Show("Sai tài khoản hoặc mật khẩu");
+                    return;
                 }
                 p.Close();
             }

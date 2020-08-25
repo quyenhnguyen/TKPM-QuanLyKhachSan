@@ -106,16 +106,13 @@ namespace QuanLiKhachSan.ViewModel
         }
         private void reset()
         {
+            isAddDichVu = true;
+            choPhepThayDoiIDDV = true;
+            dvcancelButtonName = "HỦY";
+            dvconfirmButtonName = "THÊM";
+            currentSelectLoaiDV = "Chọn loại dịch vụ";
             txtTenDV = string.Empty;
             txtMaLoaiDV = string.Empty;
-        }
-        private void resetDV()
-        {
-            txtIDDV = string.Empty;
-            txtGiaBan = 0;
-            txtGiaNhap = 0;
-            txtDonVi = string.Empty;
-
         }
 
         // PART 2 : DICH VU
@@ -170,6 +167,21 @@ namespace QuanLiKhachSan.ViewModel
             }
         }
 
+        private void resetDV()
+        {
+            isAddDichVu = true;
+            choPhepThayDoiIDDV = true;
+            txtIDDV = string.Empty;
+            txtTenDichVu = null;
+            selectDV = null;
+            txtGiaBan = 0;
+            txtGiaNhap = 0;
+            currentSelectLoaiDV = "Chọn loại dịch vụ";
+            txtDonVi = string.Empty;
+            HinhAnhDichVu = null;
+            dvconfirmButtonName = "THÊM";
+            dvcancelButtonName = "HUỶ";
+        }
         private bool isAddDichVu = true;
         private bool _choPhepDoiIDDichVu = true;
         public bool choPhepThayDoiIDDV { get => _choPhepDoiIDDichVu; set => OnPropertyChanged(ref _choPhepDoiIDDichVu, value); }
@@ -214,7 +226,8 @@ namespace QuanLiKhachSan.ViewModel
         {
 
             if (selectDV != null)
-            {   choPhepThayDoiIDDV = false;
+            {
+                choPhepThayDoiIDDV = false;
                 chonLoaiDVchoDV = selectDV.LOAIDV;
                 currentSelectLoaiDV = chonLoaiDVchoDV.TenLoai;
                 txtIDDV = selectDV.DichVuID;
@@ -229,14 +242,22 @@ namespace QuanLiKhachSan.ViewModel
             }
             else
             {
-                isAddDichVu = true;
-                choPhepThayDoiIDDV = true;
-                dvcancelButtonName = "HỦY";
-                dvconfirmButtonName = "THÊM";
+                resetDV();
             }
             // DisplayedImagePath = selectItem.HINHANH;
         }
-
+        private bool checkCondition()
+        {
+            try
+            {
+                return (string.IsNullOrEmpty(txtIDDV.ToString()) ||
+                        string.IsNullOrEmpty(txtTenDichVu.ToString()) ||
+                        string.IsNullOrEmpty(txtDonVi.ToString()) ||
+                        string.IsNullOrEmpty(txtGiaNhap.ToString()) ||
+                        string.IsNullOrEmpty(txtGiaBan.ToString()) || HinhAnhDichVu == null);
+            }
+            catch (Exception) { return true; }
+        }
         // Quan Ly Phong
         public QuanLyDichVu_LoaiDVViewModel()
         {
@@ -245,17 +266,14 @@ namespace QuanLiKhachSan.ViewModel
             {
                 listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.timKiemLoaiDV(timLoaiDVInput));
             });
-            // CLick button add
+            // Them loai dich vu
             addDVCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
-                isAddDV = true;
-                choPhepThayDoi = true;
-                loaidvcancelButtonName = "HỦY";
-                loaidvconfirmButtonName = "THÊM";
+                reset();
                 DatabaseQuery.capNhatCSDL();
             });
             // THEM MOI / CAP NHAT
-            // 1. PHONG
+            // 1. Them moi / cap nhat loai dich vu
             loaidvconfirmButtonCommmand = new RelayCommand<Object>((p) =>
             {
                 if (string.IsNullOrEmpty(txtMaLoaiDV.ToString()) ||
@@ -281,6 +299,7 @@ namespace QuanLiKhachSan.ViewModel
                     }
                     try
                     {
+                        reset();
                         DatabaseQueryTN.themMoiLoaiDV(newLP);
                         MessageBox.Show("Thêm mới loại dịch vụ thành công");
                         listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
@@ -313,11 +332,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     try
                     {
-                        selectItem = listLoaiDV[0];
-                        isAddDV = false;
-                        choPhepThayDoi = false;
-                        loaidvcancelButtonName = "XOÁ";
-                        loaidvconfirmButtonName = "LƯU";
+                        reset();
                         DatabaseQuery.capNhatCSDL();
                     }
                     catch (Exception) { };
@@ -357,40 +372,48 @@ namespace QuanLiKhachSan.ViewModel
             {
                 listDV = new BindingList<DICHVU>(DatabaseQueryTN.timKiemDV(timDVInput));
             });
-            // CLick button add
+            // Them moi dich vu
             addDichVuCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
-                isAddDichVu = true;
-                choPhepThayDoiIDDV = true;
-                dvcancelButtonName = "HỦY";
-                dvconfirmButtonName = "THÊM";
-                currentSelectLoaiDV = "Chọn loại dịch vụ";
+                resetDV();
                 DatabaseQuery.capNhatCSDL();
             });
             // THEM MOI / CAP NHAT
             // 1. PHONG
             dvconfirmButtonCommmand = new RelayCommand<Object>((p) =>
             {
-                if (string.IsNullOrEmpty(txtIDDV.ToString()) ||
-                string.IsNullOrEmpty(txtTenDichVu.ToString()) ||
-                string.IsNullOrEmpty(txtDonVi.ToString()) ||
-                string.IsNullOrEmpty(txtGiaNhap.ToString()) ||
-                string.IsNullOrEmpty(txtGiaBan.ToString()) || HinhAnhDichVu == null)
+                if (checkCondition())
                     return false;
                 return true;
             }, (p) =>
             {
+                if (checkCondition()) { MessageBox.Show("Chưa nhập đầy đủ thông tin"); return; }
                 DICHVU newLP = new DICHVU();
-                newLP.DichVuID = txtIDDV;
-                newLP.LoaiDVID = selectDV.LoaiDVID;
-                newLP.LOAIDV = selectDV.LOAIDV;
-                newLP.TenDichVu = txtTenDichVu;
-                newLP.GiaBan = txtGiaBan;
-                newLP.GiaCungCap = txtGiaNhap;
-                newLP.DonVi = txtDonVi;
-                newLP.LoaiDVID = chonLoaiDVchoDV.LoaiDVID;
-                newLP.NgayTao = selectDV.NgayTao;
-                newLP.HinhAnh = SecurityModel.ImageToByte2(HinhAnhDichVu);
+                try
+                {
+                    newLP.DichVuID = txtIDDV;
+                    if (isAddDichVu)
+                    {
+                        newLP.LoaiDVID = chonLoaiDVchoDV.LoaiDVID;
+                        newLP.LOAIDV = chonLoaiDVchoDV;
+                    }
+                    else
+                    {
+                        newLP.LoaiDVID = selectDV.LoaiDVID;
+                        newLP.LOAIDV = selectDV.LOAIDV;
+                        newLP.NgayTao = selectDV.NgayTao;
+                    }
+                    newLP.TenDichVu = txtTenDichVu;
+                    newLP.GiaBan = txtGiaBan;
+                    newLP.GiaCungCap = txtGiaNhap;
+                    newLP.DonVi = txtDonVi;
+                    newLP.HinhAnh = SecurityModel.ImageToByte2(HinhAnhDichVu);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Thông báo : " + e.ToString());
+                    return;
+                }
 
                 // Neu dang o che do them User
                 if (isAddDichVu)
@@ -434,11 +457,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     try
                     {
-                        selectDV = listDV[0];
-                        isAddDichVu = false;
-                        choPhepThayDoiIDDV = false;
-                        dvcancelButtonName = "XOÁ";
-                        dvconfirmButtonName = "LƯU";
+                        resetDV();
                         DatabaseQuery.capNhatCSDL();
                     }
                     catch (Exception) { };
@@ -450,7 +469,7 @@ namespace QuanLiKhachSan.ViewModel
                     {
                         DatabaseQueryTN.xoaDV(selectDV);
                         MessageBox.Show("Đã xoá dịch vụ này");
-                        listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
+                        listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
                         resetDV();
                     }
                     catch (Exception)

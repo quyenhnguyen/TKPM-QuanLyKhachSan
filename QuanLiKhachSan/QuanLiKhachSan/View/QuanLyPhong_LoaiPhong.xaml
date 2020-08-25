@@ -10,7 +10,7 @@
              d:DesignWidth="1180">
     <Grid Background="GhostWhite">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
+            <RowDefinition Height="10" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <StackPanel>
@@ -102,143 +102,155 @@
                         </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
-                                Margin="0,10,10,10"
+                                Margin="10,10,10,10"
                                 Grid.Row="1">
                         <!--DANH SACH NHAN VIEN-->
-                        <ScrollViewer Grid.Row="1"
-                                      Margin="0,0,0,0">
-                            <ListView Grid.Row="1"
-                                      HorizontalAlignment="Center"
-                                      Grid.IsSharedSizeScope="True"
-                                      ItemsSource="{Binding listLoaiPhong}"
-                                      SelectedItem="{Binding selectItem, Mode=TwoWay}"
-                                      ScrollViewer.CanContentScroll="True"
-                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                      Grid.Column="1"
-                                      Height="554"
-                                      Width="600">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment"
-                                                Value="Center" />
-                                        <Setter Property="VerticalContentAlignment"
-                                                Value="Center" />
-                                        <Setter Property="BorderBrush"
-                                                Value="{StaticResource XamNhat}" />
-                                        <Setter Property="BorderThickness"
-                                                Value="0,0,0,1" />
-                                        <Setter Property="Padding"
-                                                Value="0,3,0,3" />
-                                        <Setter Property="FontSize"
-                                                Value="{StaticResource CoChuNho}" />
-                                        <Setter Property="Height"
-                                                Value="30" />
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                                <ListView.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Horizontal" />
-                                    </ItemsPanelTemplate>
-                                </ListView.ItemsPanel>
-                                <ListView.View>
-                                    <GridView>
-                                        <GridView.ColumnHeaderContainerStyle>
-                                            <Style TargetType="{x:Type GridViewColumnHeader}">
-                                                <Setter Property="Background"
-                                                        Value="{StaticResource MauChinh2}" />
-                                                <Setter Property="Foreground"
-                                                        Value="White" />
-                                                <Setter Property="BorderBrush"
-                                                        Value="{x:Null}" />
-                                                <Setter Property="BorderThickness"
-                                                        Value="0" />
-                                                <Setter Property="Padding"
-                                                        Value="10,5,10,5" />
-                                                <Setter Property="FontWeight"
-                                                        Value="Bold" />
-                                                <Setter Property="FontSize"
-                                                        Value="{StaticResource CoChuNho}" />
-                                            </Style>
-                                        </GridView.ColumnHeaderContainerStyle>
-                                        <GridViewColumn Width="100px"
-                                                        DisplayMemberBinding="{Binding LoaiPhongID}"
-                                                        Header="Mã Loại" />
-                                        <GridViewColumn Width="300px"
-                                                        DisplayMemberBinding="{Binding TenLoai}"
-                                                        Header="Tên Loại" />
-                                        <GridViewColumn Width="200px"
-                                                        DisplayMemberBinding="{Binding NgayTao, StringFormat={}{0: dd/MM/yyyy  HH:mm:ss}}"
-                                                        Header="Ngày Tạo" />
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                        </ScrollViewer>
-                        <!--CHI TIẾT NHÂN VIÊN-->
-                        <Grid Margin="20,0,0,0"
-                              Width="530">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="60" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0"
-                                  Background="{StaticResource MauXanhVua}">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           FontSize="{DynamicResource CoChuThuong}"
-                                           FontWeight="Bold"
-                                           Foreground="White"
-                                           Text="THÔNG TIN LOẠI PHÒNG" />
-                            </Grid>
-                            <Grid Grid.Row="1"
-                                  Margin="0,0,0,95">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
+                        <materialDesign:Card Margin="5,5,5,0">
+                            <ScrollViewer Grid.Row="1"
+                                          Margin="0,0,0,0">
+                                <ListView Grid.Row="1"
+                                          Margin="0,0,0,10"
+                                          HorizontalAlignment="Center"
+                                          Grid.IsSharedSizeScope="True"
+                                          ItemsSource="{Binding listLoaiPhong}"
+                                          SelectedItem="{Binding selectItem, Mode=TwoWay}"
+                                          ScrollViewer.CanContentScroll="True"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                          Grid.Column="1"
+                                          Height="515"
+                                          Width="600">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment"
+                                                    Value="Center" />
+                                            <Setter Property="VerticalContentAlignment"
+                                                    Value="Center" />
+                                            <Setter Property="BorderBrush"
+                                                    Value="{StaticResource XamNhat}" />
+                                            <Setter Property="BorderThickness"
+                                                    Value="0,0,0,1" />
+                                            <Setter Property="Padding"
+                                                    Value="0,3,0,3" />
+                                            <Setter Property="FontSize"
+                                                    Value="{StaticResource CoChuNho}" />
+                                            <Setter Property="Height"
+                                                    Value="30" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridView.ColumnHeaderContainerStyle>
+                                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                    <Setter Property="Background"
+                                                            Value="{StaticResource MauChinh2}" />
+                                                    <Setter Property="Foreground"
+                                                            Value="White" />
+                                                    <Setter Property="BorderBrush"
+                                                            Value="{x:Null}" />
+                                                    <Setter Property="BorderThickness"
+                                                            Value="0" />
+                                                    <Setter Property="Padding"
+                                                            Value="10,5,10,5" />
+                                                    <Setter Property="FontWeight"
+                                                            Value="Bold" />
+                                                    <Setter Property="FontSize"
+                                                            Value="{StaticResource CoChuNho}" />
+                                                </Style>
+                                            </GridView.ColumnHeaderContainerStyle>
+                                            <GridViewColumn Width="100px"
+                                                            DisplayMemberBinding="{Binding LoaiPhongID}"
+                                                            Header="Mã Loại" />
+                                            <GridViewColumn Width="300px"
+                                                            DisplayMemberBinding="{Binding TenLoai}"
+                                                            Header="Tên Loại" />
+                                            <GridViewColumn Width="200px"
+                                                            DisplayMemberBinding="{Binding NgayTao, StringFormat={}{0: dd/MM/yyyy  HH:mm:ss}}"
+                                                            Header="Ngày Tạo" />
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </ScrollViewer>
+                        </materialDesign:Card>
+                        <materialDesign:Card Margin="5,5,5,237"
+                                             Width="506">
+                            <!--CHI TIẾT NHÂN VIÊN-->
+                            <Grid Margin="10,10,10,10"
+                                  HorizontalAlignment="Right"
+                                  Width="487">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
+                                    <RowDefinition Height="60" />
+                                    <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0"
-                                           Grid.Column="0"
-                                           Style="{StaticResource StyleTextForm}"
-                                           Text="Mã Loại" />
-                                <TextBox Grid.Row="0"
-                                         Grid.Column="1"
-                                         IsEnabled="{Binding choPhepThayDoi}"
-                                         Style="{StaticResource StyleInputForm}"
-                                         Text="{Binding txtMaLoai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBlock Grid.Row="1"
-                                           Grid.Column="0"
-                                           Style="{StaticResource StyleTextForm}"
-                                           Text="Tên Loại" />
-                                <TextBox Grid.Row="1"
-                                         Grid.Column="1"
-                                         Style="{StaticResource StyleInputForm}"
-                                         Text="{Binding txtTen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         VerticalScrollBarVisibility="Auto" />
-                                <Button Width="120"
-                                        Height="35"
-                                        Background="{StaticResource CamNhat}"
-                                        BorderThickness="0"
-                                        Command="{Binding confirmButtonCommmand}"
-                                        Content="{Binding confirmButtonName}"
-                                        Style="{StaticResource StyleBtnCoBan}"
-                                        Grid.Row="3"
-                                        Grid.Column="1"
-                                        Margin="186,10,0,10"></Button>
-                                <Button Height="35"
-                                        Background="{StaticResource CamNhat}"
-                                        BorderThickness="0"
-                                        Command="{Binding cancelButtonCommmand}"
-                                        Content="{Binding cancelButtonName}"
-                                        Style="{StaticResource StyleBtnCoBan}"
-                                        Grid.Column="1"
-                                        Grid.Row="3"
-                                        Margin="10,10,0,10"></Button>
+                                <Grid Grid.Row="0"
+                                      Background="{StaticResource MauXanhVua}"
+                                      Margin="0,0,0,0">
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="{DynamicResource CoChuThuong}"
+                                               FontWeight="Bold"
+                                               Foreground="White"
+                                               Text="THÔNG TIN LOẠI PHÒNG" />
+                                </Grid>
+                                <Grid Grid.Row="1"
+                                      Margin="0,0,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="0"
+                                               Style="{StaticResource StyleTextForm}"
+                                               Text="Mã Loại" />
+                                    <TextBox Grid.Row="0"
+                                             Grid.Column="1"
+                                             IsEnabled="{Binding choPhepThayDoi}"
+                                             Style="{StaticResource StyleInputForm}"
+                                             Text="{Binding txtMaLoai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Height="36"
+                                             Margin="10,0,44,0" />
+                                    <TextBlock Grid.Row="1"
+                                               Grid.Column="0"
+                                               Style="{StaticResource StyleTextForm}"
+                                               Text="Tên Loại" />
+                                    <TextBox Grid.Row="1"
+                                             Grid.Column="1"
+                                             Style="{StaticResource StyleInputForm}"
+                                             Text="{Binding txtTen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             VerticalScrollBarVisibility="Auto"
+                                             Margin="10,0,44,0" />
+                                    <Button Width="135"
+                                            Height="35"
+                                            Background="{StaticResource CamNhat}"
+                                            BorderThickness="0"
+                                            Command="{Binding confirmButtonCommmand}"
+                                            Content="{Binding confirmButtonName}"
+                                            Style="{StaticResource StyleBtnCoBan}"
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            Margin="213,10,0,33"></Button>
+                                    <Button Height="35"
+                                            Background="{StaticResource CamNhat}"
+                                            BorderThickness="0"
+                                            Command="{Binding cancelButtonCommmand}"
+                                            Content="{Binding cancelButtonName}"
+                                            Style="{StaticResource StyleBtnCoBan}"
+                                            Grid.Row="2"
+                                            Width="139"
+                                            Grid.Column="1"
+                                            Margin="10,10,0,33" />
+                                </Grid>
                             </Grid>
-                        </Grid>
+                        </materialDesign:Card>
                     </StackPanel>
                     <Grid Margin="0,0,10,10"
                           Grid.Row="2">
@@ -248,23 +260,29 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0"
-                                Margin="20 0 100 0"
+                                Margin="180,10,328,20"
                                 Command="{Binding addPhongCommand}"
-                                Content="THÊM LOẠI PHÒNG" />
+                                Content="THÊM LOẠI PHÒNG"
+                                Grid.ColumnSpan="2" />
                     </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Quản Lý Phòng">
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="67*" />
+                        <ColumnDefinition Width="1109*" />
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="8*" />
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
                     <!--  TÌm kiếm  phòng  -->
-                    <StackPanel Margin="10"
+                    <StackPanel Margin="291,10,358,10"
                                 HorizontalAlignment="Center"
-                                Orientation="Horizontal">
+                                Orientation="Horizontal"
+                                Grid.Column="1">
                         <Border Padding="10,5"
                                 Background="GhostWhite"
                                 BorderBrush="{DynamicResource MaterialDesignDivider}"
@@ -293,190 +311,203 @@
                         </Button>
                     </StackPanel>
                     <StackPanel Orientation="Vertical"
-                                Margin="0,0,10,10"
-                                Grid.Row="1">
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2">
                         <!--DANH SACH NHAN VIEN-->
-                        <ScrollViewer Grid.Row="1"
-                                      Margin="0,0,0,0"
-                                      Height="303">
-                            <ListView Grid.Row="1"
-                                      HorizontalAlignment="Center"
-                                      Grid.IsSharedSizeScope="True"
-                                      ItemsSource="{Binding listPhong}"
-                                      SelectedItem="{Binding selectPhong, Mode=TwoWay}"
-                                      ScrollViewer.CanContentScroll="True"
-                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                      Grid.Column="1"
-                                      Height="303"
-                                      Width="1154">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment"
-                                                Value="Center" />
-                                        <Setter Property="VerticalContentAlignment"
-                                                Value="Center" />
-                                        <Setter Property="BorderBrush"
-                                                Value="{StaticResource XamNhat}" />
-                                        <Setter Property="BorderThickness"
-                                                Value="0,0,0,1" />
-                                        <Setter Property="Padding"
-                                                Value="0,3,0,3" />
-                                        <Setter Property="FontSize"
-                                                Value="{StaticResource CoChuNho}" />
-                                        <Setter Property="Height"
-                                                Value="30" />
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                                <ListView.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel Orientation="Horizontal" />
-                                    </ItemsPanelTemplate>
-                                </ListView.ItemsPanel>
-                                <ListView.View>
-                                    <GridView>
-                                        <GridView.ColumnHeaderContainerStyle>
-                                            <Style TargetType="{x:Type GridViewColumnHeader}">
-                                                <Setter Property="Background"
-                                                        Value="{StaticResource MauChinh2}" />
-                                                <Setter Property="Foreground"
-                                                        Value="White" />
-                                                <Setter Property="BorderBrush"
-                                                        Value="{x:Null}" />
-                                                <Setter Property="BorderThickness"
-                                                        Value="0" />
-                                                <Setter Property="Padding"
-                                                        Value="10,5,10,5" />
-                                                <Setter Property="FontWeight"
-                                                        Value="Bold" />
-                                                <Setter Property="FontSize"
-                                                        Value="{StaticResource CoChuNho}" />
-                                            </Style>
-                                        </GridView.ColumnHeaderContainerStyle>
-                                        <GridViewColumn Width="100px"
-                                                        DisplayMemberBinding="{Binding PhongID}"
-                                                        Header="ID" />
-                                        <GridViewColumn Width="200px"
-                                                        DisplayMemberBinding="{Binding TenPhong}"
-                                                        Header="Tên Phòng" />
-                                        <GridViewColumn Width="200px"
-                                                        DisplayMemberBinding="{Binding DonGia}"
-                                                        Header="Đơn Giá" />
-                                        <GridViewColumn Width="300px"
-                                                        DisplayMemberBinding="{Binding LOAIPHONG.TenLoai}"
-                                                        Header="Loại Phòng" />
-                                        <GridViewColumn Width="100px"
-                                                        DisplayMemberBinding="{Binding TinhTrangThue}"
-                                                        Header="Tình Trạng Thuê" />
-                                        <GridViewColumn Width="250"
-                                                        DisplayMemberBinding="{Binding NgayTao, StringFormat={}{0: dd/MM/yyyy  HH:mm:ss}}"
-                                                        Header="Ngày Tạo" />
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                        </ScrollViewer>
-                        <!--CHI TIẾT NHÂN VIÊN-->
-                        <Grid Margin="10,0,0,0" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="60" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0"
-                                  Background="{StaticResource MauXanhVua}"
-                                  Margin="100,0,100,0">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           FontSize="{DynamicResource CoChuThuong}"
-                                           FontWeight="Bold"
-                                           Foreground="White"
-                                           Text="THÔNG TIN LOẠI PHÒNG" />
-                            </Grid>
-                            <Grid Grid.Row="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0"
-                                           Grid.Column="0"
-                                           Style="{StaticResource StyleTextForm}"
-                                           Text="Tên Phòng"
-                                           RenderTransformOrigin="0.5,0.5">
-                                    <TextBlock.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform />
-                                            <SkewTransform />
-                                            <RotateTransform Angle="0.622" />
-                                            <TranslateTransform />
-                                        </TransformGroup>
-                                    </TextBlock.RenderTransform></TextBlock>
-                                <TextBox Grid.Row="0"
-                                         Grid.Column="1"
-                                         Style="{StaticResource StyleInputForm}"
-                                         Text="{Binding txtTenPhong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock Grid.Row="0"
-                                           Grid.Column="2"
-                                           Style="{StaticResource StyleTextForm}"
-                                           Text="Đơn Giá"
-                                           Grid.ColumnSpan="2"/>
-                                <TextBox Grid.Row="0"
-                                         Grid.Column="3"
-                                         Style="{StaticResource StyleInputForm}"
-                                         Text="{Binding txtDonGia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         VerticalScrollBarVisibility="Auto"/>
-                                <TextBlock Grid.Row="1"
-                                           Grid.Column="0"
-                                           Style="{StaticResource StyleTextForm}"
-                                           Text="Loại Phòng"/>
-                                <ComboBox ItemsSource="{Binding listLoaiPhong}"
-                                          SelectedItem="{Binding itemLoaiPhongChon}"
-                                          Padding="10 6 10 6"
-                                          BorderBrush="CornflowerBlue"
-                                          BorderThickness="1"
-                                          Grid.Row="1"
+                        <materialDesign:Card Height="370"
+                                             Margin="5,0">
+                            <ScrollViewer Grid.Row="1"
+                                          Margin="0,0,0,0">
+                                <ListView Grid.Row="1"
+                                          HorizontalAlignment="Center"
+                                          Grid.IsSharedSizeScope="True"
+                                          ItemsSource="{Binding listPhong}"
+                                          SelectedItem="{Binding selectPhong, Mode=TwoWay}"
+                                          ScrollViewer.CanContentScroll="True"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                           Grid.Column="1"
-                                          materialDesign:HintAssist.Hint="Chọn Loại Phòng">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border Padding="5,0,0,0"
-                                                    BorderBrush="WhiteSmoke"
-                                                    BorderThickness="0,0,0,1">
-                                                <TextBlock Cursor="Hand"
-                                                           FontFamily="Arial"
-                                                           Text="{Binding Path=TenLoai,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                                            </Border>
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
-                                <TextBlock Grid.Row="1"
-                                           Style="{StaticResource StyleTextForm}"
-                                           Text="Tình Trạng Thuê"
-                                           Grid.Column="2" />
-                                <TextBox Grid.Row="1"
-                                         Grid.Column="3"
-                                         IsEnabled="False"
-                                         Style="{StaticResource StyleInputForm}"
-                                         Text="{Binding txtTinhTrangThuePhong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         VerticalScrollBarVisibility="Auto"
-                                         Height="36" />
-                                <TextBlock Grid.Row="2" Grid.Column="0"
-                                           Style="{StaticResource StyleTextForm}"
-                                           Text="ID PHÒNG"/>
-                                <TextBox Grid.Row="2"
-                                         Grid.Column="1"
-                                         Style="{StaticResource StyleInputForm}"
-                                         Text="{Binding txtPhmgID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         Height="36" />
+                                          Height="361"
+                                          Width="1116">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment"
+                                                    Value="Center" />
+                                            <Setter Property="VerticalContentAlignment"
+                                                    Value="Center" />
+                                            <Setter Property="BorderBrush"
+                                                    Value="{StaticResource XamNhat}" />
+                                            <Setter Property="BorderThickness"
+                                                    Value="0,0,0,1" />
+                                            <Setter Property="Padding"
+                                                    Value="0,3,0,3" />
+                                            <Setter Property="FontSize"
+                                                    Value="{StaticResource CoChuNho}" />
+                                            <Setter Property="Height"
+                                                    Value="30" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridView.ColumnHeaderContainerStyle>
+                                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                    <Setter Property="Background"
+                                                            Value="{StaticResource MauChinh2}" />
+                                                    <Setter Property="Foreground"
+                                                            Value="White" />
+                                                    <Setter Property="BorderBrush"
+                                                            Value="{x:Null}" />
+                                                    <Setter Property="BorderThickness"
+                                                            Value="0" />
+                                                    <Setter Property="Padding"
+                                                            Value="10,5,10,5" />
+                                                    <Setter Property="FontWeight"
+                                                            Value="Bold" />
+                                                    <Setter Property="FontSize"
+                                                            Value="{StaticResource CoChuNho}" />
+                                                </Style>
+                                            </GridView.ColumnHeaderContainerStyle>
+                                            <GridViewColumn Width="100px"
+                                                            DisplayMemberBinding="{Binding PhongID}"
+                                                            Header="ID" />
+                                            <GridViewColumn Width="200px"
+                                                            DisplayMemberBinding="{Binding TenPhong}"
+                                                            Header="Tên Phòng" />
+                                            <GridViewColumn Width="200px"
+                                                            DisplayMemberBinding="{Binding DonGia}"
+                                                            Header="Đơn Giá" />
+                                            <GridViewColumn Width="300px"
+                                                            DisplayMemberBinding="{Binding LOAIPHONG.TenLoai}"
+                                                            Header="Loại Phòng" />
+                                            <GridViewColumn Width="100px"
+                                                            DisplayMemberBinding="{Binding TinhTrangThue}"
+                                                            Header="Tình Trạng Thuê" />
+                                            <GridViewColumn Width="250"
+                                                            DisplayMemberBinding="{Binding NgayTao, StringFormat={}{0: dd/MM/yyyy  HH:mm:ss}}"
+                                                            Header="Ngày Tạo" />
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </ScrollViewer>
+                        </materialDesign:Card>
+                        <!--CHI TIẾT NHÂN VIÊN-->
+                        <materialDesign:Card Margin="5,10,5,10">
+                            <Grid Margin="10,10,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0"
+                                      Background="{StaticResource MauXanhVua}"
+                                      Margin="100,0,100,0">
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="{DynamicResource CoChuThuong}"
+                                               FontWeight="Bold"
+                                               Foreground="White"
+                                               Text="THÔNG TIN PHÒNG" />
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="150" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="0"
+                                               Style="{StaticResource StyleTextForm}"
+                                               Text="Tên Phòng"
+                                               Grid.ColumnSpan="2"
+                                               Margin="0,10,353,10"></TextBlock>
+                                    <TextBox Grid.Row="0"
+                                             Grid.Column="1"
+                                             Style="{StaticResource StyleInputForm}"
+                                             Text="{Binding txtTenPhong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Margin="118,5,0,5" />
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="2"
+                                               Style="{StaticResource StyleTextForm}"
+                                               Text="Đơn Giá"
+                                               Margin="0,10,423,10"
+                                               Grid.ColumnSpan="2" />
+                                    <TextBox Grid.Row="0"
+                                             Grid.Column="3"
+                                             Style="{StaticResource StyleInputForm}"
+                                             Text="{Binding txtDonGia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             VerticalScrollBarVisibility="Auto"
+                                             Margin="50,5,100,5" />
+                                    <TextBlock Grid.Row="1"
+                                               Grid.Column="0"
+                                               Style="{StaticResource StyleTextForm}"
+                                               Text="Loại Phòng"
+                                               Grid.ColumnSpan="2"
+                                               Margin="0,10,353,11" />
+                                    <ComboBox ItemsSource="{Binding listLoaiPhong}"
+                                              SelectedItem="{Binding itemLoaiPhongChon}"
+                                              materialDesign:HintAssist.Hint="{Binding currentSelectLoaiPhong,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              SelectedValue="{Binding currentSelectLoaiPhong,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              SelectedValuePath="{Binding currentSelectLoaiPhong,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              Padding="10 6 10 6"
+                                              BorderBrush="CornflowerBlue"
+                                              BorderThickness="1"
+                                              Grid.Row="1"
+                                              Grid.Column="1"
+                                              Margin="118,4,0,5">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Padding="5,0,0,0"
+                                                        BorderBrush="WhiteSmoke"
+                                                        BorderThickness="0,0,0,1">
+                                                    <TextBlock Cursor="Hand"
+                                                               FontFamily="Arial"
+                                                               Text="{Binding Path=TenLoai,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                    <TextBlock Grid.Row="1"
+                                               Style="{StaticResource StyleTextForm}"
+                                               Text="Tình Trạng Thuê"
+                                               Grid.Column="2"
+                                               Margin="0,10,423,11"
+                                               Grid.ColumnSpan="2" />
+                                    <TextBox Grid.Row="1"
+                                             Grid.Column="3"
+                                             IsEnabled="False"
+                                             Style="{StaticResource StyleInputForm}"
+                                             Text="{Binding txtTinhTrangThuePhong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             VerticalScrollBarVisibility="Auto"
+                                             Height="36"
+                                             Margin="50,0,100,5" />
+                                    <TextBlock Grid.Row="2"
+                                               Grid.Column="0"
+                                               Style="{StaticResource StyleTextForm}"
+                                               Text="ID PHÒNG"
+                                               Grid.ColumnSpan="2"
+                                               Margin="0,11,353,10" />
+                                    <TextBox Grid.Row="2"
+                                             Grid.Column="1"
+                                             Style="{StaticResource StyleInputForm}"
+                                             Text="{Binding txtPhmgID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             Height="36"
+                                             Margin="118,0,0,10" />
+                                </Grid>
                             </Grid>
-                        </Grid>
+                        </materialDesign:Card>
                     </StackPanel>
-                    <Grid Margin="0,0,10,10"
-                          Grid.Row="2">
+                    <Grid Grid.Row="2"
+                          Margin="0,10,0,0"
+                          Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
@@ -487,17 +518,19 @@
                                 Command="{Binding addNewRoomCommand}"
                                 Content="THÊM PHÒNG" />
                         <Button BorderThickness="0"
+                                Background="{StaticResource CamNhat}"
                                 IsEnabled="{Binding choPhepUpdateRoom}"
                                 Command="{Binding cancelRoomBtnCommand}"
                                 Content="{Binding roomCancelBtnName}"
                                 Grid.Column="1"
-                                Margin="0,14,41,14" />
+                                Margin="177,16,0,16" />
                         <Button BorderThickness="0"
+                                Background="{StaticResource CamNhat}"
                                 IsEnabled="{Binding choPhepUpdateRoom}"
                                 Command="{Binding comfirmRoomBtnCommand}"
                                 Content="{Binding roomConfirmBtnName}"
                                 Grid.Column="2"
-                                Margin="10,14,74,14"></Button>
+                                Margin="97,16,107,16"></Button>
                     </Grid>
                 </Grid>
             </TabItem>

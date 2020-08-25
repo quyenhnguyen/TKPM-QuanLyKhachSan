@@ -70,7 +70,6 @@ namespace QuanLiKhachSan.ViewModel
                 if (item != value)
                 {
                     item = value;
-
                     showDetails();
                 }
             }
@@ -95,16 +94,21 @@ namespace QuanLiKhachSan.ViewModel
                 cancelButtonName = "HỦY";
                 confirmButtonName = "THÊM";
             }
-            // DisplayedImagePath = selectItem.HINHANH;
         }
         private void reset()
         {
+            isAddRoom = true;
+            choPhepThayDoi = true;
+            cancelButtonName = "HỦY";
+            confirmButtonName = "THÊM";
             txtTen = string.Empty;
             txtMaLoai = string.Empty;
         }
 
         // Quan Ly Phong
 
+        private string _currentSelectLoaiPhong;
+        public string currentSelectLoaiPhong { get => _currentSelectLoaiPhong; set => OnPropertyChanged(ref _currentSelectLoaiPhong, value); }
         private bool isAddnewRoom = true;
         private bool _choPhepUpdateRoom = true;
         public bool choPhepUpdateRoom { get => _choPhepUpdateRoom; set => OnPropertyChanged(ref _choPhepUpdateRoom, value); }
@@ -153,6 +157,10 @@ namespace QuanLiKhachSan.ViewModel
         public double txtDonGia { get => _donGia; set => OnPropertyChanged(ref _donGia, value); }
         private string _IDphong;
         public string txtPhmgID { get => _IDphong; set => OnPropertyChanged(ref _IDphong, value); }
+        // true --> Chua , false --> Da thue
+        private bool _boolTinhTrangThue;
+        public bool boolTinhTrangThue { get => _boolTinhTrangThue; set => OnPropertyChanged(ref _boolTinhTrangThue, value); }
+
         private string _tinhTrangThue;
         public string txtTinhTrangThuePhong { get => _tinhTrangThue; set => OnPropertyChanged(ref _tinhTrangThue, value); }
         private DateTime _ngayTaoPhong;
@@ -166,7 +174,6 @@ namespace QuanLiKhachSan.ViewModel
                 if (itemPhong != value)
                 {
                     itemPhong = value;
-
                     showDetailsPhong();
                 }
             }
@@ -189,40 +196,60 @@ namespace QuanLiKhachSan.ViewModel
 
             if (selectPhong != null)
             {
-                choPhepUpdateRoom = selectPhong.TinhTrangThue;
+                choPhepUpdateRoom = !selectPhong.TinhTrangThue;  //! Chưa thuê --> Bật --> TinhTrangThue = true <--> Chưa thuê
+                currentSelectLoaiPhong = selectPhong.LOAIPHONG.TenLoai;
                 isAddnewRoom = false;
                 txtTenPhong = selectPhong.TenPhong;
                 txtDonGia = selectPhong.DonGia;
                 txtNgayTaoPhong = selectPhong.NgayTao;
                 txtPhmgID = selectPhong.PhongID;
-                if (selectPhong.TinhTrangThue == false)
+                if (selectPhong.TinhTrangThue == true)
                 {
-                    txtTinhTrangThuePhong = "Chưa thuê";
+                    txtTinhTrangThuePhong = "Đã thuê";
+                    boolTinhTrangThue = true;
                 }
                 else
                 {
-                    txtTinhTrangThuePhong = "Đã thuê";
+                    txtTinhTrangThuePhong = "Chưa thuê";
+                    boolTinhTrangThue = false;
                 }
                 roomCancelBtnName = "XÓA";
                 roomConfirmBtnName = "LƯU";
             }
             else
             {
-                isAddnewRoom = true;
-                choPhepUpdateRoom = true;
-                roomCancelBtnName = "HỦY";
-                roomConfirmBtnName = "THÊM";
+                resetRoom();
             }
             // DisplayedImagePath = selectItem.HINHANH;
         }
         private void resetRoom()
         {
+            isAddnewRoom = true;
+            itemLoaiPhongChon = null;
+            choPhepUpdateRoom = true;
+            currentSelectLoaiPhong = "Chọn loại phòng";
             txtTenPhong = string.Empty;
             txtDonGia = 0;
-            txtTinhTrangThuePhong = string.Empty;
-            
-        }
+            txtTinhTrangThuePhong = "Chưa thuê";
+            boolTinhTrangThue = false;
+            txtPhmgID = null;
+            itemLoaiPhongChon = null;
+            roomCancelBtnName = "HỦY";
+            roomConfirmBtnName = "THÊM";
 
+        }
+        private bool checkCondition()
+        {
+            try
+            {
+                return (itemLoaiPhongChon == null || string.IsNullOrEmpty(txtTenPhong.ToString()) || string.IsNullOrEmpty(txtTinhTrangThuePhong.ToString()) || string.IsNullOrEmpty(txtPhmgID.ToString()) ||
+            string.IsNullOrEmpty(txtDonGia.ToString()));
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
         public QuanLyPhong_LoaiPhongViewModel()
         {
@@ -240,29 +267,23 @@ namespace QuanLiKhachSan.ViewModel
             addPhongCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
                 isAddRoom = true;
-                choPhepThayDoi = true;
-                cancelButtonName = "HỦY";
-                confirmButtonName = "THÊM";
+                reset();
                 DatabaseQuery.capNhatCSDL();
             });
             // them moi phong
             addNewRoomCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
-                isAddnewRoom = true;
-                choPhepUpdateRoom = true;
-                roomCancelBtnName = "HỦY";
-                roomConfirmBtnName = "THÊM";
+                resetRoom();
                 DatabaseQuery.capNhatCSDL();
             });
             // THEM MOI / CAP NHAT
             // 1. PHONG
+            
             comfirmRoomBtnCommand = new RelayCommand<Object>((p) =>
             {
                 //
-                    // txtTinhTrangThuePhong = "Chưa thuê";
-                if (itemLoaiPhongChon == null || string.IsNullOrEmpty(txtTenPhong.ToString()) || string.IsNullOrEmpty(itemLoaiPhongChon.TenLoai.ToString()) || string.IsNullOrEmpty(txtPhmgID.ToString()) ||
-                string.IsNullOrEmpty(txtDonGia.ToString()))
-                    return false;
+                // txtTinhTrangThuePhong = "Chưa thuê";
+                if (checkCondition()) return false;
                 return true;
             }, (p) =>
             {
@@ -271,7 +292,7 @@ namespace QuanLiKhachSan.ViewModel
                 newLP.LoaiPhongID = itemLoaiPhongChon.LoaiPhongID;
                 newLP.TenPhong = txtTenPhong;
                 newLP.DonGia = txtDonGia;
-                newLP.TinhTrangThue = true;
+                newLP.TinhTrangThue = boolTinhTrangThue;
                 // Neu dang o che do them User
                 if (isAddnewRoom)
                 {
@@ -335,7 +356,7 @@ namespace QuanLiKhachSan.ViewModel
                     try
                     {
                         DatabaseQueryTN.themMoiLoaiPhong(newLP);
-                        MessageBox.Show("Thêm mới nhân viên thành công. Mật khẩu mặc định là CMND");
+                        MessageBox.Show("Thêm mới phòng thành công. ");
                         listLoaiPhong = new BindingList<LOAIPHONG>(DatabaseQueryTN.danhsachLoaiPhong());
                     }
                     catch (Exception e)
@@ -368,11 +389,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     try
                     {
-                        selectItem = listLoaiPhong[0];
-                        isAddRoom = false;
-                        choPhepThayDoi = false;
-                        cancelButtonName = "XOÁ";
-                        confirmButtonName = "LƯU";
+                        reset();
                         DatabaseQuery.capNhatCSDL();
                     }
                     catch (Exception) { };
@@ -400,10 +417,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     try
                     {
-                        selectPhong = listPhong[0];
-                        isAddnewRoom = false;
-                        roomCancelBtnName = "XOÁ";
-                        roomConfirmBtnName = "LƯU"; // cuoi vl
+                        resetRoom();
                         DatabaseQuery.capNhatCSDL();
                     }
                     catch (Exception) { };
