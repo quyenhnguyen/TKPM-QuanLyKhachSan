@@ -375,7 +375,7 @@
                             </ListView>
                         </ScrollViewer>
                         <!--CHI TIẾT NHÂN VIÊN-->
-                        <Grid Margin="10,0,0,0">
+                        <Grid Margin="10,0,0,0" >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="60" />
                                 <RowDefinition Height="*" />
@@ -390,9 +390,10 @@
                                            Foreground="White"
                                            Text="THÔNG TIN LOẠI PHÒNG" />
                             </Grid>
-                            <Grid Grid.Row="1"
-                                  Margin="100,10">
+                            <Grid Grid.Row="1">
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition />
                                     <ColumnDefinition Width="100" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
@@ -402,10 +403,9 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Row="0"
-                                           Grid.Column="1"
+                                           Grid.Column="0"
                                            Style="{StaticResource StyleTextForm}"
                                            Text="Tên Phòng"
-                                           Margin="500,10,256,11"
                                            RenderTransformOrigin="0.5,0.5">
                                     <TextBlock.RenderTransform>
                                         <TransformGroup>
@@ -418,31 +418,26 @@
                                 <TextBox Grid.Row="0"
                                          Grid.Column="1"
                                          Style="{StaticResource StyleInputForm}"
-                                         Text="{Binding txtTenPhong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         Margin="622,0,10,6" />
+                                         Text="{Binding txtTenPhong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="2"
+                                           Style="{StaticResource StyleTextForm}"
+                                           Text="Đơn Giá"
+                                           Grid.ColumnSpan="2"/>
+                                <TextBox Grid.Row="0"
+                                         Grid.Column="3"
+                                         Style="{StaticResource StyleInputForm}"
+                                         Text="{Binding txtDonGia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         VerticalScrollBarVisibility="Auto"/>
                                 <TextBlock Grid.Row="1"
                                            Grid.Column="0"
                                            Style="{StaticResource StyleTextForm}"
-                                           Text="Đơn Giá"
-                                           Grid.ColumnSpan="2"
-                                           Margin="50,8,816,12" />
-                                <TextBox Grid.Row="1"
-                                         Grid.Column="1"
-                                         Style="{StaticResource StyleInputForm}"
-                                         Text="{Binding txtDonGia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         VerticalScrollBarVisibility="Auto"
-                                         Margin="86,0,436,5" />
-                                <TextBlock Grid.Row="1"
-                                           Grid.Column="1"
-                                           Style="{StaticResource StyleTextForm}"
-                                           Text="Loại Phòng"
-                                           Margin="513,8,261,12" />
+                                           Text="Loại Phòng"/>
                                 <ComboBox ItemsSource="{Binding listLoaiPhong}"
                                           SelectedItem="{Binding itemLoaiPhongChon}"
                                           Padding="10 6 10 6"
                                           BorderBrush="CornflowerBlue"
                                           BorderThickness="1"
-                                          Margin="622,2,10,6"
                                           Grid.Row="1"
                                           Grid.Column="1"
                                           materialDesign:HintAssist.Hint="Chọn Loại Phòng">
@@ -458,28 +453,24 @@
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
-                                <TextBlock Grid.Row="0"
+                                <TextBlock Grid.Row="1"
                                            Style="{StaticResource StyleTextForm}"
                                            Text="Tình Trạng Thuê"
-                                           Margin="192,10,534,12"
-                                           Grid.Column="1" />
-                                <TextBox Grid.Row="0"
-                                         Grid.Column="1"
+                                           Grid.Column="2" />
+                                <TextBox Grid.Row="1"
+                                         Grid.Column="3"
                                          IsEnabled="False"
                                          Style="{StaticResource StyleInputForm}"
                                          Text="{Binding txtTinhTrangThuePhong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          VerticalScrollBarVisibility="Auto"
-                                         Margin="358,-1,364,7"
                                          Height="36" />
-                                <TextBlock Grid.Row="0"
+                                <TextBlock Grid.Row="2" Grid.Column="0"
                                            Style="{StaticResource StyleTextForm}"
-                                           Text="ID PHÒNG"
-                                           Margin="10,10,0,12" />
-                                <TextBox Grid.Row="0"
+                                           Text="ID PHÒNG"/>
+                                <TextBox Grid.Row="2"
                                          Grid.Column="1"
                                          Style="{StaticResource StyleInputForm}"
-                                         Text="{Binding txtIDPhong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         Margin="10,0,689,6"
+                                         Text="{Binding txtPhmgID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          Height="36" />
                             </Grid>
                         </Grid>
@@ -494,7 +485,7 @@
                         <Button Grid.Column="0"
                                 Margin="20 0 100 0"
                                 Command="{Binding addNewRoomCommand}"
-                                Content="THÊM LOẠI PHÒNG" />
+                                Content="THÊM PHÒNG" />
                         <Button BorderThickness="0"
                                 IsEnabled="{Binding choPhepUpdateRoom}"
                                 Command="{Binding cancelRoomBtnCommand}"
@@ -504,7 +495,7 @@
                         <Button BorderThickness="0"
                                 IsEnabled="{Binding choPhepUpdateRoom}"
                                 Command="{Binding comfirmRoomBtnCommand}"
-                                Content="{Binding comfirmRoomBtnName}"
+                                Content="{Binding roomConfirmBtnName}"
                                 Grid.Column="2"
                                 Margin="10,14,74,14"></Button>
                     </Grid>

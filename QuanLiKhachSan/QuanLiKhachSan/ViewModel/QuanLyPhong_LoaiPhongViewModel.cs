@@ -152,7 +152,7 @@ namespace QuanLiKhachSan.ViewModel
         private double _donGia;
         public double txtDonGia { get => _donGia; set => OnPropertyChanged(ref _donGia, value); }
         private string _IDphong;
-        public string txtIDphong { get => _IDphong; set => OnPropertyChanged(ref _IDphong, value); }
+        public string txtPhmgID { get => _IDphong; set => OnPropertyChanged(ref _IDphong, value); }
         private string _tinhTrangThue;
         public string txtTinhTrangThuePhong { get => _tinhTrangThue; set => OnPropertyChanged(ref _tinhTrangThue, value); }
         private DateTime _ngayTaoPhong;
@@ -194,7 +194,7 @@ namespace QuanLiKhachSan.ViewModel
                 txtTenPhong = selectPhong.TenPhong;
                 txtDonGia = selectPhong.DonGia;
                 txtNgayTaoPhong = selectPhong.NgayTao;
-                txtIDphong = selectPhong.PhongID;
+                txtPhmgID = selectPhong.PhongID;
                 if (selectPhong.TinhTrangThue == false)
                 {
                     txtTinhTrangThuePhong = "Chưa thuê";
@@ -260,13 +260,14 @@ namespace QuanLiKhachSan.ViewModel
             {
                 //
                     // txtTinhTrangThuePhong = "Chưa thuê";
-                if (string.IsNullOrEmpty(txtTenPhong.ToString()) || string.IsNullOrEmpty(itemLoaiPhongChon.TenLoai.ToString()) || string.IsNullOrEmpty(txtIDphong.ToString()) ||
+                if (itemLoaiPhongChon == null || string.IsNullOrEmpty(txtTenPhong.ToString()) || string.IsNullOrEmpty(itemLoaiPhongChon.TenLoai.ToString()) || string.IsNullOrEmpty(txtPhmgID.ToString()) ||
                 string.IsNullOrEmpty(txtDonGia.ToString()))
                     return false;
                 return true;
             }, (p) =>
             {
                 PHONG newLP = new PHONG();
+                newLP.PhongID = txtPhmgID;
                 newLP.LoaiPhongID = itemLoaiPhongChon.LoaiPhongID;
                 newLP.TenPhong = txtTenPhong;
                 newLP.DonGia = txtDonGia;
@@ -274,7 +275,7 @@ namespace QuanLiKhachSan.ViewModel
                 // Neu dang o che do them User
                 if (isAddnewRoom)
                 {
-                    if (DatabaseQueryTN.kiemTraTonTaiPhong(txtIDphong))
+                    if (DatabaseQueryTN.kiemTraTonTaiPhong(txtPhmgID))
                     {
                         MessageBox.Show("Phòng đã tồn tại");
                         return;

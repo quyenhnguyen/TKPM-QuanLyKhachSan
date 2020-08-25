@@ -10,8 +10,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="{Binding QuanLyTitle}"
     Width="1500"
-    Height="745"
-    DataContext="{StaticResource QuanLyLayoutVM}"
+        Height="850"
+        DataContext="{StaticResource QuanLyLayoutVM}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <!--  Để hiện template của ai mỗi khi click tab  -->
