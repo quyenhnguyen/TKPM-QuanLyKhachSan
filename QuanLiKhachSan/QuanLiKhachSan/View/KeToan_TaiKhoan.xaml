@@ -53,7 +53,7 @@
                 <TextBlock FontSize="{StaticResource CoChuThuong}"
                            FontWeight="Bold"
                            Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"
-                           Text="Mã nhân viên: 0001" />
+                           Text="{Binding NhanVienDangNhap.NhanVienID, StringFormat={}Mã nhân viên: {0}}" />
             </StackPanel>
         </StackPanel>
         <Grid Grid.Row="2"
@@ -203,6 +203,7 @@
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Height="35" />
                 <Button Width="164"
+                        Visibility="{Binding isAdmin, Mode=TwoWay}"
                         Margin="-120,0,0,10"
                         VerticalAlignment="Bottom"
                         Command="{Binding chuyenQuanLy}"

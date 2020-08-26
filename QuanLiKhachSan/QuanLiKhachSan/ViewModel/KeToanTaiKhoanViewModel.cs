@@ -19,6 +19,8 @@ namespace QuanLiKhachSan.ViewModel
 
         private bool _KiemTraDoiMatKhau;
         public bool KiemTraDoiMatKhau { get => _KiemTraDoiMatKhau; set { OnPropertyChanged(ref _KiemTraDoiMatKhau, value); } }
+        private string _isAdmin;
+        public string isAdmin { get => _isAdmin; set { OnPropertyChanged(ref _isAdmin, value); } }
         public ICommand DoiMatKhauCommand { get; set; }
 
 
@@ -29,6 +31,14 @@ namespace QuanLiKhachSan.ViewModel
             MaNV = UserService.GetCurrentUser.NhanVienID;
             NhanVienDangNhap = DatabaseQuery.truyVanNhanVien(MaNV);
             UserService.LoadUser(NhanVienDangNhap);
+            if (NhanVienDangNhap.Loai == 1)
+            {
+                isAdmin = "Visible";
+            }
+            else
+            {
+                isAdmin = "Hidden";
+            }
             chuyenQuanLy = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
                 QuanLy_Layout keToan = new QuanLy_Layout();
