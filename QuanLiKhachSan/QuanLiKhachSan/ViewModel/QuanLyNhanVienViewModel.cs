@@ -214,20 +214,22 @@ namespace QuanLiKhachSan.ViewModel
         {
             try
             {
-                return (string.IsNullOrEmpty(txtLoai) ||
-                    string.IsNullOrEmpty(txtNgaySinh.ToString("dd/mm/yyyy")) ||
-                    string.IsNullOrEmpty(txtDiaChi) ||
-                    string.IsNullOrEmpty(txtTenDangNhap) ||
-                    string.IsNullOrEmpty(txtSDT) ||
-                    string.IsNullOrEmpty(txtCMND) ||
-                    string.IsNullOrEmpty(txtEmail) ||
-                    string.IsNullOrEmpty(txtNhanVienID.ToString()) ||
-                    string.IsNullOrEmpty(txtHoTen));
+                return (string.IsNullOrEmpty(txtLoai.ToString()) ||
+                string.IsNullOrEmpty(txtNgaySinh.ToString("dd/mm/yyyy")) ||
+                string.IsNullOrEmpty(txtDiaChi) ||
+                string.IsNullOrEmpty(txtTenDangNhap.ToString()) ||
+                string.IsNullOrEmpty(txtSDT.ToString()) ||
+                string.IsNullOrEmpty(txtCMND.ToString()) ||
+                string.IsNullOrEmpty(txtEmail.ToString()) ||
+                string.IsNullOrEmpty(txtNhanVienID.ToString()) ||
+                string.IsNullOrEmpty(txtNgayTao.ToString()) ||
+                string.IsNullOrEmpty(txtHoTen.ToString()));
             }
             catch (Exception)
             {
                 return true;
             }
+
         }
         public QuanLyNhanVienViewModel()
         {
@@ -297,6 +299,19 @@ namespace QuanLiKhachSan.ViewModel
                 NHANVIEN newNV = new NHANVIEN();
                 try
                 {
+                    if (isAddUser)
+                    {
+
+                        newNV.Loai = selecteLoaiNV.LoaiNVID;
+                        newNV.LOAINHANVIEN = selecteLoaiNV;
+                        txtLoai = selecteLoaiNV.LoaiNVID.ToString();
+                    }
+                    else
+                    {
+
+                        newNV.Loai = selectItem.Loai;
+                        newNV.LOAINHANVIEN = selectItem.LOAINHANVIEN;
+                    }
                     newNV.NhanVienID = txtNhanVienID;
                     newNV.TenDangNhap = txtTenDangNhap;
                     newNV.Email = txtEmail;
@@ -305,10 +320,9 @@ namespace QuanLiKhachSan.ViewModel
                     newNV.DiaChi = txtDiaChi;
                     newNV.NgaySinh = txtNgaySinh;
                     newNV.SDT = int.Parse(txtSDT);
-                    newNV.LOAINHANVIEN = selecteLoaiNV;
+
                     newNV.CMND = int.Parse(txtCMND);
                     newNV.AnhDaiDien = SecurityModel.ImageToByte2(HinhAnhNhanVien);
-
                 }
                 catch (Exception e)
                 {
@@ -318,8 +332,6 @@ namespace QuanLiKhachSan.ViewModel
                 // Neu dang o che do them User
                 if (isAddUser)
                 {
-                    newNV.Loai = selecteLoaiNV.LoaiNVID;
-                    txtLoai = selecteLoaiNV.LoaiNVID.ToString();
                     if (DatabaseQueryTN.kiemtraTonTai(txtTenDangNhap, txtEmail))
                     {
                         if (!DatabaseQueryTN.isDeleteUser(txtTenDangNhap, txtEmail)) // true --> delete
@@ -345,7 +357,6 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     try
                     {
-                        newNV.Loai = selectItem.Loai;
                         DatabaseQueryTN.capNhatNhanVien(newNV);
                         MessageBox.Show("Đã cập nhật nhân viên");
                         listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());

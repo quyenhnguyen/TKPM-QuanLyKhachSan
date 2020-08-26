@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="5" />
-            <RowDefinition Height="1.25*" />
+            <RowDefinition Height="2*" />
             <RowDefinition Height="3.5*" />
             <RowDefinition Height="0.75*" />
 
@@ -38,7 +38,16 @@
             HorizontalAlignment="Center"
             Orientation="Horizontal">
 
-            <Image Source="D:\OneDrive - VNU-HCMUS\FIT-HCMUS\FIT-NAM3\HK2\3.Thiet-KePM\Deadline\DOAN\712-706\QuanLiKhachSan\QuanLiKhachSan\Images\avatar.png" />
+            <Ellipse
+                Canvas.Left="10"
+                Width="150"
+                Height="150"
+                HorizontalAlignment="Center"
+                Stroke="{DynamicResource DenHoiNhat}">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{Binding NhanVienDangNhap.AnhDaiDien}" />
+                </Ellipse.Fill>
+            </Ellipse>
             <StackPanel Margin="30,20,0,0">
                 <TextBlock
                     Margin="0,0,0,20"

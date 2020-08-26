@@ -72,7 +72,7 @@
                         Name="passInput"
                         Width="242"
                         Height="30"
-                        Margin="0,10,0,9"
+                        Margin="0,9"
                         materialDesign:HintAssist.Hint="Mật khẩu"
                         Background="Transparent"
                         BorderBrush="Transparent"
@@ -111,8 +111,8 @@
                     Click="SigninBtn_Click"
                     Command="{Binding LoginCommand}"
                     CommandParameter="{Binding ElementName=DangNhapWindow}"
-                    Content="Dăng Nhập"
-                    FontFamily="SimSun"
+                    Content="Đăng Nhập"
+                    FontFamily="Cambria"
                     FontSize="24" />
             </Border>
             <CheckBox

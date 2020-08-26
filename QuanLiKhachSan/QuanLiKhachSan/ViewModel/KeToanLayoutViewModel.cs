@@ -50,7 +50,7 @@ namespace QuanLiKhachSan.ViewModel
             {
                 CurrentDataContext = ucTaiKhoan;
             });
-            btnDangXuat_Command = new RelayCommand<object>((p) => { return CurrentDataContext != ucTaiKhoan; }, (p) =>
+            btnDangXuat_Command = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 DangNhap login = new DangNhap();
                 login.Show();

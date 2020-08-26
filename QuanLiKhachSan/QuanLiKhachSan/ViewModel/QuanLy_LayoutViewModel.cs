@@ -77,7 +77,7 @@ namespace QuanLiKhachSan.ViewModel
                 QuanLyTitle = "QUẢN LÝ THAM SỐ";
                 CurrentQuanLyDataContext = ucThamSo;
             });
-            btnQuanLy_DangXuat = new RelayCommand<object>((p) => { return CurrentQuanLyDataContext != ucThamSo; }, (p) =>
+            btnQuanLy_DangXuat = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 DangNhap login = new DangNhap();
                 login.Show();
