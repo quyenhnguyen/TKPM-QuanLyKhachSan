@@ -1,38 +1,34 @@
-﻿<Window x:Class="QuanLiKhachSan.View.QuanLy_Layout"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ViewModels="clr-namespace:QuanLiKhachSan.ViewModel"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:fa="http://schemas.fontawesome.io/icons/"
-        xmlns:local="clr-namespace:QuanLiKhachSan.View"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Title="{Binding QuanLyTitle}"
-        Width="1500"
-        Height="850"
-        DataContext="{StaticResource QuanLyLayoutVM}"
-        WindowStartupLocation="CenterScreen"
-        mc:Ignorable="d">
+﻿<Window
+    x:Class="QuanLiKhachSan.View.QuanLy_Layout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ViewModels="clr-namespace:QuanLiKhachSan.ViewModel"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fa="http://schemas.fontawesome.io/icons/"
+    xmlns:local="clr-namespace:QuanLiKhachSan.View"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="{Binding QuanLyTitle}"
+    Width="1390"
+    Height="745"
+    DataContext="{StaticResource QuanLyLayoutVM}"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
     <!--  Để hiện template của ai mỗi khi click tab  -->
     <Window.Resources>
-        <DataTemplate x:Name="QLNhanVien"
-                      DataType="{x:Type ViewModels:QuanLyNhanVienViewModel}">
+        <DataTemplate x:Name="QLNhanVien" DataType="{x:Type ViewModels:QuanLyNhanVienViewModel}">
             <local:QuanLyNhanVien DataContext="{Binding}" />
         </DataTemplate>
-        <DataTemplate x:Name="QLPhong"
-                      DataType="{x:Type ViewModels:QuanLyPhong_LoaiPhongViewModel}">
+        <DataTemplate x:Name="QLPhong" DataType="{x:Type ViewModels:QuanLyPhong_LoaiPhongViewModel}">
             <local:QuanLyPhong_LoaiPhong DataContext="{Binding}" />
         </DataTemplate>
-        <DataTemplate x:Name="QLDichVu"
-                      DataType="{x:Type ViewModels:QuanLyDichVu_LoaiDVViewModel}">
+        <DataTemplate x:Name="QLDichVu" DataType="{x:Type ViewModels:QuanLyDichVu_LoaiDVViewModel}">
             <local:QuanLyDichVu_LoaiDV DataContext="{Binding}" />
         </DataTemplate>
-        <DataTemplate x:Name="TaiKhoan"
-                      DataType="{x:Type ViewModels:QuanLyTaiKhoanViewModel}">
+        <DataTemplate x:Name="TaiKhoan" DataType="{x:Type ViewModels:QuanLyTaiKhoanViewModel}">
             <local:QuanLy_TaiKhoan DataContext="{Binding}" />
         </DataTemplate>
-        <DataTemplate x:Name="ThamSo"
-                      DataType="{x:Type ViewModels:QuanLy_ThamSoViewModel}">
+        <DataTemplate x:Name="ThamSo" DataType="{x:Type ViewModels:QuanLy_ThamSoViewModel}">
             <local:QuanLy_ThamSo DataContext="{Binding}" />
         </DataTemplate>
     </Window.Resources>
@@ -46,111 +42,127 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <!--  Menu trai  -->
-        <StackPanel Grid.Row="0"
-                    Grid.RowSpan="2"
-                    Grid.Column="0"
-                    Background="{StaticResource MauSlideBarTraiQL}"
-                    Orientation="Vertical"
-                    Grid.ColumnSpan="2"
-                    Margin="0,0,1178,0">
-            <Grid Width="240"
-                  Height="240">
-                <Image Margin="0,30"
-                       Source="../images/logo.jpg" />
+        <Grid
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.Column="0"
+            Background="{StaticResource MauSlideBarTraiQL}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200" />
+                <RowDefinition Height="5*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid Width="200" Height="200">
+                <Image Margin="0,20" Source="../images/logo.jpg" />
             </Grid>
-            <StackPanel Margin="0,20">
-                <Button Command="{Binding btnQuanLy_NhanVien}"
-                        Style="{StaticResource StyleButtonSlidebar}">
-                    <StackPanel Width="256"
-                                Orientation="Horizontal">
-                        <materialDesign:PackIcon Width="29"
-                                                 Height="26"
-                                                 Margin="10,0,10,5"
-                                                 Foreground="White"
-                                                 Kind="CustomerService" />
+            <StackPanel Grid.Row="1" Margin="0,20">
+                <Button Command="{Binding btnQuanLy_NhanVien}" Style="{StaticResource StyleButtonSlidebarQL}">
+                    <StackPanel Width="256" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="29"
+                            Height="26"
+                            Margin="10,0,10,5"
+                            Foreground="White"
+                            Kind="CustomerService" />
                         <TextBlock VerticalAlignment="Center">QUẢN LÝ NHÂN VIÊN</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding btnQuanLy_Phong}"
-                        Style="{StaticResource StyleButtonSlidebar}">
-                    <StackPanel Width="260"
-                                Orientation="Horizontal">
-                        <materialDesign:PackIcon Width="29"
-                                                 Height="26"
-                                                 Margin="10,0,10,5"
-                                                 Foreground="White"
-                                                 Kind="Home" />
-                        <TextBlock VerticalAlignment="Center">QUẢN LÝ PHÒNG, LOẠI PHÒNG</TextBlock>
+                <Button Command="{Binding btnQuanLy_Phong}" Style="{StaticResource StyleButtonSlidebarQL}">
+                    <StackPanel Width="260" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="29"
+                            Height="26"
+                            Margin="10,0,10,5"
+                            Foreground="White"
+                            Kind="Bed" />
+                        <TextBlock VerticalAlignment="Center">QUẢN LÝ PHÒNG</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding btnQuanLy_DichVu}"
-                        Style="{StaticResource StyleButtonSlidebar}">
-                    <StackPanel Width="260"
-                                Orientation="Horizontal">
-                        <materialDesign:PackIcon Width="29"
-                                                 Height="26"
-                                                 Margin="10,0,10,5"
-                                                 Foreground="White"
-                                                 Kind="ServiceToolbox" />
+                <Button Command="{Binding btnQuanLy_DichVu}" Style="{StaticResource StyleButtonSlidebarQL}">
+                    <StackPanel Width="260" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="29"
+                            Height="26"
+                            Margin="10,0,10,5"
+                            Foreground="White"
+                            Kind="ServiceToolbox" />
                         <TextBlock VerticalAlignment="Center">QUẢN LÝ DỊCH VỤ</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding btnQuanLy_ThamSo}"
-                        Style="{StaticResource StyleButtonSlidebar}">
-                    <StackPanel Width="260"
-                                Orientation="Horizontal">
-                        <materialDesign:PackIcon Width="29"
-                                                 Height="26"
-                                                 Margin="10,0,10,5"
-                                                 Foreground="White"
-                                                 Kind="AccountCog" />
+                <Button Command="{Binding btnQuanLy_ThamSo}" Style="{StaticResource StyleButtonSlidebarQL}">
+                    <StackPanel Width="260" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="29"
+                            Height="26"
+                            Margin="10,0,10,5"
+                            Foreground="White"
+                            Kind="AccountCog" />
                         <TextBlock VerticalAlignment="Center">QUẢN LÝ THAM SỐ</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding btnQuanLy_TaiKhoan}"
-                        Style="{StaticResource StyleButtonSlidebar}">
-                    <StackPanel Width="260"
-                                Orientation="Horizontal">
-                        <materialDesign:PackIcon Width="29"
-                                                 Height="26"
-                                                 Margin="10,0,10,5"
-                                                 Foreground="White"
-                                                 Kind="AccountCircle" />
+                <Button Command="{Binding btnQuanLy_TaiKhoan}" Style="{StaticResource StyleButtonSlidebarQL}">
+                    <StackPanel Width="260" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="29"
+                            Height="26"
+                            Margin="10,0,10,5"
+                            Foreground="White"
+                            Kind="AccountCircle" />
                         <TextBlock VerticalAlignment="Center">QUẢN LÝ TÀI KHOẢN</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding btnQuanLy_DangXuat}"
-                        CommandParameter="{Binding RelativeSource={
-             RelativeSource AncestorType={x:Type Window}}}"
-                        Style="{StaticResource StyleButtonSlidebar}">
-                    <StackPanel Width="258"
-                                Orientation="Horizontal">
-                        <materialDesign:PackIcon Width="29"
-                                                 Height="26"
-                                                 Margin="10,0,10,5"
-                                                 Foreground="White"
-                                                 Kind="Logout" />
+                <Button
+                    Command="{Binding btnQuanLy_DangXuat}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    Style="{StaticResource StyleButtonSlidebarQL}">
+                    <StackPanel Width="258" Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="29"
+                            Height="26"
+                            Margin="10,0,10,5"
+                            Foreground="White"
+                            Kind="Logout" />
                         <TextBlock VerticalAlignment="Center">ĐĂNG XUẤT</TextBlock>
                     </StackPanel>
                 </Button>
             </StackPanel>
-        </StackPanel>
+            <StackPanel Grid.Row="2" VerticalAlignment="Center">
+                <Border
+                    Padding="20"
+                    BorderBrush="{StaticResource XamDam}"
+                    BorderThickness="0,1,0,0">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="{Binding NhanVienDangNhap.HoTen}" />
+                        <TextBlock
+                            Margin="0,5"
+                            Foreground="White"
+                            Text="{Binding NhanVienDangNhap.LOAINHANVIEN.TenLoai}"
+                            TextAlignment="Center" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
         <!--  View chính  -->
-        <StackPanel Grid.Row="0"
-                    Grid.Column="1"
-                    VerticalAlignment="Center">
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="1"
+            VerticalAlignment="Center">
             <!--  Header  -->
-            <TextBlock HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="{DynamicResource CoChuLon}"
-                       FontWeight="Bold"
-                       Foreground="{DynamicResource MauChuHeader}"
-                       Text="{Binding QuanLyTitle}" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="{DynamicResource CoChuLon}"
+                FontWeight="Bold"
+                Foreground="#4C4C4C"
+                Text="{Binding QuanLyTitle}" />
             <!--<Separator />-->
         </StackPanel>
-        <ContentControl Grid.Row="1"
-                        Grid.Column="1"
-                        Content="{Binding CurrentQuanLyDataContext}"
-                        Margin="74,0,0,0"></ContentControl>
+        <ContentControl
+            Grid.Row="1"
+            Grid.Column="1"
+            Content="{Binding CurrentQuanLyDataContext}" />
     </Grid>
 </Window>

@@ -36,16 +36,23 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <!--  Menu trai  -->
-        <StackPanel
+        <Grid
             Grid.Row="0"
             Grid.RowSpan="2"
             Grid.Column="0"
-            Background="{StaticResource MauSlideBarTrai}"
-            Orientation="Vertical">
+            Background="{StaticResource MauSlideBarTrai}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="240" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
             <Grid Width="240" Height="240">
                 <Image Margin="0,30" Source="../images/logo.jpg" />
             </Grid>
-            <StackPanel Margin="0,20">
+            <StackPanel
+                Grid.Row="1"
+                Margin="0,20"
+                VerticalAlignment="Center">
                 <Button Command="{Binding btnDatPhong_Command}" Style="{StaticResource StyleButtonSlidebar}">
                     <StackPanel Width="240" Orientation="Horizontal">
                         <materialDesign:PackIcon
@@ -94,21 +101,25 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
-            <Separator
-                Margin="0,140,0,10"
-                BorderBrush="{StaticResource XamDam}"
-                BorderThickness="1" />
-            <StackPanel HorizontalAlignment="Center">
-                <TextBlock
-                    FontWeight="Bold"
-                    Foreground="White"
-                    Text="{Binding NhanVienDangNhap.HoTen}" />
-                <TextBlock
-                    Margin="5,0"
-                    Foreground="White"
-                    Text="{Binding NhanVienDangNhap.LOAINHANVIEN.TenLoai}" />
+            <StackPanel Grid.Row="2" VerticalAlignment="Center">
+                <Border
+                    Padding="20"
+                    BorderBrush="{StaticResource XamDam}"
+                    BorderThickness="0,1,0,0">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="{Binding NhanVienDangNhap.HoTen}" />
+                        <TextBlock
+                            Margin="0,5"
+                            Foreground="White"
+                            Text="{Binding NhanVienDangNhap.LOAINHANVIEN.TenLoai}"
+                            TextAlignment="Center" />
+                    </StackPanel>
+                </Border>
             </StackPanel>
-        </StackPanel>
+        </Grid>
         <!--  View chính  -->
         <StackPanel
             Grid.Row="0"

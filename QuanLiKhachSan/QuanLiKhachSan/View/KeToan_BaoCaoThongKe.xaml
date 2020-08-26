@@ -60,7 +60,7 @@
                             Width="60"
                             Height="60"
                             Foreground="{StaticResource MauTenPhong}"
-                            Kind="Silverware" />
+                            Kind="ServiceToolbox" />
                     </StackPanel>
                     <Separator
                         Grid.Row="1"
@@ -98,7 +98,7 @@
                             Width="60"
                             Height="60"
                             Foreground="{StaticResource MauTenPhong}"
-                            Kind="ChartBar" />
+                            Kind="BedDouble" />
                     </StackPanel>
                     <Separator
                         Grid.Row="1"
@@ -136,7 +136,7 @@
                             Width="60"
                             Height="60"
                             Foreground="{StaticResource MauTenPhong}"
-                            Kind="CashUsd" />
+                            Kind="ChartBar" />
                     </StackPanel>
                     <Separator
                         Grid.Row="1"

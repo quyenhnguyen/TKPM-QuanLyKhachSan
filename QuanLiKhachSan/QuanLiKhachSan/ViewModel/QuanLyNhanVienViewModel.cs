@@ -290,8 +290,8 @@ namespace QuanLiKhachSan.ViewModel
             // Thêm Mới hoặc Cập Nhật
             confirmButtonCommmand = new RelayCommand<Object>((p) =>
             {
-                if (checkCondition())
-                    return false;
+                //if (checkCondition())
+                //    return false;
                 return true;
             }, (p) =>
             {

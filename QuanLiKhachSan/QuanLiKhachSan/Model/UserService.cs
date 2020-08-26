@@ -9,18 +9,20 @@ namespace QuanLiKhachSan.Model
 {
     public class UserService
     {
-        private static NHANVIEN _CurrentUser = null;
+        public static NHANVIEN _CurrentUser = null;
         public static NHANVIEN GetCurrentUser
         {
             get//để to
             {
+
                 return _CurrentUser;
             }
         }
 
         public static void LoadUser(NHANVIEN user)
         {
-            _CurrentUser = user;
+            if (_CurrentUser == null)
+                _CurrentUser = user;
         }
         // GO
     }

@@ -50,6 +50,7 @@ namespace QuanLiKhachSan.ViewModel
                 if (isLogin)
                 {
                     int loai = layChucVu();
+                    UserService._CurrentUser = null;
                     UserService.LoadUser(userLogin);
                     if (loai == 1)
                     {

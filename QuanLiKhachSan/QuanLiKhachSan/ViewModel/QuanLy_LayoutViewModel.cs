@@ -1,4 +1,5 @@
-﻿using QuanLiKhachSan.View;
+﻿using QuanLiKhachSan.Model;
+using QuanLiKhachSan.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,22 +13,17 @@ namespace QuanLiKhachSan.ViewModel
     public class QuanLy_LayoutViewModel : BaseViewModel
     {
 
-        private object _CurrentQuanLyDataContext;
-        public object CurrentQuanLyDataContext
-        {
-            get => _CurrentQuanLyDataContext;
-            set
-            {
-                _CurrentQuanLyDataContext = value;
-                OnPropertyChanged();
-            }
-        }
+        private object _CurrentDataContext;
+        public object CurrentQuanLyDataContext { get => _CurrentDataContext; set { _CurrentDataContext = value; OnPropertyChanged(); } }
+
         private string _QuanLyTitle;
         public string QuanLyTitle
         {
             get => _QuanLyTitle;
             set { _QuanLyTitle = value; OnPropertyChanged(); }
         }
+        private NHANVIEN _NhanVienDangNhap;
+        public NHANVIEN NhanVienDangNhap { get => _NhanVienDangNhap; set { _NhanVienDangNhap = value; OnPropertyChanged(); } }
         #region All Command
         public ICommand btnQuanLy_NhanVien { get; set; }
         public ICommand btnQuanLy_Phong { get; set; }
@@ -41,6 +37,8 @@ namespace QuanLiKhachSan.ViewModel
 
         public QuanLy_LayoutViewModel()
         {
+            int MaNhanVien = UserService.GetCurrentUser.NhanVienID;
+            NhanVienDangNhap = DatabaseQuery.truyVanNhanVien(MaNhanVien);
             object ucNhanVien = new QuanLyNhanVienViewModel();
             object ucPhong = new QuanLyPhong_LoaiPhongViewModel();
             object ucDichVu = new QuanLyDichVu_LoaiDVViewModel();

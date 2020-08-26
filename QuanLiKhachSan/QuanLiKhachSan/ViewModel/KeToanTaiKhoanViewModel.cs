@@ -37,7 +37,7 @@ namespace QuanLiKhachSan.ViewModel
             }
             else
             {
-                isAdmin = "Hidden";
+                isAdmin = "Collapsed";
             }
             chuyenQuanLy = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {

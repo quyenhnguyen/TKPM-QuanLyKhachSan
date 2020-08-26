@@ -55,6 +55,7 @@ namespace QuanLiKhachSan.ViewModel
                 DangNhap login = new DangNhap();
                 login.Show();
                 ((Window)p).Close();
+                //UserService._CurrentUser = null;
             });
         }
     }

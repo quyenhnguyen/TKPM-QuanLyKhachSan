@@ -14,31 +14,11 @@ namespace QuanLiKhachSan.ViewModel
     public class LeTanLayoutViewModel : BaseViewModel
     {
         private object _CurrentDataContext;
-        public object CurrentDataContext
-        {
-            get => _CurrentDataContext;
-            set
-            {
-                _CurrentDataContext = value;
-                OnPropertyChanged();
-            }
-        }
+        public object CurrentDataContext { get => _CurrentDataContext; set { _CurrentDataContext = value; OnPropertyChanged(); } }
         private string _txtTitle;
-        public string txtTitle
-        {
-            get => _txtTitle;
-            set { _txtTitle = value; OnPropertyChanged(); }
-        }
+        public string txtTitle { get => _txtTitle; set { _txtTitle = value; OnPropertyChanged(); } }
         private NHANVIEN _NhanVienDangNhap;
-        public NHANVIEN NhanVienDangNhap
-        {
-            get => _NhanVienDangNhap;
-            set
-            {
-                _NhanVienDangNhap = value;
-                OnPropertyChanged();
-            }
-        }
+        public NHANVIEN NhanVienDangNhap { get => _NhanVienDangNhap; set { _NhanVienDangNhap = value; OnPropertyChanged(); } }
         #region All Command
         public ICommand btnDatPhong_Command { get; set; }
         public ICommand btnTaiKhoan_Command { get; set; }
