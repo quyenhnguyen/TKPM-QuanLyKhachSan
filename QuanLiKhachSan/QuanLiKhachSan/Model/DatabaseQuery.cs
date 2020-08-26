@@ -21,7 +21,16 @@ namespace QuanLiKhachSan.Model
         {
             DataProvider.ISCreated.DB.SaveChanges();
         }
+        public string TaoDichVuID()
+        {
+            int id = DataProvider.ISCreated.DB.DICHVUs.ToList().Count;
+            if (id < 10)
+                return "DV00" + id;
+            else if (id < 100)
+                return "DV0" + id;
+            return "DV" + id;
 
+        }
         public static List<NHANVIEN> danhSachNhanVien()
         {
             return DataProvider.ISCreated.DB.NHANVIENs.Where(x => x.TinhTrang == false).ToList();
@@ -426,6 +435,84 @@ namespace QuanLiKhachSan.Model
             return DataProvider.ISCreated.DB.NHANVIENs.Where(x => x.NhanVienID == MaNV && x.TinhTrang == false).SingleOrDefault();
         }
 
+        public static bool tonTaiHoaDonTheoNgay(DateTime NgayBD, DateTime NgayKT)
+        {
+            NgayBD = NgayBD.Date;
+            NgayKT = NgayKT.Date;
+            int i = DataProvider.ISCreated.DB.Database.SqlQuery<List<LICHSUTHEMDICHVU>>(
+                "SELECT * FROM LICHSUTHEMDICHVU HD  WHERE CAST(HD.ThoiGianThem AS DATE) >= @BD and CAST(HD.ThoiGianThem AS DATE) <= @KT", new SqlParameter("@BD", NgayBD), new SqlParameter("@KT", NgayKT)).ToList().Count;
+            return i > 0;
+        }
+        public static BindingList<ThongTinBaoCao> truyVanDoanhThuTheoDichVu(DateTime NgayBD, DateTime NgayKT)
+        {
+            BindingList<ThongTinBaoCao> DoanhThuDV = new BindingList<ThongTinBaoCao>();
+            List<DICHVU> listDV = truyVanDanhSachDichVu();
+            NgayBD = NgayBD.Date;
+            NgayKT = NgayKT.Date;
+            foreach (DICHVU dv in listDV)
+            {
+                ThongTinBaoCao baocao = new ThongTinBaoCao();
+                baocao.TenDonVi = dv.TenDichVu;
+                int soLuongDV = DataProvider.ISCreated.DB.Database.SqlQuery<int>("SELECT  sum(HD.SoLuong) FROM LICHSUTHEMDICHVU HD WHERE  CAST(HD.ThoiGianThem AS DATE) >= @BD and CAST(HD.ThoiGianThem AS DATE) <= @KT and HD.DichVuID = @id", new SqlParameter("@id", dv.DichVuID), new SqlParameter("@BD", NgayBD), new SqlParameter("@KT", NgayKT)).FirstOrDefault();
+                baocao.DoanhThu = dv.GiaBan * soLuongDV;
+                DoanhThuDV.Add(baocao);
+            }
+
+            return DoanhThuDV;
+        }
+        public static bool tonTaiPhongThueTheoNgay(DateTime NgayBD, DateTime NgayKT)
+        {
+            NgayBD = NgayBD.Date;
+            NgayKT = NgayKT.Date;
+            int i = DataProvider.ISCreated.DB.Database.SqlQuery<List<HOADONTHUEPHONG>>(
+                "SELECT * FROM HOADONTHUEPHONG HD  WHERE CAST(HD.NgayTao AS DATE) >= @BD and CAST(HD.NgayTao AS DATE) <= @KT", new SqlParameter("@BD", NgayBD), new SqlParameter("@KT", NgayKT)).ToList().Count;
+            return i > 0;
+        }
+
+        public static BindingList<ThongTinBaoCao> truyVanHoaDonBaoCaoTheoLoiNhuan(DateTime NgayBD, DateTime NgayKT)
+        {
+            NgayBD = NgayBD.Date;
+            NgayKT = NgayKT.Date;
+            BindingList<ThongTinBaoCao> DoanhThuPhong = new BindingList<ThongTinBaoCao>();
+            List<DateTime> listNgay = Enumerable.Range(0, 1 + NgayKT.Subtract(NgayBD).Days).Select(offset => NgayBD.AddDays(offset)).ToList();
+
+
+            foreach (DateTime date in listNgay)
+            {
+                ThongTinBaoCao baocao = new ThongTinBaoCao();
+                baocao.TenDonVi = date.ToString("dd/MM/yyyy");
+                //Tính tổng doanh thu của ngày đó (phòng+dịch vụ)
+                int x = DataProvider.ISCreated.DB.Database.SqlQuery<int>("SELECT  count(*) FROM HOADONTHUEPHONG HD WHERE CAST(HD.ThoiGianTra AS DATE) = CAST(@date AS Date)", new SqlParameter("@date", date.Date)).FirstOrDefault();
+                if (x > 0) baocao.DoanhThu = DataProvider.ISCreated.DB.Database.SqlQuery<double>("SELECT  sum(HD.TongTien) FROM HOADONTHUEPHONG HD WHERE CAST(HD.ThoiGianTra AS DATE) = CAST(@date AS Date)", new SqlParameter("@date", date.Date)).FirstOrDefault();
+                else baocao.DoanhThu = 0;
+
+                //hóa đơn đaz checkout r và thời gian thêm của lịch sử là = date
+                int i = DataProvider.ISCreated.DB.Database.SqlQuery<int>("SELECT  count(*) FROM LICHSUTHEMDICHVU LS JOIN HOADONTHUEPHONG HD ON LS.MaHoaDon=HD.MaHoaDon JOIN DICHVU DV ON DV.DichVuID=LS.DichVuID WHERE CAST(LS.ThoiGianThem AS DATE) = CAST(@date AS Date) and HD.ThoiGianTra is not null", new SqlParameter("@date", date.Date)).FirstOrDefault();
+                if (i > 0) baocao.ChiPhi = DataProvider.ISCreated.DB.Database.SqlQuery<double>("SELECT  sum(ls.SoLuong*DV.GiaCungCap) FROM LICHSUTHEMDICHVU LS JOIN HOADONTHUEPHONG HD ON LS.MaHoaDon=HD.MaHoaDon JOIN DICHVU DV ON DV.DichVuID=LS.DichVuID WHERE CAST(LS.ThoiGianThem AS DATE) = CAST(@date AS Date) and HD.ThoiGianTra is not null", new SqlParameter("@date", date.Date)).FirstOrDefault();
+                else baocao.ChiPhi = 0;
+                baocao.LoiNhuan = baocao.DoanhThu - baocao.ChiPhi;
+                DoanhThuPhong.Add(baocao);
+            }
+
+            return DoanhThuPhong;
+        }
+        public static BindingList<ThongTinBaoCao> truyVanHoaDonBaoCaoTheoPhong(DateTime NgayBD, DateTime NgayKT)
+        {
+            BindingList<ThongTinBaoCao> DoanhThu = new BindingList<ThongTinBaoCao>();
+            List<PHONG> listDV = danhSachPhong();
+            NgayBD = NgayBD.Date;
+            NgayKT = NgayKT.Date;
+            foreach (PHONG dv in listDV)
+            {
+                ThongTinBaoCao baocao = new ThongTinBaoCao();
+                baocao.TenDonVi = dv.TenPhong;
+                int soLuongDV = DataProvider.ISCreated.DB.Database.SqlQuery<int>("SELECT  count(*) FROM HOADONTHUEPHONG HD WHERE CAST(HD.NgayTao AS DATE) >= @BD and CAST(HD.NgayTao AS DATE) <= @KT and HD.Phong = @id", new SqlParameter("@id", dv.PhongID), new SqlParameter("@BD", NgayBD), new SqlParameter("@KT", NgayKT)).FirstOrDefault();
+                baocao.DoanhThu = soLuongDV;
+                DoanhThu.Add(baocao);
+            }
+
+            return DoanhThu;
+        }
         public static void MyMessageBox(string messageBoxText)
         {
             string caption = "Notification";

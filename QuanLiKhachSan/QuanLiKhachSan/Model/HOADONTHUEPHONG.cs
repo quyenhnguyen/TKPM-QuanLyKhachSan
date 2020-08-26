@@ -26,7 +26,7 @@ namespace QuanLiKhachSan.Model
         public Nullable<double> TongTien { get; set; }
         public int NhanVienTaoHoaDon { get; set; }
         public string Phong { get; set; }
-        public int MaKhachHang { get; set; }
+        public Nullable<int> MaKhachHang { get; set; }
         public System.DateTime NgayTao { get; set; }
     
         public virtual KHACHHANG KHACHHANG { get; set; }

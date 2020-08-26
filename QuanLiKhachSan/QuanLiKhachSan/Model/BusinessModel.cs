@@ -26,6 +26,21 @@ namespace QuanLiKhachSan.Model
         public string DonVi { get => _DonVi; set { OnPropertyChanged(ref _DonVi, value); } }
     }
 
+    public class ThongTinBaoCao : BaseViewModel
+    {
+        public string _TenDonVi;
+        public string TenDonVi { get => _TenDonVi; set { OnPropertyChanged(ref _TenDonVi, value); } }
+
+        public double _DoanhThu;
+        public double DoanhThu { get => _DoanhThu; set { OnPropertyChanged(ref _DoanhThu, value); } }
+
+        public double _LoiNhuan;
+        public double LoiNhuan { get => _LoiNhuan; set { OnPropertyChanged(ref _LoiNhuan, value); } }
+
+        public double _ChiPhi;
+        public double ChiPhi { get => _ChiPhi; set { OnPropertyChanged(ref _ChiPhi, value); } }
+    }
+
     public class BusinessModel
     {
         public static void ThemDichVuVaoDanhSachDaThem(BindingList<LSTHEMDICHVU> DanhSachDichVuDaThem, BindingList<LICHSUTHEMDICHVU> list)
@@ -44,4 +59,6 @@ namespace QuanLiKhachSan.Model
             }
         }
     }
+
+
 }

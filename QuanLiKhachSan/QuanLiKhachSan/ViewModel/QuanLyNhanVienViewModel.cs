@@ -155,6 +155,7 @@ namespace QuanLiKhachSan.ViewModel
 
         private string _Loai;
         public string txtLoai { get => _Loai; set => OnPropertyChanged(ref _Loai, value); }
+<<<<<<< Updated upstream
         public void reset()
         {
             isAddUser = true;
@@ -173,6 +174,12 @@ namespace QuanLiKhachSan.ViewModel
         }
         public void showDetails()
         {
+=======
+
+        public void showDetails()
+        {
+
+>>>>>>> Stashed changes
             if (selectItem != null)
             {
                 txtNhanVienID = selectItem.NhanVienID;
@@ -226,18 +233,29 @@ namespace QuanLiKhachSan.ViewModel
         public QuanLyNhanVienViewModel()
         {
             listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());
+<<<<<<< Updated upstream
             listLoaiNV = new BindingList<LOAINHANVIEN>(DatabaseQueryTN.danhSachLoaiNV());
             timNhanVienCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
                 listNhanVien = new BindingList<NHANVIEN>(DatabaseQueryTN.timKiemNhanVien(timNhanVienInput));
             });
+=======
+            listChucVu = new BindingList<string>(new List<string> { "Kế Toán", "Lễ Tân", "Quản Lý" });
+            txtLoai = listChucVu[0];
+>>>>>>> Stashed changes
             ChonAnhChiTietNhanVienCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 if (openFileDialog.ShowDialog() == true)
                 {
                     Uri fileUri = new Uri(openFileDialog.FileName);
+<<<<<<< Updated upstream
                     HinhAnhNhanVien = new BitmapImage(new Uri(openFileDialog.FileName));
+=======
+                    string file = "Images/Avatar/" + openFileDialog.SafeFileName;
+                    File.Move(openFileDialog.FileName, file);
+                    HinhAnhNhanVien = new BitmapImage(new Uri(file, UriKind.Relative));
+>>>>>>> Stashed changes
                 }
             }
             );
@@ -282,7 +300,20 @@ namespace QuanLiKhachSan.ViewModel
             // Thêm Mới hoặc Cập Nhật
             confirmButtonCommmand = new RelayCommand<Object>((p) =>
             {
+<<<<<<< Updated upstream
                 if (checkCondition())
+=======
+                if (string.IsNullOrEmpty(txtLoai.ToString()) ||
+                string.IsNullOrEmpty(txtNgaySinh.ToString("dd/mm/yyyy")) ||
+                string.IsNullOrEmpty(txtDiaChi) ||
+                string.IsNullOrEmpty(txtTenDangNhap.ToString()) ||
+                string.IsNullOrEmpty(txtSDT.ToString()) ||
+                string.IsNullOrEmpty(txtCMND.ToString()) ||
+                string.IsNullOrEmpty(txtEmail.ToString()) ||
+                string.IsNullOrEmpty(txtNhanVienID.ToString()) ||
+                string.IsNullOrEmpty(txtNgayTao.ToString()) ||
+                string.IsNullOrEmpty(txtHoTen.ToString()))
+>>>>>>> Stashed changes
                     return false;
                 return true;
             }, (p) =>

@@ -25,7 +25,7 @@ namespace QuanLiKhachSan.ViewModel
 
         public LeTanTaiKhoanViewModel()
         {
-            MaNV = 1;
+            MaNV = UserService.GetCurrentUser.NhanVienID;
             NhanVienDangNhap = DatabaseQuery.truyVanNhanVien(MaNV);
 
             DoiMatKhauCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
@@ -40,11 +40,12 @@ namespace QuanLiKhachSan.ViewModel
         }
         void ResetPassword(string OldPassword, string NewPassword)
         {
-            if (OldPassword.Equals(NhanVienDangNhap.MatKhau))
+
+            if (SecurityModel.Encrypt(OldPassword).Equals(NhanVienDangNhap.MatKhau))
             {
                 try
                 {
-                    NhanVienDangNhap.MatKhau = NewPassword;
+                    NhanVienDangNhap.MatKhau = SecurityModel.Encrypt(NewPassword);
                     DatabaseQuery.capNhatCSDL();
 
                     DatabaseQuery.MyMessageBox("Thay đổi mật khẩu thành công");

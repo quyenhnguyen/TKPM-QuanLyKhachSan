@@ -79,7 +79,10 @@
                         <TextBlock VerticalAlignment="Center">TÀI KHOẢN</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource StyleButtonSlidebar}">
+                <Button
+                    Command="{Binding btnDangXuat_Command}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    Style="{StaticResource StyleButtonSlidebar}">
                     <StackPanel Width="240" Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="29"
