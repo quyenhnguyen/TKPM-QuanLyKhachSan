@@ -65,7 +65,7 @@ namespace QuanLiKhachSan.ViewModel
 
             SeriesCollection.Add(new ColumnSeries
             {
-                Title = "Lọi nhuận",
+                Title = "Lợi nhuận",
                 Values = new ChartValues<double> { }
             });
             //List ngày

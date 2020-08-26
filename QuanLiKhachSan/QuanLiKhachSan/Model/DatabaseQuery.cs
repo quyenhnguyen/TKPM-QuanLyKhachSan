@@ -440,7 +440,7 @@ namespace QuanLiKhachSan.Model
             NgayBD = NgayBD.Date;
             NgayKT = NgayKT.Date;
             int i = DataProvider.ISCreated.DB.Database.SqlQuery<List<LICHSUTHEMDICHVU>>(
-                "SELECT * FROM LICHSUTHEMDICHVU HD  WHERE CAST(HD.ThoiGianThem AS DATE) >= @BD and CAST(HD.ThoiGianThem AS DATE) <= @KT", new SqlParameter("@BD", NgayBD), new SqlParameter("@KT", NgayKT)).ToList().Count;
+                "SELECT * FROM LICHSUTHEMDICHVU LS  WHERE CAST(LS.ThoiGianThem AS DATE) >= @BD and CAST(LS.ThoiGianThem AS DATE) <= @KT", new SqlParameter("@BD", NgayBD), new SqlParameter("@KT", NgayKT)).ToList().Count;
             return i > 0;
         }
         public static BindingList<ThongTinBaoCao> truyVanDoanhThuTheoDichVu(DateTime NgayBD, DateTime NgayKT)
@@ -453,7 +453,11 @@ namespace QuanLiKhachSan.Model
             {
                 ThongTinBaoCao baocao = new ThongTinBaoCao();
                 baocao.TenDonVi = dv.TenDichVu;
-                int soLuongDV = DataProvider.ISCreated.DB.Database.SqlQuery<int>("SELECT  sum(HD.SoLuong) FROM LICHSUTHEMDICHVU HD WHERE  CAST(HD.ThoiGianThem AS DATE) >= @BD and CAST(HD.ThoiGianThem AS DATE) <= @KT and HD.DichVuID = @id", new SqlParameter("@id", dv.DichVuID), new SqlParameter("@BD", NgayBD), new SqlParameter("@KT", NgayKT)).FirstOrDefault();
+                int i = DataProvider.ISCreated.DB.Database.SqlQuery<int>("SELECT  count(*) FROM LICHSUTHEMDICHVU LS WHERE  CAST(LS.ThoiGianThem AS DATE) >= @BD and CAST(LS.ThoiGianThem AS DATE) <= @KT and LS.DichVuID = @id", new SqlParameter("@id", dv.DichVuID), new SqlParameter("@BD", NgayBD), new SqlParameter("@KT", NgayKT)).FirstOrDefault();
+
+                int soLuongDV;
+                if (i > 0) soLuongDV = DataProvider.ISCreated.DB.Database.SqlQuery<int>("SELECT  sum(LS.SoLuong) FROM LICHSUTHEMDICHVU LS WHERE  CAST(LS.ThoiGianThem AS DATE) >= @BD and CAST(LS.ThoiGianThem AS DATE) <= @KT and LS.DichVuID = @id", new SqlParameter("@id", dv.DichVuID), new SqlParameter("@BD", NgayBD), new SqlParameter("@KT", NgayKT)).FirstOrDefault();
+                else soLuongDV = 0;
                 baocao.DoanhThu = dv.GiaBan * soLuongDV;
                 DoanhThuDV.Add(baocao);
             }
