@@ -1,9 +1,11 @@
 ﻿using QuanLiKhachSan.Model;
+using QuanLiKhachSan.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -20,11 +22,25 @@ namespace QuanLiKhachSan.ViewModel
         public ICommand DoiMatKhauCommand { get; set; }
 
 
+        public ICommand chuyenQuanLy { get; set; }
+        public ICommand chuyenLeTan { get; set; }
         public KeToanTaiKhoanViewModel()
         {
             MaNV = UserService.GetCurrentUser.NhanVienID;
             NhanVienDangNhap = DatabaseQuery.truyVanNhanVien(MaNV);
-
+            UserService.LoadUser(NhanVienDangNhap);
+            chuyenQuanLy = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            {
+                QuanLy_Layout keToan = new QuanLy_Layout();
+                keToan.Show();
+                Window.GetWindow(p).Close();
+            });
+            chuyenLeTan = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            {
+                LeTan_Layout LetanWindow = new LeTan_Layout();
+                LetanWindow.Show();
+                Window.GetWindow(p).Close();
+            });
             DoiMatKhauCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
                 string matKhauMoi = (p.FindName("MatKhauMoi") as PasswordBox).Password;

@@ -1,9 +1,11 @@
 ﻿using QuanLiKhachSan.Model;
+using QuanLiKhachSan.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -19,11 +21,35 @@ namespace QuanLiKhachSan.ViewModel
         public bool KiemTraDoiMatKhau { get => _KiemTraDoiMatKhau; set { OnPropertyChanged(ref _KiemTraDoiMatKhau, value); } }
         public ICommand DoiMatKhauCommand { get; set; }
 
+        public ICommand chuyenKeToan { get; set; }
+        public ICommand chuyenLeTan { get; set; }
 
         public QuanLyTaiKhoanViewModel()
         {
             MaNV = UserService.GetCurrentUser.NhanVienID;
             NhanVienDangNhap = DatabaseQuery.truyVanNhanVien(MaNV);
+
+            //    KeToan_Layout keToan = new KeToan_Layout();
+            //    keToan.Show();
+            //}
+            //            else
+            //            {
+            //                LeTan_Layout LetanWindow = new LeTan_Layout();
+            //LetanWindow.Show();
+
+            UserService.LoadUser(NhanVienDangNhap);
+            chuyenKeToan = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            {
+                KeToan_Layout keToan = new KeToan_Layout();
+                keToan.Show();
+                Window.GetWindow(p).Close();
+            });
+            chuyenLeTan = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            {
+                LeTan_Layout LetanWindow = new LeTan_Layout();
+                LetanWindow.Show();
+                Window.GetWindow(p).Close();
+            });
 
             DoiMatKhauCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {

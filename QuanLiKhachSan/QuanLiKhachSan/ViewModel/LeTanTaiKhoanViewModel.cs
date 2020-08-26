@@ -1,4 +1,5 @@
 ﻿using QuanLiKhachSan.Model;
+using QuanLiKhachSan.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,17 +18,53 @@ namespace QuanLiKhachSan.ViewModel
         private NHANVIEN _NhanVienDangNhap;
         public NHANVIEN NhanVienDangNhap { get => _NhanVienDangNhap; set { OnPropertyChanged(ref _NhanVienDangNhap, value); } }
         int MaNV { get; set; }
-
         private bool _KiemTraDoiMatKhau;
         public bool KiemTraDoiMatKhau { get => _KiemTraDoiMatKhau; set { OnPropertyChanged(ref _KiemTraDoiMatKhau, value); } }
+        private string _isUser;
+        public string isUser { get => _isUser; set { OnPropertyChanged(ref _isUser, value); } }
+        private string _UserRole;
+        public string UserRole { get => _UserRole; set { OnPropertyChanged(ref _UserRole, value); } }
+        private int _checkUser;
+        public int checkUser { get => _checkUser; set { OnPropertyChanged(ref _checkUser, value); } }
         public ICommand DoiMatKhauCommand { get; set; }
-
-
+        public ICommand ChuyenDoiUser { get; set; }
         public LeTanTaiKhoanViewModel()
         {
             MaNV = UserService.GetCurrentUser.NhanVienID;
-            NhanVienDangNhap = DatabaseQuery.truyVanNhanVien(MaNV);
+            checkUser = UserService.GetCurrentUser.Loai;
+            if (checkUser == 1)
+            {
+                UserRole = "Chuyển về quản lý";
+                isUser = "Visible";
+            }
+            else if(checkUser==2)
+            {
+                UserRole = "Chuyển về kế toán";
+                isUser = "Visible";
+            }
+            else
+            {
+                isUser = "Hidden";
+            }
+            ChuyenDoiUser = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            {
+                UserService.LoadUser(NhanVienDangNhap);
+                if (checkUser == 1)
+                {
+                    QuanLy_Layout LetanWindow = new QuanLy_Layout();
+                    LetanWindow.Show();
+                    Window.GetWindow(p).Close();
+                }
+                else if (checkUser == 2)
+                {
+                    KeToan_Layout LetanWindow = new KeToan_Layout();
+                    LetanWindow.Show();
+                    Window.GetWindow(p).Close();
+                }
+                else { return; }
+            });
 
+            NhanVienDangNhap = DatabaseQuery.truyVanNhanVien(MaNV);
             DoiMatKhauCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
                 string matKhauMoi = (p.FindName("MatKhauMoi") as PasswordBox).Password;
