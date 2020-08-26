@@ -290,7 +290,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     if (DatabaseQueryTN.kiemTraTonTaiLoaiDV(txtMaLoaiDV))
                     {
-                        MessageBox.Show("loại dịch vụ đã tồn tại");
+                        DatabaseQuery.MyMessageBox("loại dịch vụ đã tồn tại");
                         return;
                         //if (!DatabaseQueryTN.isDeleteRoom(txtMaLoai)) // true --> delete
                         //{
@@ -301,12 +301,12 @@ namespace QuanLiKhachSan.ViewModel
                     {
                         reset();
                         DatabaseQueryTN.themMoiLoaiDV(newLP);
-                        MessageBox.Show("Thêm mới loại dịch vụ thành công");
+                        DatabaseQuery.MyMessageBox("Thêm mới loại dịch vụ thành công");
                         listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Không thể thêm loại dịch vụ " + e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể thêm loại dịch vụ " + e.ToString());
                     }
                 }
                 else // Cap Nhat
@@ -315,11 +315,11 @@ namespace QuanLiKhachSan.ViewModel
                     {
                         DatabaseQueryTN.capNhatLoaiDV(newLP);
                         listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
-                        MessageBox.Show("Đã cập nhật loại dịch vụ");
+                        DatabaseQuery.MyMessageBox("Đã cập nhật loại dịch vụ");
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Không thể cập nhật loại dịch vụ." + e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể cập nhật loại dịch vụ." + e.ToString());
                     }
                     //showDetails();
                 }
@@ -343,13 +343,13 @@ namespace QuanLiKhachSan.ViewModel
                     try
                     {
                         DatabaseQueryTN.xoaLoaiDV(selectItem);
-                        MessageBox.Show("Đã xoá loại dịch vụ này");
+                        DatabaseQuery.MyMessageBox("Đã xoá loại dịch vụ này");
                         listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
                         reset();
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("Không thể xoá loại dịch vụ này");
+                        DatabaseQuery.MyMessageBox("Không thể xoá loại dịch vụ này");
                     }
                 }
             });
@@ -387,7 +387,7 @@ namespace QuanLiKhachSan.ViewModel
                 return true;
             }, (p) =>
             {
-                if (checkCondition()) { MessageBox.Show("Chưa nhập đầy đủ thông tin"); return; }
+                if (checkCondition()) { DatabaseQuery.MyMessageBox("Chưa nhập đầy đủ thông tin"); return; }
                 DICHVU newLP = new DICHVU();
                 try
                 {
@@ -411,7 +411,7 @@ namespace QuanLiKhachSan.ViewModel
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Thông báo : " + e.ToString());
+                    DatabaseQuery.MyMessageBox("Thông báo : " + e.ToString());
                     return;
                 }
 
@@ -420,18 +420,18 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     if (DatabaseQueryTN.kiemTraTonDichVu(txtIDDV))
                     {
-                        MessageBox.Show("Dịch vụ đã tồn tại");
+                        DatabaseQuery.MyMessageBox("Dịch vụ đã tồn tại");
                         return;
                     }
                     try
                     {
                         DatabaseQueryTN.themMoiDichVu(newLP);
-                        MessageBox.Show("Thêm mới loại dịch vụ thành công");
+                        DatabaseQuery.MyMessageBox("Thêm mới loại dịch vụ thành công");
                         listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Không thể thêm dịch vụ " + e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể thêm dịch vụ " + e.ToString());
                     }
                 }
                 else // Cap Nhat
@@ -440,11 +440,11 @@ namespace QuanLiKhachSan.ViewModel
                     {
                         DatabaseQueryTN.capNhatDV(newLP);
                         listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
-                        MessageBox.Show("Đã cập nhật loại dịch vụ");
+                        DatabaseQuery.MyMessageBox("Đã cập nhật loại dịch vụ");
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Không thể cập nhật loại dịch vụ." + e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể cập nhật loại dịch vụ." + e.ToString());
                     }
                     //showDetails();
                 }
@@ -468,13 +468,13 @@ namespace QuanLiKhachSan.ViewModel
                     try
                     {
                         DatabaseQueryTN.xoaDV(selectDV);
-                        MessageBox.Show("Đã xoá dịch vụ này");
+                        DatabaseQuery.MyMessageBox("Đã xoá dịch vụ này");
                         listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
                         resetDV();
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("Không thể xoá loại dịch vụ này");
+                        DatabaseQuery.MyMessageBox("Không thể xoá loại dịch vụ này");
                     }
                 }
             });

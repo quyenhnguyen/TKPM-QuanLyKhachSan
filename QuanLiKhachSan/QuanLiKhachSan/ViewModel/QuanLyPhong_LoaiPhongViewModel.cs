@@ -278,7 +278,7 @@ namespace QuanLiKhachSan.ViewModel
             });
             // THEM MOI / CAP NHAT
             // 1. PHONG
-            
+
             comfirmRoomBtnCommand = new RelayCommand<Object>((p) =>
             {
                 //
@@ -298,19 +298,19 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     if (DatabaseQueryTN.kiemTraTonTaiPhong(txtPhmgID))
                     {
-                        MessageBox.Show("Phòng đã tồn tại");
+                        DatabaseQuery.MyMessageBox("Phòng đã tồn tại");
                         return;
 
                     }
                     try
                     {
                         DatabaseQueryTN.themMoiPhong(newLP);
-                        MessageBox.Show("Thêm mới phòng thành công");
+                        DatabaseQuery.MyMessageBox("Thêm mới phòng thành công");
                         listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Không thể thêm phòng " + e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể thêm phòng " + e.ToString());
                     }
                 }
                 else // Cap Nhat
@@ -319,12 +319,12 @@ namespace QuanLiKhachSan.ViewModel
                     {
                         DatabaseQueryTN.capNhatPhong(newLP);
                         listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
-                        MessageBox.Show("Đã cập nhật loại phòng");
+                        DatabaseQuery.MyMessageBox("Đã cập nhật loại phòng");
 
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Không thể cập nhật loại phòng." + e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể cập nhật loại phòng." + e.ToString());
                     }
                     //showDetails();
                 }
@@ -346,7 +346,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     if (DatabaseQueryTN.kiemTraTonTaiLoaiPhong(txtMaLoai))
                     {
-                        MessageBox.Show("Loại phòng đã tồn tại");
+                        DatabaseQuery.MyMessageBox("Loại phòng đã tồn tại");
                         return;
                         //if (!DatabaseQueryTN.isDeleteRoom(txtMaLoai)) // true --> delete
                         //{
@@ -356,12 +356,12 @@ namespace QuanLiKhachSan.ViewModel
                     try
                     {
                         DatabaseQueryTN.themMoiLoaiPhong(newLP);
-                        MessageBox.Show("Thêm mới phòng thành công. ");
+                        DatabaseQuery.MyMessageBox("Thêm mới phòng thành công. ");
                         listLoaiPhong = new BindingList<LOAIPHONG>(DatabaseQueryTN.danhsachLoaiPhong());
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Không thể thêm loại phòng " + e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể thêm loại phòng " + e.ToString());
                     }
                 }
                 else // Cap Nhat
@@ -370,12 +370,12 @@ namespace QuanLiKhachSan.ViewModel
                     {
                         DatabaseQueryTN.capNhatLoaiPhong(newLP);
                         listLoaiPhong = new BindingList<LOAIPHONG>(DatabaseQueryTN.danhsachLoaiPhong());
-                        MessageBox.Show("Đã cập nhật loại phòng");
+                        DatabaseQuery.MyMessageBox("Đã cập nhật loại phòng");
 
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Không thể cập nhật loại phòng." + e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể cập nhật loại phòng." + e.ToString());
                     }
                     //showDetails();
                 }
@@ -400,13 +400,13 @@ namespace QuanLiKhachSan.ViewModel
                     try
                     {
                         DatabaseQueryTN.xoaLoaiPhong(selectItem);
-                        MessageBox.Show("Đã xoá loại phòng này");
+                        DatabaseQuery.MyMessageBox("Đã xoá loại phòng này");
                         listLoaiPhong = new BindingList<LOAIPHONG>(DatabaseQueryTN.danhsachLoaiPhong());
                         reset();
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("Không thể xoá loại phòng này");
+                        DatabaseQuery.MyMessageBox("Không thể xoá loại phòng này");
                     }
                 }
             });
@@ -428,13 +428,13 @@ namespace QuanLiKhachSan.ViewModel
                     try
                     {
                         DatabaseQueryTN.xoaPhong(selectPhong);
-                        MessageBox.Show("Đã xoá phòng này");
+                        DatabaseQuery.MyMessageBox("Đã xoá phòng này");
                         listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
                         resetRoom();
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("Không thể xoá phòng này");
+                        DatabaseQuery.MyMessageBox("Không thể xoá phòng này");
                     }
                 }
             });

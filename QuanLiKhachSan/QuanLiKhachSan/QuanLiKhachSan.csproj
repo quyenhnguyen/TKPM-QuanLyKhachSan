@@ -171,6 +171,7 @@
     <Compile Include="ViewModel\QuanLyPhong_LoaiPhongViewModel.cs" />
     <Compile Include="ViewModel\QuanLyTaiKhoanViewModel.cs" />
     <Compile Include="ViewModel\QuanLy_LayoutViewModel.cs" />
+    <Compile Include="ViewModel\QuanLy_ThamSoViewModel.cs" />
     <Compile Include="View\DangNhap.xaml.cs">
       <DependentUpon>DangNhap.xaml</DependentUpon>
     </Compile>
@@ -233,6 +234,9 @@
     </Compile>
     <Compile Include="View\QuanLy_TaiKhoan.xaml.cs">
       <DependentUpon>QuanLy_TaiKhoan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QuanLy_ThamSo.xaml.cs">
+      <DependentUpon>QuanLy_ThamSo.xaml</DependentUpon>
     </Compile>
     <Page Include="DictionaryResources\Styles.xaml">
       <SubType>Designer</SubType>
@@ -335,6 +339,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\QuanLy_TaiKhoan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\QuanLy_ThamSo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

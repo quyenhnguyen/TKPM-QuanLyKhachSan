@@ -31,12 +31,12 @@ namespace QuanLiKhachSan.ViewModel
         {
             if (_UserInput == "" || _UserInput == null)
             {
-                MessageBox.Show("Chưa nhập ID hoặc Email");
+                DatabaseQuery.MyMessageBox("Chưa nhập ID hoặc Email");
                 return false;
             }
             if (_PassInput == "" || _PassInput == null)
             {
-                MessageBox.Show("Chưa nhập password");
+                DatabaseQuery.MyMessageBox("Chưa nhập password");
                 return false;
             }
             return true;
@@ -70,7 +70,7 @@ namespace QuanLiKhachSan.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Sai tài khoản hoặc mật khẩu");
+                    DatabaseQuery.MyMessageBox("Sai tài khoản hoặc mật khẩu");
                     return;
                 }
                 p.Close();

@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace QuanLiKhachSan.ViewModel
 {
-    public class QuanLy_LayoutViewModel: BaseViewModel
+    public class QuanLy_LayoutViewModel : BaseViewModel
     {
 
         private object _CurrentQuanLyDataContext;

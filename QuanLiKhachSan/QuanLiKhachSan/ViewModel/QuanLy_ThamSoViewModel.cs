@@ -161,13 +161,13 @@ namespace QuanLiKhachSan.ViewModel
                     try
                     {
                         DatabaseQueryTN.xoaThamSo(selectItem);
-                        MessageBox.Show("Đã xoá nhân viên này");
+                        DatabaseQuery.MyMessageBox("Đã xoá nhân viên này");
                         listThamSo = new BindingList<BANGTHAMSO>(DatabaseQueryTN.danhSachThamSo());
 
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("Không thể xoá nhân viên này");
+                        DatabaseQuery.MyMessageBox("Không thể xoá nhân viên này");
                     }
                 }
                 //hmm, 
@@ -196,18 +196,18 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     if (DatabaseQueryTN.kiemTraTonTaiThamSo(txtThamSoID))
                     {
-                        MessageBox.Show("Tham số đã tồn tại");
+                        DatabaseQuery.MyMessageBox("Tham số đã tồn tại");
                         return;
                     }
                     try
                     {
                         DatabaseQueryTN.themMoiThamSo(newNV);
-                        MessageBox.Show("Thêm mới tham số thành công");
+                        DatabaseQuery.MyMessageBox("Thêm mới tham số thành công");
                         listThamSo = new BindingList<BANGTHAMSO>(DatabaseQueryTN.danhSachThamSo());
                     }
                     catch
                     {
-                        MessageBox.Show("Tham số đã tồn tại");
+                        DatabaseQuery.MyMessageBox("Tham số đã tồn tại");
                     }
                 }
                 else // Cap Nhat
@@ -215,13 +215,13 @@ namespace QuanLiKhachSan.ViewModel
                     try
                     {
                         DatabaseQueryTN.capNhatThamSo(newNV);
-                        MessageBox.Show("Đã cập nhật tham số");
+                        DatabaseQuery.MyMessageBox("Đã cập nhật tham số");
                         listThamSo = new BindingList<BANGTHAMSO>(DatabaseQueryTN.danhSachThamSo());
 
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Không thể cập nhật tham số." + e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể cập nhật tham số." + e.ToString());
                     }
                 }
             });

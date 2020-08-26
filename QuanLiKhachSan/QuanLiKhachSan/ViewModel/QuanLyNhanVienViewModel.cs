@@ -111,7 +111,7 @@ namespace QuanLiKhachSan.ViewModel
                 }
             }
         }
-        
+
 
         private LOAINHANVIEN itemLoaiNV { get; set; }
         public LOAINHANVIEN selecteLoaiNV
@@ -155,7 +155,6 @@ namespace QuanLiKhachSan.ViewModel
 
         private string _Loai;
         public string txtLoai { get => _Loai; set => OnPropertyChanged(ref _Loai, value); }
-<<<<<<< Updated upstream
         public void reset()
         {
             isAddUser = true;
@@ -174,12 +173,6 @@ namespace QuanLiKhachSan.ViewModel
         }
         public void showDetails()
         {
-=======
-
-        public void showDetails()
-        {
-
->>>>>>> Stashed changes
             if (selectItem != null)
             {
                 txtNhanVienID = selectItem.NhanVienID;
@@ -219,43 +212,38 @@ namespace QuanLiKhachSan.ViewModel
         }
         private bool checkCondition()
         {
-            return (string.IsNullOrEmpty(txtLoai.ToString()) ||
-                string.IsNullOrEmpty(txtNgaySinh.ToString("dd/mm/yyyy")) ||
-                string.IsNullOrEmpty(txtDiaChi) ||
-                string.IsNullOrEmpty(txtTenDangNhap.ToString()) ||
-                string.IsNullOrEmpty(txtSDT.ToString()) ||
-                string.IsNullOrEmpty(txtCMND.ToString()) ||
-                string.IsNullOrEmpty(txtEmail.ToString()) ||
-                string.IsNullOrEmpty(txtNhanVienID.ToString()) ||
-                string.IsNullOrEmpty(txtNgayTao.ToString()) ||
-                string.IsNullOrEmpty(txtHoTen.ToString()));
+            try
+            {
+                return (string.IsNullOrEmpty(txtLoai) ||
+                    string.IsNullOrEmpty(txtNgaySinh.ToString("dd/mm/yyyy")) ||
+                    string.IsNullOrEmpty(txtDiaChi) ||
+                    string.IsNullOrEmpty(txtTenDangNhap) ||
+                    string.IsNullOrEmpty(txtSDT) ||
+                    string.IsNullOrEmpty(txtCMND) ||
+                    string.IsNullOrEmpty(txtEmail) ||
+                    string.IsNullOrEmpty(txtNhanVienID.ToString()) ||
+                    string.IsNullOrEmpty(txtHoTen));
+            }
+            catch (Exception)
+            {
+                return true;
+            }
         }
         public QuanLyNhanVienViewModel()
         {
             listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());
-<<<<<<< Updated upstream
             listLoaiNV = new BindingList<LOAINHANVIEN>(DatabaseQueryTN.danhSachLoaiNV());
             timNhanVienCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
                 listNhanVien = new BindingList<NHANVIEN>(DatabaseQueryTN.timKiemNhanVien(timNhanVienInput));
             });
-=======
-            listChucVu = new BindingList<string>(new List<string> { "Kế Toán", "Lễ Tân", "Quản Lý" });
-            txtLoai = listChucVu[0];
->>>>>>> Stashed changes
             ChonAnhChiTietNhanVienCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 if (openFileDialog.ShowDialog() == true)
                 {
                     Uri fileUri = new Uri(openFileDialog.FileName);
-<<<<<<< Updated upstream
                     HinhAnhNhanVien = new BitmapImage(new Uri(openFileDialog.FileName));
-=======
-                    string file = "Images/Avatar/" + openFileDialog.SafeFileName;
-                    File.Move(openFileDialog.FileName, file);
-                    HinhAnhNhanVien = new BitmapImage(new Uri(file, UriKind.Relative));
->>>>>>> Stashed changes
                 }
             }
             );
@@ -300,41 +288,27 @@ namespace QuanLiKhachSan.ViewModel
             // Thêm Mới hoặc Cập Nhật
             confirmButtonCommmand = new RelayCommand<Object>((p) =>
             {
-<<<<<<< Updated upstream
                 if (checkCondition())
-=======
-                if (string.IsNullOrEmpty(txtLoai.ToString()) ||
-                string.IsNullOrEmpty(txtNgaySinh.ToString("dd/mm/yyyy")) ||
-                string.IsNullOrEmpty(txtDiaChi) ||
-                string.IsNullOrEmpty(txtTenDangNhap.ToString()) ||
-                string.IsNullOrEmpty(txtSDT.ToString()) ||
-                string.IsNullOrEmpty(txtCMND.ToString()) ||
-                string.IsNullOrEmpty(txtEmail.ToString()) ||
-                string.IsNullOrEmpty(txtNhanVienID.ToString()) ||
-                string.IsNullOrEmpty(txtNgayTao.ToString()) ||
-                string.IsNullOrEmpty(txtHoTen.ToString()))
->>>>>>> Stashed changes
                     return false;
                 return true;
             }, (p) =>
             {
-                if (checkCondition()) { MessageBox.Show("Điền đầy đủ thông tin");  return; }
+                if (checkCondition()) { MessageBox.Show("Điền đầy đủ thông tin"); return; }
                 NHANVIEN newNV = new NHANVIEN();
                 try
                 {
-                newNV.NhanVienID = txtNhanVienID;
-                newNV.TenDangNhap = txtTenDangNhap;
-                newNV.Email = txtEmail;
-                newNV.TinhTrang = false;
-                newNV.HoTen = txtHoTen;
-                newNV.DiaChi = txtDiaChi;
-                newNV.NgaySinh = txtNgaySinh;
-                newNV.SDT = int.Parse(txtSDT);
-                newNV.Loai = selecteLoaiNV.LoaiNVID;
-                newNV.LOAINHANVIEN = selecteLoaiNV;
-                newNV.CMND = int.Parse(txtCMND);
-                newNV.AnhDaiDien = SecurityModel.ImageToByte2(HinhAnhNhanVien);
-                txtLoai = selecteLoaiNV.LoaiNVID.ToString();
+                    newNV.NhanVienID = txtNhanVienID;
+                    newNV.TenDangNhap = txtTenDangNhap;
+                    newNV.Email = txtEmail;
+                    newNV.TinhTrang = false;
+                    newNV.HoTen = txtHoTen;
+                    newNV.DiaChi = txtDiaChi;
+                    newNV.NgaySinh = txtNgaySinh;
+                    newNV.SDT = int.Parse(txtSDT);
+                    newNV.LOAINHANVIEN = selecteLoaiNV;
+                    newNV.CMND = int.Parse(txtCMND);
+                    newNV.AnhDaiDien = SecurityModel.ImageToByte2(HinhAnhNhanVien);
+
                 }
                 catch (Exception e)
                 {
@@ -344,6 +318,8 @@ namespace QuanLiKhachSan.ViewModel
                 // Neu dang o che do them User
                 if (isAddUser)
                 {
+                    newNV.Loai = selecteLoaiNV.LoaiNVID;
+                    txtLoai = selecteLoaiNV.LoaiNVID.ToString();
                     if (DatabaseQueryTN.kiemtraTonTai(txtTenDangNhap, txtEmail))
                     {
                         if (!DatabaseQueryTN.isDeleteUser(txtTenDangNhap, txtEmail)) // true --> delete
@@ -369,6 +345,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     try
                     {
+                        newNV.Loai = selectItem.Loai;
                         DatabaseQueryTN.capNhatNhanVien(newNV);
                         MessageBox.Show("Đã cập nhật nhân viên");
                         listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());

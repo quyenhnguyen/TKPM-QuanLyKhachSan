@@ -155,7 +155,7 @@
                                     Grid.Column="0"
                                     Margin="0,0,4,0"
                                     HorizontalAlignment="Left"
-                                    Source="C:\images\5.jpg" />
+                                    Source="{Binding HinhAnh}" />
                                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                     <TextBlock
                                         Grid.Row="0"

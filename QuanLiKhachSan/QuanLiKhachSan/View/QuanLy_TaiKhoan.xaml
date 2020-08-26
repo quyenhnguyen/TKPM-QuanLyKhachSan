@@ -36,7 +36,7 @@
             HorizontalAlignment="Center"
             Orientation="Horizontal">
 
-            <Image Source="D:\OneDrive - VNU-HCMUS\FIT-HCMUS\FIT-NAM3\HK2\3.Thiet-KePM\Deadline\DOAN\712-706\QuanLiKhachSan\QuanLiKhachSan\Images\avatar.png" />
+            <Image Source="{Binding NhanVienDangNhap.AnhDaiDien}" />
             <StackPanel Margin="30,20,0,0">
                 <TextBlock
                     Margin="0,0,0,20"
