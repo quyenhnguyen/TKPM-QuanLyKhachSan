@@ -345,6 +345,7 @@ namespace QuanLiKhachSan.ViewModel
                         DatabaseQueryTN.xoaLoaiDV(selectItem);
                         DatabaseQuery.MyMessageBox("Đã xoá loại dịch vụ này");
                         listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
+                        listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
                         reset();
                     }
                     catch (Exception)

@@ -262,7 +262,13 @@ namespace QuanLiKhachSan.Model
         {
             LOAIDV old = DataProvider.ISCreated.DB.LOAIDVs.Where(x => x.LoaiDVID == nv.LoaiDVID).SingleOrDefault();
             old.TinhTrang = true;
-            capNhatCSDL();
+
+            List<DICHVU> listDV = DataProvider.ISCreated.DB.DICHVUs.Where(x => (x.LoaiDVID == old.LoaiDVID && x.TinhTrangTonTai==false)).ToList();
+            foreach (DICHVU item in listDV)
+            {
+                item.TinhTrangTonTai = true;
+            }
+                capNhatCSDL();
         }
         public static void xoaDV(DICHVU nv)
         {
