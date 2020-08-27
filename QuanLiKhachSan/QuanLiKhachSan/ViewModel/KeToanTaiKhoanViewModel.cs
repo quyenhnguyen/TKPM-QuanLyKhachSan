@@ -1,4 +1,5 @@
-﻿using QuanLiKhachSan.Model;
+﻿using Microsoft.Win32;
+using QuanLiKhachSan.Model;
 using QuanLiKhachSan.View;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace QuanLiKhachSan.ViewModel
 {
@@ -22,8 +24,9 @@ namespace QuanLiKhachSan.ViewModel
         private string _isAdmin;
         public string isAdmin { get => _isAdmin; set { OnPropertyChanged(ref _isAdmin, value); } }
         public ICommand DoiMatKhauCommand { get; set; }
-
-
+        private BitmapImage _avatar;
+        public BitmapImage Avatar { get => _avatar; set { OnPropertyChanged(ref _avatar, value); } }
+        public ICommand DoiAnhDaiDienCommand { get; set; }
         public ICommand chuyenQuanLy { get; set; }
         public ICommand chuyenLeTan { get; set; }
         public KeToanTaiKhoanViewModel()
@@ -31,6 +34,27 @@ namespace QuanLiKhachSan.ViewModel
             MaNV = UserService.GetCurrentUser.NhanVienID;
             NhanVienDangNhap = DatabaseQuery.truyVanNhanVien(MaNV);
             UserService.LoadUser(NhanVienDangNhap);
+            Avatar = SecurityModel.LoadImage(NhanVienDangNhap.AnhDaiDien);
+            DoiAnhDaiDienCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    try
+                    {
+                        Uri fileUri = new Uri(openFileDialog.FileName);
+                        Avatar = new BitmapImage(new Uri(openFileDialog.FileName));
+                        NhanVienDangNhap.AnhDaiDien = SecurityModel.ImageToByte2(Avatar);
+                        DatabaseQueryTN.capNhatAvatar(NhanVienDangNhap);
+                        DatabaseQuery.MyMessageBox("Đã cập nhật ảnh đại diện");
+                    }
+                    catch (Exception e)
+                    {
+                        SecurityModel.Log(e.ToString());
+                    }
+                }
+            }
+            );
             if (NhanVienDangNhap.Loai == 1)
             {
                 isAdmin = "Visible";

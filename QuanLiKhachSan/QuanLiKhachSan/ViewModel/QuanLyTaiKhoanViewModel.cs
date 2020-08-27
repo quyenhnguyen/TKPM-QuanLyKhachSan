@@ -23,11 +23,10 @@ namespace QuanLiKhachSan.ViewModel
         public bool KiemTraDoiMatKhau { get => _KiemTraDoiMatKhau; set { OnPropertyChanged(ref _KiemTraDoiMatKhau, value); } }
         private BitmapImage _avatar;
         public BitmapImage Avatar { get => _avatar; set { OnPropertyChanged(ref _avatar, value); } }
-
+        public ICommand DoiAnhDaiDienCommand { get; set; }
         public ICommand DoiMatKhauCommand { get; set; }
         public ICommand chuyenKeToan { get; set; }
         public ICommand chuyenLeTan { get; set; }
-        public ICommand DoiAnhDaiDienCommand { get; set; }
 
         public QuanLyTaiKhoanViewModel()
         {
