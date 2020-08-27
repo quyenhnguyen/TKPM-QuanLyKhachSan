@@ -269,13 +269,13 @@ namespace QuanLiKhachSan.ViewModel
                     try
                     {
                         DatabaseQueryTN.xoaNhanVien(selectItem);
-                        MessageBox.Show("Đã xoá nhân viên này");
+                        DatabaseQuery.MyMessageBox("Đã xoá nhân viên này");
                         listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());
                         reset();
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("Không thể xoá nhân viên này");
+                        DatabaseQuery.MyMessageBox("Không thể xoá nhân viên này");
                     }
                 }
                 //hmm, 
@@ -288,7 +288,7 @@ namespace QuanLiKhachSan.ViewModel
                 return true;
             }, (p) =>
             {
-                if (checkCondition()) { MessageBox.Show("Điền đầy đủ thông tin"); return; }
+                if (checkCondition()) { DatabaseQuery.MyMessageBox("Điền đầy đủ thông tin"); return; }
                 NHANVIEN newNV = new NHANVIEN();
                 try
                 {
@@ -308,7 +308,7 @@ namespace QuanLiKhachSan.ViewModel
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Thông báo :" + e.ToString());
+                    DatabaseQuery.MyMessageBox("Thông báo :" + e.ToString());
                     return;
                 }
                 // Neu dang o che do them User
@@ -318,7 +318,7 @@ namespace QuanLiKhachSan.ViewModel
                     {
                         if (!DatabaseQueryTN.isDeleteUser(txtTenDangNhap, txtEmail)) // true --> delete
                         {
-                            MessageBox.Show("Tài khoản đã tồn tại");
+                            DatabaseQuery.MyMessageBox("Tài khoản đã tồn tại");
                             return;
                         }
                     }
@@ -327,12 +327,12 @@ namespace QuanLiKhachSan.ViewModel
                     try
                     {
                         DatabaseQueryTN.themNhanVienMoi(newNV);
-                        MessageBox.Show("Thêm mới nhân viên thành công. Mật khẩu mặc định là CMND");
+                        DatabaseQuery.MyMessageBox("Thêm mới nhân viên thành công. Mật khẩu mặc định là CMND");
                         listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());
                     }
                     catch
                     {
-                        MessageBox.Show("Nhân viên đã tồn tại");
+                        DatabaseQuery.MyMessageBox("Nhân viên đã tồn tại");
                     }
                 }
                 else // Cap Nhat
@@ -340,13 +340,13 @@ namespace QuanLiKhachSan.ViewModel
                     try
                     {
                         DatabaseQueryTN.capNhatNhanVien(newNV);
-                        MessageBox.Show("Đã cập nhật nhân viên");
+                        DatabaseQuery.MyMessageBox("Đã cập nhật nhân viên");
                         listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());
 
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Không thể cập nhật nhân viên." + e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể cập nhật nhân viên." + e.ToString());
                     }
                     //showDetails();
                 }

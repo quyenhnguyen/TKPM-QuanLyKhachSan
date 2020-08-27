@@ -46,14 +46,14 @@ namespace QuanLiKhachSan.ViewModel
                 UserRole = "Chuyển về quản lý";
                 isUser = "Visible";
             }
-            else if(checkUser==2)
+            else if (checkUser == 2)
             {
                 UserRole = "Chuyển về kế toán";
                 isUser = "Visible";
             }
             else
             {
-                isUser = "Hidden";
+                isUser = "Collapsed";
             }
             DoiAnhDaiDienCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {

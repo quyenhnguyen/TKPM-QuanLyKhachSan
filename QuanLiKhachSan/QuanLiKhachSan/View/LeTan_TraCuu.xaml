@@ -294,7 +294,6 @@
                                     Width="Auto"
                                     DisplayMemberBinding="{Binding LOAIPHONG.TenLoai}"
                                     Header="Loại Phòng" />
-
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -481,7 +480,7 @@
                                 Width="340"
                                 Margin="10,0"
                                 VerticalAlignment="Center"
-                                materialDesign:HintAssist.Hint="Tìm kiếm phòng "
+                                materialDesign:HintAssist.Hint="Tìm kiếm khách hàng "
                                 FontSize="{StaticResource CoChuNho}"
                                 Text="{Binding txtSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </Border>

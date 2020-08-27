@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:QuanLiKhachSan.View"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="800"
+    d:DesignHeight="745"
     d:DesignWidth="1180"
     mc:Ignorable="d">
 
