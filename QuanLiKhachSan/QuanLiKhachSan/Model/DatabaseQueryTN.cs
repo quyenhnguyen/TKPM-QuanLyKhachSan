@@ -187,7 +187,7 @@ namespace QuanLiKhachSan.Model
         public static List<NHANVIEN> thongtinDangNhap(string user, string pass)
         {
             List<NHANVIEN> res = new List<NHANVIEN>();
-            res = DataProvider.ISCreated.DB.NHANVIENs.Where(x => (x.TenDangNhap == user || x.Email == user) && x.MatKhau == pass).ToList();
+            res = DataProvider.ISCreated.DB.NHANVIENs.Where(x => (x.TenDangNhap == user || x.Email == user) && x.MatKhau == pass && x.TinhTrang==false).ToList();
             //res = DataProvider.ISCreated.DB.Database.SqlQuery<NHANVIEN>("SELECT * FROM NHANVIEN  WHERE Phong = @id and ThoiGianTra IS NULL", new SqlParameter("@id", phongID)).FirstOrDefault();
             return res;
         }
