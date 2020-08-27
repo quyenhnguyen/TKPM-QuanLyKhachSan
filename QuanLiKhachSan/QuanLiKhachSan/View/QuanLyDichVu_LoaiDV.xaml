@@ -176,7 +176,7 @@
                             </ScrollViewer>
                         </materialDesign:Card>
                         <materialDesign:Card Width="506"
-                                             Margin="5,5,5,237">
+                                             Margin="5,5,5,115">
                             <!--CHI TIẾT NHÂN VIÊN-->
                             <Grid Margin="10,10,10,10"
                                   HorizontalAlignment="Right"

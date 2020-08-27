@@ -106,10 +106,10 @@ namespace QuanLiKhachSan.ViewModel
         }
         private void reset()
         {
-            isAddDichVu = true;
-            choPhepThayDoiIDDV = true;
-            dvcancelButtonName = "HỦY";
-            dvconfirmButtonName = "THÊM";
+            isAddDV = true;
+            choPhepThayDoi = true;
+            loaidvcancelButtonName = "HỦY";
+            loaidvconfirmButtonName = "THÊM";
             currentSelectLoaiDV = "Chọn loại dịch vụ";
             txtTenDV = string.Empty;
             txtMaLoaiDV = string.Empty;
@@ -399,9 +399,9 @@ namespace QuanLiKhachSan.ViewModel
                     }
                     else
                     {
-                        newLP.LoaiDVID = selectDV.LoaiDVID;
-                        newLP.LOAIDV = selectDV.LOAIDV;
                         newLP.NgayTao = selectDV.NgayTao;
+                        newLP.LoaiDVID = chonLoaiDVchoDV.LoaiDVID;
+                        newLP.LOAIDV = chonLoaiDVchoDV;
                     }
                     newLP.TenDichVu = txtTenDichVu;
                     newLP.GiaBan = txtGiaBan;
@@ -439,7 +439,7 @@ namespace QuanLiKhachSan.ViewModel
                     try
                     {
                         DatabaseQueryTN.capNhatDV(newLP);
-                        listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
+                        listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
                         DatabaseQuery.MyMessageBox("Đã cập nhật loại dịch vụ");
                     }
                     catch (Exception e)
