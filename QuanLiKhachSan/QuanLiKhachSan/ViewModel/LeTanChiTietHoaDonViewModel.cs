@@ -6,8 +6,10 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace QuanLiKhachSan.ViewModel
 {
@@ -15,6 +17,9 @@ namespace QuanLiKhachSan.ViewModel
     {
         private int _MaHoaDon;
         public int MaHoaDon { get => _MaHoaDon; set => OnPropertyChanged(ref _MaHoaDon, value); }
+
+        private string _isPrint = "Visible";
+        public string isPrint { get => _isPrint; set => OnPropertyChanged(ref _isPrint, value); }
 
         private BindingList<LSTHEMDICHVU> _DanhSachDichVuDaThem;
         public BindingList<LSTHEMDICHVU> DanhSachDichVuDaThem { get => _DanhSachDichVuDaThem; set { OnPropertyChanged(ref _DanhSachDichVuDaThem, value); } }
@@ -30,6 +35,8 @@ namespace QuanLiKhachSan.ViewModel
         public HOADONTHUEPHONG HD { get => _HD; set => OnPropertyChanged(ref _HD, value); }
         private bool _isCheckOut;
         public bool isCheckOut { get => _isCheckOut; set => OnPropertyChanged(ref _isCheckOut, value); }
+
+        public ICommand printPdfCommmand { get; set; }
         public LeTanChiTietHoaDonViewModel()
         { }
 
@@ -58,6 +65,31 @@ namespace QuanLiKhachSan.ViewModel
             //checkout.ThanhTien = DatabaseQuery.TinhTienThuePhongHoaDon(HD);
             //checkout.DonGia = HD.PHONG1.DonGia;
             //DanhSachDichVuDaThem.Add(checkout);
+
+
+            printPdfCommmand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                PrintDialog printDialog = new PrintDialog();
+                try
+                {
+                    if (printDialog.ShowDialog() == true)
+                    {
+                        isPrint = "Hidden";
+                        printDialog.PrintVisual((Window)p, MaHD.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể in hoá đơn");
+                    }
+                }
+                catch (Exception e)
+                {
+                    DatabaseQuery.MyMessageBox("Không thể in hoá đơn");
+                    SecurityModel.Log(e.ToString());
+                }
+                finally
+                {
+                    isPrint = "Visible";
+                }//Xem thông tin trong csdl
+            });
+
 
         }
 
