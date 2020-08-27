@@ -1,4 +1,5 @@
-﻿using QuanLiKhachSan.Model;
+﻿using Microsoft.Win32;
+using QuanLiKhachSan.Model;
 using QuanLiKhachSan.View;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace QuanLiKhachSan.ViewModel
 {
@@ -19,10 +21,13 @@ namespace QuanLiKhachSan.ViewModel
 
         private bool _KiemTraDoiMatKhau;
         public bool KiemTraDoiMatKhau { get => _KiemTraDoiMatKhau; set { OnPropertyChanged(ref _KiemTraDoiMatKhau, value); } }
-        public ICommand DoiMatKhauCommand { get; set; }
+        private BitmapImage _avatar;
+        public BitmapImage Avatar { get => _avatar; set { OnPropertyChanged(ref _avatar, value); } }
 
+        public ICommand DoiMatKhauCommand { get; set; }
         public ICommand chuyenKeToan { get; set; }
         public ICommand chuyenLeTan { get; set; }
+        public ICommand DoiAnhDaiDienCommand { get; set; }
 
         public QuanLyTaiKhoanViewModel()
         {
@@ -38,12 +43,33 @@ namespace QuanLiKhachSan.ViewModel
             //LetanWindow.Show();
 
             UserService.LoadUser(NhanVienDangNhap);
+            Avatar = SecurityModel.LoadImage(NhanVienDangNhap.AnhDaiDien);
             chuyenKeToan = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
                 KeToan_Layout keToan = new KeToan_Layout();
                 keToan.Show();
                 Window.GetWindow(p).Close();
             });
+            DoiAnhDaiDienCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    try
+                    {
+                        Uri fileUri = new Uri(openFileDialog.FileName);
+                        Avatar = new BitmapImage(new Uri(openFileDialog.FileName));
+                        NhanVienDangNhap.AnhDaiDien = SecurityModel.ImageToByte2(Avatar);
+                        DatabaseQueryTN.capNhatAvatar(NhanVienDangNhap);
+                        DatabaseQuery.MyMessageBox("Đã cập nhật ảnh đại diện");
+                    }
+                    catch (Exception e)
+                    {
+                        SecurityModel.Log(e.ToString());
+                    }
+                }
+            }
+            );
             chuyenLeTan = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
                 LeTan_Layout LetanWindow = new LeTan_Layout();
@@ -71,13 +97,13 @@ namespace QuanLiKhachSan.ViewModel
                     string x = SecurityModel.Encrypt(NewPassword);
                     NhanVienDangNhap.MatKhau = SecurityModel.Encrypt(NewPassword);
                     DatabaseQuery.capNhatCSDL();
-
                     DatabaseQuery.MyMessageBox("Thay đổi mật khẩu thành công");
                     KiemTraDoiMatKhau = false;
                 }
-                catch
+                catch (Exception e)
                 {
                     DatabaseQuery.MyMessageBox("Thay đổi mật khẩu thất bại");
+                    SecurityModel.Log(e.ToString());
                 }
 
             }

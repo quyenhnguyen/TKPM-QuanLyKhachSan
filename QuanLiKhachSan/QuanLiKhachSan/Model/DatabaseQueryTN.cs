@@ -182,6 +182,14 @@ namespace QuanLiKhachSan.Model
             capNhatCSDL();
         }
 
+        public static void capNhatAvatar(NHANVIEN nv)
+        {
+            NHANVIEN old = DataProvider.ISCreated.DB.NHANVIENs.Where(x => x.NhanVienID == nv.NhanVienID).SingleOrDefault();
+            old.AnhDaiDien = nv.AnhDaiDien;
+            capNhatCSDL();
+        }
+
+
 
         // KIEM TRA TON TAI
         public static List<NHANVIEN> thongtinDangNhap(string user, string pass)

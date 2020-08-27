@@ -165,8 +165,9 @@ namespace QuanLiKhachSan.ViewModel
                         listThamSo = new BindingList<BANGTHAMSO>(DatabaseQueryTN.danhSachThamSo());
 
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
+                        SecurityModel.Log(e.ToString());
                         DatabaseQuery.MyMessageBox("Không thể xoá nhân viên này");
                     }
                 }
@@ -175,13 +176,17 @@ namespace QuanLiKhachSan.ViewModel
             // Thêm Mới hoặc Cập Nhật
             confirmButtonCommmand = new RelayCommand<Object>((p) =>
             {
-                if (string.IsNullOrEmpty(txtGiaTri.ToString()) ||
-                string.IsNullOrEmpty(txtNgayTao.ToString("dd/mm/yyyy")) ||
-                string.IsNullOrEmpty(txtGiaTri) ||
-                string.IsNullOrEmpty(txtKieuDuLieu.ToString()) ||
-                string.IsNullOrEmpty(txtThamSoID.ToString()) ||
-                string.IsNullOrEmpty(txtTenThamSo.ToString()))
-                    return false;
+                try
+                {
+                    if (string.IsNullOrEmpty(txtGiaTri) ||
+                    string.IsNullOrEmpty(txtNgayTao.ToString("dd/mm/yyyy")) ||
+                    string.IsNullOrEmpty(txtGiaTri) ||
+                    string.IsNullOrEmpty(txtKieuDuLieu) ||
+                    string.IsNullOrEmpty(txtThamSoID) ||
+                    string.IsNullOrEmpty(txtTenThamSo))
+                        return false;
+                }
+                catch (Exception) { return false; };
                 return true;
             }, (p) =>
             {
@@ -221,7 +226,8 @@ namespace QuanLiKhachSan.ViewModel
                     }
                     catch (Exception e)
                     {
-                        DatabaseQuery.MyMessageBox("Không thể cập nhật tham số." + e.ToString());
+                        SecurityModel.Log(e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể cập nhật tham số.");
                     }
                 }
             });

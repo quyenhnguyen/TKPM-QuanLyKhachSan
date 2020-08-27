@@ -412,7 +412,8 @@ namespace QuanLiKhachSan.ViewModel
                 }
                 catch (Exception e)
                 {
-                    DatabaseQuery.MyMessageBox("Thông báo : " + e.ToString());
+                    DatabaseQuery.MyMessageBox("Không thể thêm/cập nhật");
+                    SecurityModel.Log(e.ToString());
                     return;
                 }
 
@@ -432,7 +433,8 @@ namespace QuanLiKhachSan.ViewModel
                     }
                     catch (Exception e)
                     {
-                        DatabaseQuery.MyMessageBox("Không thể thêm dịch vụ " + e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể thêm dịch vụ ");
+                        SecurityModel.Log(e.ToString());
                     }
                 }
                 else // Cap Nhat
@@ -445,7 +447,8 @@ namespace QuanLiKhachSan.ViewModel
                     }
                     catch (Exception e)
                     {
-                        DatabaseQuery.MyMessageBox("Không thể cập nhật loại dịch vụ." + e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể cập nhật loại dịch vụ.");
+                        SecurityModel.Log(e.ToString());
                     }
                     //showDetails();
                 }
@@ -473,9 +476,10 @@ namespace QuanLiKhachSan.ViewModel
                         listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
                         resetDV();
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
                         DatabaseQuery.MyMessageBox("Không thể xoá loại dịch vụ này");
+                        SecurityModel.Log(e.ToString());
                     }
                 }
             });

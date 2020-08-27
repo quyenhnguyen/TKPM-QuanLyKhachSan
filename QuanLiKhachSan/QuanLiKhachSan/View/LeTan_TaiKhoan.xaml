@@ -38,9 +38,17 @@
                      HorizontalAlignment="Center"
                      Stroke="{DynamicResource DenHoiNhat}">
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="{Binding NhanVienDangNhap.AnhDaiDien}" />
+                    <ImageBrush ImageSource="{Binding Avatar, Mode=TwoWay}" />
                 </Ellipse.Fill>
             </Ellipse>
+            <Button Grid.Row="1"
+                    Grid.Column="1"
+                    Width="150"
+                    Margin="0,5"
+                    VerticalAlignment="Bottom"
+                    Background="{StaticResource MauBtnQL}"
+                    Command="{Binding DoiAnhDaiDienCommand}"
+                    Content="Chọn ảnh" />
             <StackPanel Margin="30,20,0,0">
                 <TextBlock Margin="0,0,0,20"
                            FontSize="{StaticResource CoChuLon}"

@@ -242,7 +242,7 @@ namespace QuanLiKhachSan.ViewModel
         {
             try
             {
-                return (itemLoaiPhongChon == null || string.IsNullOrEmpty(txtTenPhong.ToString()) || string.IsNullOrEmpty(txtTinhTrangThuePhong.ToString()) || string.IsNullOrEmpty(txtPhmgID.ToString()) ||
+                return (itemLoaiPhongChon == null || string.IsNullOrEmpty(txtTenPhong) || string.IsNullOrEmpty(txtTinhTrangThuePhong) || string.IsNullOrEmpty(txtPhmgID) ||
             string.IsNullOrEmpty(txtDonGia.ToString()));
             }
             catch (Exception)
@@ -310,7 +310,8 @@ namespace QuanLiKhachSan.ViewModel
                     }
                     catch (Exception e)
                     {
-                        DatabaseQuery.MyMessageBox("Không thể thêm phòng " + e.ToString());
+                        SecurityModel.Log(e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể thêm phòng ");
                     }
                 }
                 else // Cap Nhat
@@ -324,7 +325,9 @@ namespace QuanLiKhachSan.ViewModel
                     }
                     catch (Exception e)
                     {
-                        DatabaseQuery.MyMessageBox("Không thể cập nhật loại phòng." + e.ToString());
+
+                        SecurityModel.Log(e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể cập nhật loại phòng.");
                     }
                     //showDetails();
                 }
@@ -361,7 +364,8 @@ namespace QuanLiKhachSan.ViewModel
                     }
                     catch (Exception e)
                     {
-                        DatabaseQuery.MyMessageBox("Không thể thêm loại phòng " + e.ToString());
+                        SecurityModel.Log(e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể thêm loại phòng ");
                     }
                 }
                 else // Cap Nhat
@@ -375,7 +379,8 @@ namespace QuanLiKhachSan.ViewModel
                     }
                     catch (Exception e)
                     {
-                        DatabaseQuery.MyMessageBox("Không thể cập nhật loại phòng." + e.ToString());
+                        SecurityModel.Log(e.ToString());
+                        DatabaseQuery.MyMessageBox("Không thể cập nhật loại phòng.");
                     }
                     //showDetails();
                 }
@@ -405,8 +410,9 @@ namespace QuanLiKhachSan.ViewModel
                         listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
                         reset();
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
+                        SecurityModel.Log(e.ToString());
                         DatabaseQuery.MyMessageBox("Không thể xoá loại phòng này");
                     }
                 }
@@ -433,8 +439,9 @@ namespace QuanLiKhachSan.ViewModel
                         listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
                         resetRoom();
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
+                        SecurityModel.Log(e.ToString());
                         DatabaseQuery.MyMessageBox("Không thể xoá phòng này");
                     }
                 }

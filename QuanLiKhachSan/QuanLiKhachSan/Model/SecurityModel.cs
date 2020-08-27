@@ -11,10 +11,25 @@ namespace QuanLiKhachSan.Model
 {
     public class SecurityModel
     {
-        private MD5 mh;
         public SecurityModel()
         {
 
+        }
+        public static void Log(string log)
+        {
+            try
+            {
+                FileStream stream = new FileStream("log.txt", FileMode.Append);
+                using (StreamWriter writer = new StreamWriter(stream))
+                {
+                    string time = DateTime.Now.ToString("dd/mm/yyyy HH:mm:ss");
+                    writer.WriteLine("{0} : {1}", time, log);
+                }
+                stream.Close();
+            }
+            catch (Exception)
+            {
+            }
         }
         public static BitmapImage LoadImage(byte[] imageData)
         {

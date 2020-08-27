@@ -1,4 +1,5 @@
-﻿using QuanLiKhachSan.Model;
+﻿using Microsoft.Win32;
+using QuanLiKhachSan.Model;
 using QuanLiKhachSan.View;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace QuanLiKhachSan.ViewModel
 {
@@ -26,12 +28,19 @@ namespace QuanLiKhachSan.ViewModel
         public string UserRole { get => _UserRole; set { OnPropertyChanged(ref _UserRole, value); } }
         private int _checkUser;
         public int checkUser { get => _checkUser; set { OnPropertyChanged(ref _checkUser, value); } }
+
+        private BitmapImage _avatar;
+        public BitmapImage Avatar { get => _avatar; set { OnPropertyChanged(ref _avatar, value); } }
+
+        public ICommand DoiAnhDaiDienCommand { get; set; }
         public ICommand DoiMatKhauCommand { get; set; }
         public ICommand ChuyenDoiUser { get; set; }
         public LeTanTaiKhoanViewModel()
         {
             MaNV = UserService.GetCurrentUser.NhanVienID;
             checkUser = UserService.GetCurrentUser.Loai;
+            NhanVienDangNhap = DatabaseQuery.truyVanNhanVien(MaNV);
+            Avatar = SecurityModel.LoadImage(NhanVienDangNhap.AnhDaiDien);
             if (checkUser == 1)
             {
                 UserRole = "Chuyển về quản lý";
@@ -46,6 +55,26 @@ namespace QuanLiKhachSan.ViewModel
             {
                 isUser = "Hidden";
             }
+            DoiAnhDaiDienCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    try
+                    {
+                        Uri fileUri = new Uri(openFileDialog.FileName);
+                        Avatar = new BitmapImage(new Uri(openFileDialog.FileName));
+                        NhanVienDangNhap.AnhDaiDien = SecurityModel.ImageToByte2(Avatar);
+                        DatabaseQueryTN.capNhatAvatar(NhanVienDangNhap);
+                        DatabaseQuery.MyMessageBox("Đã cập nhật ảnh đại diện");
+                    }
+                    catch (Exception e)
+                    {
+                        SecurityModel.Log(e.ToString());
+                    }
+                }
+            }
+            );
             ChuyenDoiUser = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
                 UserService.LoadUser(NhanVienDangNhap);
@@ -64,7 +93,6 @@ namespace QuanLiKhachSan.ViewModel
                 else { return; }
             });
 
-            NhanVienDangNhap = DatabaseQuery.truyVanNhanVien(MaNV);
             DoiMatKhauCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
                 string matKhauMoi = (p.FindName("MatKhauMoi") as PasswordBox).Password;

@@ -214,16 +214,16 @@ namespace QuanLiKhachSan.ViewModel
         {
             try
             {
-                return (string.IsNullOrEmpty(txtLoai.ToString()) ||
+                return (string.IsNullOrEmpty(txtLoai) ||
                 string.IsNullOrEmpty(txtNgaySinh.ToString("dd/mm/yyyy")) ||
                 string.IsNullOrEmpty(txtDiaChi) ||
-                string.IsNullOrEmpty(txtTenDangNhap.ToString()) ||
-                string.IsNullOrEmpty(txtSDT.ToString()) ||
-                string.IsNullOrEmpty(txtCMND.ToString()) ||
-                string.IsNullOrEmpty(txtEmail.ToString()) ||
+                string.IsNullOrEmpty(txtTenDangNhap) ||
+                string.IsNullOrEmpty(txtSDT) ||
+                string.IsNullOrEmpty(txtCMND) ||
+                string.IsNullOrEmpty(txtEmail) ||
                 string.IsNullOrEmpty(txtNhanVienID.ToString()) ||
                 string.IsNullOrEmpty(txtNgayTao.ToString()) ||
-                string.IsNullOrEmpty(txtHoTen.ToString()));
+                string.IsNullOrEmpty(txtHoTen));
             }
             catch (Exception)
             {
@@ -280,8 +280,10 @@ namespace QuanLiKhachSan.ViewModel
                         listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());
                         reset();
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
+
+                        SecurityModel.Log(e.ToString());
                         MessageBox.Show("Không thể xoá nhân viên này");
                     }
                 }
@@ -347,9 +349,10 @@ namespace QuanLiKhachSan.ViewModel
                         DatabaseQueryTN.themNhanVienMoi(newNV);
                         MessageBox.Show("Thêm mới nhân viên thành công. Mật khẩu mặc định là CMND");
                         listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());
-                    }
-                    catch
+                    } 
+                    catch (Exception e)
                     {
+                        SecurityModel.Log(e.ToString());
                         MessageBox.Show("Nhân viên đã tồn tại");
                     }
                 }
@@ -364,7 +367,8 @@ namespace QuanLiKhachSan.ViewModel
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Không thể cập nhật nhân viên." + e.ToString());
+                        SecurityModel.Log(e.ToString());
+                        MessageBox.Show("Không thể cập nhật nhân viên.");
                     }
                     //showDetails();
                 }
