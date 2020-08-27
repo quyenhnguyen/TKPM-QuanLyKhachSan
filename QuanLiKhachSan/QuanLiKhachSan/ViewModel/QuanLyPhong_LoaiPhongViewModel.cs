@@ -402,6 +402,7 @@ namespace QuanLiKhachSan.ViewModel
                         DatabaseQueryTN.xoaLoaiPhong(selectItem);
                         DatabaseQuery.MyMessageBox("Đã xoá loại phòng này");
                         listLoaiPhong = new BindingList<LOAIPHONG>(DatabaseQueryTN.danhsachLoaiPhong());
+                        listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
                         reset();
                     }
                     catch (Exception)

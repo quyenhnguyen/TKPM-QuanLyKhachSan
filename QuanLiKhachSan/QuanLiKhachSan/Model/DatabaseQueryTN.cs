@@ -256,6 +256,13 @@ namespace QuanLiKhachSan.Model
         {
             LOAIPHONG old = DataProvider.ISCreated.DB.LOAIPHONGs.Where(x => x.LoaiPhongID == nv.LoaiPhongID).SingleOrDefault();
             old.TinhTrang = true;
+
+            List<LOAIPHONG> listPhong = DataProvider.ISCreated.DB.LOAIPHONGs.Where(x => (x.LoaiPhongID == old.LoaiPhongID && x.TinhTrang == false)).ToList();
+            foreach (LOAIPHONG item in listPhong)
+            {
+                item.TinhTrang = true;
+            }
+
             capNhatCSDL();
         }
         public static void xoaLoaiDV(LOAIDV nv)
@@ -268,7 +275,7 @@ namespace QuanLiKhachSan.Model
             {
                 item.TinhTrangTonTai = true;
             }
-                capNhatCSDL();
+            capNhatCSDL();
         }
         public static void xoaDV(DICHVU nv)
         {
