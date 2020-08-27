@@ -41,6 +41,11 @@ namespace QuanLiKhachSan.Model
 
             return DataProvider.ISCreated.DB.PHONGs.Where(x => x.TinhTrangTonTai == false).ToList();
         }
+        public static List<KHACHHANG> danhSachKhachHang()
+        {
+
+            return DataProvider.ISCreated.DB.KHACHHANGs.ToList();
+        }
         public static int truyVanSoLuongPhongTrong()
         {
             return DataProvider.ISCreated.DB.PHONGs.Where(x => x.TinhTrangThue == false).ToList().Count;
@@ -265,6 +270,11 @@ namespace QuanLiKhachSan.Model
         {
             return DataProvider.ISCreated.DB.DICHVUs.Where(x => x.DichVuID == DichVuID && x.TinhTrangTonTai == false).SingleOrDefault();
         }
+        //Dịch vụ này có thể đã bị xóa
+        public static DICHVU truyVanDichVuCuaHoaDon(string DichVuID)
+        {
+            return DataProvider.ISCreated.DB.DICHVUs.Where(x => x.DichVuID == DichVuID).SingleOrDefault();
+        }
         public static HOADONTHUEPHONG truyVanHoaDon(int ma)
         {
             return DataProvider.ISCreated.DB.HOADONTHUEPHONGs.Where(x => x.MaHoaDon == ma).SingleOrDefault();
@@ -326,6 +336,44 @@ namespace QuanLiKhachSan.Model
             }
             return DanhSachDichVu;
         }
+        public static BindingList<KHACHHANG> TimKiemKhachHang(string searchStr)
+        {
+            BindingList<KHACHHANG> DanhSachDichVu = new BindingList<KHACHHANG>();
+            var temp = new BindingList<KHACHHANG>(DataProvider.ISCreated.DB.KHACHHANGs.ToList());
+            foreach (var item in temp)
+            {
+                if (item.HoTen.ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!DanhSachDichVu.Contains(item))
+                    {
+                        DanhSachDichVu.Add(item);
+                    }
+                }
+                if (item.MaKH.ToString().ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!DanhSachDichVu.Contains(item))
+                    {
+                        DanhSachDichVu.Add(item);
+                    }
+                }
+                if (item.CMND.ToString().ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!DanhSachDichVu.Contains(item))
+                    {
+                        DanhSachDichVu.Add(item);
+                    }
+                }
+                if (item.SDT.ToString().ToLower().Contains(searchStr.ToLower()))
+                {
+                    if (!DanhSachDichVu.Contains(item))
+                    {
+                        DanhSachDichVu.Add(item);
+                    }
+                }
+            }
+            return DanhSachDichVu;
+        }
+
         public static BindingList<HOADONTHUEPHONG> TimKiemHoaDon(string searchStr)
         {
             BindingList<HOADONTHUEPHONG> res = new BindingList<HOADONTHUEPHONG>();

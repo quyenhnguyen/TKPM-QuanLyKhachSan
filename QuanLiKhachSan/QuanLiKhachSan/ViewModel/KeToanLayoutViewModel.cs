@@ -12,6 +12,8 @@ namespace QuanLiKhachSan.ViewModel
 {
     public class KeToanLayoutViewModel : BaseViewModel
     {
+        private string _txtTitle;
+        public string txtTitle { get => _txtTitle; set { _txtTitle = value; OnPropertyChanged(); } }
         private object _CurrentDataContext;
         public object CurrentDataContext { get => _CurrentDataContext; set { _CurrentDataContext = value; OnPropertyChanged(); } }
 
@@ -35,20 +37,27 @@ namespace QuanLiKhachSan.ViewModel
             object ucTaiKhoan = new KeToanTaiKhoanViewModel();
 
             CurrentDataContext = ucBaoCao;
+            txtTitle = "BÁO CÁO, THỐNG KÊ";
 
             btnBaoCaoCommand = new RelayCommand<object>((p) => { return CurrentDataContext != ucBaoCao; }, (p) =>
             {
 
                 ucBaoCao = new KeToanBaoCaoViewModel();
                 CurrentDataContext = ucBaoCao;
+                txtTitle = "TRANG CHỦ THUÊ, TRẢ PHÒNG";
+
             });
             btnNhanVienCommand = new RelayCommand<object>((p) => { return CurrentDataContext != ucNhanVien; }, (p) =>
             {
                 CurrentDataContext = ucNhanVien;
+                txtTitle = "QUẢN LÍ NHÂN VIÊN";
+
             });
             btnTaiKhoanCommand = new RelayCommand<object>((p) => { return CurrentDataContext != ucTaiKhoan; }, (p) =>
             {
                 CurrentDataContext = ucTaiKhoan;
+                txtTitle = "QUẢN LÍ TÀI KHOẢNS";
+
             });
             btnDangXuat_Command = new RelayCommand<object>((p) => { return true; }, (p) =>
             {

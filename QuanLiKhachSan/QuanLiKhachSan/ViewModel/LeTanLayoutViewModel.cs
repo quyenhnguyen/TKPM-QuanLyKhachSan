@@ -35,7 +35,6 @@ namespace QuanLiKhachSan.ViewModel
             object ucTaiKhoan = new LeTanTaiKhoanViewModel();
 
             CurrentDataContext = ucDatPhong;
-
             txtTitle = "TRANG CHỦ THUÊ, TRẢ PHÒNG";
             btnDatPhong_Command = new RelayCommand<object>((p) => { return CurrentDataContext != ucDatPhong; }, (p) =>
                 {

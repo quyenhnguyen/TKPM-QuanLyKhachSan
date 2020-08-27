@@ -29,6 +29,8 @@ namespace QuanLiKhachSan.ViewModel
 
         private BindingList<DICHVU> _dsDichVu;
         public BindingList<DICHVU> dsDichVu { get => _dsDichVu; set => OnPropertyChanged(ref _dsDichVu, value); }
+        private BindingList<KHACHHANG> _dsKhachHang;
+        public BindingList<KHACHHANG> dsKhachHang { get => _dsKhachHang; set => OnPropertyChanged(ref _dsKhachHang, value); }
 
         private List<LOAIDV> _dsLoaiDV;
         public List<LOAIDV> dsLoaiDichVu { get => _dsLoaiDV; set => OnPropertyChanged(ref _dsLoaiDV, value); }
@@ -63,16 +65,6 @@ namespace QuanLiKhachSan.ViewModel
         public ICommand TimKiemBtnCommand { get; set; }
 
 
-
-
-
-
-
-
-
-
-
-
         //*****CONSTRUCTOR**********
         public LeTanTraCuuViewModel()
         {
@@ -82,6 +74,8 @@ namespace QuanLiKhachSan.ViewModel
             dsPhong = new BindingList<PHONG>(DatabaseQuery.truyVanDanhSachPhong());
             dsDichVu = new BindingList<DICHVU>(DatabaseQuery.truyVanDanhSachDichVu());
             dsLoaiDichVu = DatabaseQuery.danhSachLoaiDichVu();
+            dsKhachHang = new BindingList<KHACHHANG>(DatabaseQuery.danhSachKhachHang());
+
 
             foreach (HOADONTHUEPHONG HD in dsHoaDon)
             {
@@ -116,6 +110,10 @@ namespace QuanLiKhachSan.ViewModel
                     //dịch vụ
                     case 2:
                         dsDichVu = DatabaseQuery.TimKiemDichVu(txtSearch);
+                        break;
+                    //Khách hàng
+                    case 3:
+                        dsKhachHang = DatabaseQuery.TimKiemKhachHang(txtSearch);
                         break;
 
                     default:

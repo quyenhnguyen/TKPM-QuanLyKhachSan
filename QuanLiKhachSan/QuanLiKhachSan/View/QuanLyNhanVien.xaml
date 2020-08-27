@@ -47,7 +47,7 @@
                     Name="searchNVBtn"
                     Height="35"
                     Margin="10,0,0,0"
-                    Background="{StaticResource MauSlideBarTraiQL}"
+                    Background="{StaticResource MauBtnQL}"
                     BorderBrush="{StaticResource MauSlideBarTraiQL}"
                     Command="{Binding timNhanVienCommand}"
                     CommandParameter="{Binding ElementName=searchNVBtn}"
@@ -142,7 +142,7 @@
                         <RowDefinition Height="6*" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <materialDesign:Card Margin="15,0">
+                    <materialDesign:Card Margin="15,0" FontSize="{StaticResource CoChuNho}">
                         <ScrollViewer
                             Margin="10,10,10,0"
                             CanContentScroll="True"
@@ -181,7 +181,6 @@
                                 </StackPanel>
 
                                 <StackPanel
-                                    Height="350"
                                     Margin="10,0"
                                     ScrollViewer.CanContentScroll="True"
                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">

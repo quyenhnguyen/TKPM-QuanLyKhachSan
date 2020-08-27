@@ -195,7 +195,7 @@ namespace QuanLiKhachSan.Model
         public static List<NHANVIEN> thongtinDangNhap(string user, string pass)
         {
             List<NHANVIEN> res = new List<NHANVIEN>();
-            res = DataProvider.ISCreated.DB.NHANVIENs.Where(x => (x.TenDangNhap == user || x.Email == user) && x.MatKhau == pass && x.TinhTrang==false).ToList();
+            res = DataProvider.ISCreated.DB.NHANVIENs.Where(x => (x.TenDangNhap == user || x.Email == user) && x.MatKhau == pass && x.TinhTrang == false).ToList();
             //res = DataProvider.ISCreated.DB.Database.SqlQuery<NHANVIEN>("SELECT * FROM NHANVIEN  WHERE Phong = @id and ThoiGianTra IS NULL", new SqlParameter("@id", phongID)).FirstOrDefault();
             return res;
         }
@@ -265,10 +265,10 @@ namespace QuanLiKhachSan.Model
             LOAIPHONG old = DataProvider.ISCreated.DB.LOAIPHONGs.Where(x => x.LoaiPhongID == nv.LoaiPhongID).SingleOrDefault();
             old.TinhTrang = true;
 
-            List<LOAIPHONG> listPhong = DataProvider.ISCreated.DB.LOAIPHONGs.Where(x => (x.LoaiPhongID == old.LoaiPhongID && x.TinhTrang == false)).ToList();
-            foreach (LOAIPHONG item in listPhong)
+            List<PHONG> listPhong = DataProvider.ISCreated.DB.PHONGs.Where(x => (x.LoaiPhongID == old.LoaiPhongID && x.TinhTrangTonTai == false)).ToList();
+            foreach (PHONG item in listPhong)
             {
-                item.TinhTrang = true;
+                item.TinhTrangTonTai = true;
             }
 
             capNhatCSDL();
@@ -278,7 +278,7 @@ namespace QuanLiKhachSan.Model
             LOAIDV old = DataProvider.ISCreated.DB.LOAIDVs.Where(x => x.LoaiDVID == nv.LoaiDVID).SingleOrDefault();
             old.TinhTrang = true;
 
-            List<DICHVU> listDV = DataProvider.ISCreated.DB.DICHVUs.Where(x => (x.LoaiDVID == old.LoaiDVID && x.TinhTrangTonTai==false)).ToList();
+            List<DICHVU> listDV = DataProvider.ISCreated.DB.DICHVUs.Where(x => (x.LoaiDVID == old.LoaiDVID && x.TinhTrangTonTai == false)).ToList();
             foreach (DICHVU item in listDV)
             {
                 item.TinhTrangTonTai = true;

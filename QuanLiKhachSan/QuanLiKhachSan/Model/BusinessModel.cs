@@ -48,7 +48,7 @@ namespace QuanLiKhachSan.Model
             foreach (LICHSUTHEMDICHVU ls in list)
             {
                 LSTHEMDICHVU dvDaThem = new LSTHEMDICHVU();
-                DICHVU dv = DatabaseQuery.truyVanDichVu(ls.DichVuID);
+                DICHVU dv = DatabaseQuery.truyVanDichVuCuaHoaDon(ls.DichVuID);
                 dvDaThem.SoLuong = ls.SoLuong;
                 dvDaThem.TenDichVu = dv.TenDichVu;
                 dvDaThem.DonGia = dv.GiaBan;

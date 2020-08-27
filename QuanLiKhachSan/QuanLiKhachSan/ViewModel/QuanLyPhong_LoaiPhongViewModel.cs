@@ -335,7 +335,7 @@ namespace QuanLiKhachSan.ViewModel
 
             confirmButtonCommmand = new RelayCommand<Object>((p) =>
             {
-                if (string.IsNullOrEmpty(txtMaLoai.ToString()) ||
+                if (string.IsNullOrEmpty(txtMaLoai) ||
                 string.IsNullOrEmpty(txtTen))
                     return false;
                 return true;

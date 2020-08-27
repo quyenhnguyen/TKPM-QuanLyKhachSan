@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:QuanLiKhachSan.View"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Kế Toán"
+    Title="{Binding txtTitle}"
     Width="1390"
     Height="750"
     DataContext="{StaticResource KeToanLayoutVM}"
@@ -64,8 +64,10 @@
                         <TextBlock VerticalAlignment="Center">QUẢN LÍ TÀI KHOẢN</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding btnDangXuat_Command}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" Style="{StaticResource StyleButtonSlidebarKeToan}">
+                <Button
+                    Command="{Binding btnDangXuat_Command}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    Style="{StaticResource StyleButtonSlidebarKeToan}">
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="29"
