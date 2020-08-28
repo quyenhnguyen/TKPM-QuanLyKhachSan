@@ -1,17 +1,17 @@
-﻿<UserControl x:Class="QuanLiKhachSan.View.QuanLy_TaiKhoan"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:local="clr-namespace:QuanLiKhachSan.View"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             Name="uc"
-             d:DesignHeight="450"
-             d:DesignWidth="800"
-             mc:Ignorable="d">
-    <Grid Margin="5"
-          Background="White">
+﻿<UserControl
+    x:Class="QuanLiKhachSan.View.QuanLy_TaiKhoan"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local="clr-namespace:QuanLiKhachSan.View"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="uc"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid Margin="5" Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="2*" />
@@ -27,50 +27,58 @@
             </Separator.Background>
         </Separator>
         <!--  Ảnh đại diện  -->
-        <StackPanel Grid.Row="1"
-                    Grid.Column="0"
-                    Background="{StaticResource XanhNhatMauNen}"
-                    Orientation="Vertical">
-            <Ellipse Width="200"
-                     Height="200"
-                     Margin="0,50,0,0"
-                     HorizontalAlignment="Center"
-                     Stroke="{DynamicResource DenHoiNhat}">
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="0"
+            Background="{DynamicResource XanhNhatMauNen}"
+            Orientation="Vertical">
+            <Ellipse
+                Width="200"
+                Height="200"
+                Margin="0,50,0,0"
+                HorizontalAlignment="Center"
+                Stroke="{DynamicResource DenHoiNhat}">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="{Binding Avatar, Mode=TwoWay}" />
                 </Ellipse.Fill>
             </Ellipse>
-            <Button Grid.Row="1"
-                    Grid.Column="1"
-                    Width="150"
-                    Margin="0,5"
-                    VerticalAlignment="Bottom"
-                    Background="{StaticResource MauBtnQL}"
-                    Command="{Binding DoiAnhDaiDienCommand}"
-                    Content="Chọn ảnh" />
+            <Button
+                Grid.Row="1"
+                Grid.Column="1"
+                Width="150"
+                Margin="0,5"
+                VerticalAlignment="Bottom"
+                Background="{DynamicResource MauBtnQL}"
+                Command="{Binding DoiAnhDaiDienCommand}"
+                Content="Chọn ảnh" />
             <StackPanel HorizontalAlignment="Center">
-                <TextBlock Margin="0,0,0,20"
-                           FontSize="{StaticResource CoChuLon}"
-                           FontWeight="Bold"
-                           Text="{Binding NhanVienDangNhap.HoTen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock FontSize="{StaticResource CoChuThuong}"
-                           FontWeight="Bold"
-                           Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"
-                           Text="{Binding NhanVienDangNhap.LOAINHANVIEN.TenLoai}" />
-                <TextBlock FontSize="{StaticResource CoChuThuong}"
-                           FontWeight="Bold"
-                           Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"
-                           Text="{Binding NhanVienDangNhap.NhanVienID, StringFormat={}Mã nhân viên: {0}}" />
+                <TextBlock
+                    Margin="0,0,0,20"
+                    FontSize="{DynamicResource CoChuLon}"
+                    FontWeight="Bold"
+                    Text="{Binding NhanVienDangNhap.HoTen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock
+                    FontSize="{DynamicResource CoChuThuong}"
+                    FontWeight="Bold"
+                    Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"
+                    Text="{Binding NhanVienDangNhap.LOAINHANVIEN.TenLoai}" />
+                <TextBlock
+                    FontSize="{DynamicResource CoChuThuong}"
+                    FontWeight="Bold"
+                    Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"
+                    Text="{Binding NhanVienDangNhap.NhanVienID, StringFormat={}Mã nhân viên: {0}}" />
             </StackPanel>
         </StackPanel>
         <!--  form  -->
-        <Grid Grid.Row="1"
-              Grid.Column="1"
-              Background="{StaticResource XanhNhatMauNen}">
-            <materialDesign:Card Width="500"
-                                 HorizontalAlignment="Center"
-                                 VerticalAlignment="Center"
-                                 FontSize="{StaticResource CoChuNho}">
+        <Grid
+            Grid.Row="1"
+            Grid.Column="1"
+            Background="{DynamicResource XanhNhatMauNen}">
+            <materialDesign:Card
+                Width="500"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="{DynamicResource CoChuNho}">
                 <Grid Margin="20,20">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -82,61 +90,151 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
-                        <TextBox Name="hoten"
-                                 materialDesign:HintAssist.Hint="Họ tên"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding NhanVienDangNhap.HoTen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox
+                            Name="hoten"
+                            materialDesign:HintAssist.Hint="Họ tên"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            Text="{Binding NhanVienDangNhap.HoTen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                     <Grid Grid.Row="1">
-                        <TextBox Name="NgaaySinh"
-                                 materialDesign:HintAssist.Hint="Ngày sinh"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding NhanVienDangNhap.NgaySinh, StringFormat={}{0: dd/MM/yyyy}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox
+                            Name="NgaaySinh"
+                            materialDesign:HintAssist.Hint="Ngày sinh"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            Text="{Binding NhanVienDangNhap.NgaySinh, StringFormat={}{0: dd/MM/yyyy}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                     <Grid Grid.Row="2">
-                        <TextBox materialDesign:HintAssist.Hint="SĐT"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding NhanVienDangNhap.SDT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox
+                            materialDesign:HintAssist.Hint="SĐT"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            Text="{Binding NhanVienDangNhap.SDT, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                     <Grid Grid.Row="3">
-                        <TextBox materialDesign:HintAssist.Hint="Địa chỉ"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding NhanVienDangNhap.DiaChi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 TextWrapping="Wrap" />
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Địa chỉ"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            Text="{Binding NhanVienDangNhap.DiaChi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            TextWrapping="Wrap" />
                     </Grid>
                     <Grid Grid.Row="4">
-                        <TextBox materialDesign:HintAssist.Hint="Chức vụ"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding NhanVienDangNhap.LOAINHANVIEN.TenLoai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Chức vụ"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            Text="{Binding NhanVienDangNhap.LOAINHANVIEN.TenLoai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                     <Grid Grid.Row="5">
-                        <TextBox materialDesign:HintAssist.Hint="CMND"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding NhanVienDangNhap.CMND, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox
+                            materialDesign:HintAssist.Hint="CMND"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            Text="{Binding NhanVienDangNhap.CMND, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                     <Grid Grid.Row="6">
-                        <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding NhanVienDangNhap.TenDangNhap, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox
+                            materialDesign:HintAssist.Hint="Tên đăng nhập"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            Text="{Binding NhanVienDangNhap.TenDangNhap, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                 </Grid>
             </materialDesign:Card>
         </Grid>
         <!--  Bottom phân quyền  -->
-        <Grid Grid.Row="2"
-              Grid.ColumnSpan="2"
-              Margin="0,10,0,0"
-              Background="{StaticResource XanhNhatMauNen}">
+        <Grid
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            Margin="0,10,0,0"
+            Background="{DynamicResource XanhNhatMauNen}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <!--  BUtton phân quyền  -->
-            <materialDesign:Card Width="150"
-                                 Height="100"
-                                 Margin="0"
-                                 Cursor="Hand">
+
+            <!--  BUtton lễ tân  -->
+            <materialDesign:Card
+                Grid.Column="0"
+                Width="150"
+                Height="100"
+                Margin="0"
+                Cursor="Hand">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding chuyenLeTan}" CommandParameter="{Binding ElementName=uc}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="2*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <materialDesign:PackIcon
+                            Width="40"
+                            Height="40"
+                            Foreground="{DynamicResource MauTenPhong}"
+                            Kind="FaceProfile" />
+                    </StackPanel>
+                    <Separator
+                        Grid.Row="1"
+                        Margin="5,0"
+                        BorderBrush="{DynamicResource XamDam}"
+                        BorderThickness="1" />
+                    <TextBlock
+                        Grid.Row="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="{DynamicResource CoChuNho}"
+                        Foreground="Gray"
+                        Text="Phân hệ Lễ Tân" />
+                </Grid>
+            </materialDesign:Card>
+            <!--  BUtton kế toán  -->
+            <materialDesign:Card
+                Grid.Column="1"
+                Width="150"
+                Height="100"
+                Margin="0"
+                Cursor="Hand">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding chuyenKeToan}" CommandParameter="{Binding ElementName=uc}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="2*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <materialDesign:PackIcon
+                            Width="40"
+                            Height="40"
+                            Foreground="{DynamicResource MauTenPhong}"
+                            Kind="TargetUser" />
+                    </StackPanel>
+                    <Separator
+                        Grid.Row="1"
+                        Margin="5,0"
+                        BorderBrush="{DynamicResource XamDam}"
+                        BorderThickness="1" />
+                    <TextBlock
+                        Grid.Row="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="{DynamicResource CoChuNho}"
+                        Foreground="Gray"
+                        Text="Phân hệ Kế Toán" />
+                </Grid>
+            </materialDesign:Card>
+            <!--  BUtton trợ giúp  -->
+            <materialDesign:Card
+                Grid.Column="3"
+                Width="150"
+                Height="100"
+                Margin="0"
+                Cursor="Hand">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeftButtonUp">
                         <i:InvokeCommandAction />
@@ -148,108 +246,38 @@
                         <RowDefinition Height="5" />
                         <RowDefinition Height="2*" />
                     </Grid.RowDefinitions>
-                    <StackPanel HorizontalAlignment="Center"
-                                VerticalAlignment="Center">
-                        <materialDesign:PackIcon Width="40"
-                                                 Height="40"
-                                                 Foreground="{StaticResource MauTenPhong}"
-                                                 Kind="HelpBox" />
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <materialDesign:PackIcon
+                            Width="40"
+                            Height="40"
+                            Foreground="{DynamicResource MauTenPhong}"
+                            Kind="HelpBox" />
                     </StackPanel>
-                    <Separator Grid.Row="1"
-                               Margin="5,0"
-                               BorderBrush="{StaticResource XamDam}"
-                               BorderThickness="1" />
-                    <TextBlock Grid.Row="2"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               FontSize="{StaticResource CoChuNho}"
-                               Foreground="Gray"
-                               Text="Trợ giúp" />
-                </Grid>
-            </materialDesign:Card>
-            <!--  BUtton phân quyền  -->
-            <materialDesign:Card Grid.Column="1"
-                                 Width="150"
-                                 Height="100"
-                                 Margin="0"
-                                 Cursor="Hand">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                        <i:InvokeCommandAction Command="{Binding chuyenLeTan}"
-                                               CommandParameter="{Binding ElementName=uc}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="3*" />
-                        <RowDefinition Height="5" />
-                        <RowDefinition Height="2*" />
-                    </Grid.RowDefinitions>
-                    <StackPanel HorizontalAlignment="Center"
-                                VerticalAlignment="Center">
-                        <materialDesign:PackIcon Width="40"
-                                                 Height="40"
-                                                 Foreground="{StaticResource MauTenPhong}"
-                                                 Kind="FaceProfile" />
-                    </StackPanel>
-                    <Separator Grid.Row="1"
-                               Margin="5,0"
-                               BorderBrush="{StaticResource XamDam}"
-                               BorderThickness="1" />
-                    <TextBlock Grid.Row="2"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               FontSize="{StaticResource CoChuNho}"
-                               Foreground="Gray"
-                               Text="Phân hệ Lễ Tân" />
-                </Grid>
-            </materialDesign:Card>
-            <!--  BUtton phân quyền  -->
-            <materialDesign:Card Grid.Column="2"
-                                 Width="150"
-                                 Height="100"
-                                 Margin="0"
-                                 Cursor="Hand">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                        <i:InvokeCommandAction Command="{Binding chuyenKeToan}"
-                                               CommandParameter="{Binding ElementName=uc}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="3*" />
-                        <RowDefinition Height="5" />
-                        <RowDefinition Height="2*" />
-                    </Grid.RowDefinitions>
-                    <StackPanel HorizontalAlignment="Center"
-                                VerticalAlignment="Center">
-                        <materialDesign:PackIcon Width="40"
-                                                 Height="40"
-                                                 Foreground="{StaticResource MauTenPhong}"
-                                                 Kind="TargetUser" />
-                    </StackPanel>
-                    <Separator Grid.Row="1"
-                               Margin="5,0"
-                               BorderBrush="{StaticResource XamDam}"
-                               BorderThickness="1" />
-                    <TextBlock Grid.Row="2"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               FontSize="{StaticResource CoChuNho}"
-                               Foreground="Gray"
-                               Text="Phân hệ Kế Toán" />
+                    <Separator
+                        Grid.Row="1"
+                        Margin="5,0"
+                        BorderBrush="{DynamicResource XamDam}"
+                        BorderThickness="1" />
+                    <TextBlock
+                        Grid.Row="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="{DynamicResource CoChuNho}"
+                        Foreground="Gray"
+                        Text="Trợ giúp" />
                 </Grid>
             </materialDesign:Card>
         </Grid>
+
         <!--  Pop up window đổi mật khẩu  -->
-        <materialDesign:DialogHost Name="DialogDoiMatKhau"
-                                   Grid.Row="0"
-                                   Grid.RowSpan="4"
-                                   Grid.ColumnSpan="2"
-                                   CloseOnClickAway="True"
-                                   DialogMargin="8"
-                                   IsOpen="{Binding KiemTraDoiMatKhau}">
+        <materialDesign:DialogHost
+            Name="DialogDoiMatKhau"
+            Grid.Row="0"
+            Grid.RowSpan="4"
+            Grid.ColumnSpan="2"
+            CloseOnClickAway="True"
+            DialogMargin="8"
+            IsOpen="{Binding KiemTraDoiMatKhau}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -260,75 +288,77 @@
                     <RowDefinition Height="5*" />
                     <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
-                <Button Grid.Row="1"
-                        Grid.Column="1"
-                        Width="200"
-                        Margin="0,0,0,10"
-                        VerticalAlignment="Bottom"
-                        Background="{StaticResource MauBtnQL}"
-                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-                        Content="Đổi mật khẩu"
-                        Style="{StaticResource MaterialDesignRaisedButton}" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="200"
+                    Margin="0,0,0,10"
+                    VerticalAlignment="Bottom"
+                    Background="{StaticResource MauBtnQL}"
+                    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                    Content="Đổi mật khẩu"
+                    Style="{StaticResource MaterialDesignRaisedButton}" />
             </Grid>
             <materialDesign:DialogHost.DialogContent>
-                <materialDesign:Card Grid.Row="0"
-                                     Grid.RowSpan="3"
-                                     Grid.ColumnSpan="2"
-                                     Width="300"
-                                     Height="200"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center">
-                    <Grid x:Name="FloatingPasswordBox"
-                          Margin="20,15">
+                <materialDesign:Card
+                    Grid.Row="0"
+                    Grid.RowSpan="3"
+                    Grid.ColumnSpan="2"
+                    Width="300"
+                    Height="200"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <Grid x:Name="FloatingPasswordBox" Margin="20,15">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.75*" />
                             <RowDefinition Height="0.75*" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
-                            <PasswordBox x:Name="MauKhauCu"
-                                         materialDesign:HintAssist.Hint="Mật khẩu cũ"
-                                         Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
+                            <PasswordBox
+                                x:Name="MauKhauCu"
+                                materialDesign:HintAssist.Hint="Mật khẩu cũ"
+                                Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="PasswordChanged">
-                                        <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
-                                                               CommandParameter="{Binding ElementName=FloatingPasswordBox}" />
+                                        <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=FloatingPasswordBox}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </PasswordBox>
                         </Grid>
                         <Grid Grid.Row="1">
-                            <PasswordBox x:Name="MatKhauMoi"
-                                         materialDesign:HintAssist.Hint="Mật khẩu mới"
-                                         Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
+                            <PasswordBox
+                                x:Name="MatKhauMoi"
+                                materialDesign:HintAssist.Hint="Mật khẩu mới"
+                                Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="PasswordChanged">
-                                        <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
-                                                               CommandParameter="{Binding ElementName=FloatingPasswordBox}" />
+                                        <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=FloatingPasswordBox}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </PasswordBox>
                         </Grid>
-                        <Grid Grid.Row="2"
-                              Margin="0,20,0,0">
+                        <Grid Grid.Row="2" Margin="0,20,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0"
-                                    Width="110"
-                                    Background="{StaticResource MauChuHeader}"
-                                    Command="{Binding DoiMatKhauCommand}"
-                                    CommandParameter="{Binding ElementName=uc}"
-                                    Content="Cập nhật"
-                                    IsDefault="True"
-                                    Style="{StaticResource StyleBtnCoBan}" />
-                            <Button Grid.Column="1"
-                                    Width="110"
-                                    Background="{StaticResource MauChuHeader}"
-                                    Command="materialDesign:DialogHost.CloseDialogCommand"
-                                    Content="Hủy"
-                                    Style="{StaticResource StyleBtnCoBan}">
+                            <Button
+                                Grid.Column="0"
+                                Width="110"
+                                Background="{DynamicResource MauChuHeader}"
+                                Command="{Binding DoiMatKhauCommand}"
+                                CommandParameter="{Binding ElementName=uc}"
+                                Content="Cập nhật"
+                                IsDefault="True"
+                                Style="{DynamicResource StyleBtnCoBan}" />
+                            <Button
+                                Grid.Column="1"
+                                Width="110"
+                                Background="{DynamicResource MauChuHeader}"
+                                Command="materialDesign:DialogHost.CloseDialogCommand"
+                                Content="Hủy"
+                                Style="{DynamicResource StyleBtnCoBan}">
                                 <Button.CommandParameter>
                                     <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
                                 </Button.CommandParameter>
@@ -338,5 +368,149 @@
                 </materialDesign:Card>
             </materialDesign:DialogHost.DialogContent>
         </materialDesign:DialogHost>
+
+        <!--  pop up đổi giao diện  -->
+        <materialDesign:DialogHost
+            Name="DialogDoiGiaoDien"
+            Grid.Row="0"
+            Grid.RowSpan="4"
+            Grid.ColumnSpan="2"
+            CloseOnClickAway="True"
+            DialogMargin="8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+                <Grid
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <!--  BUtton giao diện  -->
+                    <materialDesign:Card
+                        Grid.Column="2"
+                        Width="150"
+                        Height="100"
+                        Margin="0"
+                        Cursor="Hand">
+                        <Button
+                            Height="Auto"
+                            Background="White"
+                            BorderThickness="0"
+                            Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
+                            <Button.Content>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="3*" />
+                                        <RowDefinition Height="5" />
+                                        <RowDefinition Height="2*" />
+                                    </Grid.RowDefinitions>
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <materialDesign:PackIcon
+                                            Width="40"
+                                            Height="40"
+                                            Foreground="{DynamicResource MauTenPhong}"
+                                            Kind="ThemeLightDark" />
+                                    </StackPanel>
+                                    <Separator
+                                        Grid.Row="1"
+                                        Margin="5,0"
+                                        BorderBrush="{DynamicResource XamDam}"
+                                        BorderThickness="1" />
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="{DynamicResource CoChuNho}"
+                                        Foreground="Gray"
+                                        Text="Đổi giao diện" />
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+
+                    </materialDesign:Card>
+                </Grid>
+            </Grid>
+            <materialDesign:DialogHost.DialogContent>
+                <!--<materialDesign:Card
+                    Grid.Row="0"
+                    Grid.RowSpan="3"
+                    Grid.ColumnSpan="2"
+                    Width="300"
+                    Height="200"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <Grid Margin="20,15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.75*" />
+                            <RowDefinition Height="0.75*" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock Text="Chọn giao diện" />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <ComboBox
+                                Name="LoaiGiaoDien"
+                                Padding="5,0"
+                                materialDesign:HintAssist.FloatingOffset="0, -50"
+                                materialDesign:HintAssist.FloatingScale="1"
+                                materialDesign:HintAssist.Hint="Loại giao diện"
+                                BorderThickness="0"
+                                FontSize="{StaticResource CoChuSieuNho}"
+                                FontWeight="Bold"
+                                IsEditable="False"
+                                SelectedIndex="0">
+                                <ComboBoxItem>
+                                    Giao diện cơ bản
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    Giao diện tiên tiến
+                                </ComboBoxItem>
+                            </ComboBox>
+                        </Grid>
+                        <Grid Grid.Row="2" Margin="0,20,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                Grid.Column="0"
+                                Width="110"
+                                Background="{StaticResource MauBtnQL}"
+                                Command="{Binding DoiGiaoDienCommand}"
+                                CommandParameter="{Binding ElementName=uc}"
+                                Content="ĐỒNG Ý"
+                                IsDefault="True"
+                                Style="{StaticResource StyleBtnCoBan}" />
+                            <Button
+                                Grid.Column="1"
+                                Width="110"
+                                Background="{StaticResource MauBtnQL}"
+                                Command="materialDesign:DialogHost.CloseDialogCommand"
+                                Content="HỦY"
+                                Style="{StaticResource StyleBtnCoBan}">
+                                <Button.CommandParameter>
+                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
+                                </Button.CommandParameter>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </materialDesign:Card>-->
+                <local:PopUpDoiGiaoDienUC />
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+
     </Grid>
 </UserControl>

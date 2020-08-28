@@ -16,7 +16,7 @@
             <RowDefinition Height="80" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border BorderBrush="{StaticResource XamNhat}" BorderThickness="0,0,0,1">
+        <Border BorderBrush="{DynamicResource XamNhat}" BorderThickness="0,0,0,1">
             <DockPanel Margin="20,10">
                 <materialDesign:PackIcon
                     Width="40"
@@ -26,7 +26,7 @@
                 <TextBlock
                     Margin="0,0,100,0"
                     VerticalAlignment="Center"
-                    FontSize="{StaticResource CoChuNho}"
+                    FontSize="{DynamicResource CoChuNho}"
                     FontWeight="Bold"
                     Text="BÁO CÁO DOANH SỐ THEO DỊCH VỤ" />
                 <!--#region Chọn ngày-->
@@ -45,7 +45,7 @@
 
                             <Border
                                 Padding="20,0"
-                                BorderBrush="{StaticResource MauTenPhong}"
+                                BorderBrush="{DynamicResource MauTenPhong}"
                                 BorderThickness="1"
                                 CornerRadius="3">
                                 <DatePicker Margin="20,0" SelectedDate="{Binding Path=NgayBatDau, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='dd MMM yyyy'}">
@@ -56,7 +56,7 @@
                                                     <ControlTemplate>
                                                         <TextBox
                                                             x:Name="PART_TextBox"
-                                                            FontSize="{StaticResource CoChuNho}"
+                                                            FontSize="{DynamicResource CoChuNho}"
                                                             Foreground="red"
                                                             Text="{Binding Path=SelectedDate, StringFormat='dd MMM yyyy', RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
                                                     </ControlTemplate>
@@ -72,7 +72,7 @@
                             <TextBlock>Đến ngày</TextBlock>
                             <Border
                                 Padding="20,0"
-                                BorderBrush="{StaticResource MauTenPhong}"
+                                BorderBrush="{DynamicResource MauTenPhong}"
                                 BorderThickness="1"
                                 CornerRadius="3">
                                 <DatePicker Margin="20,0" SelectedDate="{Binding Path=NgayKetThuc, StringFormat='{}{0:MM/dd/yyyy}', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -81,7 +81,7 @@
                                             <Setter Property="Control.Template">
                                                 <Setter.Value>
                                                     <ControlTemplate>
-                                                        <TextBox FontSize="{StaticResource CoChuNho}" Text="{Binding Path=SelectedDate, StringFormat='{}{0:MM/dd/yyyy}', RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                                                        <TextBox FontSize="{DynamicResource CoChuNho}" Text="{Binding Path=SelectedDate, StringFormat='{}{0:MM/dd/yyyy}', RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
                                                     </ControlTemplate>
                                                 </Setter.Value>
                                             </Setter>
@@ -93,9 +93,9 @@
                     </Grid>
                     <Button
                         Width="80"
-                        Background="{StaticResource MauChinh2}"
+                        Background="{DynamicResource MauChinh2}"
                         Command="{Binding XemBaoCaoCommand}"
-                        Style="{StaticResource StyleBtnCoBan}">
+                        Style="{DynamicResource StyleBtnCoBan}">
                         Xem
                     </Button>
                 </StackPanel>
@@ -106,9 +106,9 @@
             <TextBlock
                 Margin="0,50"
                 HorizontalAlignment="Center"
-                FontSize="{StaticResource CoChuLon}"
+                FontSize="{DynamicResource CoChuLon}"
                 FontStyle="Italic"
-                Foreground="{StaticResource XamDam}"
+                Foreground="{DynamicResource XamDam}"
                 Text="Không có dịch vụ sử dụng trong thời gian này." />
 
         </Grid>
@@ -125,18 +125,18 @@
                 Grid.Row="1"
                 Grid.Column="0"
                 HorizontalAlignment="Center"
-                FontSize="{StaticResource CoChuNho}"
+                FontSize="{DynamicResource CoChuNho}"
                 FontWeight="Bold"
                 Text="{Binding TongDoanhThu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}Tổng doanh thu: {0:N0}}" />
             <TextBlock
                 Grid.Row="1"
                 Grid.Column="1"
-                FontSize="{StaticResource CoChuNho}"
+                FontSize="{DynamicResource CoChuNho}"
                 FontWeight="Bold"
                 Text="Biểu đồ thống kê doanh thu theo dịch vụ" />
             <ListView
                 Margin="50,50,50,0"
-                FontSize="{StaticResource CoChuThuong}"
+                FontSize="{DynamicResource CoChuThuong}"
                 Grid.IsSharedSizeScope="True"
                 ItemsSource="{Binding ListBaoCaoDichVu}"
                 ScrollViewer.CanContentScroll="True"
@@ -147,7 +147,7 @@
                         <Setter Property="Margin" Value="10,10" />
                         <Setter Property="VerticalContentAlignment" Value="Center" />
                         <Setter Property="HorizontalContentAlignment" Value="Center" />
-                        <Setter Property="BorderBrush" Value="{StaticResource XamNhat}" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource XamNhat}" />
                         <Setter Property="BorderThickness" Value="1,0,1,1" />
                         <Setter Property="Padding" Value="5,3,0,3" />
                     </Style>
@@ -188,7 +188,7 @@
                     <lvc:Axis IsEnabled="False" ShowLabels="False" />
                 </lvc:PieChart.AxisX>
                 <lvc:PieChart.AxisY>
-                    <lvc:Axis FontSize="{StaticResource CoChuNho}" IsMerged="True" />
+                    <lvc:Axis FontSize="{DynamicResource CoChuNho}" IsMerged="True" />
                 </lvc:PieChart.AxisY>
             </lvc:PieChart>
         </Grid>

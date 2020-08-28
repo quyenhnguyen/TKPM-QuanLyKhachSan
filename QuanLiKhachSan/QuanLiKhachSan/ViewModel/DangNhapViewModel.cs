@@ -93,6 +93,10 @@ namespace QuanLiKhachSan.ViewModel
         }
         public DangNhapViewModel()
         {
+            //Đọc file để xem là giao diện nào
+
+            //Nếu file ko có thông tin=> mặc định là giao diện cơ bản
+
             if (isLoaded) return;
             if (!isLoaded)
             {

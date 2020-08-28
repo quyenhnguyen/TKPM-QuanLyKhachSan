@@ -40,7 +40,7 @@
             Grid.Row="0"
             Grid.RowSpan="2"
             Grid.Column="0"
-            Background="{StaticResource MauSlideBarTrai}">
+            Background="{DynamicResource MauSlideBarTrai}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="240" />
                 <RowDefinition Height="3*" />
@@ -53,7 +53,7 @@
                 Grid.Row="1"
                 Margin="0,20"
                 VerticalAlignment="Center">
-                <Button Command="{Binding btnDatPhong_Command}" Style="{StaticResource StyleButtonSlidebar}">
+                <Button Command="{Binding btnDatPhong_Command}" Style="{DynamicResource StyleButtonSlidebar}">
                     <StackPanel Width="240" Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="29"
@@ -64,7 +64,7 @@
                         <TextBlock VerticalAlignment="Center">THUÊ, TRẢ PHÒNG</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding btnTraCuu_Command}" Style="{StaticResource StyleButtonSlidebar}">
+                <Button Command="{Binding btnTraCuu_Command}" Style="{DynamicResource StyleButtonSlidebar}">
                     <StackPanel Width="240" Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="29"
@@ -75,7 +75,7 @@
                         <TextBlock VerticalAlignment="Center">TRA CỨU, QUẢN LÍ</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding btnTaiKhoan_Command}" Style="{StaticResource StyleButtonSlidebar}">
+                <Button Command="{Binding btnTaiKhoan_Command}" Style="{DynamicResource StyleButtonSlidebar}">
                     <StackPanel Width="240" Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="29"
@@ -89,7 +89,7 @@
                 <Button
                     Command="{Binding btnDangXuat_Command}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                    Style="{StaticResource StyleButtonSlidebar}">
+                    Style="{DynamicResource StyleButtonSlidebar}">
                     <StackPanel Width="240" Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="29"
@@ -104,7 +104,7 @@
             <StackPanel Grid.Row="2" VerticalAlignment="Center">
                 <Border
                     Padding="20"
-                    BorderBrush="{StaticResource XamDam}"
+                    BorderBrush="{DynamicResource XamDam}"
                     BorderThickness="0,1,0,0">
                     <StackPanel HorizontalAlignment="Center">
                         <TextBlock

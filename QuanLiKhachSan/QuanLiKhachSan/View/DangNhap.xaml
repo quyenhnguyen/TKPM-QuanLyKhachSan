@@ -12,7 +12,7 @@
     Title="Đăng nhập"
     Width="800"
     Height="450"
-    DataContext="{StaticResource DangNhapVM}"
+    DataContext="{DynamicResource DangNhapVM}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>

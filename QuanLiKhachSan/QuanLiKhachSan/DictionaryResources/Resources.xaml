@@ -20,4 +20,6 @@
     <viewmodel:QuanLyPhong_LoaiPhongViewModel x:Key="QuanLYPhong_LoaiPhongVM" />
     <viewmodel:QuanLyTaiKhoanViewModel x:Key="QuanLyTaiKhoanVM" />
     <viewmodel:QuanLy_ThamSoViewModel x:Key="QuanLyThamSoVM" />
+    <viewmodel:PopUpDoiGiaoDienViewModel x:Key="PopUpDoiGiaoDienVM" />
+
 </ResourceDictionary>

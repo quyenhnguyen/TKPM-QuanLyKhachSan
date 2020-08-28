@@ -9,7 +9,7 @@
     d:DesignHeight="850"
     d:DesignWidth="1180"
     mc:Ignorable="d">
-    <Grid Background="GhostWhite">
+    <Grid Background="{DynamicResource XanhNhatMauNen}">
         <Grid.RowDefinitions>
             <RowDefinition Height="10" />
             <RowDefinition />

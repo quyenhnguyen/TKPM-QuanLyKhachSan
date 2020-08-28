@@ -34,7 +34,7 @@
             BorderBrush="{DynamicResource MauTenPhong}"
             BorderThickness="0,0,0,3">
             <StackPanel Orientation="Horizontal">
-                <Button Command="{Binding btnBaoCaoCommand}" Style="{StaticResource StyleButtonSlidebarKeToan}">
+                <Button Command="{Binding btnBaoCaoCommand}" Style="{DynamicResource StyleButtonSlidebarKeToan}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="29"
@@ -44,7 +44,7 @@
                         <TextBlock VerticalAlignment="Center">BÁO CÁO, THỐNG KÊ</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding btnNhanVienCommand}" Style="{StaticResource StyleButtonSlidebarKeToan}">
+                <Button Command="{Binding btnNhanVienCommand}" Style="{DynamicResource StyleButtonSlidebarKeToan}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="29"
@@ -54,7 +54,7 @@
                         <TextBlock VerticalAlignment="Center">QUẢN LÍ NHÂN VIÊN</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding btnTaiKhoanCommand}" Style="{StaticResource StyleButtonSlidebarKeToan}">
+                <Button Command="{Binding btnTaiKhoanCommand}" Style="{DynamicResource StyleButtonSlidebarKeToan}">
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="29"
@@ -67,7 +67,7 @@
                 <Button
                     Command="{Binding btnDangXuat_Command}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                    Style="{StaticResource StyleButtonSlidebarKeToan}">
+                    Style="{DynamicResource StyleButtonSlidebarKeToan}">
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="29"
@@ -79,7 +79,7 @@
                 </Button>
             </StackPanel>
         </Border>
-        <Grid Grid.Row="1" Background="{StaticResource XanhNhatMauNen}">
+        <Grid Grid.Row="1" Background="{DynamicResource XanhNhatMauNen}">
             <ContentControl
                 Grid.Row="1"
                 Margin="15"

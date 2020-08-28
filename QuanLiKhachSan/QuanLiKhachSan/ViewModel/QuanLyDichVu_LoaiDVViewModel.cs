@@ -250,11 +250,11 @@ namespace QuanLiKhachSan.ViewModel
         {
             try
             {
-                return (string.IsNullOrEmpty(txtIDDV.ToString()) ||
-                        string.IsNullOrEmpty(txtTenDichVu.ToString()) ||
-                        string.IsNullOrEmpty(txtDonVi.ToString()) ||
-                        string.IsNullOrEmpty(txtGiaNhap.ToString()) ||
-                        string.IsNullOrEmpty(txtGiaBan.ToString()) || HinhAnhDichVu == null);
+                return (string.IsNullOrEmpty(txtIDDV) ||
+                        string.IsNullOrEmpty(txtTenDichVu) ||
+                        string.IsNullOrEmpty(txtDonVi) ||
+                       (txtGiaNhap == 0) ||
+                       (txtGiaBan == 0) || HinhAnhDichVu == null);
             }
             catch (Exception) { return true; }
         }
@@ -276,7 +276,7 @@ namespace QuanLiKhachSan.ViewModel
             // 1. Them moi / cap nhat loai dich vu
             loaidvconfirmButtonCommmand = new RelayCommand<Object>((p) =>
             {
-                if (string.IsNullOrEmpty(txtMaLoaiDV.ToString()) ||
+                if (string.IsNullOrEmpty(txtMaLoaiDV) ||
                 string.IsNullOrEmpty(txtTenDV))
                     return false;
                 return true;

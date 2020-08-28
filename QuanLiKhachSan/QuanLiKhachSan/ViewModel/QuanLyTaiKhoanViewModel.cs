@@ -3,6 +3,7 @@ using QuanLiKhachSan.Model;
 using QuanLiKhachSan.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,10 +24,14 @@ namespace QuanLiKhachSan.ViewModel
         public bool KiemTraDoiMatKhau { get => _KiemTraDoiMatKhau; set { OnPropertyChanged(ref _KiemTraDoiMatKhau, value); } }
         private BitmapImage _avatar;
         public BitmapImage Avatar { get => _avatar; set { OnPropertyChanged(ref _avatar, value); } }
+        private bool _KiemTraDoiGiaoDien;
+        public bool KiemTraDoiGiaoDien { get => _KiemTraDoiGiaoDien; set { OnPropertyChanged(ref _KiemTraDoiGiaoDien, value); } }
+
         public ICommand DoiAnhDaiDienCommand { get; set; }
         public ICommand DoiMatKhauCommand { get; set; }
         public ICommand chuyenKeToan { get; set; }
         public ICommand chuyenLeTan { get; set; }
+
 
         public QuanLyTaiKhoanViewModel()
         {
@@ -85,6 +90,7 @@ namespace QuanLiKhachSan.ViewModel
                 else
                     ResetPassword(old, matKhauMoi);
             });
+
         }
         void ResetPassword(string OldPassword, string NewPassword)
         {

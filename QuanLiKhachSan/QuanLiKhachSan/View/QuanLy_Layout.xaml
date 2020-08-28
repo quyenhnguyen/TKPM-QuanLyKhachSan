@@ -46,7 +46,7 @@
             Grid.Row="0"
             Grid.RowSpan="2"
             Grid.Column="0"
-            Background="{StaticResource MauSlideBarTraiQL}">
+            Background="{DynamicResource MauSlideBarTraiQL}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="200" />
                 <RowDefinition Height="5*" />
@@ -56,7 +56,7 @@
                 <Image Margin="0,20" Source="../images/logo.jpg" />
             </Grid>
             <StackPanel Grid.Row="1" Margin="0,20">
-                <Button Command="{Binding btnQuanLy_NhanVien}" Style="{StaticResource StyleButtonSlidebarQL}">
+                <Button Command="{Binding btnQuanLy_NhanVien}" Style="{DynamicResource StyleButtonSlidebarQL}">
                     <StackPanel Width="256" Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="29"
@@ -67,7 +67,7 @@
                         <TextBlock VerticalAlignment="Center">QUẢN LÝ NHÂN VIÊN</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding btnQuanLy_Phong}" Style="{StaticResource StyleButtonSlidebarQL}">
+                <Button Command="{Binding btnQuanLy_Phong}" Style="{DynamicResource StyleButtonSlidebarQL}">
                     <StackPanel Width="260" Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="29"
@@ -78,7 +78,7 @@
                         <TextBlock VerticalAlignment="Center">QUẢN LÝ PHÒNG</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding btnQuanLy_DichVu}" Style="{StaticResource StyleButtonSlidebarQL}">
+                <Button Command="{Binding btnQuanLy_DichVu}" Style="{DynamicResource StyleButtonSlidebarQL}">
                     <StackPanel Width="260" Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="29"
@@ -89,7 +89,7 @@
                         <TextBlock VerticalAlignment="Center">QUẢN LÝ DỊCH VỤ</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding btnQuanLy_ThamSo}" Style="{StaticResource StyleButtonSlidebarQL}">
+                <Button Command="{Binding btnQuanLy_ThamSo}" Style="{DynamicResource StyleButtonSlidebarQL}">
                     <StackPanel Width="260" Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="29"
@@ -100,7 +100,7 @@
                         <TextBlock VerticalAlignment="Center">QUẢN LÝ THAM SỐ</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Command="{Binding btnQuanLy_TaiKhoan}" Style="{StaticResource StyleButtonSlidebarQL}">
+                <Button Command="{Binding btnQuanLy_TaiKhoan}" Style="{DynamicResource StyleButtonSlidebarQL}">
                     <StackPanel Width="260" Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="29"
@@ -114,7 +114,7 @@
                 <Button
                     Command="{Binding btnQuanLy_DangXuat}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                    Style="{StaticResource StyleButtonSlidebarQL}">
+                    Style="{DynamicResource StyleButtonSlidebarQL}">
                     <StackPanel Width="258" Orientation="Horizontal">
                         <materialDesign:PackIcon
                             Width="29"
@@ -129,7 +129,7 @@
             <StackPanel Grid.Row="2" VerticalAlignment="Center">
                 <Border
                     Padding="20"
-                    BorderBrush="{StaticResource XamDam}"
+                    BorderBrush="{DynamicResource XamDam}"
                     BorderThickness="0,1,0,0">
                     <StackPanel HorizontalAlignment="Center">
                         <TextBlock

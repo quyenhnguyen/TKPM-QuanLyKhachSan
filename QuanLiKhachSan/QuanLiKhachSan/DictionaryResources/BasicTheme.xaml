@@ -1,0 +1,207 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:QuanLiKhachSan.DictionaryResources"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <!--  Màu sử dụng  cho app  -->
+    <SolidColorBrush x:Key="MauSlideBarTrai" Color="#004C77" />
+    <SolidColorBrush x:Key="MauSlideBarTraiQL" Color="#01091E" />
+    <SolidColorBrush x:Key="MauChinh2" Color="#026FAD" />
+    <SolidColorBrush x:Key="MauXanhVua" Color="#00598B" />
+    <SolidColorBrush x:Key="MauChuHeader" Color="#E91E63" />
+    <SolidColorBrush x:Key="XamNhat" Color="#F2F2F2" />
+    <SolidColorBrush x:Key="MauTenPhong" Color="#2F80ED" />
+    <SolidColorBrush x:Key="DenHoiNhat" Color="#4F4F4F" />
+    <SolidColorBrush x:Key="XamDam" Color="#E0E0E0" />
+    <SolidColorBrush x:Key="MauButtonLoaiDV" Color="#009688" />
+    <SolidColorBrush x:Key="CamNhat" Color="#F3BB45" />
+    <SolidColorBrush x:Key="CamDisable" Color="#F3E0B7" />
+    <SolidColorBrush x:Key="CamVua" Color="#F2994A" />
+    <SolidColorBrush x:Key="HongDam" Color="#FF5588" />
+    <SolidColorBrush x:Key="XanhNhat" Color="#81D4FA" />
+    <SolidColorBrush x:Key="XanhHoiNhat" Color="#B2EBF2" />
+    <SolidColorBrush x:Key="XanhNhatMauNen" Color="#E8A1FB" />
+    <SolidColorBrush x:Key="HeaderListViewQL" Color="#4F4F4F" />
+    <SolidColorBrush x:Key="MauBtnQL" Color="#2E3F69" />
+
+    <!--  Số sử dụng trong app  -->
+    <System:Double x:Key="CoChuLon">24</System:Double>
+    <System:Double x:Key="CoChuThuong">18</System:Double>
+    <System:Double x:Key="CoChuNho">15</System:Double>
+    <System:Double x:Key="CoChuSieuNho">13</System:Double>
+
+
+    <!--  Style của app  -->
+    <Style x:Key="StyleCardSLPhong" TargetType="{x:Type materialDesign:Card}">
+        <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
+        <Setter Property="Padding" Value="40,10" />
+    </Style>
+    <Style x:Key="StyleTextCoBan" TargetType="{x:Type TextBlock}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
+        <Setter Property="Margin" Value="10,0" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style x:Key="StyleTextBoxCoBan" TargetType="{x:Type TextBox}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
+        <Setter Property="Margin" Value="10,0" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style
+        x:Key="StyleLableTinhTien"
+        BasedOn="{StaticResource StyleTextCoBan}"
+        TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Margin" Value="10,0,5,0" />
+    </Style>
+    <Style
+        x:Key="StyleTextForm"
+        BasedOn="{StaticResource StyleTextCoBan}"
+        TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="TextAlignment" Value="Right" />
+        <Setter Property="Margin" Value="0,0,10,0" />
+    </Style>
+    <Style
+        x:Key="StyleTextInfoForm"
+        BasedOn="{StaticResource StyleTextCoBan}"
+        TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="Gray" />
+        <Setter Property="TextAlignment" Value="Right" />
+        <Setter Property="Margin" Value="0,0,110,0" />
+    </Style>
+    <Style x:Key="StyleInputForm" TargetType="{x:Type TextBox}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="{StaticResource CoChuSieuNho}" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="Margin" Value="10,0,70,5" />
+        <Setter Property="Padding" Value="10,0" />
+        <Setter Property="Height" Value="35" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="1.5" />
+        <Setter Property="BorderBrush" Value="{StaticResource MauTenPhong}" />
+    </Style>
+    <Style x:Key="StyleInputFormQL" TargetType="{x:Type TextBox}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="{StaticResource CoChuSieuNho}" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="Padding" Value="10,0" />
+        <Setter Property="Height" Value="35" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="1.5" />
+        <Setter Property="BorderBrush" Value="{StaticResource MauTenPhong}" />
+    </Style>
+    <Style x:Key="StyleTextBlockHoaDon" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Margin" Value="10,5" />
+    </Style>
+    <Style
+        x:Key="StyleBtnCoBan"
+        BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"
+        TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="30" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Background" Value="{StaticResource CamNhat}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Margin" Value="10,0" />
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" Value="0.5" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="StyleButtonSlidebarQL"
+        BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"
+        TargetType="Button">
+        <Setter Property="Height" Value="60" />
+        <Setter Property="Background" Value="{StaticResource MauSlideBarTraiQL}" />
+        <Setter Property="BorderBrush" Value="{StaticResource MauSlideBarTraiQL}" />
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Background" Value="#2C3345" />
+                <Setter Property="BorderBrush" Value="#2C3345" />
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style
+        x:Key="StyleButtonSlidebar"
+        BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"
+        TargetType="Button">
+        <Setter Property="Height" Value="60" />
+        <Setter Property="Background" Value="{StaticResource MauSlideBarTrai}" />
+        <Setter Property="BorderBrush" Value="{StaticResource MauSlideBarTrai}" />
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Background" Value="{StaticResource MauChinh2}" />
+                <Setter Property="BorderBrush" Value="{StaticResource MauChinh2}" />
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style
+        x:Key="StyleButtonSlidebarKeToan"
+        BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"
+        TargetType="Button">
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Foreground" Value="{StaticResource DenHoiNhat}" />
+        <Setter Property="Background" Value="#F6F6F6" />
+        <Setter Property="BorderThickness" Value="1,1,1,0" />
+
+        <Setter Property="BorderBrush" Value="#BDBDBD" />
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Background" Value="{StaticResource XamDam}" />
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style
+        x:Key="StyleButtonLoaiDV"
+        BasedOn="{StaticResource MaterialDesignRaisedDarkButton}"
+        TargetType="Button">
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Background" Value="{StaticResource MauButtonLoaiDV}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Background" Value="#7BC7CE" />
+                <Setter Property="BorderBrush" Value="#7BC7CE" />
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="StyleBtnSoLuong" TargetType="Button">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Background" Value="{StaticResource MauSlideBarTrai}" />
+        <Setter Property="BorderBrush" Value="{StaticResource MauSlideBarTrai}" />
+    </Style>
+    <Style x:Key="BorderRadius3" TargetType="Border">
+        <Setter Property="CornerRadius" Value="3" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style x:Key="HeaderCuaBang" TargetType="{x:Type GridViewColumnHeader}">
+        <Setter Property="Background" Value="{StaticResource MauChinh2}" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="8,5" />
+    </Style>
+    <Style x:Key="BoderHoaDon" TargetType="{x:Type Border}">
+        <Setter Property="BorderBrush" Value="{StaticResource DenHoiNhat}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="Padding" Value="3" />
+    </Style>
+
+</ResourceDictionary>
