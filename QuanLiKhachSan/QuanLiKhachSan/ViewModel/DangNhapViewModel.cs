@@ -2,6 +2,8 @@
 using QuanLiKhachSan.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -93,9 +95,30 @@ namespace QuanLiKhachSan.ViewModel
         }
         public DangNhapViewModel()
         {
+            //0 là giao diện cơ bản
+            //1 là giao diện tiên tiến
             //Đọc file để xem là giao diện nào
+            ResourceDictionary GiaoDienTienTienResource = new ResourceDictionary() { Source = new Uri("./DictionaryResources/Styles.xaml", UriKind.RelativeOrAbsolute) };
+            ResourceDictionary GiaoDienCoBanResource = new ResourceDictionary() { Source = new Uri("./DictionaryResources/BasicTheme.xaml", UriKind.RelativeOrAbsolute) };
+            Collection<ResourceDictionary> QLKSResource = Application.Current.Resources.MergedDictionaries;
+            QLKSResource.Remove(GiaoDienCoBanResource);
+            QLKSResource.Remove(GiaoDienTienTienResource);
 
-            //Nếu file ko có thông tin=> mặc định là giao diện cơ bản
+            try
+            {
+                FileStream fi = new FileStream("app.config", FileMode.Open, FileAccess.Read);
+                StreamReader read = new StreamReader(fi, Encoding.Unicode);
+
+                int loai = int.Parse(read.ReadLine());
+                PopUpDoiGiaoDienViewModel.ChuyenDoiGiaoDien(loai);
+            }
+            catch (FileNotFoundException)
+            {
+                //Nếu file ko có thông tin=> mặc định là giao diện cơ bản
+                PopUpDoiGiaoDienViewModel.ChuyenDoiGiaoDien(0);
+
+            }
+
 
             if (isLoaded) return;
             if (!isLoaded)

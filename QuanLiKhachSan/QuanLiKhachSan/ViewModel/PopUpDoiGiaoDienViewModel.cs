@@ -32,21 +32,7 @@ namespace QuanLiKhachSan.ViewModel
             DoiGiaoDienCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
                 index = (p.FindName("LoaiGiaoDien") as ComboBox).SelectedIndex;
-                ResourceDictionary GiaoDienTienTienResource = new ResourceDictionary() { Source = new Uri("./DictionaryResources/Styles.xaml", UriKind.RelativeOrAbsolute) };
-                ResourceDictionary GiaoDienCoBanResource = new ResourceDictionary() { Source = new Uri("./DictionaryResources/BasicTheme.xaml", UriKind.RelativeOrAbsolute) };
-                Collection<ResourceDictionary> QLKSResource = Application.Current.Resources.MergedDictionaries;
-                //Giao diện cơ bản
-                if (index == 0)
-                {
-                    QLKSResource.Remove(QLKSResource.Where(x => x.Source.ToString().Equals(GiaoDienTienTienResource.Source.ToString())).Single());
-                    QLKSResource.Add(GiaoDienCoBanResource);
-                }
-                //Tiên tiến
-                if (index == 1)
-                {
-                    QLKSResource.Remove(QLKSResource.Where(x => x.Source.ToString().Equals(GiaoDienCoBanResource.Source.ToString())).Single());
-                    QLKSResource.Add(GiaoDienTienTienResource);
-                }
+                ChuyenDoiGiaoDien(index);
                 FrameworkElement parent = p;
                 while (parent.Parent != null)
                 {
@@ -59,6 +45,32 @@ namespace QuanLiKhachSan.ViewModel
                     }
                 }
             });
+        }
+        public static void ChuyenDoiGiaoDien(int index)
+        {
+            ResourceDictionary GiaoDienTienTienResource = new ResourceDictionary() { Source = new Uri("./DictionaryResources/Styles.xaml", UriKind.RelativeOrAbsolute) };
+            ResourceDictionary GiaoDienCoBanResource = new ResourceDictionary() { Source = new Uri("./DictionaryResources/BasicTheme.xaml", UriKind.RelativeOrAbsolute) };
+            Collection<ResourceDictionary> QLKSResource = Application.Current.Resources.MergedDictionaries;
+            //Giao diện cơ bản
+            if (index == 0)
+            {
+                try
+                {
+                    QLKSResource.Remove(QLKSResource.Where(x => x.Source.ToString().Equals(GiaoDienTienTienResource.Source.ToString())).Single());
+                }
+                catch (InvalidOperationException) { }
+                QLKSResource.Add(GiaoDienCoBanResource);
+            }
+            //Tiên tiến
+            if (index == 1)
+            {
+                try
+                {
+                    QLKSResource.Remove(QLKSResource.Where(x => x.Source.ToString().Equals(GiaoDienCoBanResource.Source.ToString())).Single());
+                }
+                catch (InvalidOperationException) { }
+                QLKSResource.Add(GiaoDienTienTienResource);
+            }
         }
     }
 }

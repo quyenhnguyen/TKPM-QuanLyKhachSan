@@ -132,7 +132,8 @@
         TargetType="Button">
         <Setter Property="Height" Value="60" />
         <Setter Property="Background" Value="{StaticResource MauSlideBarTraiQL}" />
-        <Setter Property="BorderBrush" Value="{StaticResource MauSlideBarTraiQL}" />
+        <Setter Property="BorderBrush" Value="#2C3345" />
+        <Setter Property="BorderThickness" Value="1,1,0,0" />
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Background" Value="#2C3345" />
