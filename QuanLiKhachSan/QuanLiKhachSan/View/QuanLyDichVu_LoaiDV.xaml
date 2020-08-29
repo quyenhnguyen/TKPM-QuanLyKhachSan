@@ -25,7 +25,7 @@
                             <ControlTemplate TargetType="TabItem">
                                 <Border
                                     Name="Border"
-                                    Width="120"
+                                    Width="Auto"
                                     Height="40"
                                     BorderBrush="#BDBDBD"
                                     BorderThickness="1,1,1,0"
@@ -33,6 +33,7 @@
                                     Cursor="Hand">
                                     <ContentPresenter
                                         x:Name="ContentSite"
+                                        Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         ContentSource="Header"
@@ -84,8 +85,8 @@
                             Name="searchLoaiBtn"
                             Height="35"
                             Margin="10,0,0,0"
-                            Background="{StaticResource MauChuHeader}"
-                            BorderBrush="{StaticResource HongDam}"
+                            Background="{StaticResource MauBtnQL}"
+                            BorderThickness="0"
                             Command="{Binding timLoaiDVCommand}"
                             CommandParameter="{Binding ElementName=searchLoaiBtn}"
                             IsDefault="True">
@@ -97,18 +98,21 @@
                                 Kind="Search" />
                         </Button>
                     </StackPanel>
-                    <StackPanel
-                        Grid.Row="1"
-                        Margin="10,10,10,10"
-                        Orientation="Horizontal">
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*" />
+                            <ColumnDefinition Width="3*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="6*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
                         <!--  DANH SACH NHAN VIEN  -->
-                        <materialDesign:Card Margin="5,5,5,0">
-                            <ScrollViewer Grid.Row="1">
+                        <materialDesign:Card Grid.Column="0" Margin="5,5,5,0">
+                            <ScrollViewer>
                                 <ListView
                                     Grid.Row="1"
                                     Grid.Column="1"
-                                    Width="600"
-                                    Height="515"
                                     Margin="0,0,0,10"
                                     HorizontalAlignment="Center"
                                     Grid.IsSharedSizeScope="True"
@@ -136,7 +140,7 @@
                                         <GridView>
                                             <GridView.ColumnHeaderContainerStyle>
                                                 <Style TargetType="{x:Type GridViewColumnHeader}">
-                                                    <Setter Property="Background" Value="{StaticResource MauChinh2}" />
+                                                    <Setter Property="Background" Value="{StaticResource HeaderListViewQL}" />
                                                     <Setter Property="Foreground" Value="White" />
                                                     <Setter Property="BorderBrush" Value="{x:Null}" />
                                                     <Setter Property="BorderThickness" Value="0" />
@@ -150,46 +154,39 @@
                                                 DisplayMemberBinding="{Binding LoaiDVID}"
                                                 Header="Mã Loại" />
                                             <GridViewColumn
-                                                Width="300px"
+                                                Width="200px"
                                                 DisplayMemberBinding="{Binding TenLoai}"
                                                 Header="Tên Loại" />
                                             <GridViewColumn
-                                                Width="200px"
-                                                DisplayMemberBinding="{Binding NgayTao, StringFormat={}{0: dd/MM/yyyy  HH:mm:ss}}"
+                                                Width="150px"
+                                                DisplayMemberBinding="{Binding NgayTao, StringFormat={}{0: dd/MM/yyyy  HH:mm}}"
                                                 Header="Ngày Tạo" />
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
                             </ScrollViewer>
                         </materialDesign:Card>
-                        <materialDesign:Card Width="506" Margin="5,5,5,115">
+                        <materialDesign:Card Grid.Column="1">
                             <!--  CHI TIẾT NHÂN VIÊN  -->
-                            <Grid
-                                Width="487"
-                                Margin="10,10,10,10"
-                                HorizontalAlignment="Right">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="60" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <Grid
-                                    Grid.Row="0"
-                                    Margin="0,0,0,0"
-                                    Background="{StaticResource MauXanhVua}">
+                            <StackPanel Margin="20,10">
+                                <StackPanel Background="{StaticResource HeaderListViewQL}">
                                     <TextBlock
+                                        Margin="10"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="{DynamicResource CoChuThuong}"
                                         FontWeight="Bold"
                                         Foreground="White"
                                         Text="THÔNG TIN LOẠI DỊCH VỤ" />
-                                </Grid>
-                                <Grid Grid.Row="1" Margin="0,0,0,0">
+                                </StackPanel>
+                                <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="100" />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
                                         <RowDefinition />
                                         <RowDefinition />
                                         <RowDefinition />
@@ -203,7 +200,6 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         Height="36"
-                                        Margin="10,0,44,0"
                                         IsEnabled="{Binding choPhepThayDoi}"
                                         Style="{StaticResource StyleInputFormQL}"
                                         Text="{Binding txtMaLoaiDV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -215,17 +211,20 @@
                                     <TextBox
                                         Grid.Row="1"
                                         Grid.Column="1"
-                                        Margin="10,0,44,0"
                                         Style="{StaticResource StyleInputFormQL}"
                                         Text="{Binding txtTenDV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         VerticalScrollBarVisibility="Auto" />
+                                </Grid>
+                                <StackPanel
+                                    Margin="0,20,0,0"
+                                    HorizontalAlignment="Center"
+                                    Orientation="Horizontal">
                                     <Button
                                         Grid.Row="2"
                                         Grid.Column="1"
-                                        Width="135"
+                                        Width="180"
                                         Height="35"
-                                        Margin="213,10,0,33"
-                                        Background="{StaticResource CamNhat}"
+                                        Background="{StaticResource MauBtnQL}"
                                         BorderThickness="0"
                                         Command="{Binding loaidvconfirmButtonCommmand}"
                                         Content="{Binding loaidvconfirmButtonName}"
@@ -233,36 +232,37 @@
                                     <Button
                                         Grid.Row="2"
                                         Grid.Column="1"
-                                        Width="139"
+                                        Width="180"
                                         Height="35"
-                                        Margin="10,10,0,33"
-                                        Background="{StaticResource CamNhat}"
+                                        Margin="10,0,0,0"
+                                        Background="{StaticResource MauBtnQL}"
                                         BorderThickness="0"
                                         Command="{Binding loaidvcancelButtonCommmand}"
                                         Content="{Binding loaidvcancelButtonName}"
                                         Style="{StaticResource StyleBtnCoBan}" />
-                                </Grid>
-                            </Grid>
+                                </StackPanel>
+
+                            </StackPanel>
                         </materialDesign:Card>
-                    </StackPanel>
-                    <Grid Grid.Row="2" Margin="0,0,10,10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Button
-                            Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            Margin="180,10,328,20"
-                            Command="{Binding addDVCommand}"
-                                Content="THÊM LOẠI DỊCH VỤ" />
-                        <Button Grid.Column="1"
-                                Grid.ColumnSpan="2"
-                                Margin="180,10,328,20"
-                                Command="{Binding exportLoaiDVCommand}"
-                                Content="Export LOẠI DỊCH VỤ" />
                     </Grid>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <Button
+                            Width="180"
+                            Height="35"
+                            Margin="20,0"
+                            HorizontalAlignment="Left"
+                            Background="{DynamicResource MauBtnQL}"
+                            Command="{Binding addDVCommand}"
+                            Content="THÊM LOẠI DỊCH VỤ" />
+                        <Button
+                            Width="180"
+                            Margin="30,0"
+                            Background="{StaticResource MauBtnQL}"
+                            Command="{Binding exportLoaiDVCommand}"
+                            Content="EXPORT LOẠI DỊCH VỤ" />
+                    </StackPanel>
+
+
                 </Grid>
             </TabItem>
             <TabItem Header="Quản Lý Dịch Vụ">
@@ -555,16 +555,19 @@
                             </StackPanel>
                         </StackPanel>
                     </Grid>
-                    <Button
-                        Grid.Row="2"
-                        Width="180"
-                        Margin="30,0"
-                        HorizontalAlignment="Left"
-                        Background="{StaticResource MauBtnQL}"
-                        Command="{Binding addDichVuCommand}"
-                        Content="THÊM DỊCH VỤ" />
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <Button
+                            Width="180"
+                            Margin="30,0"
+                            HorizontalAlignment="Left"
+                            Background="{StaticResource MauBtnQL}"
+                            Command="{Binding addDichVuCommand}"
+                            Content="THÊM DỊCH VỤ" />
+                    </StackPanel>
+
                 </Grid>
             </TabItem>
         </TabControl>
     </Grid>
 </UserControl>
+
