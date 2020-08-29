@@ -256,7 +256,12 @@
                             Grid.ColumnSpan="2"
                             Margin="180,10,328,20"
                             Command="{Binding addDVCommand}"
-                            Content="THÊM LOẠI DỊCH VỤ" />
+                                Content="THÊM LOẠI DỊCH VỤ" />
+                        <Button Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                Margin="180,10,328,20"
+                                Command="{Binding exportLoaiDVCommand}"
+                                Content="Export LOẠI DỊCH VỤ" />
                     </Grid>
                 </Grid>
             </TabItem>

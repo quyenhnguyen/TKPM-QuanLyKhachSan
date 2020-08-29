@@ -145,6 +145,7 @@ namespace QuanLiKhachSan.ViewModel
         public ICommand dvcancelButtonCommmand { get; set; }
         public ICommand addDichVuCommand { get; set; }
         public ICommand ChonAnhDVCommand { get; set; }
+        public ICommand exportLoaiDVCommand { get; set; }
 
         private string _dvcancelButtonName = "HỦY";
         private string _dvconfirmButtonName = "THÊM";
@@ -265,6 +266,12 @@ namespace QuanLiKhachSan.ViewModel
             timLoaiDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
                 listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.timKiemLoaiDV(timLoaiDVInput));
+            });
+            exportLoaiDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
+            {
+                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                IModelName permanentEmployee = ModelFactory.Factory("LOAIDV");
+                permanentEmployee.exportExcel();
             });
             // Them loai dich vu
             addDVCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>

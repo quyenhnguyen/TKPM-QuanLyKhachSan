@@ -611,6 +611,27 @@ namespace QuanLiKhachSan.Model
             return res;
         }
 
+
+        // Excell Area
+        public static List<LOAIDV> danhsachAllLoaDV()
+        {
+            return DataProvider.ISCreated.DB.LOAIDVs.ToList();
+        }
+        public static string[] getColumnName(string name)
+        {
+            if (name == "DICHVU")
+            {
+                return typeof(DICHVU).GetProperties().Select(property => property.Name).ToArray();
+            }
+            else if (name == "LOAIDV")
+            {
+                return typeof(LOAIDV).GetProperties().Select(property => property.Name).ToArray();
+            }
+            else
+            {
+                return null;
+            }
+        }
         // END
     }
 }
