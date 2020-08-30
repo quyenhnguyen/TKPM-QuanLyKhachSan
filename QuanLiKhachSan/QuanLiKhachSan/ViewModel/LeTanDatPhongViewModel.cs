@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace QuanLiKhachSan.ViewModel
 {
@@ -17,7 +18,7 @@ namespace QuanLiKhachSan.ViewModel
         private object _checkin;
         public object CheckinContext { get => _checkin; set => OnPropertyChanged(ref _checkin, value); }
         private int _slPhong;
-        public int SLPhong { get => _slPhong; set => OnPropertyChanged(ref _slPhong, value); }
+        public int SLPhong { get { return DatabaseQuery.danhSachPhong().Count; } set => OnPropertyChanged(ref _slPhong, value); }
 
         private int _slPhongTrong;
         public int SLPhongTrong
@@ -48,7 +49,7 @@ namespace QuanLiKhachSan.ViewModel
         }
 
         private List<PHONG> _dsPhong;
-        public List<PHONG> DSPhong { get => _dsPhong; set => OnPropertyChanged(ref _dsPhong, value); }
+        public List<PHONG> DSPhong { get { return DatabaseQuery.danhSachPhong(); } set => OnPropertyChanged(ref _dsPhong, value); }
 
         private PHONG _phongChon;
         public PHONG PhongChon { get => _phongChon; set { OnPropertyChanged(ref _phongChon, value); } }
@@ -60,8 +61,6 @@ namespace QuanLiKhachSan.ViewModel
         //*************************************************************************
         public LeTanDatPhongViewModel()
         {
-            DSPhong = DatabaseQuery.danhSachPhong();
-            SLPhong = DSPhong.Count;
 
             //***Su dụng listPhongTT thay cho DSPhong
 

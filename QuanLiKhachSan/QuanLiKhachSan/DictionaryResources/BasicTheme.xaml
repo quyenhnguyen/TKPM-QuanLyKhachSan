@@ -5,25 +5,29 @@
     xmlns:local="clr-namespace:QuanLiKhachSan.DictionaryResources"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <!--  Màu sử dụng  cho app  -->
-    <SolidColorBrush x:Key="MauSlideBarTrai" Color="#004C77" />
-    <SolidColorBrush x:Key="MauSlideBarTraiQL" Color="#01091E" />
-    <SolidColorBrush x:Key="MauChinh2" Color="#026FAD" />
-    <SolidColorBrush x:Key="MauXanhVua" Color="#00598B" />
-    <SolidColorBrush x:Key="MauChuHeader" Color="#E91E63" />
+    <SolidColorBrush x:Key="MauSlideBarTrai" Color="#543327" />
+    <SolidColorBrush x:Key="MauSlideBarTraiQL" Color="#543327" />
+    <SolidColorBrush x:Key="MauChinh2" Color="#8f6556" />
+    <SolidColorBrush x:Key="MauXanhVua" Color="#795548" />
+    <SolidColorBrush x:Key="MauChuHeader" Color="#ee4744" />
     <SolidColorBrush x:Key="XamNhat" Color="#F2F2F2" />
-    <SolidColorBrush x:Key="MauTenPhong" Color="#2F80ED" />
+    <SolidColorBrush x:Key="MauTenPhong" Color="#a54044" />
     <SolidColorBrush x:Key="DenHoiNhat" Color="#4F4F4F" />
     <SolidColorBrush x:Key="XamDam" Color="#E0E0E0" />
-    <SolidColorBrush x:Key="MauButtonLoaiDV" Color="#009688" />
-    <SolidColorBrush x:Key="CamNhat" Color="#F3BB45" />
-    <SolidColorBrush x:Key="CamDisable" Color="#F3E0B7" />
-    <SolidColorBrush x:Key="CamVua" Color="#F2994A" />
-    <SolidColorBrush x:Key="HongDam" Color="#FF5588" />
-    <SolidColorBrush x:Key="XanhNhat" Color="#81D4FA" />
-    <SolidColorBrush x:Key="XanhHoiNhat" Color="#B2EBF2" />
-    <SolidColorBrush x:Key="XanhNhatMauNen" Color="#E8A1FB" />
-    <SolidColorBrush x:Key="HeaderListViewQL" Color="#4F4F4F" />
-    <SolidColorBrush x:Key="MauBtnQL" Color="#2E3F69" />
+    <SolidColorBrush x:Key="MauButtonLoaiDV" Color="#a54044" />
+    <SolidColorBrush x:Key="CamNhat" Color="#bf5a5d" />
+    <SolidColorBrush x:Key="CamDisable" Color="#e2b6b7" />
+    <SolidColorBrush x:Key="CamVua" Color="#af4448" />
+    <SolidColorBrush x:Key="HongDam" Color="#c2185b" />
+    <SolidColorBrush x:Key="XanhNhat" Color="#c68c53" />
+    <SolidColorBrush x:Key="XanhHoiNhat" Color="#d2a679" />
+    <SolidColorBrush x:Key="XanhNhatMauNen" Color="#fff9f7" />
+    <SolidColorBrush x:Key="HeaderListViewQL" Color="#795548" />
+    <SolidColorBrush x:Key="MauBtnQL" Color="#912f32" />
+    <SolidColorBrush x:Key="MauTrang" Color="White" />
+    <SolidColorBrush x:Key="MauTenPhongDaThue" Color="#4F4F4F" />
+
+
 
     <!--  Số sử dụng trong app  -->
     <System:Double x:Key="CoChuLon">24</System:Double>
@@ -125,12 +129,12 @@
         TargetType="Button">
         <Setter Property="Height" Value="60" />
         <Setter Property="Background" Value="{StaticResource MauSlideBarTraiQL}" />
-        <Setter Property="BorderBrush" Value="#2C3345" />
+        <Setter Property="BorderBrush" Value="#8d6e63" />
         <Setter Property="BorderThickness" Value="1,1,0,0" />
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Background" Value="#2C3345" />
-                <Setter Property="BorderBrush" Value="#2C3345" />
+                <Setter Property="Background" Value="#8d6e63" />
+                <Setter Property="BorderBrush" Value="#8d6e63" />
                 <Setter Property="Opacity" Value="1" />
             </Trigger>
         </Style.Triggers>
@@ -141,11 +145,12 @@
         TargetType="Button">
         <Setter Property="Height" Value="60" />
         <Setter Property="Background" Value="{StaticResource MauSlideBarTrai}" />
-        <Setter Property="BorderBrush" Value="{StaticResource MauSlideBarTrai}" />
+        <Setter Property="BorderBrush" Value="#8d6e63" />
+        <Setter Property="BorderThickness" Value="1,1,0,0" />
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Background" Value="{StaticResource MauChinh2}" />
-                <Setter Property="BorderBrush" Value="{StaticResource MauChinh2}" />
+                <Setter Property="Background" Value="#8d6e63" />
+                <Setter Property="BorderBrush" Value="#8d6e63" />
                 <Setter Property="Opacity" Value="1" />
             </Trigger>
         </Style.Triggers>
@@ -176,9 +181,8 @@
         <Setter Property="BorderThickness" Value="0" />
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Background" Value="#7BC7CE" />
-                <Setter Property="BorderBrush" Value="#7BC7CE" />
-                <Setter Property="Opacity" Value="1" />
+
+                <Setter Property="Opacity" Value="0.5" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -192,7 +196,7 @@
         <Setter Property="BorderThickness" Value="0" />
     </Style>
     <Style x:Key="HeaderCuaBang" TargetType="{x:Type GridViewColumnHeader}">
-        <Setter Property="Background" Value="{StaticResource MauChinh2}" />
+        <Setter Property="Background" Value="#4b2c20" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="BorderBrush" Value="{x:Null}" />
         <Setter Property="BorderThickness" Value="0" />

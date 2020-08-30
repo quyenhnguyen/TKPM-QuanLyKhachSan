@@ -272,6 +272,7 @@
                         <Button
                             Width="150"
                             Background="{StaticResource MauBtnQL}"
+                            BorderThickness="0"
                             Command="{Binding confirmButtonCommmand}"
                             Content="{Binding confirmButtonName}" />
                     </StackPanel>

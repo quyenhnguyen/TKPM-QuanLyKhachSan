@@ -32,7 +32,7 @@
             <local:QuanLy_ThamSo DataContext="{Binding}" />
         </DataTemplate>
     </Window.Resources>
-    <Grid>
+    <Grid Background="{DynamicResource MauTrang}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="240" />
             <ColumnDefinition Width="*" />
@@ -156,7 +156,7 @@
                 VerticalAlignment="Center"
                 FontSize="{DynamicResource CoChuLon}"
                 FontWeight="Bold"
-                Foreground="#4C4C4C"
+                Foreground="{DynamicResource MauChuHeader}"
                 Text="{Binding QuanLyTitle}" />
             <!--<Separator />-->
         </StackPanel>

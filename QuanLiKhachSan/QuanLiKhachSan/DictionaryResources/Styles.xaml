@@ -6,7 +6,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <!--  Màu sử dụng  cho app  -->
     <SolidColorBrush x:Key="MauSlideBarTrai" Color="#004C77" />
-    <SolidColorBrush x:Key="MauSlideBarTraiQL" Color="#01091E" />
+    <SolidColorBrush x:Key="MauSlideBarTraiQL" Color="#004C77" />
     <SolidColorBrush x:Key="MauChinh2" Color="#026FAD" />
     <SolidColorBrush x:Key="MauXanhVua" Color="#00598B" />
     <SolidColorBrush x:Key="MauChuHeader" Color="#E91E63" />
@@ -23,7 +23,10 @@
     <SolidColorBrush x:Key="XanhHoiNhat" Color="#B2EBF2" />
     <SolidColorBrush x:Key="XanhNhatMauNen" Color="#E8F1FB" />
     <SolidColorBrush x:Key="HeaderListViewQL" Color="#4F4F4F" />
-    <SolidColorBrush x:Key="MauBtnQL" Color="#2E3F69" />
+    <SolidColorBrush x:Key="MauBtnQL" Color="#2e3f69" />
+    <SolidColorBrush x:Key="MauTrang" Color="White" />
+    <SolidColorBrush x:Key="MauTenPhongDaThue" Color="#2F80ED" />
+
 
 
 
@@ -132,12 +135,12 @@
         TargetType="Button">
         <Setter Property="Height" Value="60" />
         <Setter Property="Background" Value="{StaticResource MauSlideBarTraiQL}" />
-        <Setter Property="BorderBrush" Value="#2C3345" />
+        <Setter Property="BorderBrush" Value="{StaticResource MauSlideBarTraiQL}" />
         <Setter Property="BorderThickness" Value="1,1,0,0" />
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Background" Value="#2C3345" />
-                <Setter Property="BorderBrush" Value="#2C3345" />
+                <Setter Property="Background" Value="{StaticResource MauChinh2}" />
+                <Setter Property="BorderBrush" Value="{StaticResource MauChinh2}" />
                 <Setter Property="Opacity" Value="1" />
             </Trigger>
         </Style.Triggers>
@@ -148,7 +151,8 @@
         TargetType="Button">
         <Setter Property="Height" Value="60" />
         <Setter Property="Background" Value="{StaticResource MauSlideBarTrai}" />
-        <Setter Property="BorderBrush" Value="{StaticResource MauSlideBarTrai}" />
+        <Setter Property="BorderBrush" Value="#2C3345" />
+        <Setter Property="BorderThickness" Value="1,1,0,0" />
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Background" Value="{StaticResource MauChinh2}" />
@@ -211,5 +215,7 @@
         <Setter Property="BorderThickness" Value="0,0,0,1" />
         <Setter Property="Padding" Value="3" />
     </Style>
-
+    <Style TargetType="{x:Type Window}">
+        <Setter Property="FontFamily" Value="Cambria" />
+    </Style>
 </ResourceDictionary>

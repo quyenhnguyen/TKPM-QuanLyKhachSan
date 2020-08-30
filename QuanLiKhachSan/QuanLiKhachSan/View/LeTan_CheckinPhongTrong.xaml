@@ -138,13 +138,11 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border
+                        <materialDesign:Card
                             Width="160"
                             Height="120"
                             Padding="5,5"
                             Background="White"
-                            BorderBrush="{StaticResource XamDam}"
-                            BorderThickness="0"
                             Cursor="Hand">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -189,7 +187,7 @@
                                         TextWrapping="Wrap" />
                                 </StackPanel>
                             </Grid>
-                        </Border>
+                        </materialDesign:Card>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
@@ -275,7 +273,9 @@
                         Text="{Binding TenLoaiPhong}" />
 
                     <DockPanel Visibility="{Binding HienThiConTrong}">
+
                         <Button
+                            Width="150"
                             Margin="10,0,10,5"
                             Background="{StaticResource CamVua}"
                             BorderBrush="{StaticResource CamVua}"
@@ -292,6 +292,7 @@
                     </DockPanel>
                     <DockPanel Visibility="{Binding HienThiDangThue}">
                         <Button
+                            Width="150"
                             Margin="10,0,10,5"
                             Background="{StaticResource CamVua}"
                             BorderBrush="{StaticResource CamVua}"

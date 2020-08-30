@@ -138,7 +138,7 @@
                                     </ListView.ItemsPanel>
                                     <ListView.View>
                                         <GridView>
-                                            <GridView.ColumnHeaderContainerStyle>
+                                            <!--<GridView.ColumnHeaderContainerStyle>
                                                 <Style TargetType="{x:Type GridViewColumnHeader}">
                                                     <Setter Property="Background" Value="{StaticResource HeaderListViewQL}" />
                                                     <Setter Property="Foreground" Value="White" />
@@ -148,7 +148,7 @@
                                                     <Setter Property="FontWeight" Value="Bold" />
                                                     <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
                                                 </Style>
-                                            </GridView.ColumnHeaderContainerStyle>
+                                            </GridView.ColumnHeaderContainerStyle>-->
                                             <GridViewColumn
                                                 Width="100px"
                                                 DisplayMemberBinding="{Binding LoaiDVID}"
@@ -252,6 +252,7 @@
                             Margin="20,0"
                             HorizontalAlignment="Left"
                             Background="{DynamicResource MauBtnQL}"
+                            BorderThickness="0"
                             Command="{Binding addDVCommand}"
                                 Content="THÊM LOẠI DỊCH VỤ" />
                         <Button Width="180"
