@@ -277,12 +277,26 @@
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Button
-                        Grid.Column="0"
-                        Width="150"
-                        Background="{StaticResource MauBtnQL}"
-                        Command="{Binding addNhanVienCommand}"
-                        Content="THÊM NHÂN VIÊN" />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0"
+                            Width="150"
+                            Background="{StaticResource MauBtnQL}"
+                            Command="{Binding addNhanVienCommand}"
+                            Content="THÊM NHÂN VIÊN" />
+                    <Button Grid.Column="1"
+                            Width="150"
+                            Background="{StaticResource MauBtnQL}"
+                            Command="{Binding exportNhanVienCommand}"
+                            Content="Export NHÂN VIÊN" />
+                    <Button Grid.Column="2"
+                            Width="150"
+                            Background="{StaticResource MauBtnQL}"
+                            Command="{Binding importNhanVienCommand}"
+                            Content="Import NHÂN VIÊN" />
                 </Grid>
             </Grid>
 

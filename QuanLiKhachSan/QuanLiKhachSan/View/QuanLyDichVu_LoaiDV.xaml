@@ -253,13 +253,17 @@
                             HorizontalAlignment="Left"
                             Background="{DynamicResource MauBtnQL}"
                             Command="{Binding addDVCommand}"
-                            Content="THÊM LOẠI DỊCH VỤ" />
-                        <Button
-                            Width="180"
-                            Margin="30,0"
-                            Background="{StaticResource MauBtnQL}"
-                            Command="{Binding exportLoaiDVCommand}"
-                            Content="EXPORT LOẠI DỊCH VỤ" />
+                                Content="THÊM LOẠI DỊCH VỤ" />
+                        <Button Width="180"
+                                Margin="30,0"
+                                Background="{StaticResource MauBtnQL}"
+                                Command="{Binding exportLoaiDVCommand}"
+                                Content="EXPORT LOẠI DỊCH VỤ" />
+                        <Button Width="180"
+                                Margin="30,0"
+                                Background="{StaticResource MauBtnQL}"
+                                Command="{Binding importLoaiDVCommand}"
+                                Content="IMPORT LOẠI DỊCH VỤ" />
                     </StackPanel>
 
 
@@ -563,6 +567,11 @@
                             Background="{StaticResource MauBtnQL}"
                             Command="{Binding addDichVuCommand}"
                             Content="THÊM DỊCH VỤ" />
+                        <Button Width="180"
+                                Margin="30,0"
+                                Background="{StaticResource MauBtnQL}"
+                                Command="{Binding exportDVCommand}"
+                                Content="EXPORT DỊCH VỤ" />
                     </StackPanel>
 
                 </Grid>

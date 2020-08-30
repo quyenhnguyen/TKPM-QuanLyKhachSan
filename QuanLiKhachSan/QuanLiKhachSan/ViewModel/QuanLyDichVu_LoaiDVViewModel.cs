@@ -145,7 +145,6 @@ namespace QuanLiKhachSan.ViewModel
         public ICommand dvcancelButtonCommmand { get; set; }
         public ICommand addDichVuCommand { get; set; }
         public ICommand ChonAnhDVCommand { get; set; }
-        public ICommand exportLoaiDVCommand { get; set; }
 
         private string _dvcancelButtonName = "HỦY";
         private string _dvconfirmButtonName = "THÊM";
@@ -260,18 +259,18 @@ namespace QuanLiKhachSan.ViewModel
             catch (Exception) { return true; }
         }
         // Quan Ly Phong
+
+        //excel command
+
+        public ICommand exportLoaiDVCommand { get; set; }
+        public ICommand importLoaiDVCommand { get; set; }
+        public ICommand exportDVCommand { get; set; }
         public QuanLyDichVu_LoaiDVViewModel()
         {
             listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
             timLoaiDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
                 listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.timKiemLoaiDV(timLoaiDVInput));
-            });
-            exportLoaiDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
-            {
-                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                IModelName permanentEmployee = ModelFactory.Factory("LOAIDV");
-                permanentEmployee.exportExcel();
             });
             // Them loai dich vu
             addDVCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
@@ -320,6 +319,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     try
                     {
+                        newLP.TinhTrang = false;
                         DatabaseQueryTN.capNhatLoaiDV(newLP);
                         listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
                         DatabaseQuery.MyMessageBox("Đã cập nhật loại dịch vụ");
@@ -448,6 +448,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     try
                     {
+                        newLP.TinhTrangTonTai = false;
                         DatabaseQueryTN.capNhatDV(newLP);
                         listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
                         DatabaseQuery.MyMessageBox("Đã cập nhật loại dịch vụ");
@@ -490,6 +491,31 @@ namespace QuanLiKhachSan.ViewModel
                     }
                 }
             });
+
+
+            //excel command implement
+
+            exportLoaiDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
+            {
+                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                IModelName modelName = ModelFactory.Factory("LOAIDV");
+                modelName.exportExcel();
+            });
+            importLoaiDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
+            {
+                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                IModelName modelName = ModelFactory.Factory("LOAIDV");
+                modelName.importExcel();
+                listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
+
+            });
+            exportDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
+            {
+                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                IModelName modelName = ModelFactory.Factory("DICHVU");
+                modelName.exportExcel();
+            });
+
         }
     }
 }

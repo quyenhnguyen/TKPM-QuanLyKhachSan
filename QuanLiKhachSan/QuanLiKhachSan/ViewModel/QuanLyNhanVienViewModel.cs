@@ -17,6 +17,9 @@ namespace QuanLiKhachSan.ViewModel
     public class QuanLyNhanVienViewModel : BaseViewModel
     {
         private bool isAddUser = true;
+
+        public ICommand exportNhanVienCommand { get; set; }
+        public ICommand importNhanVienCommand { get; set; }
         public ICommand timNhanVienCommand { get; set; }
         public ICommand confirmButtonCommmand { get; set; }
         public ICommand cancelButtonCommmand { get; set; }
@@ -235,6 +238,22 @@ namespace QuanLiKhachSan.ViewModel
         {
             listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());
             listLoaiNV = new BindingList<LOAINHANVIEN>(DatabaseQueryTN.danhSachLoaiNV());
+
+
+            exportNhanVienCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
+            {
+                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                IModelName modelName = ModelFactory.Factory("NHANVIEN");
+                modelName.exportExcel();
+            });
+            importNhanVienCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
+            {
+                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                IModelName modelName = ModelFactory.Factory("NHANVIEN");
+                modelName.importExcel();
+                listNhanVien = new BindingList<NHANVIEN>(DatabaseQueryTN.danhSachNhanVien());
+
+            });
             timNhanVienCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
                 listNhanVien = new BindingList<NHANVIEN>(DatabaseQueryTN.timKiemNhanVien(timNhanVienInput));
@@ -360,6 +379,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     try
                     {
+                        newNV.TinhTrang = false;
                         DatabaseQueryTN.capNhatNhanVien(newNV);
                         MessageBox.Show("Đã cập nhật nhân viên");
                         listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());

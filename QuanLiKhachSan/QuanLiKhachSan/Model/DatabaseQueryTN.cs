@@ -51,8 +51,6 @@ namespace QuanLiKhachSan.Model
             return DataProvider.ISCreated.DB.BANGTHAMSOes.Where(x => (x.TinhTrang == false)).ToList();
         }
 
-
-
         // THEMMOI
         public static PHONG themMoiPhong(PHONG nv)
         {
@@ -102,7 +100,6 @@ namespace QuanLiKhachSan.Model
             DataProvider.ISCreated.DB.SaveChanges();
             return res;
         }
-
         // CAPNHAT
         public static void capNhatLoaiPhong(LOAIPHONG nv)
         {
@@ -114,12 +111,14 @@ namespace QuanLiKhachSan.Model
         public static void capNhatLoaiDV(LOAIDV nv)
         {
             LOAIDV old = DataProvider.ISCreated.DB.LOAIDVs.Where(x => x.LoaiDVID == nv.LoaiDVID).SingleOrDefault();
+            old.TinhTrang = nv.TinhTrang;
             old.TenLoai = nv.TenLoai;
             capNhatCSDL();
         }
         public static void capNhatDV(DICHVU nv)
         {
             DICHVU old = DataProvider.ISCreated.DB.DICHVUs.Where(x => x.DichVuID == nv.DichVuID).SingleOrDefault();
+            old.TinhTrangTonTai = nv.TinhTrangTonTai;
             old.TenDichVu = nv.TenDichVu;
             old.GiaBan = nv.GiaBan;
             old.GiaCungCap = nv.GiaCungCap;
@@ -152,6 +151,7 @@ namespace QuanLiKhachSan.Model
             old.LOAINHANVIEN = nv.LOAINHANVIEN;
             old.Email = nv.Email;
             old.AnhDaiDien = nv.AnhDaiDien;
+            old.TinhTrang = nv.TinhTrang;
             capNhatCSDL();
         }
         public static void capNhatPhong(PHONG nv)
@@ -181,16 +181,12 @@ namespace QuanLiKhachSan.Model
             old.TenThamSo = nv.TenThamSo;
             capNhatCSDL();
         }
-
         public static void capNhatAvatar(NHANVIEN nv)
         {
             NHANVIEN old = DataProvider.ISCreated.DB.NHANVIENs.Where(x => x.NhanVienID == nv.NhanVienID).SingleOrDefault();
             old.AnhDaiDien = nv.AnhDaiDien;
             capNhatCSDL();
         }
-
-
-
         // KIEM TRA TON TAI
         public static List<NHANVIEN> thongtinDangNhap(string user, string pass)
         {
@@ -617,6 +613,14 @@ namespace QuanLiKhachSan.Model
         {
             return DataProvider.ISCreated.DB.LOAIDVs.ToList();
         }
+        public static List<DICHVU> danhsachAllDV()
+        {
+            return DataProvider.ISCreated.DB.DICHVUs.ToList();
+        }
+        public static List<NHANVIEN> danhsachAllNhanVien()
+        {
+            return DataProvider.ISCreated.DB.NHANVIENs.ToList();
+        }
         public static string[] getColumnName(string name)
         {
             if (name == "DICHVU")
@@ -627,6 +631,23 @@ namespace QuanLiKhachSan.Model
             {
                 return typeof(LOAIDV).GetProperties().Select(property => property.Name).ToArray();
             }
+            else if (name == "NHANVIEN")
+            {
+                return typeof(NHANVIEN).GetProperties().Select(property => property.Name).ToArray();
+            }
+            else if (name == "PHONG")
+            {
+                return typeof(PHONG).GetProperties().Select(property => property.Name).ToArray();
+            }
+            else if (name == "LOAIPHONG")
+            {
+                return typeof(LOAIPHONG).GetProperties().Select(property => property.Name).ToArray();
+            }
+            else if (name == "THAMSO")
+            {
+                return typeof(BANGTHAMSO).GetProperties().Select(property => property.Name).ToArray();
+            }
+
             else
             {
                 return null;
