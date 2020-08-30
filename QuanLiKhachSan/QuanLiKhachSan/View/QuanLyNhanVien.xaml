@@ -272,6 +272,7 @@
                         <Button
                             Width="150"
                             Background="{StaticResource MauBtnQL}"
+                            BorderThickness="0"
                             Command="{Binding confirmButtonCommmand}"
                             Content="{Binding confirmButtonName}" />
                     </StackPanel>
@@ -281,6 +282,7 @@
                         Grid.Column="0"
                         Width="150"
                         Background="{StaticResource MauBtnQL}"
+                        BorderThickness="0"
                         Command="{Binding addNhanVienCommand}"
                         Content="THÊM NHÂN VIÊN" />
                 </Grid>

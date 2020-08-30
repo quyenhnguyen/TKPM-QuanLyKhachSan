@@ -131,7 +131,7 @@
             <TextBlock
                 Grid.Row="1"
                 Grid.Column="1"
-                Margin="30,0"
+                HorizontalAlignment="Center"
                 FontSize="{StaticResource CoChuNho}"
                 FontWeight="Bold"
                 Text="Biểu đồ thống kê doanh thu theo phòng" />

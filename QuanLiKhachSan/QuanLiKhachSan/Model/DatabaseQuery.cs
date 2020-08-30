@@ -48,7 +48,7 @@ namespace QuanLiKhachSan.Model
         }
         public static int truyVanSoLuongPhongTrong()
         {
-            return DataProvider.ISCreated.DB.PHONGs.Where(x => x.TinhTrangThue == false).ToList().Count;
+            return DataProvider.ISCreated.DB.PHONGs.Where(x => x.TinhTrangThue == false && x.TinhTrangTonTai == false).ToList().Count;
         }
         public static int truyVanSoLuongDangThue()
         {

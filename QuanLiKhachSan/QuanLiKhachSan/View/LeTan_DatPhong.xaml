@@ -47,6 +47,7 @@
             x:Name="QuanLiPhong"
             Grid.Row="1"
             Orientation="Vertical">
+            <!--  Số lượng phòng  -->
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -146,7 +147,7 @@
                                                         HorizontalContentAlignment="Center"
                                                         materialDesign:ShadowAssist.ShadowDepth="Depth1"
                                                         Background="{StaticResource XanhNhat}"
-                                                        Foreground="{StaticResource MauTenPhong}">
+                                                        Foreground="{StaticResource MauTenPhongDaThue}">
                                                         <TextBlock
                                                             FontSize="{StaticResource CoChuNho}"
                                                             FontWeight="Bold"
@@ -159,13 +160,14 @@
                                                             HorizontalAlignment="Left"
                                                             FontFamily="Arial"
                                                             FontSize="{StaticResource CoChuNho}"
+                                                            Foreground="{StaticResource MauTenPhongDaThue}"
                                                             Text="{Binding LoaiPhongID}"
                                                             TextWrapping="Wrap" />
                                                         <materialDesign:PackIcon
                                                             Width="100"
                                                             Height="40"
                                                             Margin="60,10,0,0"
-                                                            Foreground="{StaticResource ResourceKey=DenHoiNhat}"
+                                                            Foreground="{StaticResource MauTenPhongDaThue}"
                                                             Kind="Bed" />
                                                     </StackPanel>
                                                 </StackPanel>
