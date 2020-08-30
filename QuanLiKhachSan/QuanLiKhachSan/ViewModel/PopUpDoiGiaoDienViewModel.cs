@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,25 +45,30 @@ namespace QuanLiKhachSan.ViewModel
                         break;
                     }
                 }
+                FileInfo fi = new FileInfo("app.config");
+                try
+                {
+                    if (fi.Exists)
+                    {
+                        fi.Delete();
+                    }
+                    using (StreamWriter sw = fi.CreateText())
+                    {
+                        sw.WriteLine(index);
+                    }
+                }
+                catch (Exception ex)
+                { }
             });
         }
         public static void ChuyenDoiGiaoDien(int index)
         {
-            ResourceDictionary GiaoDienTienTienResource = new ResourceDictionary() { Source = new Uri("./DictionaryResources/Styles.xaml", UriKind.RelativeOrAbsolute) };
-            ResourceDictionary GiaoDienCoBanResource = new ResourceDictionary() { Source = new Uri("./DictionaryResources/BasicTheme.xaml", UriKind.RelativeOrAbsolute) };
+            ResourceDictionary GiaoDienTienTienResource = new ResourceDictionary() { Source = new Uri("./DictionaryResources/BasicTheme.xaml", UriKind.RelativeOrAbsolute) };
+            ResourceDictionary GiaoDienCoBanResource = new ResourceDictionary() { Source = new Uri("./DictionaryResources/Styles.xaml", UriKind.RelativeOrAbsolute) };
             Collection<ResourceDictionary> QLKSResource = Application.Current.Resources.MergedDictionaries;
-            //Giao diện cơ bản
+
+            //nâu đất
             if (index == 0)
-            {
-                try
-                {
-                    QLKSResource.Remove(QLKSResource.Where(x => x.Source.ToString().Equals(GiaoDienTienTienResource.Source.ToString())).Single());
-                }
-                catch (InvalidOperationException) { }
-                QLKSResource.Add(GiaoDienCoBanResource);
-            }
-            //Tiên tiến
-            if (index == 1)
             {
                 try
                 {
@@ -71,6 +77,17 @@ namespace QuanLiKhachSan.ViewModel
                 catch (InvalidOperationException) { }
                 QLKSResource.Add(GiaoDienTienTienResource);
             }
+            //Giao diện cơ bản
+            if (index == 1)
+            {
+                try
+                {
+                    QLKSResource.Remove(QLKSResource.Where(x => x.Source.ToString().Equals(GiaoDienTienTienResource.Source.ToString())).Single());
+                }
+                catch (InvalidOperationException) { }
+                QLKSResource.Add(GiaoDienCoBanResource);
+            }
+
         }
     }
 }

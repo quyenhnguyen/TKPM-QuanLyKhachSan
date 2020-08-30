@@ -106,13 +106,13 @@ namespace QuanLiKhachSan.ViewModel
 
             try
             {
-                FileStream fi = new FileStream("app.config", FileMode.Open, FileAccess.Read);
-                StreamReader read = new StreamReader(fi, Encoding.Unicode);
-
-                int loai = int.Parse(read.ReadLine());
-                PopUpDoiGiaoDienViewModel.ChuyenDoiGiaoDien(loai);
+                using (StreamReader sr = File.OpenText("app.config"))
+                {
+                    int loai = int.Parse(sr.ReadLine());
+                    PopUpDoiGiaoDienViewModel.ChuyenDoiGiaoDien(loai);
+                }
             }
-            catch (FileNotFoundException)
+            catch (Exception e)
             {
                 //Nếu file ko có thông tin=> mặc định là giao diện cơ bản
                 PopUpDoiGiaoDienViewModel.ChuyenDoiGiaoDien(0);

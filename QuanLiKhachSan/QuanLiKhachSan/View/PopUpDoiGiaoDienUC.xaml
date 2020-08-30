@@ -47,10 +47,10 @@
                         SelectedIndex="0"
                         SelectedItem="{Binding GiaoDienChon}">
                         <ComboBoxItem Margin="5,0">
-                            Giao diện cơ bản
+                            Giao diện nâu đất
                         </ComboBoxItem>
                         <ComboBoxItem Margin="5,0">
-                            Giao diện tiên tiến
+                            Giao diện cơ bản
                         </ComboBoxItem>
                     </ComboBox>
                 </materialDesign:Card>

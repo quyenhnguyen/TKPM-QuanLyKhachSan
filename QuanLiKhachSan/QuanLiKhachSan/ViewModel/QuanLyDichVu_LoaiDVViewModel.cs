@@ -350,14 +350,14 @@ namespace QuanLiKhachSan.ViewModel
                     try
                     {
                         DatabaseQueryTN.xoaLoaiDV(selectItem);
-                        DatabaseQuery.MyMessageBox("Đã xoá loại dịch vụ này");
+                        DatabaseQuery.MyMessageBox("Đã xoá dịch vụ này");
                         listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
                         listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
                         reset();
                     }
                     catch (Exception)
                     {
-                        DatabaseQuery.MyMessageBox("Không thể xoá loại dịch vụ này");
+                        DatabaseQuery.MyMessageBox("Không thể xoá dịch vụ này");
                     }
                 }
             });
@@ -435,7 +435,7 @@ namespace QuanLiKhachSan.ViewModel
                     try
                     {
                         DatabaseQueryTN.themMoiDichVu(newLP);
-                        DatabaseQuery.MyMessageBox("Thêm mới loại dịch vụ thành công");
+                        DatabaseQuery.MyMessageBox("Thêm mới dịch vụ thành công");
                         listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
                     }
                     catch (Exception e)
@@ -451,11 +451,11 @@ namespace QuanLiKhachSan.ViewModel
                         newLP.TinhTrangTonTai = false;
                         DatabaseQueryTN.capNhatDV(newLP);
                         listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
-                        DatabaseQuery.MyMessageBox("Đã cập nhật loại dịch vụ");
+                        DatabaseQuery.MyMessageBox("Đã cập nhật dịch vụ");
                     }
                     catch (Exception e)
                     {
-                        DatabaseQuery.MyMessageBox("Không thể cập nhật loại dịch vụ.");
+                        DatabaseQuery.MyMessageBox("Không thể cập nhật dịch vụ.");
                         SecurityModel.Log(e.ToString());
                     }
                     //showDetails();
@@ -486,7 +486,7 @@ namespace QuanLiKhachSan.ViewModel
                     }
                     catch (Exception e)
                     {
-                        DatabaseQuery.MyMessageBox("Không thể xoá loại dịch vụ này");
+                        DatabaseQuery.MyMessageBox("Không thể xoá dịch vụ này");
                         SecurityModel.Log(e.ToString());
                     }
                 }

@@ -19,7 +19,7 @@ namespace QuanLiKhachSan.ViewModel
         public BindingList<HOADONTHUEPHONG> dsHoaDon { get => _dsHoaDon; set => OnPropertyChanged(ref _dsHoaDon, value); }
 
         private BindingList<PHONG> _dsPhong;
-        public BindingList<PHONG> dsPhong { get => _dsPhong; set => OnPropertyChanged(ref _dsPhong, value); }
+        public BindingList<PHONG> dsPhong { get { return new BindingList<PHONG>(DatabaseQuery.truyVanDanhSachPhong()); } set => OnPropertyChanged(ref _dsPhong, value); }
 
         private bool _TinhTrangThue;
         public bool TinhTrangThue { get => _TinhTrangThue; set => OnPropertyChanged(ref _TinhTrangThue, value); }
@@ -71,7 +71,7 @@ namespace QuanLiKhachSan.ViewModel
             isChoose = true;
             //MessageBox.Show("hihi");
             dsHoaDon = new BindingList<HOADONTHUEPHONG>(DatabaseQuery.truyVanDanhSachHoaDon());
-            dsPhong = new BindingList<PHONG>(DatabaseQuery.truyVanDanhSachPhong());
+            //dsPhong = new BindingList<PHONG>(DatabaseQuery.truyVanDanhSachPhong());
             dsDichVu = new BindingList<DICHVU>(DatabaseQuery.truyVanDanhSachDichVu());
             dsLoaiDichVu = DatabaseQuery.danhSachLoaiDichVu();
             dsKhachHang = new BindingList<KHACHHANG>(DatabaseQuery.danhSachKhachHang());

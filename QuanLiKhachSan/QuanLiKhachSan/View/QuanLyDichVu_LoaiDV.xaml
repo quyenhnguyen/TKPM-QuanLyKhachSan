@@ -138,7 +138,7 @@
                                     </ListView.ItemsPanel>
                                     <ListView.View>
                                         <GridView>
-                                            <!--<GridView.ColumnHeaderContainerStyle>
+                                            <GridView.ColumnHeaderContainerStyle>
                                                 <Style TargetType="{x:Type GridViewColumnHeader}">
                                                     <Setter Property="Background" Value="{StaticResource HeaderListViewQL}" />
                                                     <Setter Property="Foreground" Value="White" />
@@ -148,7 +148,7 @@
                                                     <Setter Property="FontWeight" Value="Bold" />
                                                     <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
                                                 </Style>
-                                            </GridView.ColumnHeaderContainerStyle>-->
+                                            </GridView.ColumnHeaderContainerStyle>
                                             <GridViewColumn
                                                 Width="100px"
                                                 DisplayMemberBinding="{Binding LoaiDVID}"
@@ -344,8 +344,9 @@
                                 </ListView.ItemsPanel>
                                 <ListView.View>
                                     <GridView>
-                                        <!--<GridView.ColumnHeaderContainerStyle>
+                                        <GridView.ColumnHeaderContainerStyle>
                                             <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                <Setter Property="Background" Value="{StaticResource HeaderListViewQL}" />
                                                 <Setter Property="Foreground" Value="White" />
                                                 <Setter Property="BorderBrush" Value="{x:Null}" />
                                                 <Setter Property="BorderThickness" Value="0" />
@@ -353,7 +354,7 @@
                                                 <Setter Property="FontWeight" Value="Bold" />
                                                 <Setter Property="FontSize" Value="{StaticResource CoChuNho}" />
                                             </Style>
-                                        </GridView.ColumnHeaderContainerStyle>-->
+                                        </GridView.ColumnHeaderContainerStyle>
                                         <GridViewColumn
                                             Width="Auto"
                                             DisplayMemberBinding="{Binding DichVuID}"

@@ -14,7 +14,7 @@
     <SolidColorBrush x:Key="MauTenPhong" Color="#a54044" />
     <SolidColorBrush x:Key="DenHoiNhat" Color="#4F4F4F" />
     <SolidColorBrush x:Key="XamDam" Color="#E0E0E0" />
-    <SolidColorBrush x:Key="MauButtonLoaiDV" Color="#a54044" />
+    <SolidColorBrush x:Key="MauButtonLoaiDV" Color="#bb5000" />
     <SolidColorBrush x:Key="CamNhat" Color="#bf5a5d" />
     <SolidColorBrush x:Key="CamDisable" Color="#e2b6b7" />
     <SolidColorBrush x:Key="CamVua" Color="#af4448" />
