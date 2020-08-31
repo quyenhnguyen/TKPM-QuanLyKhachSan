@@ -574,6 +574,11 @@
                                 Background="{StaticResource MauBtnQL}"
                                 Command="{Binding exportDVCommand}"
                                 Content="EXPORT DỊCH VỤ" />
+                        <Button Width="180"
+                                Margin="30,0"
+                                Background="{StaticResource MauBtnQL}"
+                                Command="{Binding importDVCommand}"
+                                Content="IMPORT DỊCH VỤ" />
                     </StackPanel>
 
                 </Grid>

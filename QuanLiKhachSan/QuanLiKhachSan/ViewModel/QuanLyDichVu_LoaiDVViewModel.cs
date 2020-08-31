@@ -265,6 +265,8 @@ namespace QuanLiKhachSan.ViewModel
         public ICommand exportLoaiDVCommand { get; set; }
         public ICommand importLoaiDVCommand { get; set; }
         public ICommand exportDVCommand { get; set; }
+        public ICommand importDVCommand { get; set; }
+
         public QuanLyDichVu_LoaiDVViewModel()
         {
             listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
@@ -494,7 +496,6 @@ namespace QuanLiKhachSan.ViewModel
 
 
             //excel command implement
-
             exportLoaiDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
                 ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
@@ -507,6 +508,7 @@ namespace QuanLiKhachSan.ViewModel
                 IModelName modelName = ModelFactory.Factory("LOAIDV");
                 modelName.importExcel();
                 listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
+                listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
 
             });
             exportDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
@@ -514,6 +516,14 @@ namespace QuanLiKhachSan.ViewModel
                 ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
                 IModelName modelName = ModelFactory.Factory("DICHVU");
                 modelName.exportExcel();
+            });
+            importDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
+            {
+                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                IModelName modelName = ModelFactory.Factory("DICHVU");
+                modelName.importExcel();
+                listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
+
             });
 
         }

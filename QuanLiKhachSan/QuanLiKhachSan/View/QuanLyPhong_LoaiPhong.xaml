@@ -258,14 +258,32 @@
                         </StackPanel>
                     </Grid>
                     <Grid Grid.Row="2" Margin="0,0,10,10">
-                        <Button
-                            Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            Margin="30,0"
-                            Background="{StaticResource MauBtnQL}"
-                            Command="{Binding addPhongCommand}"
-                            Content="THÊM LOẠI PHÒNG"
-                            Style="{StaticResource StyleBtnCoBan}" />
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Margin="30,0"
+                                Background="{StaticResource MauBtnQL}"
+                                Command="{Binding addPhongCommand}"
+                                Content="THÊM LOẠI PHÒNG"
+                                Style="{StaticResource StyleBtnCoBan}" />
+                        <Button Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                Margin="30,0"
+                                Background="{StaticResource MauBtnQL}"
+                                Command="{Binding exportLoaiPhongCommand}"
+                                Content="Export LOẠI PHÒNG"
+                                Style="{StaticResource StyleBtnCoBan}" />
+                        <Button Grid.Column="2"
+                                Margin="30,0"
+                                Background="{StaticResource MauBtnQL}"
+                                Command="{Binding importLoaiPhongCommand}"
+                                Content="Import LOẠI PHÒNG"
+                                Style="{StaticResource StyleBtnCoBan}" />
                     </Grid>
                 </Grid>
             </TabItem>
@@ -547,12 +565,30 @@
                     </Grid>
                     <!--  Button  -->
                     <Grid Grid.Row="2" Margin="0,0,10,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
                         <Button
                             Width="180"
                             Background="{StaticResource MauChinh2}"
                             Command="{Binding addNewRoomCommand}"
                             Content="THÊM MỚI PHÒNG"
                             Style="{StaticResource StyleBtnCoBan}" />
+                        <Button Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                Margin="30,0"
+                                Background="{StaticResource MauBtnQL}"
+                                Command="{Binding exportPhongCommand}"
+                                Content="Export PHÒNG"
+                                Style="{StaticResource StyleBtnCoBan}" />
+                        <Button Grid.Column="2"
+                                Margin="30,0"
+                                Background="{StaticResource MauBtnQL}"
+                                Command="{Binding importPhongCommand}"
+                                Style="{StaticResource StyleBtnCoBan}" />
                     </Grid>
                 </Grid>
             </TabItem>

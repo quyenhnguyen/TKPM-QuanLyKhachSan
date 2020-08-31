@@ -14,7 +14,11 @@ namespace QuanLiKhachSan.Model
 {
     public abstract class Item
     {
-        private List<string> privelegeColumn = new List<string>() { "DICHVUs", "LICHSUTHEMDICHVUs", "LOAIDV", "HOADONTHUEPHONGs", "LOAINHANVIEN", "NVKETOAN", "NVLETAN", "NVQUANLI" };
+
+
+        private string exportFileName;
+        private bool isSave;
+        private List<string> privelegeColumn = new List<string>() {"PHONGs", "DICHVUs", "LICHSUTHEMDICHVUs", "LOAIDV", "HOADONTHUEPHONGs", "LOAINHANVIEN", "NVKETOAN", "NVLETAN", "NVQUANLI","LOAIPHONG" };
         protected Excel.Application xlApp;
         protected Excel.Workbook xlWorkBook;
         protected Excel.Worksheet xlWorkSheet;
@@ -25,12 +29,19 @@ namespace QuanLiKhachSan.Model
         public object Type { get => type; set => type = value; }
         public string DbName { get => dbName; set => dbName = value; }
         public List<List<string>> ListData { get => listData; set => listData = value; }
+        protected string ExportFileName { get => exportFileName; set => exportFileName = value; }
+        protected bool IsSave { get => isSave; set => isSave = value; }
+
         // Export
         public void startExport()
         {
             try
             {
                 this.createExcelFile();
+                if (!isSave)
+                {
+                    return;
+                }
                 this.getListData();
                 this.exportExcel();
                 this.saveExcelFile();
@@ -44,6 +55,19 @@ namespace QuanLiKhachSan.Model
         }
         protected void createExcelFile()
         {
+
+            SaveFileDialog openFileDialog = new SaveFileDialog();
+            openFileDialog.Filter = "Excel Files|*.xlsx;*.xlsm;*.xlsb;*.xls";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                this.ExportFileName = openFileDialog.FileName;
+                isSave = true;
+            }
+            else
+            {
+                isSave = false;
+                return;
+            }
             string[] columns = DatabaseQueryTN.getColumnName(this.DbName);
             try
             {
@@ -100,11 +124,10 @@ namespace QuanLiKhachSan.Model
             try
             {
                 // r chua
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                if (openFileDialog.ShowDialog() == true)
+                if (isSave)
                 {
-                    xlWorkBook.SaveAs(openFileDialog.FileName, Excel.XlFileFormat.xlOpenXMLWorkbook, misValue, misValue, misValue, misValue,
-                        Excel.XlSaveAsAccessMode.xlShared, misValue, misValue, misValue, misValue, misValue);
+                    xlWorkBook.SaveAs(ExportFileName, Excel.XlFileFormat.xlOpenXMLWorkbook, misValue, misValue, misValue, misValue,
+                            Excel.XlSaveAsAccessMode.xlShared, misValue, misValue, misValue, misValue, misValue);
                 }
             }
             catch (Exception)
@@ -135,28 +158,37 @@ namespace QuanLiKhachSan.Model
         }
         protected void openFile()
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Excel Files|*.xlsx;*.xlsm;*.xlsb;*.xls";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                ExportFileName = openFileDialog.FileName;
+                isSave = true;
+            }
+            else
+            {
+                isSave = false;
+                return;
+            }
             try
             {
                 //System.AppDomain.CurrentDomain.BaseDirectory + "Dictionary.xlsx"
                 xlApp = new Excel.Application();
                 xlApp.Visible = false;
                 // chỗ này t mún là open popup chọn file, lấy tên file, tạm gác
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    xlWorkBook = xlApp.Workbooks.Open(openFileDialog.FileName);
-                    xlWorkSheet = xlWorkBook.Worksheets.get_Item(1);
-                    importFromExcel();
-                }
-
+                xlWorkBook = xlApp.Workbooks.Open(ExportFileName);
+                xlWorkSheet = xlWorkBook.Worksheets.get_Item(1);
+                importFromExcel();
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                MessageBox.Show("Kết thúc");
+                SecurityModel.Log(e.ToString());
             }
             finally
             {
                 closeExcel();
+                MessageBox.Show("Hoàn thành");
             }
         }
         protected abstract void importFromExcel();
@@ -206,7 +238,7 @@ namespace QuanLiKhachSan.Model
                 newLP.TinhTrang = bool.Parse((((Range)xlWorkSheet.Cells[row, 3]).Value2).ToString());
                 double dt = ((Range)xlWorkSheet.Cells[row, 4]).Value2;
                 newLP.NgayTao = Convert.ToDateTime(DateTime.FromOADate(dt).ToString("MM/dd/yyyy hh:mm"));
-                
+
                 if (DatabaseQueryTN.kiemTraTonTaiLoaiDV(newLP.LoaiDVID))
                 {
                     if (!remember)
@@ -235,7 +267,11 @@ namespace QuanLiKhachSan.Model
                     {
                         continue;
                     }
-                DatabaseQueryTN.capNhatLoaiDV(newLP);
+                    DatabaseQueryTN.capNhatLoaiDV(newLP);
+                    if (newLP.TinhTrang==true)
+                    {
+                        DatabaseQueryTN.updateInsertLoaiDV(newLP);
+                    }
                 }
                 else
                 {
@@ -362,7 +398,7 @@ namespace QuanLiKhachSan.Model
                 temp.Add(item.Email);
                 temp.Add(item.Loai.ToString());
                 temp.Add(item.NgayTao.ToString());
-                temp.Add(item.AnhDaiDien.ToString());
+                temp.Add(Convert.ToBase64String(item.AnhDaiDien).ToString());
                 this.listData.Add(temp);
             }
         }
@@ -376,25 +412,118 @@ namespace QuanLiKhachSan.Model
             bool remember = false;
             for (int row = 2; row < realRow; row++)
             {
-                NHANVIEN newLP = new NHANVIEN();
-                newLP.NhanVienID = int.Parse((((Range)xlWorkSheet.Cells[row, 1]).Value2).ToString());
-                newLP.TenDangNhap = (((Range)xlWorkSheet.Cells[row, 2]).Value2).ToString();
-                newLP.MatKhau = (((Range)xlWorkSheet.Cells[row, 3]).Value2).ToString();
-                newLP.TinhTrang = bool.Parse((((Range)xlWorkSheet.Cells[row, 4]).Value2).ToString());
-                newLP.HoTen = (((Range)xlWorkSheet.Cells[row, 5]).Value2).ToString();
-                newLP.DiaChi = (((Range)xlWorkSheet.Cells[row, 6]).Value2).ToString();
-                double dt = ((Range)xlWorkSheet.Cells[row, 7]).Value2;
-                newLP.NgaySinh = Convert.ToDateTime(DateTime.FromOADate(dt).ToString("MM/dd/yyyy hh:mm"));
-
-                newLP.SDT = int.Parse((((Range)xlWorkSheet.Cells[row, 8]).Value2).ToString());
-                newLP.CMND = int.Parse((((Range)xlWorkSheet.Cells[row, 9]).Value2).ToString());
-                newLP.Email = (((Range)xlWorkSheet.Cells[row, 10]).Value2).ToString();
-                newLP.Loai = int.Parse((((Range)xlWorkSheet.Cells[row, 11]).Value2).ToString());
-                double dt2 = ((Range)xlWorkSheet.Cells[row, 12]).Value2;
-                newLP.NgayTao = Convert.ToDateTime(DateTime.FromOADate(dt2).ToString("MM/dd/yyyy hh:mm"));
-                newLP.AnhDaiDien = (((Range)xlWorkSheet.Cells[row, 13]).Value2).ToString();
-                if (DatabaseQueryTN.kiemtraTonTai(newLP.TenDangNhap, newLP.Email))
+                try
                 {
+
+                    NHANVIEN newLP = new NHANVIEN();
+                    newLP.NhanVienID = int.Parse((((Range)xlWorkSheet.Cells[row, 1]).Value2).ToString());
+                    newLP.TenDangNhap = (((Range)xlWorkSheet.Cells[row, 2]).Value2).ToString();
+                    newLP.MatKhau = (((Range)xlWorkSheet.Cells[row, 3]).Value2).ToString();
+                    newLP.TinhTrang = bool.Parse((((Range)xlWorkSheet.Cells[row, 4]).Value2).ToString());
+                    newLP.HoTen = (((Range)xlWorkSheet.Cells[row, 5]).Value2).ToString();
+                    newLP.DiaChi = (((Range)xlWorkSheet.Cells[row, 6]).Value2).ToString();
+                    double dt = ((Range)xlWorkSheet.Cells[row, 7]).Value2;
+                    newLP.NgaySinh = Convert.ToDateTime(DateTime.FromOADate(dt).ToString("MM/dd/yyyy hh:mm"));
+
+                    newLP.SDT = int.Parse((((Range)xlWorkSheet.Cells[row, 8]).Value2).ToString());
+                    newLP.CMND = int.Parse((((Range)xlWorkSheet.Cells[row, 9]).Value2).ToString());
+                    newLP.Email = (((Range)xlWorkSheet.Cells[row, 10]).Value2).ToString();
+                    newLP.Loai = int.Parse((((Range)xlWorkSheet.Cells[row, 11]).Value2).ToString());
+                    double dt2 = ((Range)xlWorkSheet.Cells[row, 12]).Value2;
+                    newLP.NgayTao = Convert.ToDateTime(DateTime.FromOADate(dt2).ToString("MM/dd/yyyy hh:mm"));
+                    newLP.AnhDaiDien = Convert.FromBase64String((((Range)xlWorkSheet.Cells[row, 13]).Value2).ToString());
+                    if (DatabaseQueryTN.kiemtraTonTai(newLP.TenDangNhap, newLP.Email))
+                    {
+                        if (!remember)
+                        {
+                            PopUpImportExcel wd = new PopUpImportExcel();
+                            if (wd.ShowDialog() == true)
+                            {
+                                type = ((PopUpImportExcelViewModel)wd.DataContext).index;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Đã hủy");
+                                return;
+                            }
+
+                        }
+                        if (type == 0)
+                        {
+                            remember = true;
+                        }
+                        if (type == 1)
+                        {
+                            remember = false;
+                        }
+                        if (type == 2)
+                        {
+                            continue;
+                        }
+                        DatabaseQueryTN.capNhatNhanVien(newLP);
+                    }
+                    else
+                    {
+                        DatabaseQueryTN.themNhanVienMoi(newLP);
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+            }
+        }
+    }
+    public class LoaiPhong : Item
+    {
+        public LoaiPhong()
+        {
+            this.DbName = "LOAIPHONG";
+        }
+        public override void Accept(IModelVisitor visitor)
+        {
+            visitor.exportToExcel(this);
+        }
+        protected override void getListData()
+        {
+            listData = null;
+            listData = new List<List<string>>();
+            List<LOAIPHONG> dsLoaiDV = DatabaseQueryTN.danhsachAllLoaiPhong();
+            foreach (LOAIPHONG item in dsLoaiDV)
+            {
+                List<string> temp = new List<string>();
+                temp.Add(item.LoaiPhongID);
+                temp.Add(item.TenLoai);
+                temp.Add(item.TinhTrang.ToString());
+                temp.Add(item.NgayTao.ToString());
+                this.listData.Add(temp);
+            }
+        }
+        protected override void importFromExcel()
+        {
+            int realRow = xlWorkSheet.Cells.Find("*", System.Reflection.Missing.Value,
+                                  System.Reflection.Missing.Value, System.Reflection.Missing.Value,
+                                  Excel.XlSearchOrder.xlByRows, Excel.XlSearchDirection.xlPrevious,
+                                  false, System.Reflection.Missing.Value, System.Reflection.Missing.Value).Row;
+            int type = -1;
+            bool remember = false;
+            for (int row = 2; row < realRow; row++)
+            {
+                LOAIPHONG newLP = new LOAIPHONG();
+                newLP.LoaiPhongID = (((Range)xlWorkSheet.Cells[row, 1]).Value2).ToString();
+                newLP.TenLoai = (((Range)xlWorkSheet.Cells[row, 2]).Value2).ToString();
+                newLP.TinhTrang = bool.Parse((((Range)xlWorkSheet.Cells[row, 3]).Value2).ToString());
+                double dt2 = ((Range)xlWorkSheet.Cells[row, 4]).Value2;
+                newLP.NgayTao = Convert.ToDateTime(DateTime.FromOADate(dt2).ToString("MM/dd/yyyy hh:mm"));
+
+                if (DatabaseQueryTN.kiemTraTonTaiLoaiPhong(newLP.LoaiPhongID))
+                {
+                    if (DatabaseQueryTN.isUsedLoaiPhong(newLP.LoaiPhongID))
+                    {
+                        MessageBox.Show("Phòng đã thuê, không thể cập nhật");
+                        continue;
+                    }
                     if (!remember)
                     {
                         PopUpImportExcel wd = new PopUpImportExcel();
@@ -421,25 +550,131 @@ namespace QuanLiKhachSan.Model
                     {
                         continue;
                     }
-                    DatabaseQueryTN.capNhatNhanVien(newLP);
+                    DatabaseQueryTN.capNhatLoaiPhong(newLP);
+                    if (newLP.TinhTrang == true)
+                    {
+                        DatabaseQueryTN.updateInsertLoaiPhong(newLP);
+                    }
                 }
                 else
                 {
-                    DatabaseQueryTN.themNhanVienMoi(newLP);
+                    DatabaseQueryTN.themMoiLoaiPhong(newLP);
                 }
             }
         }
     }
+    public class Phong : Item
+    {
+        public Phong()
+        {
+            this.DbName = "PHONG";
+        }
+        public override void Accept(IModelVisitor visitor)
+        {
+            visitor.exportToExcel(this);
+        }
+        protected override void getListData()
+        {
+            listData = null;
+            listData = new List<List<string>>();
+            List<PHONG> dsLoaiDV = DatabaseQueryTN.danhsachAllPhong();
+            foreach (PHONG item in dsLoaiDV)
+            {
+                List<string> temp = new List<string>();
+                temp.Add(item.PhongID);
+                temp.Add(item.TenPhong);
+                temp.Add(item.DonGia.ToString());
+                temp.Add(item.TinhTrangTonTai.ToString());
+                temp.Add(item.TinhTrangThue.ToString());
+                temp.Add(item.LoaiPhongID);
+                temp.Add(item.NgayTao.ToString());
+                this.listData.Add(temp);
+            }
+        }
+        protected override void importFromExcel()
+        {
+            int realRow = xlWorkSheet.Cells.Find("*", System.Reflection.Missing.Value,
+                                  System.Reflection.Missing.Value, System.Reflection.Missing.Value,
+                                  Excel.XlSearchOrder.xlByRows, Excel.XlSearchDirection.xlPrevious,
+                                  false, System.Reflection.Missing.Value, System.Reflection.Missing.Value).Row;
+            int type = -1;
+            bool remember = false;
+            for (int row = 2; row < realRow; row++)
+            {
+                PHONG newLP = new PHONG();
+                newLP.PhongID = (((Range)xlWorkSheet.Cells[row, 1]).Value2).ToString();
+                newLP.TenPhong = (((Range)xlWorkSheet.Cells[row, 2]).Value2).ToString();
+                newLP.DonGia = float.Parse((((Range)xlWorkSheet.Cells[row, 3]).Value2).ToString());
+                newLP.TinhTrangTonTai = bool.Parse((((Range)xlWorkSheet.Cells[row, 4]).Value2).ToString());
+                newLP.TinhTrangThue = bool.Parse((((Range)xlWorkSheet.Cells[row, 5]).Value2).ToString());
+                newLP.LoaiPhongID = (((Range)xlWorkSheet.Cells[row, 6]).Value2).ToString();
+                double dt2 = ((Range)xlWorkSheet.Cells[row, 7]).Value2;
+                newLP.NgayTao = Convert.ToDateTime(DateTime.FromOADate(dt2).ToString("MM/dd/yyyy hh:mm"));
+
+
+                if (DatabaseQueryTN.kiemTraTonTaiPhong(newLP.PhongID))
+                {
+                    if (DatabaseQueryTN.isUsedPhong(newLP.PhongID))
+                    {
+                        MessageBox.Show("Phòng đã thuê, không thể cập nhật");
+                        continue;
+                    }
+                    if (!remember)
+                    {
+                        PopUpImportExcel wd = new PopUpImportExcel();
+                        if (wd.ShowDialog() == true)
+                        {
+                            type = ((PopUpImportExcelViewModel)wd.DataContext).index;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Đã hủy");
+                            return;
+                        }
+
+                    }
+                    if (type == 0)
+                    {
+                        remember = true;
+                    }
+                    if (type == 1)
+                    {
+                        remember = false;
+                    }
+                    if (type == 2)
+                    {
+                        continue;
+                    }
+                    DatabaseQueryTN.capNhatPhong(newLP);
+                }
+                else
+                {
+                    DatabaseQueryTN.themMoiPhong(newLP);
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
     public interface IModelVisitor
     {
         // Export
         void exportToExcel(LoaiDichVu context);
         void exportToExcel(DichVu context);
         void exportToExcel(NhanVien context);
+        void exportToExcel(LoaiPhong context);
+        void exportToExcel(Phong context);
         // Import
         void importToExcel(LoaiDichVu context);
         void importToExcel(DichVu context);
         void importToExcel(NhanVien context);
+        void importToExcel(LoaiPhong context);
+        void importToExcel(Phong context);
     }
     public class StartExcelExport : IModelVisitor
     {
@@ -457,6 +692,14 @@ namespace QuanLiKhachSan.Model
         {
             context.startExport();
         }
+        public void exportToExcel(LoaiPhong context)
+        {
+            context.startExport();
+        }
+        public void exportToExcel(Phong context)
+        {
+            context.startExport();
+        }
 
         //Import
         public void importToExcel(LoaiDichVu context)
@@ -471,25 +714,15 @@ namespace QuanLiKhachSan.Model
         {
             context.startImport();
         }
+        public void importToExcel(LoaiPhong context)
+        {
+            context.startImport();
+        }
+        public void importToExcel(Phong context)
+        {
+            context.startImport();
+        }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // Factory Method
     public interface IModelName
@@ -542,6 +775,37 @@ namespace QuanLiKhachSan.Model
             visitor.importToExcel(context);
         }
     }
+
+    class LoaiPhongModel : IModelName
+    {
+        public void exportExcel()
+        {
+            var context = new LoaiPhong();
+            var visitor = new StartExcelExport();
+            visitor.exportToExcel(context);
+        }
+        public void importExcel()
+        {
+            var context = new LoaiPhong();
+            var visitor = new StartExcelExport();
+            visitor.importToExcel(context);
+        }
+    }
+    class PhongModel : IModelName
+    {
+        public void exportExcel()
+        {
+            var context = new Phong();
+            var visitor = new StartExcelExport();
+            visitor.exportToExcel(context);
+        }
+        public void importExcel()
+        {
+            var context = new Phong();
+            var visitor = new StartExcelExport();
+            visitor.importToExcel(context);
+        }
+    }
     abstract class ModelFactory
     {
         public abstract IModelName Factory(string ModelType);
@@ -558,6 +822,10 @@ namespace QuanLiKhachSan.Model
                     return new DichVuModel();
                 case "NHANVIEN":
                     return new NhanVienModel();
+                case "LOAIPHONG":
+                    return new LoaiPhongModel();
+                case "PHONG":
+                    return new PhongModel();
                 default:
                     return null;
             }

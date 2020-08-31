@@ -105,6 +105,7 @@ namespace QuanLiKhachSan.Model
         {
             LOAIPHONG old = DataProvider.ISCreated.DB.LOAIPHONGs.Where(x => x.LoaiPhongID == nv.LoaiPhongID).SingleOrDefault();
             old.TenLoai = nv.TenLoai;
+            old.TinhTrang = nv.TinhTrang;
             old.LoaiPhongID = nv.LoaiPhongID;
             capNhatCSDL();
         }
@@ -148,7 +149,6 @@ namespace QuanLiKhachSan.Model
             old.SDT = nv.SDT;
             old.CMND = nv.CMND;
             old.Loai = nv.Loai;
-            old.LOAINHANVIEN = nv.LOAINHANVIEN;
             old.Email = nv.Email;
             old.AnhDaiDien = nv.AnhDaiDien;
             old.TinhTrang = nv.TinhTrang;
@@ -161,9 +161,10 @@ namespace QuanLiKhachSan.Model
             old.DonGia = nv.DonGia;
             old.LoaiPhongID = nv.LoaiPhongID;
             old.TinhTrangTonTai = false;
-            old.TinhTrangThue = true; // true --> chua thue
+            old.TinhTrangThue = true; // false --> chua thue
             try
             {
+                old.TinhTrangTonTai = nv.TinhTrangTonTai;
                 old.TinhTrangThue = nv.TinhTrangThue;
             }
             catch (Exception)
@@ -215,7 +216,7 @@ namespace QuanLiKhachSan.Model
         }
         public static bool kiemTraTonTaiPhong(string phongID)
         {
-            int res = DataProvider.ISCreated.DB.PHONGs.Where(x => (x.LoaiPhongID == phongID)).ToList().Count;
+            int res = DataProvider.ISCreated.DB.PHONGs.Where(x => (x.PhongID == phongID)).ToList().Count;
             if (res > 0) return true;
             return false;
         }
@@ -231,6 +232,23 @@ namespace QuanLiKhachSan.Model
             if (res > 0) return true;
             return false;
         }
+
+        // USED
+        public static bool isUsedLoaiPhong(string lp)
+        {
+            int res = DataProvider.ISCreated.DB.PHONGs.Where(x => (x.LoaiPhongID == lp && x.TinhTrangThue == true)).ToList().Count;
+            if (res > 0) return true;
+            return false;
+        }
+        public static bool isUsedPhong(string lp)
+        {
+            int res = DataProvider.ISCreated.DB.PHONGs.Where(x => (x.PhongID == lp && x.TinhTrangThue == true)).ToList().Count;
+            if (res > 0) return true;
+            return false;
+        }
+
+
+
         public static bool isDeleteRoomType(string loaiPhongID)
         {
             bool res = DataProvider.ISCreated.DB.Database.SqlQuery<bool>("SELECT TinhTrang FROM LOAIPHONG WHERE LoaiPhongID = @loaiPhongID", new SqlParameter("@loaiPhongID", loaiPhongID)).FirstOrDefault();
@@ -246,7 +264,18 @@ namespace QuanLiKhachSan.Model
             bool res = DataProvider.ISCreated.DB.Database.SqlQuery<bool>("SELECT TinhTrang FROM NHANVIEN WHERE TenDangNhap = @user or Email = @email", new SqlParameter("@user", userName), new SqlParameter("@email", email)).FirstOrDefault();
             return res;
         }
+        public static bool isDeleteService(string userName)
+        {
+            bool res = DataProvider.ISCreated.DB.Database.SqlQuery<bool>("SELECT TinhTrangTonTai FROM DICHVU WHERE TenDangNhap = @DichVuID", new SqlParameter("@user", userName)).FirstOrDefault();
+            return res;
+        }
+        public static bool isDeleteServiceType(string userName)
+        {
+            bool res = DataProvider.ISCreated.DB.Database.SqlQuery<bool>("SELECT TinhTrang FROM LOAIDV WHERE LoaiDVID = @user", new SqlParameter("@user", userName)).FirstOrDefault();
+            return res;
+        }
 
+        //
 
 
         // XOA
@@ -621,6 +650,14 @@ namespace QuanLiKhachSan.Model
         {
             return DataProvider.ISCreated.DB.NHANVIENs.ToList();
         }
+        public static List<LOAIPHONG> danhsachAllLoaiPhong()
+        {
+            return DataProvider.ISCreated.DB.LOAIPHONGs.ToList();
+        }
+        public static List<PHONG> danhsachAllPhong()
+        {
+            return DataProvider.ISCreated.DB.PHONGs.ToList();
+        }
         public static string[] getColumnName(string name)
         {
             if (name == "DICHVU")
@@ -653,6 +690,26 @@ namespace QuanLiKhachSan.Model
                 return null;
             }
         }
+        public static void updateInsertLoaiPhong(LOAIPHONG lp)
+        {
+            List<PHONG> listPhong = DataProvider.ISCreated.DB.PHONGs.Where(x => (x.LoaiPhongID == lp.LoaiPhongID && x.TinhTrangTonTai == false)).ToList();
+            foreach (PHONG item in listPhong)
+            {
+                item.TinhTrangTonTai = true;
+            }
+            capNhatCSDL();
+        }
+        public static void updateInsertLoaiDV(LOAIDV lp)
+        {
+            List<DICHVU> listPhong = DataProvider.ISCreated.DB.DICHVUs.Where(x => (x.LoaiDVID == lp.LoaiDVID && x.TinhTrangTonTai == false)).ToList();
+            foreach (DICHVU item in listPhong)
+            {
+                item.TinhTrangTonTai = true;
+            }
+            capNhatCSDL();
+        }
+
+
         // END
     }
 }

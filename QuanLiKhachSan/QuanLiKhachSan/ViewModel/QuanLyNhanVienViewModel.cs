@@ -238,8 +238,6 @@ namespace QuanLiKhachSan.ViewModel
         {
             listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());
             listLoaiNV = new BindingList<LOAINHANVIEN>(DatabaseQueryTN.danhSachLoaiNV());
-
-
             exportNhanVienCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
                 ConcreteModelFactory ModelFactory = new ConcreteModelFactory();

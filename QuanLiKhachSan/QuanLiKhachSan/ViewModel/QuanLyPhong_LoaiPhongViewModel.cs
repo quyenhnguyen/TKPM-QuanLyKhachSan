@@ -22,6 +22,10 @@ namespace QuanLiKhachSan.ViewModel
         public ICommand confirmButtonCommmand { get; set; }
         public ICommand cancelButtonCommmand { get; set; }
         public ICommand addPhongCommand { get; set; }
+        public ICommand exportLoaiPhongCommand { get; set; }
+        public ICommand importLoaiPhongCommand { get; set; }
+        public ICommand exportPhongCommand { get; set; }
+        public ICommand importPhongCommand { get; set; }
         private string _cancelButtonName = "HỦY";
         private string _confirmButtonName = "THÊM";
         public string cancelButtonName
@@ -255,6 +259,35 @@ namespace QuanLiKhachSan.ViewModel
         {
             listLoaiPhong = new BindingList<LOAIPHONG>(DatabaseQueryTN.danhsachLoaiPhong());
             listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
+            exportLoaiPhongCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
+            {
+                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                IModelName modelName = ModelFactory.Factory("LOAIPHONG");
+                modelName.exportExcel();
+            });
+            importLoaiPhongCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
+            {
+                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                IModelName modelName = ModelFactory.Factory("LOAIPHONG");
+                modelName.importExcel();
+                listLoaiPhong = new BindingList<LOAIPHONG>(DatabaseQueryTN.danhsachLoaiPhong());
+                listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
+
+            });
+            exportPhongCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
+            {
+                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                IModelName modelName = ModelFactory.Factory("PHONG");
+                modelName.exportExcel();
+            });
+            importPhongCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
+            {
+                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                IModelName modelName = ModelFactory.Factory("PHONG");
+                modelName.importExcel();
+                listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
+
+            });
             timLoaiPhongCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
                 listLoaiPhong = new BindingList<LOAIPHONG>(DatabaseQueryTN.timKiemLoaiPhong(timLoaiPhongInput));
@@ -318,9 +351,10 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     try
                     {
+                        newLP.TinhTrangTonTai = false;
                         DatabaseQueryTN.capNhatPhong(newLP);
                         listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
-                        DatabaseQuery.MyMessageBox("Đã cập nhật loại phòng");
+                        DatabaseQuery.MyMessageBox("Đã cập nhật phòng");
 
                     }
                     catch (Exception e)
@@ -372,6 +406,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     try
                     {
+                        newLP.TinhTrang = false;
                         DatabaseQueryTN.capNhatLoaiPhong(newLP);
                         listLoaiPhong = new BindingList<LOAIPHONG>(DatabaseQueryTN.danhsachLoaiPhong());
                         DatabaseQuery.MyMessageBox("Đã cập nhật loại phòng");
