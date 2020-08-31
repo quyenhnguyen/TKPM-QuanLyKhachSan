@@ -60,7 +60,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="8*" />
-                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="2*" />
                     </Grid.RowDefinitions>
                     <!--  TÌm kiếm  phòng  -->
                     <StackPanel
@@ -103,10 +103,6 @@
                             <ColumnDefinition Width="4*" />
                             <ColumnDefinition Width="3*" />
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="6*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
                         <!--  DANH SACH NHAN VIEN  -->
                         <materialDesign:Card Grid.Column="0" Margin="5,5,5,0">
                             <ScrollViewer>
@@ -248,23 +244,29 @@
                     <StackPanel Grid.Row="2" Orientation="Horizontal">
                         <Button
                             Width="180"
-                            Height="35"
                             Margin="20,0"
                             HorizontalAlignment="Left"
                             Background="{DynamicResource MauBtnQL}"
                             BorderThickness="0"
                             Command="{Binding addDVCommand}"
-                                Content="THÊM LOẠI DỊCH VỤ" />
-                        <Button Width="180"
-                                Margin="30,0"
-                                Background="{StaticResource MauBtnQL}"
-                                Command="{Binding exportLoaiDVCommand}"
-                                Content="EXPORT LOẠI DỊCH VỤ" />
-                        <Button Width="180"
-                                Margin="30,0"
-                                Background="{StaticResource MauBtnQL}"
-                                Command="{Binding importLoaiDVCommand}"
-                                Content="IMPORT LOẠI DỊCH VỤ" />
+                            Content="THÊM LOẠI DỊCH VỤ"
+                            Style="{DynamicResource StyleBtnCoBan}" />
+                        <Button
+                            Width="180"
+                            Margin="30,0"
+                            Background="{StaticResource MauBtnQL}"
+                            BorderThickness="0"
+                            Command="{Binding exportLoaiDVCommand}"
+                            Content="EXPORT LOẠI DỊCH VỤ"
+                            Style="{DynamicResource StyleBtnCoBan}" />
+                        <Button
+                            Width="180"
+                            Margin="30,0"
+                            Background="{StaticResource MauBtnQL}"
+                            BorderThickness="0"
+                            Command="{Binding importLoaiDVCommand}"
+                            Content="IMPORT LOẠI DỊCH VỤ"
+                            Style="{DynamicResource StyleBtnCoBan}" />
                     </StackPanel>
 
 
@@ -273,12 +275,15 @@
             <TabItem Header="Quản Lý Dịch Vụ">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.75*" />
+                        <RowDefinition Height="1*" />
                         <RowDefinition Height="8*" />
-                        <RowDefinition Height="0.75*" />
+                        <RowDefinition Height="2*" />
                     </Grid.RowDefinitions>
                     <!--  TÌm kiếm  phòng  -->
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <StackPanel
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
                         <Border
                             Padding="10,5"
                             Background="GhostWhite"
@@ -320,6 +325,7 @@
                             <ListView
                                 Grid.Row="1"
                                 Grid.Column="1"
+                                Margin="0,10"
                                 HorizontalAlignment="Center"
                                 Grid.IsSharedSizeScope="True"
                                 ItemsSource="{Binding listDV}"
@@ -567,6 +573,8 @@
                             Margin="30,0"
                             HorizontalAlignment="Left"
                             Background="{StaticResource MauBtnQL}"
+                            BorderBrush="{DynamicResource MauBtnQL}"
+                            BorderThickness="0"
                             Command="{Binding addDichVuCommand}"
                             Content="THÊM DỊCH VỤ" />
                         <Button Width="180"
@@ -580,7 +588,6 @@
                                 Command="{Binding importDVCommand}"
                                 Content="IMPORT DỊCH VỤ" />
                     </StackPanel>
-
                 </Grid>
             </TabItem>
         </TabControl>
