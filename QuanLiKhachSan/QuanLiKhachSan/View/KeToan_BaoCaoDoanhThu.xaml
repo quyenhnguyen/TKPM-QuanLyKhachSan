@@ -15,19 +15,8 @@
             <RowDefinition Height="80" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border BorderBrush="{StaticResource XamNhat}" BorderThickness="0,0,0,1">
+        <Border>
             <DockPanel Margin="20,10">
-                <materialDesign:PackIcon
-                    Width="40"
-                    Height="50"
-                    VerticalAlignment="Center"
-                    Kind="ChartPie" />
-                <TextBlock
-                    Margin="0,0,100,0"
-                    VerticalAlignment="Center"
-                    FontSize="{StaticResource CoChuNho}"
-                    FontWeight="Bold"
-                    Text="BÁO CÁO DOANH THU, LỢI NHUẬN" />
                 <!--#region Chọn ngày-->
                 <StackPanel
                     Margin="0,0,50,0"

@@ -27,8 +27,10 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
         <Border
             Grid.Row="0"
             BorderBrush="{DynamicResource MauTenPhong}"
@@ -79,7 +81,8 @@
                 </Button>
             </StackPanel>
         </Border>
-        <Grid Grid.Row="1" Background="{DynamicResource XanhNhatMauNen}">
+
+        <Grid Grid.Row="2" Background="{DynamicResource XanhNhatMauNen}">
             <materialDesign:Card
                 Grid.Row="1"
                 Margin="15"

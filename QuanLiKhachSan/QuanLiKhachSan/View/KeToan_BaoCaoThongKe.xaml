@@ -24,9 +24,53 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid Background="White">
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Border
+            x:Name="ThongTinHeader"
+            Grid.Row="0"
+            BorderBrush="{StaticResource XamDam}"
+            BorderThickness="0,0,0,1"
+            Visibility="Collapsed">
+            <Grid>
+                <Button
+                    Grid.Row="0"
+                    Margin="10,5"
+                    HorizontalAlignment="Left"
+                    Background="{StaticResource MauTenPhong}"
+                    BorderThickness="0"
+                    Command="{Binding troVeCommand}"
+                    CommandParameter="{Binding ElementName=BaoCaoUC}"
+                    Foreground="White">
+                    <materialDesign:PackIcon
+                        Width="30"
+                        Height="25"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontWeight="Bold"
+                        Kind="ArrowLeft" />
+                </Button>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <materialDesign:PackIcon
+                        Width="40"
+                        Height="50"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Kind="ChartPie" />
+                    <TextBlock
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        FontSize="{DynamicResource CoChuNho}"
+                        FontWeight="Bold"
+                        Text="{Binding TieuDe}" />
+                </StackPanel>
+            </Grid>
+        </Border>
         <Grid
             x:Name="MenuBaoCao"
+            Grid.Row="1"
             Width="600"
             Height="400">
             <Grid.ColumnDefinitions>
@@ -191,8 +235,9 @@
                 </Grid>
             </materialDesign:Card>
         </Grid>
-        <ContentControl Content="{Binding CurrentDataContext}" />
-
-
+        <ContentControl
+            x:Name="ContentControlBC"
+            Grid.Row="1"
+            Content="{Binding CurrentDataContext}" />
     </Grid>
 </UserControl>

@@ -354,6 +354,13 @@ namespace QuanLiKhachSan.Model
                         NHANVIENs.Add(item);
                     }
                 }
+                else if (item.LOAINHANVIEN.TenLoai.ToLower().Contains(value.ToLower()))
+                {
+                    if (!NHANVIENs.Contains(item))
+                    {
+                        NHANVIENs.Add(item);
+                    }
+                }
             }
             if (NHANVIENs != null)
                 return NHANVIENs;
