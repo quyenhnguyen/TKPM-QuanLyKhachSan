@@ -80,11 +80,13 @@
             </StackPanel>
         </Border>
         <Grid Grid.Row="1" Background="{DynamicResource XanhNhatMauNen}">
-            <ContentControl
+            <materialDesign:Card
                 Grid.Row="1"
                 Margin="15"
-                Background="White"
-                Content="{Binding CurrentDataContext}" />
+                Background="White">
+                <ContentControl Content="{Binding CurrentDataContext}" />
+            </materialDesign:Card>
+
         </Grid>
 
     </Grid>
