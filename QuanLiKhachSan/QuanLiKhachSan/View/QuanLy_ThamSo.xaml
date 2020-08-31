@@ -219,7 +219,6 @@
                     <Button
                         Grid.Column="0"
                         Width="200"
-                        Height="40"
                         Margin="30,0"
                         Background="{StaticResource MauBtnQL}"
                         Command="{Binding addThamSoCommand}"

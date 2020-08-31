@@ -16,19 +16,9 @@
             <RowDefinition Height="80" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border BorderBrush="{StaticResource XamNhat}" BorderThickness="0,0,0,1">
+        <Border>
             <DockPanel Margin="20,10">
-                <materialDesign:PackIcon
-                    Width="40"
-                    Height="50"
-                    VerticalAlignment="Center"
-                    Kind="ChartPie" />
-                <TextBlock
-                    Margin="0,0,100,0"
-                    VerticalAlignment="Center"
-                    FontSize="{StaticResource CoChuNho}"
-                    FontWeight="Bold"
-                    Text="BÁO CÁO DOANH SỐ THEO PHÒNG" />
+
                 <!--#region Chọn ngày-->
                 <StackPanel
                     Margin="0,0,50,0"
@@ -93,7 +83,8 @@
                     </Grid>
                     <Button
                         Width="80"
-                        Background="{StaticResource MauChinh2}"
+                        VerticalAlignment="Bottom"
+                        Background="{StaticResource MauSlideBarTrai}"
                         Command="{Binding XemBaoCaoCommand}"
                         Style="{StaticResource StyleBtnCoBan}">
                         Xem
@@ -136,8 +127,8 @@
                 FontWeight="Bold"
                 Text="Biểu đồ thống kê doanh thu theo phòng" />
             <ListView
-                Margin="50,50,50,0"
-                FontSize="{StaticResource CoChuThuong}"
+                Margin="50,20,50,0"
+                FontSize="{DynamicResource CoChuNho}"
                 Grid.IsSharedSizeScope="True"
                 ItemsSource="{Binding ListBaoCaoDichVu}"
                 ScrollViewer.CanContentScroll="True"

@@ -219,7 +219,7 @@
                                         TextWrapping="Wrap" />
                                     <TextBox
                                         VerticalAlignment="Top"
-                                        materialDesign:HintAssist.Hint="Tai khoan:"
+                                        materialDesign:HintAssist.Hint="Tài khoản:"
                                         AcceptsReturn="True"
                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                         Text="{Binding txtTenDangNhap, Mode=TwoWay}"
@@ -283,21 +283,27 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"
-                            Width="150"
-                            Background="{StaticResource MauBtnQL}"
-                            Command="{Binding addNhanVienCommand}"
-                            Content="THÊM NHÂN VIÊN" />
-                    <Button Grid.Column="1"
-                            Width="150"
-                            Background="{StaticResource MauBtnQL}"
-                            Command="{Binding exportNhanVienCommand}"
-                            Content="Export NHÂN VIÊN" />
-                    <Button Grid.Column="2"
-                            Width="150"
-                            Background="{StaticResource MauBtnQL}"
-                            Command="{Binding importNhanVienCommand}"
-                            Content="Import NHÂN VIÊN" />
+                    <Button
+                        Grid.Column="0"
+                        Width="150"
+                        Background="{StaticResource MauBtnQL}"
+                        BorderThickness="0"
+                        Command="{Binding addNhanVienCommand}"
+                        Content="THÊM NHÂN VIÊN" />
+                    <Button
+                        Grid.Column="1"
+                        Width="180"
+                        Background="{StaticResource MauBtnQL}"
+                        BorderThickness="0"
+                        Command="{Binding exportNhanVienCommand}"
+                        Content="EXPORT NHÂN VIÊN" />
+                    <Button
+                        Grid.Column="2"
+                        Width="180"
+                        Background="{StaticResource MauBtnQL}"
+                        BorderThickness="0"
+                        Command="{Binding importNhanVienCommand}"
+                        Content="EXPORT NHÂN VIÊN" />
                 </Grid>
             </Grid>
 

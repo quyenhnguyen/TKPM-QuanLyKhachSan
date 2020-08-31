@@ -16,19 +16,9 @@
             <RowDefinition Height="80" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border BorderBrush="{DynamicResource XamNhat}" BorderThickness="0,0,0,1">
+        <Border>
             <DockPanel Margin="20,10">
-                <materialDesign:PackIcon
-                    Width="40"
-                    Height="50"
-                    VerticalAlignment="Center"
-                    Kind="ChartPie" />
-                <TextBlock
-                    Margin="0,0,100,0"
-                    VerticalAlignment="Center"
-                    FontSize="{DynamicResource CoChuNho}"
-                    FontWeight="Bold"
-                    Text="BÁO CÁO DOANH SỐ THEO DỊCH VỤ" />
+
                 <!--#region Chọn ngày-->
                 <StackPanel
                     Margin="0,0,50,0"
@@ -93,7 +83,8 @@
                     </Grid>
                     <Button
                         Width="80"
-                        Background="{DynamicResource MauChinh2}"
+                        VerticalAlignment="Bottom"
+                        Background="{DynamicResource MauSlideBarTrai}"
                         Command="{Binding XemBaoCaoCommand}"
                         Style="{DynamicResource StyleBtnCoBan}">
                         Xem
@@ -136,8 +127,8 @@
                 FontWeight="Bold"
                 Text="Biểu đồ thống kê doanh thu theo dịch vụ" />
             <ListView
-                Margin="50,50,50,0"
-                FontSize="{DynamicResource CoChuThuong}"
+                Margin="50,20,50,0"
+                FontSize="{DynamicResource CoChuNho}"
                 Grid.IsSharedSizeScope="True"
                 ItemsSource="{Binding ListBaoCaoDichVu}"
                 ScrollViewer.CanContentScroll="True"
@@ -162,7 +153,7 @@
                     <GridView>
                         <GridView.ColumnHeaderContainerStyle>
                             <Style TargetType="{x:Type GridViewColumnHeader}">
-                                <Setter Property="Background" Value="#212121" />
+                                <Setter Property="Background" Value="{StaticResource MauSlideBarTrai}" />
                                 <Setter Property="Foreground" Value="White" />
                                 <Setter Property="Padding" Value="8,8" />
                             </Style>
