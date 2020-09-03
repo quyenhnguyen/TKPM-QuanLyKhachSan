@@ -21,5 +21,7 @@
     <viewmodel:QuanLyTaiKhoanViewModel x:Key="QuanLyTaiKhoanVM" />
     <viewmodel:QuanLy_ThamSoViewModel x:Key="QuanLyThamSoVM" />
     <viewmodel:PopUpDoiGiaoDienViewModel x:Key="PopUpDoiGiaoDienVM" />
+    <viewmodel:PopUpImportExcelViewModel x:Key="PopUpExcelVM" />
+
 
 </ResourceDictionary>

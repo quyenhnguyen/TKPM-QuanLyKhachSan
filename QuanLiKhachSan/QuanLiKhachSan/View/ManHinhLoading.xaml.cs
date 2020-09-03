@@ -9,22 +9,30 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace QuanLiKhachSan.View
 {
     /// <summary>
-    /// Interaction logic for DangNhap.xaml
+    /// Interaction logic for ManHinhLoading.xaml
     /// </summary>
-    public partial class DangNhap : Window
-    {
+    /// 
 
-        public DangNhap()
+    public partial class ManHinhLoading : Window
+    {
+        public Storyboard story { get; set; }
+        public ManHinhLoading()
         {
             InitializeComponent();
+            story = (Storyboard)TryFindResource("mystoryboard");
+            story.Begin();
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

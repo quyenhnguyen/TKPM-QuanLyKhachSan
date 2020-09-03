@@ -257,6 +257,7 @@
                             Background="{StaticResource MauBtnQL}"
                             BorderThickness="0"
                             Command="{Binding exportLoaiDVCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                             Content="EXPORT LOẠI DỊCH VỤ"
                             Style="{DynamicResource StyleBtnCoBan}" />
                         <Button
@@ -265,6 +266,7 @@
                             Background="{StaticResource MauBtnQL}"
                             BorderThickness="0"
                             Command="{Binding importLoaiDVCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                             Content="IMPORT LOẠI DỊCH VỤ"
                             Style="{DynamicResource StyleBtnCoBan}" />
                     </StackPanel>
@@ -277,7 +279,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="8*" />
-                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="1.25*" />
                     </Grid.RowDefinitions>
                     <!--  TÌm kiếm  phòng  -->
                     <StackPanel
@@ -393,9 +395,9 @@
                                 </ListView.View>
                             </ListView>
                         </ScrollViewer>
-                        <!--  CHI TIẾT NHÂN VIÊN  -->
+                        <!--  CHI TIẾT  -->
                         <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                            <materialDesign:Card Padding="5,0,5,15" FontSize="{StaticResource CoChuNho}">
+                            <materialDesign:Card Padding="5,0,5,5" FontSize="{StaticResource CoChuNho}">
                                 <Grid Margin="5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="0.75*" />
@@ -408,7 +410,7 @@
                                         VerticalAlignment="Center"
                                         Background="{StaticResource HeaderListViewQL}">
                                         <TextBlock
-                                            Margin="10"
+                                            Margin="5"
                                             HorizontalAlignment="Center"
                                             FontSize="{DynamicResource CoChuThuong}"
                                             FontWeight="Bold"
@@ -417,7 +419,7 @@
                                     </StackPanel>
                                     <StackPanel
                                         Grid.Row="1"
-                                        Margin="0,8"
+                                        Margin="0,5"
                                         HorizontalAlignment="Center">
                                         <Rectangle
                                             Width="80"
@@ -577,16 +579,20 @@
                             BorderThickness="0"
                             Command="{Binding addDichVuCommand}"
                             Content="THÊM DỊCH VỤ" />
-                        <Button Width="180"
-                                Margin="30,0"
-                                Background="{StaticResource MauBtnQL}"
-                                Command="{Binding exportDVCommand}"
-                                Content="EXPORT DỊCH VỤ" />
-                        <Button Width="180"
-                                Margin="30,0"
-                                Background="{StaticResource MauBtnQL}"
-                                Command="{Binding importDVCommand}"
-                                Content="IMPORT DỊCH VỤ" />
+                        <Button
+                            Width="180"
+                            Margin="30,0"
+                            Background="{StaticResource MauBtnQL}"
+                            Command="{Binding exportDVCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                            Content="EXPORT DỊCH VỤ" />
+                        <Button
+                            Width="180"
+                            Margin="30,0"
+                            Background="{StaticResource MauBtnQL}"
+                            Command="{Binding importDVCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                            Content="IMPORT DỊCH VỤ" />
                     </StackPanel>
                 </Grid>
             </TabItem>

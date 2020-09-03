@@ -1,0 +1,90 @@
+﻿<Window
+    x:Class="QuanLiKhachSan.View.ManHinhLoading"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:QuanLiKhachSan.View"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="ManHinhLoading"
+    Width="500"
+    Height="320"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Storyboard
+            x:Key="mystoryboard"
+            Name="hello"
+            RepeatBehavior="Forever">
+            <DoubleAnimation
+                BeginTime="0:0:0.1"
+                Storyboard.TargetName="dotProgress1"
+                Storyboard.TargetProperty="Opacity"
+                From="0"
+                To="1" />
+            <DoubleAnimation
+                BeginTime="0:0:0.2"
+                Storyboard.TargetName="dotProgress2"
+                Storyboard.TargetProperty="Opacity"
+                From="0"
+                To="1" />
+            <DoubleAnimation
+                BeginTime="0:0:0.3"
+                Storyboard.TargetName="dotProgress3"
+                Storyboard.TargetProperty="Opacity"
+                From="0"
+                To="1" />
+            <DoubleAnimation
+                BeginTime="0:0:0.4"
+                Storyboard.TargetName="dotProgress4"
+                Storyboard.TargetProperty="Opacity"
+                From="1"
+                To="0" />
+            <DoubleAnimation
+                BeginTime="0:0:0.5"
+                Storyboard.TargetName="dotProgress5"
+                Storyboard.TargetProperty="Opacity"
+                From="1"
+                To="0" />
+
+        </Storyboard>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+        <Grid
+            Grid.Row="0"
+            Margin="0,0,0,10"
+            Background="{StaticResource MauChinh2}">
+            <!--  Header  -->
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="{DynamicResource CoChuThuong}"
+                FontWeight="Bold"
+                Foreground="White"
+                Text="ĐANG XỬ LÝ" />
+        </Grid>
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <materialDesign:PackIcon Name="dotProgress1" Style="{StaticResource StyleIconLoading}" />
+            <materialDesign:PackIcon Name="dotProgress2" Style="{StaticResource StyleIconLoading}" />
+            <materialDesign:PackIcon Name="dotProgress3" Style="{StaticResource StyleIconLoading}" />
+            <materialDesign:PackIcon Name="dotProgress4" Style="{StaticResource StyleIconLoading}" />
+            <materialDesign:PackIcon Name="dotProgress5" Style="{StaticResource StyleIconLoading}" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="2"
+            Margin="0,0,50,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Orientation="Horizontal" />
+    </Grid>
+</Window>

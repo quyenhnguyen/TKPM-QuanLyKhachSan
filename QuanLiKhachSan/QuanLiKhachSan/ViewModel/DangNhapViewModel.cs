@@ -6,10 +6,12 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace QuanLiKhachSan.ViewModel
 {
@@ -28,6 +30,7 @@ namespace QuanLiKhachSan.ViewModel
         public ICommand LoginCommand { get; set; }
         public ICommand PassWordEnter { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
+
         private SecurityModel security = new SecurityModel();
         private bool checkCondition()
         {
@@ -43,41 +46,68 @@ namespace QuanLiKhachSan.ViewModel
             }
             return true;
         }
+        private void loadingThread(ManHinhLoading a)
+        {
+            a.Show();
+            System.Windows.Threading.Dispatcher.Run();
+        }
         private void Login(Window p)
         {
-            //_PassInput = p.Password.ToString();
-            if (checkCondition())
+            ManHinhLoading wd = new ManHinhLoading();
+            wd.Show();
+            Thread newWindowThread = new Thread(() =>
             {
-                isLogin = checkUserPassword();
-                if (isLogin)
+                //Do stuff here  //_PassInput = p.Password.ToString();
+                if (checkCondition())
                 {
-                    int loai = layChucVu();
-                    UserService._CurrentUser = null;
-                    UserService.LoadUser(userLogin);
-                    if (loai == 1)
+                    isLogin = checkUserPassword();
+                    if (isLogin)
                     {
+                        p.Dispatcher.Invoke(() =>
+                        {
+                            int loai = layChucVu();
+                            UserService._CurrentUser = null;
+                            UserService.LoadUser(userLogin);
 
-                        QuanLy_Layout quanliwd = new QuanLy_Layout();
-                        quanliwd.Show();
-                    }
-                    else if (loai == 2)
-                    {
-                        KeToan_Layout keToan = new KeToan_Layout();
-                        keToan.Show();
+                            if (loai == 1)
+                            {
+                                QuanLy_Layout quanliwd = new QuanLy_Layout();
+                                quanliwd.Show();
+                            }
+                            else if (loai == 2)
+                            {
+                                KeToan_Layout keToan = new KeToan_Layout();
+                                keToan.Show();
+                            }
+                            else
+                            {
+                                LeTan_Layout LetanWindow = new LeTan_Layout();
+                                LetanWindow.Show();
+                            }
+                            p.Close();
+                        });
                     }
                     else
                     {
-                        LeTan_Layout LetanWindow = new LeTan_Layout();
-                        LetanWindow.Show();
+                        p.Dispatcher.Invoke(() =>
+                        {
+                            wd.Close();
+                        });
+                        DatabaseQuery.MyMessageBox("Sai tài khoản hoặc mật khẩu");
+                        return;
                     }
+
+                    p.Dispatcher.Invoke(() =>
+                    {
+                        wd.Close();
+                    });
+
                 }
-                else
-                {
-                    DatabaseQuery.MyMessageBox("Sai tài khoản hoặc mật khẩu");
-                    return;
-                }
-                p.Close();
-            }
+
+            });
+            newWindowThread.Start();
+
+
         }
         private bool checkUserPassword()
         {
@@ -92,6 +122,14 @@ namespace QuanLiKhachSan.ViewModel
         private int layChucVu()
         {
             return DatabaseQueryTN.layChucVu(_UserInput);
+        }
+        public static Task<bool?> ShowDialogAsync(Window self)
+        {
+            if (self == null) { };
+
+            TaskCompletionSource<bool?> completion = new TaskCompletionSource<bool?>();
+            self.Dispatcher.BeginInvoke(new Action(() => completion.SetResult(self.ShowDialog())));
+            return completion.Task;
         }
         public DangNhapViewModel()
         {
@@ -131,8 +169,10 @@ namespace QuanLiKhachSan.ViewModel
                     },
                     (p) =>
                     {
+
                         isLoaded = true;
                         Login(p);
+
                     });
 
 

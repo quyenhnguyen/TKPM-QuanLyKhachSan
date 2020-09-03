@@ -49,12 +49,15 @@ namespace QuanLiKhachSan.ViewModel
             btnQuanLy_NhanVien = new RelayCommand<object>((p) => { return CurrentQuanLyDataContext != ucNhanVien; }, (p) =>
             {
                 QuanLyTitle = "QUẢN LÝ NHÂN VIÊN";
+                ucPhong = new QuanLyNhanVienViewModel();
                 CurrentQuanLyDataContext = ucNhanVien;
             });
 
             btnQuanLy_Phong = new RelayCommand<object>((p) => { return CurrentQuanLyDataContext != ucPhong; }, (p) =>
             {
                 QuanLyTitle = "QUẢN LÝ PHÒNG, LOẠI PHÒNG";
+
+                ucPhong = new QuanLyPhong_LoaiPhongViewModel();
                 CurrentQuanLyDataContext = ucPhong;
             });
 
@@ -67,6 +70,7 @@ namespace QuanLiKhachSan.ViewModel
             btnQuanLy_TaiKhoan = new RelayCommand<object>((p) => { return CurrentQuanLyDataContext != ucTaiKhoan; }, (p) =>
             {
                 QuanLyTitle = "QUẢN LÝ TÀI KHOẢN";
+                ucTaiKhoan = new QuanLyTaiKhoanViewModel();
                 CurrentQuanLyDataContext = ucTaiKhoan;
             });
 

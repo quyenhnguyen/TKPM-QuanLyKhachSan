@@ -130,6 +130,19 @@ namespace QuanLiKhachSan.Model
             old.LOAIDV = nv.LOAIDV;
             capNhatCSDL();
         }
+        public static void capNhatDVImport(DICHVU nv)
+        {
+            DICHVU old = DataProvider.ISCreated.DB.DICHVUs.Where(x => x.DichVuID == nv.DichVuID).SingleOrDefault();
+            old.TinhTrangTonTai = nv.TinhTrangTonTai;
+            old.TenDichVu = nv.TenDichVu;
+            old.GiaBan = nv.GiaBan;
+            old.GiaCungCap = nv.GiaCungCap;
+            old.LoaiDVID = nv.LoaiDVID;
+            old.DonVi = nv.DonVi;
+            old.HinhAnh = nv.HinhAnh;
+            old.NgayTao = nv.NgayTao;
+            capNhatCSDL();
+        }
         public static void capNhatKhachHang(KHACHHANG KH)
         {
             KHACHHANG old = DataProvider.ISCreated.DB.KHACHHANGs.Where(x => x.MaKH == KH.MaKH).SingleOrDefault();
@@ -142,6 +155,23 @@ namespace QuanLiKhachSan.Model
         public static void capNhatNhanVien(NHANVIEN nv)
         {
             NHANVIEN old = DataProvider.ISCreated.DB.NHANVIENs.Where(x => x.NhanVienID == nv.NhanVienID).SingleOrDefault();
+            old.TenDangNhap = nv.TenDangNhap;
+            old.HoTen = nv.HoTen;
+            old.DiaChi = nv.DiaChi;
+            old.NgaySinh = nv.NgaySinh;
+            old.SDT = nv.SDT;
+            old.CMND = nv.CMND;
+            old.Loai = nv.Loai;
+            old.Email = nv.Email;
+            old.AnhDaiDien = nv.AnhDaiDien;
+            old.TinhTrang = nv.TinhTrang;
+            capNhatCSDL();
+        }
+
+        public static void capNhatNhanVienByUsername(NHANVIEN nv)
+        {
+            //tuwf tuwf
+            NHANVIEN old = DataProvider.ISCreated.DB.NHANVIENs.Where(x => x.TenDangNhap == nv.TenDangNhap || x.Email == nv.Email).SingleOrDefault();
             old.TenDangNhap = nv.TenDangNhap;
             old.HoTen = nv.HoTen;
             old.DiaChi = nv.DiaChi;
@@ -202,9 +232,27 @@ namespace QuanLiKhachSan.Model
             if (res > 0) return true;
             return false;
         }
+        public static bool checkDuplicate(int ID, string user, string email)
+        {
+            int res = DataProvider.ISCreated.DB.NHANVIENs.Where(x => (x.NhanVienID == ID && x.TenDangNhap == user && x.Email == email)).ToList().Count;
+            if (res > 0) return true;
+            return false;
+        }
+        public static bool kiemtraTonTaiImport(int NVID)
+        {
+            int res = DataProvider.ISCreated.DB.NHANVIENs.Where(x => (x.NhanVienID == NVID)).ToList().Count;
+            if (res > 0) return true;
+            return false;
+        }
         public static bool kiemTraTonTaiLoaiPhong(string loaiPhongID)
         {
             int res = DataProvider.ISCreated.DB.LOAIPHONGs.Where(x => (x.LoaiPhongID == loaiPhongID)).ToList().Count;
+            if (res > 0) return true;
+            return false;
+        }
+        public static bool kiemTraTonTaiLoaiPhongImport(string loaiPhongID)
+        {
+            int res = DataProvider.ISCreated.DB.LOAIPHONGs.Where(x => (x.LoaiPhongID == loaiPhongID && x.TinhTrang == false)).ToList().Count;
             if (res > 0) return true;
             return false;
         }
@@ -247,8 +295,6 @@ namespace QuanLiKhachSan.Model
             return false;
         }
 
-
-
         public static bool isDeleteRoomType(string loaiPhongID)
         {
             bool res = DataProvider.ISCreated.DB.Database.SqlQuery<bool>("SELECT TinhTrang FROM LOAIPHONG WHERE LoaiPhongID = @loaiPhongID", new SqlParameter("@loaiPhongID", loaiPhongID)).FirstOrDefault();
@@ -289,8 +335,9 @@ namespace QuanLiKhachSan.Model
         {
             LOAIPHONG old = DataProvider.ISCreated.DB.LOAIPHONGs.Where(x => x.LoaiPhongID == nv.LoaiPhongID).SingleOrDefault();
             old.TinhTrang = true;
+            capNhatCSDL();
 
-            List<PHONG> listPhong = DataProvider.ISCreated.DB.PHONGs.Where(x => (x.LoaiPhongID == old.LoaiPhongID && x.TinhTrangTonTai == false)).ToList();
+            List<PHONG> listPhong = DataProvider.ISCreated.DB.PHONGs.Where(x => (x.LoaiPhongID == old.LoaiPhongID && x.TinhTrangTonTai == false && x.TinhTrangThue == false)).ToList();
             foreach (PHONG item in listPhong)
             {
                 item.TinhTrangTonTai = true;
@@ -720,3 +767,4 @@ namespace QuanLiKhachSan.Model
         // END
     }
 }
+

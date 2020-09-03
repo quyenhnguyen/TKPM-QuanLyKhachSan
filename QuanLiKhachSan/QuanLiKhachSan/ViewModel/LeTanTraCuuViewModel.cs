@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace QuanLiKhachSan.ViewModel
 {
@@ -19,7 +20,7 @@ namespace QuanLiKhachSan.ViewModel
         public BindingList<HOADONTHUEPHONG> dsHoaDon { get => _dsHoaDon; set => OnPropertyChanged(ref _dsHoaDon, value); }
 
         private BindingList<PHONG> _dsPhong;
-        public BindingList<PHONG> dsPhong { get { return new BindingList<PHONG>(DatabaseQuery.truyVanDanhSachPhong()); } set => OnPropertyChanged(ref _dsPhong, value); }
+        public BindingList<PHONG> dsPhong { get => _dsPhong; set => OnPropertyChanged(ref _dsPhong, value); }
 
         private bool _TinhTrangThue;
         public bool TinhTrangThue { get => _TinhTrangThue; set => OnPropertyChanged(ref _TinhTrangThue, value); }
@@ -71,7 +72,7 @@ namespace QuanLiKhachSan.ViewModel
             isChoose = true;
             //MessageBox.Show("hihi");
             dsHoaDon = new BindingList<HOADONTHUEPHONG>(DatabaseQuery.truyVanDanhSachHoaDon());
-            //dsPhong = new BindingList<PHONG>(DatabaseQuery.truyVanDanhSachPhong());
+            dsPhong = new BindingList<PHONG>(DatabaseQuery.truyVanDanhSachPhong());
             dsDichVu = new BindingList<DICHVU>(DatabaseQuery.truyVanDanhSachDichVu());
             dsLoaiDichVu = DatabaseQuery.danhSachLoaiDichVu();
             dsKhachHang = new BindingList<KHACHHANG>(DatabaseQuery.danhSachKhachHang());
@@ -87,41 +88,42 @@ namespace QuanLiKhachSan.ViewModel
                 TinhTrangThue = phong.TinhTrangThue;
             }
 
-            TatCaDichVuBtnCommand = new RelayCommand<object>((p) => { return isChoose == true; }, (p) =>
-            {
-                isChoose = false;
-                dsDichVu = new BindingList<DICHVU>(DatabaseQuery.truyVanDanhSachDichVu());
-                //Xem thông tin trong csdl
-            });
+            TatCaDichVuBtnCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+           {
+               isChoose = true;
+               dsDichVu = new BindingList<DICHVU>(DatabaseQuery.truyVanDanhSachDichVu());
+               //Xem thông tin trong csdl
+           });
 
-            TimKiemBtnCommand = new RelayCommand<TabControl>((p) => { return isChoose == true; }, (p) =>
-            {
-                int TabDangChon = p.SelectedIndex;
-                switch (TabDangChon)
-                {
-                    //hóa đơn
-                    case 0:
-                        dsHoaDon = DatabaseQuery.TimKiemHoaDon(txtSearch);
-                        break;
-                    //phòng
-                    case 1:
-                        dsPhong = DatabaseQuery.TimKiemPhong(txtSearch);
-                        break;
-                    //dịch vụ
-                    case 2:
-                        dsDichVu = DatabaseQuery.TimKiemDichVu(txtSearch);
-                        break;
-                    //Khách hàng
-                    case 3:
-                        dsKhachHang = DatabaseQuery.TimKiemKhachHang(txtSearch);
-                        break;
+            TimKiemBtnCommand = new RelayCommand<TabControl>((p) => { return true; }, (p) =>
+           {
+               isChoose = true;
+               int TabDangChon = p.SelectedIndex;
+               switch (TabDangChon)
+               {
+                   //hóa đơn
+                   case 0:
+                       dsHoaDon = DatabaseQuery.TimKiemHoaDon(txtSearch);
+                       break;
+                   //phòng
+                   case 1:
+                       dsPhong = DatabaseQuery.TimKiemPhong(txtSearch);
+                       break;
+                   //dịch vụ
+                   case 2:
+                       dsDichVu = DatabaseQuery.TimKiemDichVu(txtSearch);
+                       break;
+                   //Khách hàng
+                   case 3:
+                       dsKhachHang = DatabaseQuery.TimKiemKhachHang(txtSearch);
+                       break;
 
-                    default:
-                        break;
-                }
+                   default:
+                       break;
+               }
 
 
-            });
+           });
         }
     }
 }

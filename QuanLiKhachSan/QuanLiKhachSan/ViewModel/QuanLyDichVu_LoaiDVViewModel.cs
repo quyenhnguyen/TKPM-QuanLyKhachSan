@@ -1,10 +1,12 @@
 ﻿using Microsoft.Win32;
 using QuanLiKhachSan.Model;
+using QuanLiKhachSan.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -269,6 +271,7 @@ namespace QuanLiKhachSan.ViewModel
 
         public QuanLyDichVu_LoaiDVViewModel()
         {
+
             listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
             timLoaiDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
@@ -499,30 +502,148 @@ namespace QuanLiKhachSan.ViewModel
             exportLoaiDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
                 ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                IModelName modelName = ModelFactory.Factory("LOAIDV");
-                modelName.exportExcel();
+                Window w = ((Window)p);
+                SaveFileDialog openFileDialog = new SaveFileDialog();
+                string name = "";
+                openFileDialog.Filter = "Excel Files|*.xlsx;*.xlsm;*.xlsb;*.xls";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    name = openFileDialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+                ManHinhLoading wd = new ManHinhLoading();
+                w.Dispatcher.Invoke(() =>
+                {
+                    wd.Show();
+                });
+                IModelName modelName = ModelFactory.Factory("LOAIDV", name);
+                Thread.Sleep(200);
+                Thread newWindowThread = new Thread(() =>
+                {
+                    modelName.exportExcel();
+                    w.Dispatcher.Invoke(() =>
+                    {
+                        wd.Close();
+                    });
+                });
+                newWindowThread.Start();
             });
             importLoaiDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Excel Files|*.xlsx;*.xlsm;*.xlsb;*.xls";
+                string name = "";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    name = openFileDialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+                Window w = ((Window)p);
+                ManHinhLoading wd = new ManHinhLoading();
+                w.Dispatcher.Invoke(() =>
+                {
+                    wd.Show();
+                });
                 ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                IModelName modelName = ModelFactory.Factory("LOAIDV");
-                modelName.importExcel();
-                listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
-                listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
+                IModelName modelName = ModelFactory.Factory("LOAIDV", name);
+                Thread newWindowThread = new Thread(() =>
+                {
+                    w.Dispatcher.Invoke(() =>
+                    {
+                        modelName.importExcel();
+                    });
+
+                    listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
+                    listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
+                    w.Dispatcher.Invoke(() =>
+                    {
+                        wd.Close();
+                    });
+                });
+                newWindowThread.Start();
+                //ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                //IModelName modelName = ModelFactory.Factory("LOAIDV", "");
+                //modelName.importExcel();
+                //listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
+                //listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
 
             });
             exportDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
                 ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                IModelName modelName = ModelFactory.Factory("DICHVU");
-                modelName.exportExcel();
+                Window w = ((Window)p);
+                SaveFileDialog openFileDialog = new SaveFileDialog();
+                string name = "";
+                openFileDialog.Filter = "Excel Files|*.xlsx;*.xlsm;*.xlsb;*.xls";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    name = openFileDialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+                ManHinhLoading wd = new ManHinhLoading();
+                w.Dispatcher.Invoke(() =>
+                {
+                    wd.Show();
+                });
+                IModelName modelName = ModelFactory.Factory("DICHVU", name);
+                Thread.Sleep(200);
+                Thread newWindowThread = new Thread(() =>
+                {
+                    modelName.exportExcel();
+                    w.Dispatcher.Invoke(() =>
+                    {
+                        wd.Close();
+                    });
+                });
+                newWindowThread.Start();
             });
             importDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Excel Files|*.xlsx;*.xlsm;*.xlsb;*.xls";
+                string name = "";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    name = openFileDialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+                Window w = ((Window)p);
+                ManHinhLoading wd = new ManHinhLoading();
+                w.Dispatcher.Invoke(() =>
+                {
+                    wd.Show();
+                });
                 ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                IModelName modelName = ModelFactory.Factory("DICHVU");
-                modelName.importExcel();
-                listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
+                IModelName modelName = ModelFactory.Factory("DICHVU", name);
+                Thread newWindowThread = new Thread(() =>
+                {
+                    w.Dispatcher.Invoke(() =>
+                    {
+                        modelName.importExcel();
+                    });
+                    listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
+                    w.Dispatcher.Invoke(() =>
+                    {
+                        wd.Close();
+                    });
+                });
+                newWindowThread.Start();
+                //ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                //IModelName modelName = ModelFactory.Factory("DICHVU", "");
+                //modelName.importExcel();
+                //listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
 
             });
 

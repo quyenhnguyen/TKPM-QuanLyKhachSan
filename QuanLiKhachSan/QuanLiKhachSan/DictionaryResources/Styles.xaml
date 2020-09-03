@@ -218,4 +218,12 @@
     <Style TargetType="{x:Type Window}">
         <Setter Property="FontFamily" Value="Cambria" />
     </Style>
+
+    <Style x:Key="StyleIconLoading" TargetType="{x:Type materialDesign:PackIcon}">
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Margin" Value="10,0" />
+        <Setter Property="Kind" Value="Circle" />
+        <Setter Property="Foreground" Value="Gray" />
+    </Style>
 </ResourceDictionary>

@@ -124,7 +124,6 @@
                         Background="Transparent"
                         BorderBrush="Transparent"
                         BorderThickness="0"
-                        Click="SigninBtn_Click"
                         Command="{Binding LoginCommand}"
                         CommandParameter="{Binding ElementName=DangNhapWindow}"
                         Content="Đăng Nhập"
@@ -135,7 +134,6 @@
                     Name="remember"
                     HorizontalAlignment="Center"
                     VerticalContentAlignment="Center"
-                    Checked="Remember_Checked"
                     FontSize="20"
                     IsChecked="True">
                     Nhớ đăng nhập

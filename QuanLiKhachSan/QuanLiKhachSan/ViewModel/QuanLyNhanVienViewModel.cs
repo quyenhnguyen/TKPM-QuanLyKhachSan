@@ -1,11 +1,13 @@
 ﻿using Microsoft.Win32;
 using QuanLiKhachSan.Model;
+using QuanLiKhachSan.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -238,24 +240,79 @@ namespace QuanLiKhachSan.ViewModel
         {
             listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());
             listLoaiNV = new BindingList<LOAINHANVIEN>(DatabaseQueryTN.danhSachLoaiNV());
-            exportNhanVienCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
+            exportNhanVienCommand = new RelayCommand<object>((P) => { return true; }, (p) =>
             {
                 ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                IModelName modelName = ModelFactory.Factory("NHANVIEN");
-                modelName.exportExcel();
+                Window w = ((Window)p);
+                SaveFileDialog openFileDialog = new SaveFileDialog();
+                string name = "";
+                openFileDialog.Filter = "Excel Files|*.xlsx;*.xlsm;*.xlsb;*.xls";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    name = openFileDialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+                ManHinhLoading wd = new ManHinhLoading();
+                w.Dispatcher.Invoke(() =>
+                {
+                    wd.Show();
+                });
+                IModelName modelName = ModelFactory.Factory("NHANVIEN", name);
+                Thread.Sleep(200);
+                Thread newWindowThread = new Thread(() =>
+                {
+                    modelName.exportExcel();
+                    w.Dispatcher.Invoke(() =>
+                    {
+                        wd.Close();
+                    });
+                });
+                newWindowThread.Start();
+
             });
             importNhanVienCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Excel Files|*.xlsx;*.xlsm;*.xlsb;*.xls";
+                string name = "";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    name = openFileDialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+                Window w = ((Window)p);
+                ManHinhLoading wd = new ManHinhLoading();
+                w.Dispatcher.Invoke(() =>
+                {
+                    wd.Show();
+                });
                 ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                IModelName modelName = ModelFactory.Factory("NHANVIEN");
-                modelName.importExcel();
-                listNhanVien = new BindingList<NHANVIEN>(DatabaseQueryTN.danhSachNhanVien());
+                IModelName modelName = ModelFactory.Factory("NHANVIEN", name);
+                Thread newWindowThread = new Thread(() =>
+                {
+                    w.Dispatcher.Invoke(() =>
+                    {
+                        modelName.importExcel();
+                    });
+                    listNhanVien = new BindingList<NHANVIEN>(DatabaseQueryTN.danhSachNhanVien());
+                    w.Dispatcher.Invoke(() =>
+                    {
+                        wd.Close();
+                    });
+                });
+                newWindowThread.Start();
 
             });
             timNhanVienCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
-            {
-                listNhanVien = new BindingList<NHANVIEN>(DatabaseQueryTN.timKiemNhanVien(timNhanVienInput));
-            });
+{
+    listNhanVien = new BindingList<NHANVIEN>(DatabaseQueryTN.timKiemNhanVien(timNhanVienInput));
+});
             ChonAnhChiTietNhanVienCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -366,7 +423,7 @@ namespace QuanLiKhachSan.ViewModel
                         DatabaseQueryTN.themNhanVienMoi(newNV);
                         MessageBox.Show("Thêm mới nhân viên thành công. Mật khẩu mặc định là CMND");
                         listNhanVien = new BindingList<NHANVIEN>(DatabaseQuery.danhSachNhanVien());
-                    } 
+                    }
                     catch (Exception e)
                     {
                         SecurityModel.Log(e.ToString());

@@ -17,8 +17,8 @@ namespace QuanLiKhachSan.Model
 
 
         private string exportFileName;
-        private bool isSave;
-        private List<string> privelegeColumn = new List<string>() {"PHONGs", "DICHVUs", "LICHSUTHEMDICHVUs", "LOAIDV", "HOADONTHUEPHONGs", "LOAINHANVIEN", "NVKETOAN", "NVLETAN", "NVQUANLI","LOAIPHONG" };
+        private bool isSave = true;
+        private List<string> privelegeColumn = new List<string>() { "PHONGs", "DICHVUs", "LICHSUTHEMDICHVUs", "LOAIDV", "HOADONTHUEPHONGs", "LOAINHANVIEN", "NVKETOAN", "NVLETAN", "NVQUANLI", "LOAIPHONG" };
         protected Excel.Application xlApp;
         protected Excel.Workbook xlWorkBook;
         protected Excel.Worksheet xlWorkSheet;
@@ -55,19 +55,6 @@ namespace QuanLiKhachSan.Model
         }
         protected void createExcelFile()
         {
-
-            SaveFileDialog openFileDialog = new SaveFileDialog();
-            openFileDialog.Filter = "Excel Files|*.xlsx;*.xlsm;*.xlsb;*.xls";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                this.ExportFileName = openFileDialog.FileName;
-                isSave = true;
-            }
-            else
-            {
-                isSave = false;
-                return;
-            }
             string[] columns = DatabaseQueryTN.getColumnName(this.DbName);
             try
             {
@@ -84,6 +71,10 @@ namespace QuanLiKhachSan.Model
                         len++;
                         xlWorkSheet.Columns[i + 1].Style.VerticalAlignment =
                               Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                        //if (i == columns.Length - 1)
+                        //{
+                        //    xlWorkSheet.Columns[i + 1].ColumnWidth = 800;
+                        //}
                         xlWorkSheet.Cells[1, i + 1] = columns[i];
 
                     }
@@ -123,12 +114,9 @@ namespace QuanLiKhachSan.Model
             // Save and close
             try
             {
-                // r chua
-                if (isSave)
-                {
-                    xlWorkBook.SaveAs(ExportFileName, Excel.XlFileFormat.xlOpenXMLWorkbook, misValue, misValue, misValue, misValue,
-                            Excel.XlSaveAsAccessMode.xlShared, misValue, misValue, misValue, misValue, misValue);
-                }
+                //
+                xlWorkBook.SaveAs(ExportFileName, Excel.XlFileFormat.xlOpenXMLWorkbook, misValue, misValue, misValue, misValue,
+                        Excel.XlSaveAsAccessMode.xlShared, misValue, misValue, misValue, misValue, misValue);
             }
             catch (Exception)
             {
@@ -158,24 +146,10 @@ namespace QuanLiKhachSan.Model
         }
         protected void openFile()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Excel Files|*.xlsx;*.xlsm;*.xlsb;*.xls";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                ExportFileName = openFileDialog.FileName;
-                isSave = true;
-            }
-            else
-            {
-                isSave = false;
-                return;
-            }
             try
             {
-                //System.AppDomain.CurrentDomain.BaseDirectory + "Dictionary.xlsx"
                 xlApp = new Excel.Application();
                 xlApp.Visible = false;
-                // chỗ này t mún là open popup chọn file, lấy tên file, tạm gác
                 xlWorkBook = xlApp.Workbooks.Open(ExportFileName);
                 xlWorkSheet = xlWorkBook.Worksheets.get_Item(1);
                 importFromExcel();
@@ -188,7 +162,6 @@ namespace QuanLiKhachSan.Model
             finally
             {
                 closeExcel();
-                MessageBox.Show("Hoàn thành");
             }
         }
         protected abstract void importFromExcel();
@@ -199,8 +172,9 @@ namespace QuanLiKhachSan.Model
     }
     public class LoaiDichVu : Item
     {
-        public LoaiDichVu()
+        public LoaiDichVu(string gn)
         {
+            this.ExportFileName = gn;
             this.DbName = "LOAIDV";
         }
         public override void Accept(IModelVisitor visitor)
@@ -230,7 +204,7 @@ namespace QuanLiKhachSan.Model
                                false, System.Reflection.Missing.Value, System.Reflection.Missing.Value).Row;
             int type = -1;
             bool remember = false;
-            for (int row = 2; row < realRow; row++)
+            for (int row = 2; row <= realRow; row++)
             {
                 LOAIDV newLP = new LOAIDV();
                 newLP.LoaiDVID = (((Range)xlWorkSheet.Cells[row, 1]).Value2).ToString();
@@ -268,7 +242,7 @@ namespace QuanLiKhachSan.Model
                         continue;
                     }
                     DatabaseQueryTN.capNhatLoaiDV(newLP);
-                    if (newLP.TinhTrang==true)
+                    if (newLP.TinhTrang == true)
                     {
                         DatabaseQueryTN.updateInsertLoaiDV(newLP);
                     }
@@ -282,8 +256,9 @@ namespace QuanLiKhachSan.Model
     }
     public class DichVu : Item
     {
-        public DichVu()
+        public DichVu(string gn)
         {
+            this.ExportFileName = gn;
             this.DbName = "DICHVU";
         }
         public override void Accept(IModelVisitor visitor)
@@ -306,7 +281,7 @@ namespace QuanLiKhachSan.Model
                 temp.Add(item.LoaiDVID);
                 temp.Add(item.DonVi);
                 temp.Add(item.NgayTao.ToString());
-                temp.Add(item.HinhAnh.ToString());
+                temp.Add(Convert.ToBase64String(item.HinhAnh).ToString().Replace(" ", "+"));
                 this.listData.Add(temp);
             }
         }
@@ -318,7 +293,7 @@ namespace QuanLiKhachSan.Model
                                false, System.Reflection.Missing.Value, System.Reflection.Missing.Value).Row;
             int type = -1;
             bool remember = false;
-            for (int row = 2; row < realRow; row++)
+            for (int row = 2; row <= realRow; row++)
             {
                 DICHVU newLP = new DICHVU();
                 newLP.DichVuID = (((Range)xlWorkSheet.Cells[row, 1]).Value2).ToString();
@@ -330,8 +305,13 @@ namespace QuanLiKhachSan.Model
                 newLP.DonVi = (((Range)xlWorkSheet.Cells[row, 7]).Value2).ToString();
                 double dt = ((Range)xlWorkSheet.Cells[row, 8]).Value2;
                 newLP.NgayTao = Convert.ToDateTime(DateTime.FromOADate(dt).ToString("MM/dd/yyyy hh:mm"));
-                newLP.HinhAnh = (((Range)xlWorkSheet.Cells[row, 6]).Value2).ToString();
-                if (DatabaseQueryTN.kiemTraTonTaiLoaiDV(newLP.DichVuID))
+                newLP.LOAIDV = DatabaseQuery.truyVanLoaiDichVu(newLP.DichVuID);
+                DatabaseQuery.capNhatCSDL();
+                Range dta = ((Range)xlWorkSheet.Cells[row, 9]);
+
+                newLP.HinhAnh = Convert.FromBase64String((dta.Value2).ToString());
+
+                if (DatabaseQueryTN.kiemTraTonDichVu(newLP.DichVuID))
                 {
                     if (!remember)
                     {
@@ -359,7 +339,8 @@ namespace QuanLiKhachSan.Model
                     {
                         continue;
                     }
-                    DatabaseQueryTN.capNhatDV(newLP);
+                    //DatabaseQuerydTN.capNhatCSDL();
+                    DatabaseQueryTN.capNhatDVImport(newLP);
                 }
                 else
                 {
@@ -370,9 +351,10 @@ namespace QuanLiKhachSan.Model
     }
     public class NhanVien : Item
     {
-        public NhanVien()
+        public NhanVien(string fn)
         {
             this.DbName = "NHANVIEN";
+            this.ExportFileName = fn;
         }
         public override void Accept(IModelVisitor visitor)
         {
@@ -410,7 +392,7 @@ namespace QuanLiKhachSan.Model
                                   false, System.Reflection.Missing.Value, System.Reflection.Missing.Value).Row;
             int type = -1;
             bool remember = false;
-            for (int row = 2; row < realRow; row++)
+            for (int row = 2; row <= realRow; row++)
             {
                 try
                 {
@@ -431,7 +413,8 @@ namespace QuanLiKhachSan.Model
                     newLP.Loai = int.Parse((((Range)xlWorkSheet.Cells[row, 11]).Value2).ToString());
                     double dt2 = ((Range)xlWorkSheet.Cells[row, 12]).Value2;
                     newLP.NgayTao = Convert.ToDateTime(DateTime.FromOADate(dt2).ToString("MM/dd/yyyy hh:mm"));
-                    newLP.AnhDaiDien = Convert.FromBase64String((((Range)xlWorkSheet.Cells[row, 13]).Value2).ToString());
+                    Range dta = ((Range)xlWorkSheet.Cells[row, 13]);
+                    newLP.AnhDaiDien = Convert.FromBase64String((dta.Value2).ToString());
                     if (DatabaseQueryTN.kiemtraTonTai(newLP.TenDangNhap, newLP.Email))
                     {
                         if (!remember)
@@ -460,7 +443,7 @@ namespace QuanLiKhachSan.Model
                         {
                             continue;
                         }
-                        DatabaseQueryTN.capNhatNhanVien(newLP);
+                        DatabaseQueryTN.capNhatNhanVienByUsername(newLP);
                     }
                     else
                     {
@@ -477,8 +460,9 @@ namespace QuanLiKhachSan.Model
     }
     public class LoaiPhong : Item
     {
-        public LoaiPhong()
+        public LoaiPhong(string gn)
         {
+            this.ExportFileName = gn;
             this.DbName = "LOAIPHONG";
         }
         public override void Accept(IModelVisitor visitor)
@@ -508,7 +492,7 @@ namespace QuanLiKhachSan.Model
                                   false, System.Reflection.Missing.Value, System.Reflection.Missing.Value).Row;
             int type = -1;
             bool remember = false;
-            for (int row = 2; row < realRow; row++)
+            for (int row = 2; row <= realRow; row++)
             {
                 LOAIPHONG newLP = new LOAIPHONG();
                 newLP.LoaiPhongID = (((Range)xlWorkSheet.Cells[row, 1]).Value2).ToString();
@@ -565,8 +549,9 @@ namespace QuanLiKhachSan.Model
     }
     public class Phong : Item
     {
-        public Phong()
+        public Phong(string gn)
         {
+            this.ExportFileName = gn;
             this.DbName = "PHONG";
         }
         public override void Accept(IModelVisitor visitor)
@@ -599,7 +584,7 @@ namespace QuanLiKhachSan.Model
                                   false, System.Reflection.Missing.Value, System.Reflection.Missing.Value).Row;
             int type = -1;
             bool remember = false;
-            for (int row = 2; row < realRow; row++)
+            for (int row = 2; row <= realRow; row++)
             {
                 PHONG newLP = new PHONG();
                 newLP.PhongID = (((Range)xlWorkSheet.Cells[row, 1]).Value2).ToString();
@@ -610,8 +595,10 @@ namespace QuanLiKhachSan.Model
                 newLP.LoaiPhongID = (((Range)xlWorkSheet.Cells[row, 6]).Value2).ToString();
                 double dt2 = ((Range)xlWorkSheet.Cells[row, 7]).Value2;
                 newLP.NgayTao = Convert.ToDateTime(DateTime.FromOADate(dt2).ToString("MM/dd/yyyy hh:mm"));
-
-
+                if (!DatabaseQueryTN.kiemTraTonTaiLoaiPhongImport(newLP.LoaiPhongID)) // --> true la ton tai
+                {
+                    continue;
+                }
                 if (DatabaseQueryTN.kiemTraTonTaiPhong(newLP.PhongID))
                 {
                     if (DatabaseQueryTN.isUsedPhong(newLP.PhongID))
@@ -732,45 +719,62 @@ namespace QuanLiKhachSan.Model
     }
     class LoaiDVModel : IModelName
     {
+        private string gn;
+        public LoaiDVModel(string gn)
+        {
+            this.gn = gn;
+        }
+
         public void exportExcel()
         {
-            var context = new LoaiDichVu();
+            var context = new LoaiDichVu(gn);
             var visitor = new StartExcelExport();
             visitor.exportToExcel(context);
         }
         public void importExcel()
         {
-            var context = new LoaiDichVu();
+            var context = new LoaiDichVu(gn);
             var visitor = new StartExcelExport();
             visitor.importToExcel(context);
         }
     }
     class DichVuModel : IModelName
     {
+        private string gn;
+        public DichVuModel(string gn)
+        {
+            this.gn = gn;
+        }
+
         public void exportExcel()
         {
-            var context = new DichVu();
+            var context = new DichVu(gn);
             var visitor = new StartExcelExport();
             visitor.exportToExcel(context);
         }
         public void importExcel()
         {
-            var context = new DichVu();
+            var context = new DichVu(gn);
             var visitor = new StartExcelExport();
             visitor.importToExcel(context);
         }
     }
     class NhanVienModel : IModelName
     {
+        private string fn;
+        public NhanVienModel(string fn)
+        {
+            this.fn = fn;
+        }
         public void exportExcel()
         {
-            var context = new NhanVien();
+            var context = new NhanVien(this.fn);
             var visitor = new StartExcelExport();
             visitor.exportToExcel(context);
         }
         public void importExcel()
         {
-            var context = new NhanVien();
+            var context = new NhanVien(fn);
             var visitor = new StartExcelExport();
             visitor.importToExcel(context);
         }
@@ -778,54 +782,67 @@ namespace QuanLiKhachSan.Model
 
     class LoaiPhongModel : IModelName
     {
+
+        private string gn;
+        public LoaiPhongModel(string gn)
+        {
+            this.gn = gn;
+        }
+
         public void exportExcel()
         {
-            var context = new LoaiPhong();
+            var context = new LoaiPhong(gn);
             var visitor = new StartExcelExport();
             visitor.exportToExcel(context);
         }
         public void importExcel()
         {
-            var context = new LoaiPhong();
+            var context = new LoaiPhong(gn);
             var visitor = new StartExcelExport();
             visitor.importToExcel(context);
         }
     }
     class PhongModel : IModelName
     {
+        private string gn;
+        public PhongModel(string gn)
+        {
+            this.gn = gn;
+        }
+
         public void exportExcel()
         {
-            var context = new Phong();
+            var context = new Phong(gn);
             var visitor = new StartExcelExport();
             visitor.exportToExcel(context);
         }
         public void importExcel()
         {
-            var context = new Phong();
+            var context = new Phong(gn);
             var visitor = new StartExcelExport();
             visitor.importToExcel(context);
         }
     }
     abstract class ModelFactory
     {
-        public abstract IModelName Factory(string ModelType);
+        public abstract IModelName Factory(string ModelType, string gn);
     }
     class ConcreteModelFactory : ModelFactory
     {
-        public override IModelName Factory(string ModelType)
+        public override IModelName Factory(string ModelType, string gn)
         {
             switch (ModelType)
             {
                 case "LOAIDV":
-                    return new LoaiDVModel();
+                    return new LoaiDVModel(gn);
                 case "DICHVU":
-                    return new DichVuModel();
+                    return new DichVuModel(gn);
                 case "NHANVIEN":
-                    return new NhanVienModel();
+                    return new NhanVienModel(gn);
                 case "LOAIPHONG":
-                    return new LoaiPhongModel();
+                    return new LoaiPhongModel(gn);
                 case "PHONG":
-                    return new PhongModel();
+                    return new PhongModel(gn);
                 default:
                     return null;
             }

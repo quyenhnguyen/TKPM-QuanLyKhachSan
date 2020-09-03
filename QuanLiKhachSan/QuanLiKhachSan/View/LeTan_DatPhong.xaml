@@ -135,7 +135,7 @@
                                         <ControlTemplate>
                                             <Border
                                                 Width="150"
-                                                Margin="3,0"
+                                                Margin="3,5"
                                                 Background="{StaticResource XanhHoiNhat}"
                                                 BorderThickness="0"
                                                 CornerRadius="8"

@@ -1,9 +1,12 @@
-﻿using QuanLiKhachSan.Model;
+﻿using Microsoft.Win32;
+using QuanLiKhachSan.Model;
+using QuanLiKhachSan.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -262,30 +265,147 @@ namespace QuanLiKhachSan.ViewModel
             exportLoaiPhongCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
                 ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                IModelName modelName = ModelFactory.Factory("LOAIPHONG");
-                modelName.exportExcel();
+                Window w = ((Window)p);
+                SaveFileDialog openFileDialog = new SaveFileDialog();
+                string name = "";
+                openFileDialog.Filter = "Excel Files|*.xlsx;*.xlsm;*.xlsb;*.xls";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    name = openFileDialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+                ManHinhLoading wd = new ManHinhLoading();
+                w.Dispatcher.Invoke(() =>
+                {
+                    wd.Show();
+                });
+                IModelName modelName = ModelFactory.Factory("LOAIPHONG", name);
+                Thread.Sleep(200);
+                Thread newWindowThread = new Thread(() =>
+                {
+                    modelName.exportExcel();
+                    w.Dispatcher.Invoke(() =>
+                    {
+                        wd.Close();
+                    });
+                });
+                newWindowThread.Start();
             });
             importLoaiPhongCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Excel Files|*.xlsx;*.xlsm;*.xlsb;*.xls";
+                string name = "";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    name = openFileDialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+                Window w = ((Window)p);
+                ManHinhLoading wd = new ManHinhLoading();
+                w.Dispatcher.Invoke(() =>
+                {
+                    wd.Show();
+                });
                 ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                IModelName modelName = ModelFactory.Factory("LOAIPHONG");
-                modelName.importExcel();
-                listLoaiPhong = new BindingList<LOAIPHONG>(DatabaseQueryTN.danhsachLoaiPhong());
-                listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
+                IModelName modelName = ModelFactory.Factory("LOAIPHONG", name);
+                Thread newWindowThread = new Thread(() =>
+                {
+                    w.Dispatcher.Invoke(() =>
+                    {
+                        modelName.importExcel();
+                    });
+                    listLoaiPhong = new BindingList<LOAIPHONG>(DatabaseQueryTN.danhsachLoaiPhong());
+                    listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
+                    w.Dispatcher.Invoke(() =>
+                    {
+                        wd.Close();
+                    });
+                });
+                newWindowThread.Start();
+                //ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                //IModelName modelName = ModelFactory.Factory("LOAIPHONG", "");
+                //modelName.importExcel();
+                //listLoaiPhong = new BindingList<LOAIPHONG>(DatabaseQueryTN.danhsachLoaiPhong());
+                //listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
 
             });
             exportPhongCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
                 ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                IModelName modelName = ModelFactory.Factory("PHONG");
-                modelName.exportExcel();
+                Window w = ((Window)p);
+                SaveFileDialog openFileDialog = new SaveFileDialog();
+                string name = "";
+                openFileDialog.Filter = "Excel Files|*.xlsx;*.xlsm;*.xlsb;*.xls";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    name = openFileDialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+                ManHinhLoading wd = new ManHinhLoading();
+                w.Dispatcher.Invoke(() =>
+                {
+                    wd.Show();
+                });
+                IModelName modelName = ModelFactory.Factory("PHONG", name);
+                Thread.Sleep(200);
+                Thread newWindowThread = new Thread(() =>
+                {
+                    modelName.exportExcel();
+                    w.Dispatcher.Invoke(() =>
+                    {
+                        wd.Close();
+                    });
+                });
+                newWindowThread.Start();
             });
             importPhongCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Excel Files|*.xlsx;*.xlsm;*.xlsb;*.xls";
+                string name = "";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    name = openFileDialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+                Window w = ((Window)p);
+                ManHinhLoading wd = new ManHinhLoading();
+                w.Dispatcher.Invoke(() =>
+                {
+                    wd.Show();
+                });
                 ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                IModelName modelName = ModelFactory.Factory("PHONG");
-                modelName.importExcel();
-                listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
+                IModelName modelName = ModelFactory.Factory("PHONG", name);
+                Thread newWindowThread = new Thread(() =>
+                {
+                    w.Dispatcher.Invoke(() =>
+                    {
+                        modelName.importExcel();
+                    });
+                    listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
+                    w.Dispatcher.Invoke(() =>
+                    {
+                        wd.Close();
+                    });
+                });
+                newWindowThread.Start();
+                //ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                //IModelName modelName = ModelFactory.Factory("PHONG", "");
+                //modelName.importExcel();
+                //listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
 
             });
             timLoaiPhongCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
@@ -439,6 +559,12 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     try
                     {
+                        if (DatabaseQueryTN.isUsedLoaiPhong(selectItem.LoaiPhongID))
+                        {
+
+                            DatabaseQuery.MyMessageBox("Loại phòng đã có phòng cho thuê. Không thể xoá");
+                            return;
+                        }
                         DatabaseQueryTN.xoaLoaiPhong(selectItem);
                         DatabaseQuery.MyMessageBox("Đã xoá loại phòng này");
                         listLoaiPhong = new BindingList<LOAIPHONG>(DatabaseQueryTN.danhsachLoaiPhong());

@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:QuanLiKhachSan.View"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="uc"
     d:DesignHeight="745"
     d:DesignWidth="1180"
     mc:Ignorable="d">
@@ -296,6 +297,7 @@
                         Background="{StaticResource MauBtnQL}"
                         BorderThickness="0"
                         Command="{Binding exportNhanVienCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                         Content="EXPORT NHÂN VIÊN" />
                     <Button
                         Grid.Column="2"
@@ -303,7 +305,8 @@
                         Background="{StaticResource MauBtnQL}"
                         BorderThickness="0"
                         Command="{Binding importNhanVienCommand}"
-                        Content="EXPORT NHÂN VIÊN" />
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Content="IMPORT NHÂN VIÊN" />
                 </Grid>
             </Grid>
 

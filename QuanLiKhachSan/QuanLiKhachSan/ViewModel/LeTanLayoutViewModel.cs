@@ -29,6 +29,7 @@ namespace QuanLiKhachSan.ViewModel
         public LeTanLayoutViewModel()
         {
             int MaNhanVien = UserService.GetCurrentUser.NhanVienID;
+            NhanVienDangNhap = new NHANVIEN();
             NhanVienDangNhap = DatabaseQuery.truyVanNhanVien(MaNhanVien);
             object ucDatPhong = new LeTanDatPhongViewModel();
             object ucTraCuu = new LeTanTraCuuViewModel();
@@ -45,6 +46,7 @@ namespace QuanLiKhachSan.ViewModel
             btnTraCuu_Command = new RelayCommand<object>((p) => { return CurrentDataContext != ucTraCuu; }, (p) =>
               {
                   txtTitle = "TRA CỨU, QUẢN LÍ";
+                  ucTraCuu = new LeTanTraCuuViewModel();
                   CurrentDataContext = ucTraCuu;
               });
             btnTaiKhoan_Command = new RelayCommand<object>((p) => { return CurrentDataContext != ucTaiKhoan; }, (p) =>
