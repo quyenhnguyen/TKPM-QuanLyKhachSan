@@ -149,6 +149,8 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
+                <ColumnDefinition />
+
             </Grid.ColumnDefinitions>
 
             <!--  BUtton lễ tân  -->
@@ -229,9 +231,10 @@
                         Text="Phân hệ Kế Toán" />
                 </Grid>
             </materialDesign:Card>
+
             <!--  BUtton trợ giúp  -->
             <materialDesign:Card
-                Grid.Column="3"
+                Grid.Column="4"
                 Width="150"
                 Height="100"
                 Margin="0"
@@ -371,7 +374,87 @@
             </materialDesign:DialogHost.DialogContent>
         </materialDesign:DialogHost>
 
-        <!--  pop up đổi giao diện  -->
+        <!--pop up đổi giao diện-->
+        <materialDesign:DialogHost
+            Name="DialogDangKiThongBao"
+            Grid.Row="0"
+            Grid.RowSpan="4"
+            Grid.ColumnSpan="2"
+            CloseOnClickAway="True"
+            DialogMargin="8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+                <Grid
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <!--BUtton giao diện-->
+
+                    <materialDesign:Card
+                        Grid.Column="3"
+                        Width="150"
+                        Height="100"
+                        Margin="0"
+                        Cursor="Hand">
+                        <Button
+                            Height="Auto"
+                            Background="{DynamicResource MauTrang}"
+                            BorderThickness="0"
+                            Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
+                            <Button.Content>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="3*" />
+                                        <RowDefinition Height="5" />
+                                        <RowDefinition Height="2*" />
+                                    </Grid.RowDefinitions>
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <materialDesign:PackIcon
+                                            Width="40"
+                                            Height="40"
+                                            Foreground="{DynamicResource MauTenPhong}"
+                                            Kind="EmailAdd" />
+                                    </StackPanel>
+                                    <Separator
+                                        Grid.Row="1"
+                                        Margin="5,0"
+                                        BorderBrush="{DynamicResource XamDam}"
+                                        BorderThickness="1" />
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="{DynamicResource CoChuNho}"
+                                        Foreground="Gray"
+                                        Text="Đăng kí thông báo" />
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+                    </materialDesign:Card>
+                </Grid>
+            </Grid>
+            <materialDesign:DialogHost.DialogContent>
+                <local:LeTan_Dialog_DangKiThongBao />
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+
+        <!--pop up đổi giao diện-->
         <materialDesign:DialogHost
             Name="DialogDoiGiaoDien"
             Grid.Row="0"
@@ -398,8 +481,11 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                         <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <!--  BUtton giao diện  -->
+
+                    <!--BUtton giao diện-->
+
                     <materialDesign:Card
                         Grid.Column="2"
                         Width="150"
@@ -447,6 +533,8 @@
                 <local:PopUpDoiGiaoDienUC />
             </materialDesign:DialogHost.DialogContent>
         </materialDesign:DialogHost>
+
+
 
     </Grid>
 </UserControl>
