@@ -52,6 +52,25 @@ namespace QuanLiKhachSan.Model
             }
             return true;
         }
+        public bool Unsubcribe(int NhanVienID, int LoaiThongBao)
+        {
+            for (int i = 0; i < DsSubcriber.Count; i++)
+            {
+                if (DsSubcriber[i].NhanVienID == NhanVienID && DsSubcriber[i].LoaiTB == LoaiThongBao)
+                {
+                    try
+                    {
+                        DatabaseQueryTN.xoaNguoiDangKi(DsSubcriber[i]);
+                        DsSubcriber.RemoveAt(i);
+                    }
+                    catch (Exception)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
         public string GuiThongBao(int LoaiThongBao, string msg)
         {
             string tenLoaiTB = DatabaseQueryTN.tenLoaiThongBao(LoaiThongBao);
@@ -67,26 +86,27 @@ namespace QuanLiKhachSan.Model
                     listSubcriberThisNoti.Add(item.Email);
                 }
             }
-            string html = prepareTemplate(tenLoaiTB,msg);
-            return Email(html, listSubcriberThisNoti);
+            LoaiThongBaoFactory ft = new LoaiThongBaoFactory();
+            LoaiThongBao a= ft.createLoai(1, "HoaDon", "Test");
+            return Email(a.getTieuDe(),a.getNoiDung(), listSubcriberThisNoti);
         }
-        private string Email(string htmlString, List<string> listSubcriberThisNoti)
+        private string Email(string tieuDe,string htmlString, List<string> listSubcriberThisNoti)
         {
             try
             {
                 MailMessage message = new MailMessage();
                 SmtpClient smtp = new SmtpClient();
-                message.From = new MailAddress("githubreporter@zohomail.com");
+                message.From = new MailAddress("githubreporter@zohomail.com", "Q&Q Hotel");
                 foreach (string item in listSubcriberThisNoti)
                 {
                     message.To.Add(new MailAddress(item));
                 }
-                message.Subject = "Test";
+                message.Subject = tieuDe;
                 message.IsBodyHtml = true; 
                 message.Body = htmlString;
                 smtp.Port = 587;
                 smtp.EnableSsl = true;
-                smtp.Host = "smtp.zoho.com"; //for gmail host  
+                smtp.Host = "smtp.zoho.com";
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;
                 smtp.Credentials = new NetworkCredential("tnquang.769@gmail.com", "quang7699");
