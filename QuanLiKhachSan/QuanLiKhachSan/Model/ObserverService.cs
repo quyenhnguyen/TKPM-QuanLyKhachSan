@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -89,7 +89,6 @@ namespace QuanLiKhachSan.Model
             LoaiThongBaoFactory ft = new LoaiThongBaoFactory();
             LoaiThongBao a= ft.createLoai(1, "HoaDon", "Test");
             return Email(a.getTieuDe(),a.getNoiDung(), listSubcriberThisNoti);
-=======
         }
         private string Email(string tieuDe,string htmlString, List<string> listSubcriberThisNoti)
         {
