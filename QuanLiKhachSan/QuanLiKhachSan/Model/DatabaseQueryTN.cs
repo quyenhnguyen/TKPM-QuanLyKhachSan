@@ -776,6 +776,18 @@ namespace QuanLiKhachSan.Model
             DataProvider.ISCreated.DB.SaveChanges();
             return res;
         }
+        public static bool xoaNguoiDangKi(DSDANGKYTB nv)
+        {
+            try
+            {
+                DataProvider.ISCreated.DB.DSDANGKYTBs.Remove(nv);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
         public static string tenLoaiThongBao(int loaiThongBao)
         {
             LOAITB res = new LOAITB();
@@ -785,18 +797,6 @@ namespace QuanLiKhachSan.Model
                 return res.LOAITB1;
             }
             return "";
-        }
-        public static BindingList<DSDANGKYTB> getLoaiTBofNV(int nvid)
-        {
-            List<DSDANGKYTB> listPhong = DataProvider.ISCreated.DB.DSDANGKYTBs.Where(x => x.NhanVienID == nvid).ToList();
-            BindingList<DSDANGKYTB> res = new BindingList<DSDANGKYTB>(listPhong);
-            return res;
-        }
-        public static BindingList<LOAITB> getLoaiTB()
-        {
-            List<LOAITB> listPhong = DataProvider.ISCreated.DB.LOAITBs.ToList();
-            BindingList<LOAITB> res = new BindingList<LOAITB>(listPhong);
-            return res;
         }
     }
 }
