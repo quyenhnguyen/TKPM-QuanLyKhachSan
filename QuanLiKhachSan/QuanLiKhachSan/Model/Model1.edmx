@@ -30,6 +30,15 @@
           <Property Name="NgayTao" Type="datetime" Nullable="false" />
           <Property Name="HinhAnh" Type="image" />
         </EntityType>
+        <EntityType Name="DSDANGKYTB">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NhanVienID" Type="int" />
+          <Property Name="LoaiTB" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="HOADONTHUEPHONG">
           <Key>
             <PropertyRef Name="MaHoaDon" />
@@ -40,7 +49,7 @@
           <Property Name="TongTien" Type="float" />
           <Property Name="NhanVienTaoHoaDon" Type="int" Nullable="false" />
           <Property Name="Phong" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="MaKhachHang" Type="int" />
+          <Property Name="MaKhachHang" Type="int" Nullable="false" />
           <Property Name="NgayTao" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="KHACHHANG">
@@ -93,6 +102,22 @@
           <Property Name="TinhTrang" Type="bit" Nullable="false" />
           <Property Name="NgayTao" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="LOAITB">
+          <Key>
+            <PropertyRef Name="IDLOAITB" />
+          </Key>
+          <Property Name="IDLOAITB" Type="int" Nullable="false" />
+          <Property Name="LOAITB" Type="nchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LSTHONGBAO">
+          <Key>
+            <PropertyRef Name="LSThongBaoID" />
+          </Key>
+          <Property Name="LSThongBaoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DanhSachNhan" Type="nchar" MaxLength="1000" />
+          <Property Name="ChiTiet" Type="nchar" MaxLength="1000" />
+          <Property Name="NgayTB" Type="datetime" />
+        </EntityType>
         <EntityType Name="NHANVIEN">
           <Key>
             <PropertyRef Name="NhanVienID" />
@@ -141,16 +166,6 @@
           <Property Name="LoaiPhongID" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="NgayTao" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <Association Name="FK_DICHVU_LOAIDV">
           <End Role="LOAIDV" Type="Self.LOAIDV" Multiplicity="1" />
           <End Role="DICHVU" Type="Self.DICHVU" Multiplicity="*" />
@@ -164,7 +179,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HOADONTHUEPHONG_KHACHHANG">
-          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="1" />
           <End Role="HOADONTHUEPHONG" Type="Self.HOADONTHUEPHONG" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KHACHHANG">
@@ -286,18 +301,20 @@
         <EntityContainer Name="QLKHACHSANModelStoreContainer">
           <EntitySet Name="BANGTHAMSO" EntityType="Self.BANGTHAMSO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DICHVU" EntityType="Self.DICHVU" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DSDANGKYTB" EntityType="Self.DSDANGKYTB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HOADONTHUEPHONG" EntityType="Self.HOADONTHUEPHONG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LICHSUTHEMDICHVU" EntityType="Self.LICHSUTHEMDICHVU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOAIDV" EntityType="Self.LOAIDV" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOAINHANVIEN" EntityType="Self.LOAINHANVIEN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOAIPHONG" EntityType="Self.LOAIPHONG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOAITB" EntityType="Self.LOAITB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LSTHONGBAO" EntityType="Self.LSTHONGBAO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NHANVIEN" EntityType="Self.NHANVIEN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NVKETOAN" EntityType="Self.NVKETOAN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NVLETAN" EntityType="Self.NVLETAN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NVQUANLI" EntityType="Self.NVQUANLI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PHONG" EntityType="Self.PHONG" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_DICHVU_LOAIDV" Association="Self.FK_DICHVU_LOAIDV">
             <End Role="LOAIDV" EntitySet="LOAIDV" />
             <End Role="DICHVU" EntitySet="DICHVU" />
@@ -375,6 +392,15 @@
           <NavigationProperty Name="LOAIDV" Relationship="Self.FK_DICHVU_LOAIDV" FromRole="DICHVU" ToRole="LOAIDV" />
           <NavigationProperty Name="LICHSUTHEMDICHVUs" Relationship="Self.FK_LICHSUTHEMDICHVU_DICHVU" FromRole="DICHVU" ToRole="LICHSUTHEMDICHVU" />
         </EntityType>
+        <EntityType Name="DSDANGKYTB">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NhanVienID" Type="Int32" />
+          <Property Name="LoaiTB" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="HOADONTHUEPHONG">
           <Key>
             <PropertyRef Name="MaHoaDon" />
@@ -385,7 +411,7 @@
           <Property Name="TongTien" Type="Double" />
           <Property Name="NhanVienTaoHoaDon" Type="Int32" Nullable="false" />
           <Property Name="Phong" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MaKhachHang" Type="Int32" />
+          <Property Name="MaKhachHang" Type="Int32" Nullable="false" />
           <Property Name="NgayTao" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="KHACHHANG" Relationship="Self.FK_HOADONTHUEPHONG_KHACHHANG" FromRole="HOADONTHUEPHONG" ToRole="KHACHHANG" />
           <NavigationProperty Name="NHANVIEN" Relationship="Self.FK_HOADONTHUEPHONG_NHANVIEN" FromRole="HOADONTHUEPHONG" ToRole="NHANVIEN" />
@@ -448,6 +474,22 @@
           <Property Name="NgayTao" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="PHONGs" Relationship="Self.FK_PHONG_LOAIPHONG" FromRole="LOAIPHONG" ToRole="PHONG" />
         </EntityType>
+        <EntityType Name="LOAITB">
+          <Key>
+            <PropertyRef Name="IDLOAITB" />
+          </Key>
+          <Property Name="IDLOAITB" Type="Int32" Nullable="false" />
+          <Property Name="LOAITB1" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LSTHONGBAO">
+          <Key>
+            <PropertyRef Name="LSThongBaoID" />
+          </Key>
+          <Property Name="LSThongBaoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DanhSachNhan" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
+          <Property Name="ChiTiet" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
+          <Property Name="NgayTB" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="NHANVIEN">
           <Key>
             <PropertyRef Name="NhanVienID" />
@@ -506,16 +548,6 @@
           <NavigationProperty Name="HOADONTHUEPHONGs" Relationship="Self.FK_HOADONTHUEPHONG_PHONG" FromRole="PHONG" ToRole="HOADONTHUEPHONG" />
           <NavigationProperty Name="LOAIPHONG" Relationship="Self.FK_PHONG_LOAIPHONG" FromRole="PHONG" ToRole="LOAIPHONG" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <Association Name="FK_DICHVU_LOAIDV">
           <End Role="LOAIDV" Type="Self.LOAIDV" Multiplicity="1" />
           <End Role="DICHVU" Type="Self.DICHVU" Multiplicity="*" />
@@ -541,7 +573,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HOADONTHUEPHONG_KHACHHANG">
-          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="1" />
           <End Role="HOADONTHUEPHONG" Type="Self.HOADONTHUEPHONG" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KHACHHANG">
@@ -651,18 +683,20 @@
         <EntityContainer Name="QLKHACHSANEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BANGTHAMSOes" EntityType="Self.BANGTHAMSO" />
           <EntitySet Name="DICHVUs" EntityType="Self.DICHVU" />
+          <EntitySet Name="DSDANGKYTBs" EntityType="Self.DSDANGKYTB" />
           <EntitySet Name="HOADONTHUEPHONGs" EntityType="Self.HOADONTHUEPHONG" />
           <EntitySet Name="KHACHHANGs" EntityType="Self.KHACHHANG" />
           <EntitySet Name="LICHSUTHEMDICHVUs" EntityType="Self.LICHSUTHEMDICHVU" />
           <EntitySet Name="LOAIDVs" EntityType="Self.LOAIDV" />
           <EntitySet Name="LOAINHANVIENs" EntityType="Self.LOAINHANVIEN" />
           <EntitySet Name="LOAIPHONGs" EntityType="Self.LOAIPHONG" />
+          <EntitySet Name="LOAITBs" EntityType="Self.LOAITB" />
+          <EntitySet Name="LSTHONGBAOs" EntityType="Self.LSTHONGBAO" />
           <EntitySet Name="NHANVIENs" EntityType="Self.NHANVIEN" />
           <EntitySet Name="NVKETOANs" EntityType="Self.NVKETOAN" />
           <EntitySet Name="NVLETANs" EntityType="Self.NVLETAN" />
           <EntitySet Name="NVQUANLIs" EntityType="Self.NVQUANLI" />
           <EntitySet Name="PHONGs" EntityType="Self.PHONG" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <AssociationSet Name="FK_DICHVU_LOAIDV" Association="Self.FK_DICHVU_LOAIDV">
             <End Role="LOAIDV" EntitySet="LOAIDVs" />
             <End Role="DICHVU" EntitySet="DICHVUs" />
@@ -741,6 +775,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DSDANGKYTBs">
+            <EntityTypeMapping TypeName="QLKHACHSANModel.DSDANGKYTB">
+              <MappingFragment StoreEntitySet="DSDANGKYTB">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NhanVienID" ColumnName="NhanVienID" />
+                <ScalarProperty Name="LoaiTB" ColumnName="LoaiTB" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="HOADONTHUEPHONGs">
             <EntityTypeMapping TypeName="QLKHACHSANModel.HOADONTHUEPHONG">
               <MappingFragment StoreEntitySet="HOADONTHUEPHONG">
@@ -808,6 +852,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="LOAITBs">
+            <EntityTypeMapping TypeName="QLKHACHSANModel.LOAITB">
+              <MappingFragment StoreEntitySet="LOAITB">
+                <ScalarProperty Name="IDLOAITB" ColumnName="IDLOAITB" />
+                <ScalarProperty Name="LOAITB1" ColumnName="LOAITB" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LSTHONGBAOs">
+            <EntityTypeMapping TypeName="QLKHACHSANModel.LSTHONGBAO">
+              <MappingFragment StoreEntitySet="LSTHONGBAO">
+                <ScalarProperty Name="LSThongBaoID" ColumnName="LSThongBaoID" />
+                <ScalarProperty Name="DanhSachNhan" ColumnName="DanhSachNhan" />
+                <ScalarProperty Name="ChiTiet" ColumnName="ChiTiet" />
+                <ScalarProperty Name="NgayTB" ColumnName="NgayTB" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="NHANVIENs">
             <EntityTypeMapping TypeName="QLKHACHSANModel.NHANVIEN">
               <MappingFragment StoreEntitySet="NHANVIEN">
@@ -858,17 +920,6 @@
                 <ScalarProperty Name="TinhTrangThue" ColumnName="TinhTrangThue" />
                 <ScalarProperty Name="LoaiPhongID" ColumnName="LoaiPhongID" />
                 <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="QLKHACHSANModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

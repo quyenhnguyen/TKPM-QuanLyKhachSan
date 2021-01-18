@@ -26,7 +26,6 @@ namespace QuanLiKhachSan.ViewModel
         private string _PassInput;
         public string UserInput { get => _UserInput; set { OnPropertyChanged(ref _UserInput, value); } }
 
-
         public ICommand LoginCommand { get; set; }
         public ICommand PassWordEnter { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
@@ -133,6 +132,8 @@ namespace QuanLiKhachSan.ViewModel
         }
         public DangNhapViewModel()
         {
+            UserInput = "admin";
+            _PassInput = "admin";
             //0 là giao diện cơ bản
             //1 là giao diện tiên tiến
             //Đọc file để xem là giao diện nào

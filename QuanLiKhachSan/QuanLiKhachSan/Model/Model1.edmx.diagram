@@ -4,21 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fd7653c84e2b4cb793af192711a2e1f6" Name="Diagram1">
+      <Diagram DiagramId="032cb98cfe5446d9a195b42fefafd580" Name="Diagram1">
         <EntityTypeShape EntityType="QLKHACHSANModel.BANGTHAMSO" Width="1.5" PointX="7.75" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.DICHVU" Width="1.5" PointX="5.25" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKHACHSANModel.DSDANGKYTB" Width="1.5" PointX="9.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.HOADONTHUEPHONG" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.KHACHHANG" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.LICHSUTHEMDICHVU" Width="1.5" PointX="7.5" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.LOAIDV" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.LOAINHANVIEN" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.LOAIPHONG" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKHACHSANModel.LOAITB" Width="1.5" PointX="9.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLKHACHSANModel.LSTHONGBAO" Width="1.5" PointX="9.75" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.NHANVIEN" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.NVKETOAN" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.NVLETAN" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.NVQUANLI" Width="1.5" PointX="5.25" PointY="12.25" IsExpanded="true" />
         <EntityTypeShape EntityType="QLKHACHSANModel.PHONG" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLKHACHSANModel.sysdiagram" Width="1.5" PointX="9.75" PointY="1.375" IsExpanded="true" />
         <AssociationConnector Association="QLKHACHSANModel.FK_DICHVU_LOAIDV" ManuallyRouted="false" />
         <AssociationConnector Association="QLKHACHSANModel.FK_LICHSUTHEMDICHVU_DICHVU" ManuallyRouted="false" />
         <AssociationConnector Association="QLKHACHSANModel.FK_HOADONTHUEPHONG_KHACHHANG" ManuallyRouted="false" />

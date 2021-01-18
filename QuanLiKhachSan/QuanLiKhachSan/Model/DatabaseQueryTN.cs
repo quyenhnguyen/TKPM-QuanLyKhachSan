@@ -712,6 +712,10 @@ namespace QuanLiKhachSan.Model
         {
             return DataProvider.ISCreated.DB.PHONGs.ToList();
         }
+        public static List<DSDANGKYTB> danhSachDangKyThongBao()
+        {
+            return DataProvider.ISCreated.DB.DSDANGKYTBs.ToList();
+        }
         public static string[] getColumnName(string name)
         {
             if (name == "DICHVU")
@@ -765,6 +769,23 @@ namespace QuanLiKhachSan.Model
 
 
         // END
+        public static DSDANGKYTB themNguoiDangKi(DSDANGKYTB nv)
+        {
+            DSDANGKYTB res = new DSDANGKYTB();
+            res = DataProvider.ISCreated.DB.DSDANGKYTBs.Add(nv);
+            DataProvider.ISCreated.DB.SaveChanges();
+            return res;
+        }
+        public static string tenLoaiThongBao(int loaiThongBao)
+        {
+            LOAITB res = new LOAITB();
+            res = DataProvider.ISCreated.DB.LOAITBs.Find(loaiThongBao);
+            if (res != null)
+            {
+                return res.LOAITB1;
+            }
+            return "";
+        }
     }
 }
 

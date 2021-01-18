@@ -27,17 +27,19 @@ namespace QuanLiKhachSan.Model
     
         public virtual DbSet<BANGTHAMSO> BANGTHAMSOes { get; set; }
         public virtual DbSet<DICHVU> DICHVUs { get; set; }
+        public virtual DbSet<DSDANGKYTB> DSDANGKYTBs { get; set; }
         public virtual DbSet<HOADONTHUEPHONG> HOADONTHUEPHONGs { get; set; }
         public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
         public virtual DbSet<LICHSUTHEMDICHVU> LICHSUTHEMDICHVUs { get; set; }
         public virtual DbSet<LOAIDV> LOAIDVs { get; set; }
         public virtual DbSet<LOAINHANVIEN> LOAINHANVIENs { get; set; }
         public virtual DbSet<LOAIPHONG> LOAIPHONGs { get; set; }
+        public virtual DbSet<LOAITB> LOAITBs { get; set; }
+        public virtual DbSet<LSTHONGBAO> LSTHONGBAOs { get; set; }
         public virtual DbSet<NHANVIEN> NHANVIENs { get; set; }
         public virtual DbSet<NVKETOAN> NVKETOANs { get; set; }
         public virtual DbSet<NVLETAN> NVLETANs { get; set; }
         public virtual DbSet<NVQUANLI> NVQUANLIs { get; set; }
         public virtual DbSet<PHONG> PHONGs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

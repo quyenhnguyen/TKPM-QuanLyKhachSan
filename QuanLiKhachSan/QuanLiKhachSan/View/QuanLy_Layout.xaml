@@ -10,8 +10,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="{Binding QuanLyTitle}"
     Width="1390"
-    Height="745"
-    DataContext="{StaticResource QuanLyLayoutVM}"
+        Height="838.513"
+        DataContext="{StaticResource QuanLyLayoutVM}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <!--  Để hiện template của ai mỗi khi click tab  -->
@@ -109,6 +109,18 @@
                             Foreground="White"
                             Kind="AccountCircle" />
                         <TextBlock VerticalAlignment="Center">QUẢN LÝ TÀI KHOẢN</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding btnQuanLy_ThongBao}"
+                        Style="{DynamicResource StyleButtonSlidebarQL}">
+                    <StackPanel Width="260"
+                                Orientation="Horizontal">
+                        <materialDesign:PackIcon Width="29"
+                                                 Height="26"
+                                                 Margin="10,0,10,5"
+                                                 Foreground="White"
+                                                 Kind="AccountCircle" />
+                        <TextBlock VerticalAlignment="Center">THÔNG BÁO</TextBlock>
                     </StackPanel>
                 </Button>
                 <Button

@@ -209,6 +209,7 @@
                                 <RowDefinition />
                                 <RowDefinition />
                                 <RowDefinition />
+                                <RowDefinition />
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
                                 <TextBox
@@ -254,6 +255,9 @@
                                     materialDesign:HintAssist.Hint="Tên đăng nhập"
                                     Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                                     Text="{Binding NhanVienDangNhap.TenDangNhap, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+                            <Grid Grid.Row="7">
+                                
                             </Grid>
                         </Grid>
                     </materialDesign:Card>

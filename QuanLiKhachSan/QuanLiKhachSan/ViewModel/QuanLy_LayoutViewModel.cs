@@ -30,6 +30,7 @@ namespace QuanLiKhachSan.ViewModel
         public ICommand btnQuanLy_DichVu { get; set; }
         public ICommand btnQuanLy_TaiKhoan { get; set; }
         public ICommand btnQuanLy_ThamSo { get; set; }
+        public ICommand btnQuanLy_ThongBao { get; set; }
         public ICommand btnQuanLy_DangXuat { get; set; }
 
 
@@ -44,6 +45,7 @@ namespace QuanLiKhachSan.ViewModel
             object ucDichVu = new QuanLyDichVu_LoaiDVViewModel();
             object ucTaiKhoan = new QuanLyTaiKhoanViewModel();
             object ucThamSo = new QuanLy_ThamSoViewModel();
+            object ucThongBao = new QuanLy_ThongBaoViewModel();
             CurrentQuanLyDataContext = ucNhanVien;
             QuanLyTitle = "QUẢN LÝ NHÂN VIÊN";
             btnQuanLy_NhanVien = new RelayCommand<object>((p) => { return CurrentQuanLyDataContext != ucNhanVien; }, (p) =>
@@ -79,14 +81,21 @@ namespace QuanLiKhachSan.ViewModel
                 QuanLyTitle = "QUẢN LÝ THAM SỐ";
                 CurrentQuanLyDataContext = ucThamSo;
             });
+            btnQuanLy_ThongBao = new RelayCommand<object>((p) => { return CurrentQuanLyDataContext != ucThongBao; }, (p) =>
+            {
+                ObserverService observer = ObserverService.Instance;
+                string msg =  observer.GuiThongBao(1,"Sa Thải");
+                MessageBox.Show(msg);
+                //observer.Subcribe(1,1);
+                QuanLyTitle = "THÔNG BÁO";
+                CurrentQuanLyDataContext = ucThongBao;
+            });
             btnQuanLy_DangXuat = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 DangNhap login = new DangNhap();
                 login.Show();
                 ((Window)p).Close();
             });
-
-
         }
     }
 }
