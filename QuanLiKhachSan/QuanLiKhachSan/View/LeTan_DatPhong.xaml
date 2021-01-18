@@ -43,6 +43,7 @@
                 FontWeight="Bold"
                 Kind="ArrowLeft" />
         </Button>
+
         <StackPanel
             x:Name="QuanLiPhong"
             Grid.Row="1"

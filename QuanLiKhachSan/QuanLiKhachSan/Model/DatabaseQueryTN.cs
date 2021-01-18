@@ -786,6 +786,18 @@ namespace QuanLiKhachSan.Model
             }
             return "";
         }
+        public static BindingList<DSDANGKYTB> getLoaiTBofNV(int nvid)
+        {
+            List<DSDANGKYTB> listPhong = DataProvider.ISCreated.DB.DSDANGKYTBs.Where(x => x.NhanVienID == nvid).ToList();
+            BindingList<DSDANGKYTB> res = new BindingList<DSDANGKYTB>(listPhong);
+            return res;
+        }
+        public static BindingList<LOAITB> getLoaiTB()
+        {
+            List<LOAITB> listPhong = DataProvider.ISCreated.DB.LOAITBs.ToList();
+            BindingList<LOAITB> res = new BindingList<LOAITB>(listPhong);
+            return res;
+        }
     }
 }
 

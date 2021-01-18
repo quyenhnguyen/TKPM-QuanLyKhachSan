@@ -21,6 +21,8 @@
     <viewmodel:QuanLyTaiKhoanViewModel x:Key="QuanLyTaiKhoanVM" />
     <viewmodel:QuanLy_ThamSoViewModel x:Key="QuanLyThamSoVM" />
     <viewmodel:PopUpDoiGiaoDienViewModel x:Key="PopUpDoiGiaoDienVM" />
+    <viewmodel:PopUpDangKiThongBaoViewModel x:Key="PopUpDoiThongBaoVM" />
+
     <viewmodel:PopUpImportExcelViewModel x:Key="PopUpExcelVM" />
     <viewmodel:QuanLy_ThongBaoViewModel x:Key="ThongBaoVM" />
 
