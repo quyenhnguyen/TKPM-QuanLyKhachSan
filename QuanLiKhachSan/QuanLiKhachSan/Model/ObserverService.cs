@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace QuanLiKhachSan.Model
 {
-    public  class ObserverService
+    public class ObserverService
     {
         private static ObserverService instance = null;
         private List<DSDANGKYTB> DsSubcriber = null;
@@ -57,17 +57,17 @@ namespace QuanLiKhachSan.Model
             string tenLoaiTB = DatabaseQueryTN.tenLoaiThongBao(LoaiThongBao);
             if (tenLoaiTB == "")
             {
-                return "Không có loại thông báo!";
+                return "Không có loại thông báo!!!";
             }
             List<string> listSubcriberThisNoti = new List<string>();
             foreach (DSDANGKYTB item in DsSubcriber)
             {
-                if (item.LoaiTB==LoaiThongBao)
+                if (item.LoaiTB == LoaiThongBao)
                 {
                     listSubcriberThisNoti.Add(item.Email);
                 }
             }
-            string html = prepareTemplate(tenLoaiTB,msg);
+            string html = prepareTemplate(tenLoaiTB, msg);
             return Email(html, listSubcriberThisNoti);
         }
         private string Email(string htmlString, List<string> listSubcriberThisNoti)
@@ -82,7 +82,7 @@ namespace QuanLiKhachSan.Model
                     message.To.Add(new MailAddress(item));
                 }
                 message.Subject = "Test";
-                message.IsBodyHtml = true; 
+                message.IsBodyHtml = true;
                 message.Body = htmlString;
                 smtp.Port = 587;
                 smtp.EnableSsl = true;
@@ -94,7 +94,8 @@ namespace QuanLiKhachSan.Model
                 smtp.Send(message);
                 return "success".ToString();
             }
-            catch (Exception exf) {
+            catch (Exception exf)
+            {
                 Console.WriteLine(exf.ToString());
                 return exf.ToString();
             }
@@ -103,7 +104,7 @@ namespace QuanLiKhachSan.Model
         {
             return DsSubcriber;
         }
-        private string prepareTemplate(string tieude,string noidung)
+        private string prepareTemplate(string tieude, string noidung)
         {
             try
             {
