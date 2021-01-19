@@ -12,10 +12,8 @@ using System.Windows;
 using Excel = Microsoft.Office.Interop.Excel;
 namespace QuanLiKhachSan.Model
 {
-    public abstract class Item
+    public abstract class ItemExcelHandler
     {
-
-
         private string exportFileName;
         private bool isSave = true;
         private List<string> privelegeColumn = new List<string>() { "PHONGs", "DICHVUs", "LICHSUTHEMDICHVUs", "LOAIDV", "HOADONTHUEPHONGs", "LOAINHANVIEN", "NVKETOAN", "NVLETAN", "NVQUANLI", "LOAIPHONG" };
@@ -170,9 +168,9 @@ namespace QuanLiKhachSan.Model
         public abstract void Accept(IModelVisitor visitor);
 
     }
-    public class LoaiDichVu : Item
+    public class LoaiDichVuExcelHandler : ItemExcelHandler
     {
-        public LoaiDichVu(string gn)
+        public LoaiDichVuExcelHandler(string gn)
         {
             this.ExportFileName = gn;
             this.DbName = "LOAIDV";
@@ -254,9 +252,9 @@ namespace QuanLiKhachSan.Model
             }
         }
     }
-    public class DichVu : Item
+    public class DichVuExcelHandler : ItemExcelHandler
     {
-        public DichVu(string gn)
+        public DichVuExcelHandler(string gn)
         {
             this.ExportFileName = gn;
             this.DbName = "DICHVU";
@@ -349,9 +347,9 @@ namespace QuanLiKhachSan.Model
             }
         }
     }
-    public class NhanVien : Item
+    public class NhanVienExcelHandler : ItemExcelHandler
     {
-        public NhanVien(string fn)
+        public NhanVienExcelHandler(string fn)
         {
             this.DbName = "NHANVIEN";
             this.ExportFileName = fn;
@@ -458,9 +456,9 @@ namespace QuanLiKhachSan.Model
             }
         }
     }
-    public class LoaiPhong : Item
+    public class LoaiPhongExcelHandler : ItemExcelHandler
     {
-        public LoaiPhong(string gn)
+        public LoaiPhongExcelHandler(string gn)
         {
             this.ExportFileName = gn;
             this.DbName = "LOAIPHONG";
@@ -547,9 +545,9 @@ namespace QuanLiKhachSan.Model
             }
         }
     }
-    public class Phong : Item
+    public class PhongExcelHandler : ItemExcelHandler
     {
-        public Phong(string gn)
+        public PhongExcelHandler(string gn)
         {
             this.ExportFileName = gn;
             this.DbName = "PHONG";
@@ -641,208 +639,201 @@ namespace QuanLiKhachSan.Model
             }
         }
     }
-
-
-
-
-
-
-
     public interface IModelVisitor
     {
         // Export
-        void exportToExcel(LoaiDichVu context);
-        void exportToExcel(DichVu context);
-        void exportToExcel(NhanVien context);
-        void exportToExcel(LoaiPhong context);
-        void exportToExcel(Phong context);
+        void exportToExcel(LoaiDichVuExcelHandler context);
+        void exportToExcel(DichVuExcelHandler context);
+        void exportToExcel(NhanVienExcelHandler context);
+        void exportToExcel(LoaiPhongExcelHandler context);
+        void exportToExcel(PhongExcelHandler context);
         // Import
-        void importToExcel(LoaiDichVu context);
-        void importToExcel(DichVu context);
-        void importToExcel(NhanVien context);
-        void importToExcel(LoaiPhong context);
-        void importToExcel(Phong context);
+        void importToExcel(LoaiDichVuExcelHandler context);
+        void importToExcel(DichVuExcelHandler context);
+        void importToExcel(NhanVienExcelHandler context);
+        void importToExcel(LoaiPhongExcelHandler context);
+        void importToExcel(PhongExcelHandler context);
     }
     public class StartExcelExport : IModelVisitor
     {
         // Visitor
         // Template
-        public void exportToExcel(LoaiDichVu context)
+        public void exportToExcel(LoaiDichVuExcelHandler context)
         {
             context.startExport();
         }
-        public void exportToExcel(DichVu context)
+        public void exportToExcel(DichVuExcelHandler context)
         {
             context.startExport();
         }
-        public void exportToExcel(NhanVien context)
+        public void exportToExcel(NhanVienExcelHandler context)
         {
             context.startExport();
         }
-        public void exportToExcel(LoaiPhong context)
+        public void exportToExcel(LoaiPhongExcelHandler context)
         {
             context.startExport();
         }
-        public void exportToExcel(Phong context)
+        public void exportToExcel(PhongExcelHandler context)
         {
             context.startExport();
         }
 
         //Import
-        public void importToExcel(LoaiDichVu context)
+        public void importToExcel(LoaiDichVuExcelHandler context)
         {
             context.startImport();
         }
-        public void importToExcel(DichVu context)
+        public void importToExcel(DichVuExcelHandler context)
         {
             context.startImport();
         }
-        public void importToExcel(NhanVien context)
+        public void importToExcel(NhanVienExcelHandler context)
         {
             context.startImport();
         }
-        public void importToExcel(LoaiPhong context)
+        public void importToExcel(LoaiPhongExcelHandler context)
         {
             context.startImport();
         }
-        public void importToExcel(Phong context)
+        public void importToExcel(PhongExcelHandler context)
         {
             context.startImport();
         }
     }
 
     // Factory Method
-    public interface IModelName
+    public interface IExcelModelName
     {
         void exportExcel();
         void importExcel();
     }
-    class LoaiDVModel : IModelName
+    class LoaiDVExcelModel : IExcelModelName
     {
         private string gn;
-        public LoaiDVModel(string gn)
+        public LoaiDVExcelModel(string gn)
         {
             this.gn = gn;
         }
 
         public void exportExcel()
         {
-            var context = new LoaiDichVu(gn);
+            var context = new LoaiDichVuExcelHandler(gn);
             var visitor = new StartExcelExport();
             visitor.exportToExcel(context);
         }
         public void importExcel()
         {
-            var context = new LoaiDichVu(gn);
+            var context = new LoaiDichVuExcelHandler(gn);
             var visitor = new StartExcelExport();
             visitor.importToExcel(context);
         }
     }
-    class DichVuModel : IModelName
+    class DichVuExcelModel : IExcelModelName
     {
         private string gn;
-        public DichVuModel(string gn)
+        public DichVuExcelModel(string gn)
         {
             this.gn = gn;
         }
 
         public void exportExcel()
         {
-            var context = new DichVu(gn);
+            var context = new DichVuExcelHandler(gn);
             var visitor = new StartExcelExport();
             visitor.exportToExcel(context);
         }
         public void importExcel()
         {
-            var context = new DichVu(gn);
+            var context = new DichVuExcelHandler(gn);
             var visitor = new StartExcelExport();
             visitor.importToExcel(context);
         }
     }
-    class NhanVienModel : IModelName
+    class NhanVienExcelModel : IExcelModelName
     {
         private string fn;
-        public NhanVienModel(string fn)
+        public NhanVienExcelModel(string fn)
         {
             this.fn = fn;
         }
         public void exportExcel()
         {
-            var context = new NhanVien(this.fn);
+            var context = new NhanVienExcelHandler(this.fn);
             var visitor = new StartExcelExport();
             visitor.exportToExcel(context);
         }
         public void importExcel()
         {
-            var context = new NhanVien(fn);
+            var context = new NhanVienExcelHandler(fn);
             var visitor = new StartExcelExport();
             visitor.importToExcel(context);
         }
     }
 
-    class LoaiPhongModel : IModelName
+    class LoaiPhongExcelModel : IExcelModelName
     {
 
         private string gn;
-        public LoaiPhongModel(string gn)
+        public LoaiPhongExcelModel(string gn)
         {
             this.gn = gn;
         }
 
         public void exportExcel()
         {
-            var context = new LoaiPhong(gn);
+            var context = new LoaiPhongExcelHandler(gn);
             var visitor = new StartExcelExport();
             visitor.exportToExcel(context);
         }
         public void importExcel()
         {
-            var context = new LoaiPhong(gn);
+            var context = new LoaiPhongExcelHandler(gn);
             var visitor = new StartExcelExport();
             visitor.importToExcel(context);
         }
     }
-    class PhongModel : IModelName
+    class PhongExcelModel : IExcelModelName
     {
         private string gn;
-        public PhongModel(string gn)
+        public PhongExcelModel(string gn)
         {
             this.gn = gn;
         }
 
         public void exportExcel()
         {
-            var context = new Phong(gn);
+            var context = new PhongExcelHandler(gn);
             var visitor = new StartExcelExport();
             visitor.exportToExcel(context);
         }
         public void importExcel()
         {
-            var context = new Phong(gn);
+            var context = new PhongExcelHandler(gn);
             var visitor = new StartExcelExport();
             visitor.importToExcel(context);
         }
     }
-    abstract class ModelFactory
+    abstract class ModelExcelFactory
     {
-        public abstract IModelName Factory(string ModelType, string gn);
+        public abstract IExcelModelName Factory(string ModelType, string gn);
     }
-    class ConcreteModelFactory : ModelFactory
+    class ConcreteExcelModelFactory : ModelExcelFactory
     {
-        public override IModelName Factory(string ModelType, string gn)
+        public override IExcelModelName Factory(string ModelType, string gn)
         {
             switch (ModelType)
             {
                 case "LOAIDV":
-                    return new LoaiDVModel(gn);
+                    return new LoaiDVExcelModel(gn);
                 case "DICHVU":
-                    return new DichVuModel(gn);
+                    return new DichVuExcelModel(gn);
                 case "NHANVIEN":
-                    return new NhanVienModel(gn);
+                    return new NhanVienExcelModel(gn);
                 case "LOAIPHONG":
-                    return new LoaiPhongModel(gn);
+                    return new LoaiPhongExcelModel(gn);
                 case "PHONG":
-                    return new PhongModel(gn);
+                    return new PhongExcelModel(gn);
                 default:
                     return null;
             }

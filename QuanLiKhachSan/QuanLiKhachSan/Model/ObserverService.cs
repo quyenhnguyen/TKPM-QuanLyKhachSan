@@ -71,7 +71,7 @@ namespace QuanLiKhachSan.Model
             }
             return true;
         }
-        public string GuiThongBao(int LoaiThongBao, string msg)
+        public string GuiThongBao(int LoaiThongBao, string td, string msg)
         {
             string tenLoaiTB = DatabaseQueryTN.tenLoaiThongBao(LoaiThongBao);
             if (tenLoaiTB == "")
@@ -87,7 +87,7 @@ namespace QuanLiKhachSan.Model
                 }
             }
             LoaiThongBaoFactory ft = new LoaiThongBaoFactory();
-            LoaiThongBao a = ft.createLoai(1, "HoaDon", "Test");
+            LoaiThongBao a = ft.createLoai(LoaiThongBao, td, msg);
             return Email(a.getTieuDe(), a.getNoiDung(), listSubcriberThisNoti);
         }
         private string Email(string tieuDe, string htmlString, List<string> listSubcriberThisNoti)

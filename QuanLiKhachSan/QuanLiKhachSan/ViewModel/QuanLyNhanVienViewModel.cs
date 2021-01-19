@@ -242,7 +242,7 @@ namespace QuanLiKhachSan.ViewModel
             listLoaiNV = new BindingList<LOAINHANVIEN>(DatabaseQueryTN.danhSachLoaiNV());
             exportNhanVienCommand = new RelayCommand<object>((P) => { return true; }, (p) =>
             {
-                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                ConcreteExcelModelFactory ModelFactory = new ConcreteExcelModelFactory();
                 Window w = ((Window)p);
                 SaveFileDialog openFileDialog = new SaveFileDialog();
                 string name = "";
@@ -260,7 +260,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     wd.Show();
                 });
-                IModelName modelName = ModelFactory.Factory("NHANVIEN", name);
+                IExcelModelName modelName = ModelFactory.Factory("NHANVIEN", name);
                 Thread.Sleep(200);
                 Thread newWindowThread = new Thread(() =>
                 {
@@ -292,8 +292,8 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     wd.Show();
                 });
-                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                IModelName modelName = ModelFactory.Factory("NHANVIEN", name);
+                ConcreteExcelModelFactory ModelFactory = new ConcreteExcelModelFactory();
+                IExcelModelName modelName = ModelFactory.Factory("NHANVIEN", name);
                 Thread newWindowThread = new Thread(() =>
                 {
                     w.Dispatcher.Invoke(() =>

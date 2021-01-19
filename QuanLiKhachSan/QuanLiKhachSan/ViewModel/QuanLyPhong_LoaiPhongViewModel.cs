@@ -264,7 +264,7 @@ namespace QuanLiKhachSan.ViewModel
             listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());
             exportLoaiPhongCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
-                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                ConcreteExcelModelFactory ModelFactory = new ConcreteExcelModelFactory();
                 Window w = ((Window)p);
                 SaveFileDialog openFileDialog = new SaveFileDialog();
                 string name = "";
@@ -282,7 +282,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     wd.Show();
                 });
-                IModelName modelName = ModelFactory.Factory("LOAIPHONG", name);
+                IExcelModelName modelName = ModelFactory.Factory("LOAIPHONG", name);
                 Thread.Sleep(200);
                 Thread newWindowThread = new Thread(() =>
                 {
@@ -313,8 +313,8 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     wd.Show();
                 });
-                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                IModelName modelName = ModelFactory.Factory("LOAIPHONG", name);
+                ConcreteExcelModelFactory ModelFactory = new ConcreteExcelModelFactory();
+                IExcelModelName modelName = ModelFactory.Factory("LOAIPHONG", name);
                 Thread newWindowThread = new Thread(() =>
                 {
                     w.Dispatcher.Invoke(() =>
@@ -329,7 +329,7 @@ namespace QuanLiKhachSan.ViewModel
                     });
                 });
                 newWindowThread.Start();
-                //ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                //ConcreteExcelModelFactory ModelFactory = new ConcreteExcelModelFactory();
                 //IModelName modelName = ModelFactory.Factory("LOAIPHONG", "");
                 //modelName.importExcel();
                 //listLoaiPhong = new BindingList<LOAIPHONG>(DatabaseQueryTN.danhsachLoaiPhong());
@@ -338,7 +338,7 @@ namespace QuanLiKhachSan.ViewModel
             });
             exportPhongCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
-                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                ConcreteExcelModelFactory ModelFactory = new ConcreteExcelModelFactory();
                 Window w = ((Window)p);
                 SaveFileDialog openFileDialog = new SaveFileDialog();
                 string name = "";
@@ -356,7 +356,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     wd.Show();
                 });
-                IModelName modelName = ModelFactory.Factory("PHONG", name);
+                IExcelModelName modelName = ModelFactory.Factory("PHONG", name);
                 Thread.Sleep(200);
                 Thread newWindowThread = new Thread(() =>
                 {
@@ -387,8 +387,8 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     wd.Show();
                 });
-                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                IModelName modelName = ModelFactory.Factory("PHONG", name);
+                ConcreteExcelModelFactory ModelFactory = new ConcreteExcelModelFactory();
+                IExcelModelName modelName = ModelFactory.Factory("PHONG", name);
                 Thread newWindowThread = new Thread(() =>
                 {
                     w.Dispatcher.Invoke(() =>
@@ -402,7 +402,7 @@ namespace QuanLiKhachSan.ViewModel
                     });
                 });
                 newWindowThread.Start();
-                //ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                //ConcreteExcelModelFactory ModelFactory = new ConcreteExcelModelFactory();
                 //IModelName modelName = ModelFactory.Factory("PHONG", "");
                 //modelName.importExcel();
                 //listPhong = new BindingList<PHONG>(DatabaseQueryTN.danhSachPhong());

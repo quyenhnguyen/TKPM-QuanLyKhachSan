@@ -13,6 +13,7 @@ namespace QuanLiKhachSan.ViewModel
 {
     class QuanLy_ThongBaoViewModel : BaseViewModel
     {
+        private string nguoigui = "Q&Q HOTEL";
         public ICommand GuiBtnCommand { get; set; }
         private BindingList<THEDANGKI> _dsDaDangKi;
         public BindingList<THEDANGKI> dsDaDangKi
@@ -22,13 +23,28 @@ namespace QuanLiKhachSan.ViewModel
                 OnPropertyChanged(ref _dsDaDangKi, value);
             }
         }
-
         public string NguoiGui
         {
-            get => "Q&Q HOTEL";
+            get => nguoigui;
             set
             {
 
+            }
+        }
+        private string _tieuDe;
+        public string TieuDe
+        {
+            get => _tieuDe; set
+            {
+                OnPropertyChanged(ref _tieuDe, value);
+            }
+        }
+        private string _noiDung;
+        public string NoiDung
+        {
+            get => _noiDung; set
+            {
+                OnPropertyChanged(ref _noiDung, value);
             }
         }
         private BindingList<THEDANGKI> _dsHashTag;
@@ -52,9 +68,8 @@ namespace QuanLiKhachSan.ViewModel
             dsHashTag = BusinessModel.ChuyenDoiDanhSach<HASTAG, THEDANGKI>(listHashtag, mappingManager2);
             GuiBtnCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                //Gửi thông báo
-                MessageBox.Show("Gửi thông báo đi");
-                MessageBox.Show(HasTagChon.Name);
+                ObserverService obs = ObserverService.Instance;
+                obs.GuiThongBao(HasTagChon.ID,TieuDe, NoiDung);
 
             });
         }

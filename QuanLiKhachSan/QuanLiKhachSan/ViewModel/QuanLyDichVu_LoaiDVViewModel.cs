@@ -501,7 +501,7 @@ namespace QuanLiKhachSan.ViewModel
             //excel command implement
             exportLoaiDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
-                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                ConcreteExcelModelFactory ModelFactory = new ConcreteExcelModelFactory();
                 Window w = ((Window)p);
                 SaveFileDialog openFileDialog = new SaveFileDialog();
                 string name = "";
@@ -519,7 +519,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     wd.Show();
                 });
-                IModelName modelName = ModelFactory.Factory("LOAIDV", name);
+                IExcelModelName modelName = ModelFactory.Factory("LOAIDV", name);
                 Thread.Sleep(200);
                 Thread newWindowThread = new Thread(() =>
                 {
@@ -550,8 +550,8 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     wd.Show();
                 });
-                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                IModelName modelName = ModelFactory.Factory("LOAIDV", name);
+                ConcreteExcelModelFactory ModelFactory = new ConcreteExcelModelFactory();
+                IExcelModelName modelName = ModelFactory.Factory("LOAIDV", name);
                 Thread newWindowThread = new Thread(() =>
                 {
                     w.Dispatcher.Invoke(() =>
@@ -567,8 +567,8 @@ namespace QuanLiKhachSan.ViewModel
                     });
                 });
                 newWindowThread.Start();
-                //ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                //IModelName modelName = ModelFactory.Factory("LOAIDV", "");
+                //ConcreteExcelModelFactory ModelFactory = new ConcreteExcelModelFactory();
+                //IExcelModelName modelName = ModelFactory.Factory("LOAIDV", "");
                 //modelName.importExcel();
                 //listLoaiDV = new BindingList<LOAIDV>(DatabaseQueryTN.danhsachLoaDV());
                 //listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
@@ -576,7 +576,7 @@ namespace QuanLiKhachSan.ViewModel
             });
             exportDVCommand = new RelayCommand<Object>((P) => { return true; }, (p) =>
             {
-                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
+                ConcreteExcelModelFactory ModelFactory = new ConcreteExcelModelFactory();
                 Window w = ((Window)p);
                 SaveFileDialog openFileDialog = new SaveFileDialog();
                 string name = "";
@@ -594,7 +594,7 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     wd.Show();
                 });
-                IModelName modelName = ModelFactory.Factory("DICHVU", name);
+                IExcelModelName modelName = ModelFactory.Factory("DICHVU", name);
                 Thread.Sleep(200);
                 Thread newWindowThread = new Thread(() =>
                 {
@@ -625,8 +625,8 @@ namespace QuanLiKhachSan.ViewModel
                 {
                     wd.Show();
                 });
-                ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                IModelName modelName = ModelFactory.Factory("DICHVU", name);
+                ConcreteExcelModelFactory ModelFactory = new ConcreteExcelModelFactory();
+                IExcelModelName modelName = ModelFactory.Factory("DICHVU", name);
                 Thread newWindowThread = new Thread(() =>
                 {
                     w.Dispatcher.Invoke(() =>
@@ -640,8 +640,8 @@ namespace QuanLiKhachSan.ViewModel
                     });
                 });
                 newWindowThread.Start();
-                //ConcreteModelFactory ModelFactory = new ConcreteModelFactory();
-                //IModelName modelName = ModelFactory.Factory("DICHVU", "");
+                //ConcreteExcelModelFactory ModelFactory = new ConcreteExcelModelFactory();
+                //IExcelModelName modelName = ModelFactory.Factory("DICHVU", "");
                 //modelName.importExcel();
                 //listDV = new BindingList<DICHVU>(DatabaseQueryTN.danhSachDivhVu());
 
