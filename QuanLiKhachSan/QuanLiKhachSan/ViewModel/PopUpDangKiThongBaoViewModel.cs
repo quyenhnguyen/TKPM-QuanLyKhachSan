@@ -48,9 +48,9 @@ namespace QuanLiKhachSan.ViewModel
                 dsHashTag.Add(tbb);
             }
 
-            XoaThongBaoCommand = new RelayCommand<LOAITHONGBAO>((p) => { return true; }, (p) =>
+            XoaThongBaoCommand = new RelayCommand<THEDANGKI>((p) => { return true; }, (p) =>
             {
-                //listLap.Remove(p);
+                dsHashTag.Remove(p);
             });
 
         }
