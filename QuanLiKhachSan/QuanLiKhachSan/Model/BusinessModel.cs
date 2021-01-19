@@ -1,4 +1,5 @@
-﻿using QuanLiKhachSan.ViewModel;
+﻿using QuanLiKhachSan.Model.MappingClass;
+using QuanLiKhachSan.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -77,7 +78,21 @@ namespace QuanLiKhachSan.Model
                 DanhSachDichVuDaThem.Add(dvDaThem);
             }
         }
-    }
 
 
+        public static BindingList<T> ChuyenDoiDanhSach<S, T>(BindingList<S> source, MappingManager mappingManager) where T : new()
+        {
+            BindingList<T> ketqua = new BindingList<T>();
+
+            foreach (S item in source)
+            {
+                T tbb;
+                tbb = new T();
+                mappingManager.MapObjectToObject<S, T>(item, tbb);
+                ketqua.Add(tbb);
+            }
+
+            return ketqua;
+        }
+        }
 }

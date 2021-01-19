@@ -40,13 +40,13 @@ namespace QuanLiKhachSan.ViewModel
             mappingManager2.AddRule(new string[] { "HastagID" }, new string[] { "ID" }, new ClassCopyOneToOne());
             mappingManager2.AddRule(new string[] { "Name" }, new string[] { "Name" }, new ClassCopyOneToOne());
             BindingList<HASTAG> listHashtag = DatabaseQueryTN.danhSachHashtag();
-            dsHashTag = new BindingList<THEDANGKI>();
-            foreach (HASTAG item in listHashtag)
-            {
-                THEDANGKI tbb = new THEDANGKI();
-                mappingManager2.MapObjectToObject<HASTAG, THEDANGKI>(item, tbb);
-                dsHashTag.Add(tbb);
-            }
+            dsHashTag = BusinessModel.ChuyenDoiDanhSach<HASTAG,THEDANGKI>(listHashtag, mappingManager2);
+            //foreach (HASTAG item in listHashtag)
+            //{
+            //    THEDANGKI tbb = new THEDANGKI();
+            //    mappingManager2.MapObjectToObject<HASTAG, THEDANGKI>(item, tbb);
+            //    dsHashTag.Add(tbb);
+            //}
 
             XoaThongBaoCommand = new RelayCommand<THEDANGKI>((p) => { return true; }, (p) =>
             {
