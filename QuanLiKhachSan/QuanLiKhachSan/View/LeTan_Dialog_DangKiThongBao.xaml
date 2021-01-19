@@ -7,59 +7,124 @@
              xmlns:local="clr-namespace:QuanLiKhachSan.View" 
              mc:Ignorable="d" 
 DataContext="{StaticResource PopUpDoiThongBaoVM}"
-             d:DesignHeight="450" d:DesignWidth="800">
-    <materialDesign:Card
+             d:DesignHeight="700" d:DesignWidth="850">
+    <materialDesign:Card 
         x:Name="CardPopUp"
-        Grid.Row="0"
+        Grid.Row="0" Width="700" Height="400"
         Grid.RowSpan="3"
         Grid.ColumnSpan="2"
-        Width="500"
-        Height="200"
         HorizontalAlignment="Center"
         VerticalAlignment="Center">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
 
-        <ListView Name="ListLaptop" ItemsSource="{Binding dsHashTag}"
+            </Grid.RowDefinitions>
+            <ListView Grid.Row="0" Name="ListLaptop" ItemsSource="{Binding dsDaDangKi}"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListLaptop_SelectionChanged">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
 
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel  Orientation="Vertical">
-                        <materialDesign:Chip>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock VerticalAlignment="Center"
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel  Orientation="Vertical">
+                            <materialDesign:Chip>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center"
                                                         FontSize="{StaticResource CoChuSieuNho}"
                                                         Text="{Binding Name}"
                                                         TextWrapping="Wrap" />
-                                <Button Style="{StaticResource MaterialDesignOutlinedButton}" BorderThickness="0"
+                                    <Button Style="{StaticResource MaterialDesignOutlinedButton}" BorderThickness="0"
                                                         Padding="0"
                                                         VerticalAlignment="Center"
                                                         Command="{Binding DataContext.XoaThongBaoCommand,RelativeSource={RelativeSource AncestorType=UserControl, AncestorLevel=1}}"
                                                         CommandParameter="{Binding}" 
                                                         >
-                                    <materialDesign:PackIcon
+                                        <materialDesign:PackIcon
                                                             Width="20"
                                                             Height="20" 
                                                             Margin="8 0 0 0" 
                                                             Foreground="{StaticResource DenHoiNhat}"
                                                             Kind="CloseThick" />
-                                </Button>
-                            </StackPanel>
-                        </materialDesign:Chip>
-                        <!--<TextBlock Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="14" Foreground="#FF007AFF"   TextWrapping="Wrap" ></TextBlock>-->
+                                    </Button>
+                                </StackPanel>
+                            </materialDesign:Chip>
+                            <!--<TextBlock Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="14" Foreground="#FF007AFF"   TextWrapping="Wrap" ></TextBlock>-->
 
-                        <!--<materialDesign:Chip Content="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            <!--<materialDesign:Chip Content="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           IsDeletable="True"
                           ToolTip="Thông báo"></materialDesign:Chip>-->
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
 
-        </ListView>
+            </ListView>
+
+            <!--Combo box-->
+            <materialDesign:Card
+        x:Name="Combobox"
+        Grid.Row="1">
+                <Grid Margin="20,15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*" />
+                        <RowDefinition Height="0.75*" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="{DynamicResource CoChuNho}"
+                    Text="Chọn giao diện" />
+                    </Grid>
+                    <Grid Grid.Row="1" Margin="0,8">
+                        <materialDesign:Card>
+                            <ComboBox
+                        Name="LoaiGiaoDien" ItemsSource="{Binding dsHashTag}"
+                        Padding="5,0"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.FloatingOffset="0, -50"
+                        materialDesign:HintAssist.FloatingScale="1"
+                        BorderThickness="0"
+                        FontSize="{StaticResource CoChuSieuNho}"
+                        FontWeight="Bold"
+                        IsEditable="False"
+                        SelectedIndex="0"
+                        SelectedItem="{Binding HasTagChon}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock 
+                                            Cursor="Hand"
+                                            FontSize="{StaticResource CoChuSieuNho}"
+                                            Text="{Binding Name}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </materialDesign:Card>
+                    </Grid>
+                    <Grid Grid.Row="2" Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                    Grid.Column="0" Grid.ColumnSpan="2"
+                    Width="140"
+                    Background="{StaticResource MauBtnQL}"
+                    Command="{Binding DangKiThongBaoCommand}"
+                    CommandParameter="{Binding ElementName=uc}"
+                    Content="ĐĂNG KÍ"
+                    IsDefault="True"
+                    Style="{StaticResource StyleBtnCoBan}" />
+
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+
     </materialDesign:Card>
 
 </UserControl>

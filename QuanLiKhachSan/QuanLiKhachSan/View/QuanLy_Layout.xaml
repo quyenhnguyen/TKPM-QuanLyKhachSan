@@ -10,7 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="{Binding QuanLyTitle}"
     Width="1390"
-        Height="838.513"
+        Height="750"
         DataContext="{StaticResource QuanLyLayoutVM}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -31,6 +31,9 @@
         <DataTemplate x:Name="ThamSo" DataType="{x:Type ViewModels:QuanLy_ThamSoViewModel}">
             <local:QuanLy_ThamSo DataContext="{Binding}" />
         </DataTemplate>
+        <DataTemplate x:Name="ThongBao" DataType="{x:Type ViewModels:QuanLy_ThongBaoViewModel}">
+            <local:QuanLy_ThongBao DataContext="{Binding}" />
+        </DataTemplate>
     </Window.Resources>
     <Grid Background="{DynamicResource MauTrang}">
         <Grid.ColumnDefinitions>
@@ -48,14 +51,14 @@
             Grid.Column="0"
             Background="{DynamicResource MauSlideBarTraiQL}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="200" />
+                <RowDefinition Height="2*" />
                 <RowDefinition Height="5*" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
-            <Grid Width="200" Height="200">
+            <Grid>
                 <Image Margin="0,20" Source="../images/logo.jpg" />
             </Grid>
-            <StackPanel Grid.Row="1" Margin="0,20">
+            <StackPanel Grid.Row="1" Margin="0,10">
                 <Button Command="{Binding btnQuanLy_NhanVien}" Style="{DynamicResource StyleButtonSlidebarQL}">
                     <StackPanel Width="256" Orientation="Horizontal">
                         <materialDesign:PackIcon
@@ -100,6 +103,19 @@
                         <TextBlock VerticalAlignment="Center">QUẢN LÝ THAM SỐ</TextBlock>
                     </StackPanel>
                 </Button>
+                <Button Command="{Binding btnQuanLy_ThongBao}"
+                        Style="{DynamicResource StyleButtonSlidebarQL}">
+                    <StackPanel Width="260"
+                                Orientation="Horizontal">
+                        <materialDesign:PackIcon Width="29"
+                                                 Height="26"
+                                                 Margin="10,0,10,5"
+                                                 Foreground="White"
+                                                 Kind="MessageDraw" />
+                        <TextBlock VerticalAlignment="Center">CHUNG</TextBlock>
+                    </StackPanel>
+                </Button>
+
                 <Button Command="{Binding btnQuanLy_TaiKhoan}" Style="{DynamicResource StyleButtonSlidebarQL}">
                     <StackPanel Width="260" Orientation="Horizontal">
                         <materialDesign:PackIcon
@@ -109,18 +125,6 @@
                             Foreground="White"
                             Kind="AccountCircle" />
                         <TextBlock VerticalAlignment="Center">QUẢN LÝ TÀI KHOẢN</TextBlock>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding btnQuanLy_ThongBao}"
-                        Style="{DynamicResource StyleButtonSlidebarQL}">
-                    <StackPanel Width="260"
-                                Orientation="Horizontal">
-                        <materialDesign:PackIcon Width="29"
-                                                 Height="26"
-                                                 Margin="10,0,10,5"
-                                                 Foreground="White"
-                                                 Kind="AccountCircle" />
-                        <TextBlock VerticalAlignment="Center">THÔNG BÁO</TextBlock>
                     </StackPanel>
                 </Button>
                 <Button

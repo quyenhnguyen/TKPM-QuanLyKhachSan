@@ -83,11 +83,12 @@ namespace QuanLiKhachSan.ViewModel
             });
             btnQuanLy_ThongBao = new RelayCommand<object>((p) => { return CurrentQuanLyDataContext != ucThongBao; }, (p) =>
             {
-                ObserverService observer = ObserverService.Instance;
-                string msg =  observer.GuiThongBao(1,"Sa Thải");
-                MessageBox.Show(msg);
-                //observer.Subcribe(1,1);
+                //ObserverService observer = ObserverService.Instance;
+                //string msg = observer.GuiThongBao(1, "Sa Thải");
+                //MessageBox.Show(msg);
+                ////observer.Subcribe(1,1);
                 QuanLyTitle = "THÔNG BÁO";
+
                 CurrentQuanLyDataContext = ucThongBao;
             });
             btnQuanLy_DangXuat = new RelayCommand<object>((p) => { return true; }, (p) =>
