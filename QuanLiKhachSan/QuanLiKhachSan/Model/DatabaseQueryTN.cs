@@ -776,6 +776,23 @@ namespace QuanLiKhachSan.Model
             DataProvider.ISCreated.DB.SaveChanges();
             return res;
         }
+        public static bool xoaNguoiDangKiByID(int id, int nvid)
+        {
+            
+            try
+            {
+                THONGTINDANGKI temp = DataProvider.ISCreated.DB.THONGTINDANGKIs.Where(x => x.HastagID == id && x.NhanVienID == nvid).FirstOrDefault();
+                if (temp != null)
+                {
+                    DataProvider.ISCreated.DB.THONGTINDANGKIs.Remove(temp);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
         public static bool xoaNguoiDangKi(THONGTINDANGKI nv)
         {
             try
@@ -802,6 +819,21 @@ namespace QuanLiKhachSan.Model
         {
             BindingList<HASTAG> temp = new BindingList<HASTAG>(DataProvider.ISCreated.DB.HASTAGs.ToArray());
             return temp;
+        }
+        public static HASTAG getHashTag(int hi)
+        {
+            return DataProvider.ISCreated.DB.HASTAGs.Where(x => x.HastagID == hi).FirstOrDefault();
+        }
+        public static BindingList<HASTAG> danhSachHashtagCuaNhanVien(int nvid)
+        {
+
+            BindingList<HASTAG> dsHashtag = new BindingList<HASTAG>();
+            BindingList<THONGTINDANGKI> temp = new BindingList<THONGTINDANGKI>(DataProvider.ISCreated.DB.THONGTINDANGKIs.Where(x => x.NhanVienID==nvid).ToArray());
+            foreach (THONGTINDANGKI item in temp)
+            {
+                dsHashtag.Add(getHashTag(item.HastagID));
+            }
+            return dsHashtag;
         }
     }
 }

@@ -55,13 +55,13 @@ namespace QuanLiKhachSan.ViewModel
             dsHashTag = BusinessModel.ChuyenDoiDanhSach<HASTAG, THEDANGKI>(listHashtag, mappingManager2);
 
             //Danh sách đã đăng kí lấy từ CSDL
-            dsDaDangKi = new BindingList<THEDANGKI>();
-            dsDaDangKi.Add(dsHashTag[0]);
-            dsDaDangKi.Add(dsHashTag[3]);
-
+            BindingList<HASTAG> listHashtag_ddk = DatabaseQueryTN.danhSachHashtagCuaNhanVien(UserService.GetCurrentUser.NhanVienID);
+            dsDaDangKi = BusinessModel.ChuyenDoiDanhSach<HASTAG, THEDANGKI>(listHashtag_ddk, mappingManager2);
 
             DangKiThongBaoCommand = new RelayCommand<HASTAG>((p) => { return true; }, (p) =>
             {
+
+                int nvid =  UserService.GetCurrentUser.NhanVienID;
                 //Kiểm tra đã đăng kí rồi thì hiện thông báo
                 if (dsDaDangKi.Contains(HasTagChon))
                 {
@@ -70,12 +70,25 @@ namespace QuanLiKhachSan.ViewModel
                 }
                 else
                 {
+                    try
+                    {
+                        THONGTINDANGKI newSubriber = new THONGTINDANGKI();
+                        newSubriber.NhanVienID = nvid;
+                        newSubriber.HastagID = HasTagChon.ID;
+                        newSubriber.NgayDangKi = DateTime.Now;
+                        DatabaseQueryTN.themNguoiDangKi(newSubriber);
+                    }
+                    catch (Exception)
+                    {
+
+                    }
                     dsDaDangKi.Add(HasTagChon);
                 }
             });
 
             XoaThongBaoCommand = new RelayCommand<THEDANGKI>((p) => { return true; }, (p) =>
             {
+                DatabaseQueryTN.xoaNguoiDangKiByID(p.ID, UserService.GetCurrentUser.NhanVienID);
                 dsDaDangKi.Remove(p);
             });
 

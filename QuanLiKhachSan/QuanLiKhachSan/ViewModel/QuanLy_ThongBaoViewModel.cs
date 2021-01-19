@@ -70,6 +70,7 @@ namespace QuanLiKhachSan.ViewModel
             {
                 ObserverService obs = ObserverService.Instance;
                 obs.GuiThongBao(HasTagChon.ID,TieuDe, NoiDung);
+                MessageBox.Show("Gửi thông báo thành công");
 
             });
         }
