@@ -785,6 +785,7 @@ namespace QuanLiKhachSan.Model
                 if (temp != null)
                 {
                     DataProvider.ISCreated.DB.THONGTINDANGKIs.Remove(temp);
+                    DataProvider.ISCreated.DB.SaveChanges();
                 }
             }
             catch (Exception)
@@ -834,6 +835,10 @@ namespace QuanLiKhachSan.Model
                 dsHashtag.Add(getHashTag(item.HastagID));
             }
             return dsHashtag;
+        }
+        public static NHANVIEN getNhanVienbyId(int nvid)
+        {
+            return DataProvider.ISCreated.DB.NHANVIENs.Where(x => x.NhanVienID == nvid).FirstOrDefault();
         }
     }
 }

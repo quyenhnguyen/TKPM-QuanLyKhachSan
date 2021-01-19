@@ -32,7 +32,7 @@ namespace QuanLiKhachSan.Model
         {
             for (int i = 0; i < DsSubcriber.Count; i++)
             {
-                if (DsSubcriber[i].NhanVienID == NhanVienID)
+                if (DsSubcriber[i].NhanVienID == NhanVienID || DieuKienDangKy(LoaiThongBao, NhanVienID) == false)
                 {
                     return false;
                 }
@@ -90,6 +90,16 @@ namespace QuanLiKhachSan.Model
             LoaiThongBao a = ft.createLoai(LoaiThongBao, td, msg);
             string noidung = prepareTemplate(a.getTieuDe(), a.getNoiDung());
             return Email(a.getTieuDe(), noidung, listSubcriberThisNoti);
+        }
+        private bool DieuKienDangKy(int loai, int nvid)
+        {
+            NHANVIEN nv = DatabaseQueryTN.getNhanVienbyId(nvid);
+            if (nv == null) return false;
+            if (loai == 2 && nv.Loai == 3 )
+            {
+                return false;
+            }
+            return true;
         }
         private string Email(string tieuDe, string htmlString, List<string> listSubcriberThisNoti)
         {
