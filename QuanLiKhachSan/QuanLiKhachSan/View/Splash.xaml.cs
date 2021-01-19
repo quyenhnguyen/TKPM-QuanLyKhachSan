@@ -22,7 +22,7 @@ namespace CFHotel
     /// </summary>
     public partial class Splash : Window
     {
-        private const int time = 1;
+        private const int time = 2;
         public Splash()
         {
             InitializeComponent();
@@ -35,20 +35,20 @@ namespace CFHotel
             processbar.Value = 0;
             Task.Run(() =>
             {
-                for (int i = 0; i < time*100; i++)
+                for (int i = 0; i < time * 300; i++)
                 {
                     Thread.Sleep(1);
-                    this.Dispatcher.Invoke(() => 
+                    this.Dispatcher.Invoke(() =>
                     {
-                        processbar.Value = (i/time)/10;
-                        if ( i == time*1000-100)
+                        processbar.Value = (i / time) / 3;
+                        if (i == time * 5000 - 100)
                         {
                             component.Text = "Mọi thứ đã ổn định";
                         }
-                        text.Opacity = (float)(i*1.0 / 100);
+                        text.Opacity = (float)(i * 1.0 / 100);
                     });
                 }
-                //Thread.Sleep(100);
+                Thread.Sleep(100);
                 this.Dispatcher.Invoke(() =>
                 {
                     Window signin = new DangNhap();

@@ -68,8 +68,17 @@ namespace QuanLiKhachSan.ViewModel
                 listHashtag_ddk = DatabaseQueryTN.danhSachHashtagCuaNhanVien(UserService.GetCurrentUser.NhanVienID);
                 dsDaDangKi = BusinessModel.ChuyenDoiDanhSach<HASTAG, THEDANGKI>(listHashtag_ddk, mappingManager2);
                 int nvid = UserService.GetCurrentUser.NhanVienID;
+                bool check = true;
+                foreach (THEDANGKI t in dsDaDangKi)
+                {
+                    if (t.ID == HasTagChon.ID)
+                    {
+                        check = false;
+                        break;
+                    }
+                }
                 //Kiểm tra đã đăng kí rồi thì hiện thông báo
-                if (dsDaDangKi.Contains(HasTagChon))
+                if (check== false)
                 {
                     MessageBox.Show("Bạn đã đăng kí thông báo  này.");
 
@@ -82,8 +91,9 @@ namespace QuanLiKhachSan.ViewModel
                         newSubriber.NhanVienID = nvid;
                         newSubriber.HastagID = HasTagChon.ID;
                         newSubriber.NgayDangKi = DateTime.Now;
-                        DatabaseQueryTN.themNguoiDangKi(newSubriber);
-                        ObserverService.Instance.Subcribe(newSubriber.NhanVienID, newSubriber.HastagID);
+                        ObserverService obs = ObserverService.Instance;
+                        //DatabaseQueryTN.themNguoiDangKi(newSubriber);
+                        obs.Subcribe(newSubriber.NhanVienID, newSubriber.HastagID);
                     }
                     catch (Exception)
                     {
@@ -94,9 +104,12 @@ namespace QuanLiKhachSan.ViewModel
             });
 
             XoaThongBaoCommand = new RelayCommand<THEDANGKI>((p) => { return true; }, (p) =>
+
             {
-                DatabaseQueryTN.xoaNguoiDangKiByID(p.ID, UserService.GetCurrentUser.NhanVienID);
-                ObserverService.Instance.Unsubcribe(UserService.GetCurrentUser.NhanVienID, p.ID);
+                //DatabaseQueryTN.xoaNguoiDangKiByID(p.ID, UserService.GetCurrentUser.NhanVienID);
+
+                ObserverService obs = ObserverService.Instance;
+                obs.Unsubcribe(UserService.GetCurrentUser.NhanVienID, p.ID);
                 dsDaDangKi.Remove(p);
             });
 

@@ -799,6 +799,8 @@ namespace QuanLiKhachSan.Model
             try
             {
                 DataProvider.ISCreated.DB.THONGTINDANGKIs.Remove(nv);
+                DataProvider.ISCreated.DB.SaveChanges();
+
             }
             catch (Exception)
             {
