@@ -61,3 +61,7 @@ QuanLiKhachSan/QuanLiKhachSan/Model/Model1.Context.cs
 QuanLiKhachSan/QuanLiKhachSan/Model/Model1.Designer.cs
 QuanLiKhachSan/QuanLiKhachSan/Model/Model1.Context.cs
 QuanLiKhachSan/QuanLiKhachSan/Model/Model1.edmx
+QuanLiKhachSan/QuanLiKhachSan/bin/**
+QuanLiKhachSan/QuanLiKhachSan/obj/**
+QuanLiKhachSan/QuanLiKhachSan/Model/Model1.Context.cs
+QuanLiKhachSan/QuanLiKhachSan/Model/Model1.edmx

@@ -8,6 +8,25 @@ using System.Threading.Tasks;
 
 namespace QuanLiKhachSan.Model
 {
+    public class THEDANGKI : BaseViewModel
+    {
+        private int _id;
+        public int ID
+        {
+            get => _id; set
+            {
+                OnPropertyChanged(ref _id, value);
+            }
+        }
+        private string _name;
+        public string Name
+        {
+            get => _name; set
+            {
+                OnPropertyChanged(ref _name, value);
+            }
+        }
+    }
     public class LSTHEMDICHVU : BaseViewModel
     {
         private int _sl;

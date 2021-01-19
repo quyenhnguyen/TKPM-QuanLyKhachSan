@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace QuanLiKhachSan.Model
 {
-    public  class ObserverService
+    public class ObserverService
     {
         private static ObserverService instance = null;
-        private List<DSDANGKYTB> DsSubcriber = null;
+        private List<THONGTINDANGKI> DsSubcriber = null;
         public ObserverService()
         {
             DsSubcriber = DatabaseQueryTN.danhSachDangKyThongBao();
@@ -39,9 +39,9 @@ namespace QuanLiKhachSan.Model
             }
             try
             {
-                DSDANGKYTB tem = new DSDANGKYTB();
+                THONGTINDANGKI tem = new THONGTINDANGKI();
                 tem.NhanVienID = NhanVienID;
-                tem.LoaiTB = LoaiThongBao;
+                tem.HastagID = LoaiThongBao;
                 DatabaseQueryTN.themNguoiDangKi(tem);
                 DsSubcriber.Add(tem);
             }
@@ -56,7 +56,7 @@ namespace QuanLiKhachSan.Model
         {
             for (int i = 0; i < DsSubcriber.Count; i++)
             {
-                if (DsSubcriber[i].NhanVienID == NhanVienID && DsSubcriber[i].LoaiTB == LoaiThongBao)
+                if (DsSubcriber[i].NhanVienID == NhanVienID && DsSubcriber[i].HastagID == LoaiThongBao)
                 {
                     try
                     {
@@ -79,18 +79,18 @@ namespace QuanLiKhachSan.Model
                 return "Không có loại thông báo!";
             }
             List<string> listSubcriberThisNoti = new List<string>();
-            foreach (DSDANGKYTB item in DsSubcriber)
+            foreach (THONGTINDANGKI item in DsSubcriber)
             {
-                if (item.LoaiTB==LoaiThongBao)
+                if (item.HastagID == LoaiThongBao)
                 {
-                    listSubcriberThisNoti.Add(item.Email);
+                    listSubcriberThisNoti.Add(item.NHANVIEN.Email);
                 }
             }
             LoaiThongBaoFactory ft = new LoaiThongBaoFactory();
-            LoaiThongBao a= ft.createLoai(1, "HoaDon", "Test");
-            return Email(a.getTieuDe(),a.getNoiDung(), listSubcriberThisNoti);
+            LoaiThongBao a = ft.createLoai(1, "HoaDon", "Test");
+            return Email(a.getTieuDe(), a.getNoiDung(), listSubcriberThisNoti);
         }
-        private string Email(string tieuDe,string htmlString, List<string> listSubcriberThisNoti)
+        private string Email(string tieuDe, string htmlString, List<string> listSubcriberThisNoti)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace QuanLiKhachSan.Model
                     message.To.Add(new MailAddress(item));
                 }
                 message.Subject = tieuDe;
-                message.IsBodyHtml = true; 
+                message.IsBodyHtml = true;
                 message.Body = htmlString;
                 smtp.Port = 587;
                 smtp.EnableSsl = true;
@@ -114,16 +114,17 @@ namespace QuanLiKhachSan.Model
                 smtp.Send(message);
                 return "success".ToString();
             }
-            catch (Exception exf) {
+            catch (Exception exf)
+            {
                 Console.WriteLine(exf.ToString());
                 return exf.ToString();
             }
         }
-        public List<DSDANGKYTB> danhSachNhanThongBao()
+        public List<THONGTINDANGKI> danhSachNhanThongBao()
         {
             return DsSubcriber;
         }
-        private string prepareTemplate(string tieude,string noidung)
+        private string prepareTemplate(string tieude, string noidung)
         {
             try
             {

@@ -712,9 +712,9 @@ namespace QuanLiKhachSan.Model
         {
             return DataProvider.ISCreated.DB.PHONGs.ToList();
         }
-        public static List<DSDANGKYTB> danhSachDangKyThongBao()
+        public static List<THONGTINDANGKI> danhSachDangKyThongBao()
         {
-            return DataProvider.ISCreated.DB.DSDANGKYTBs.ToList();
+            return DataProvider.ISCreated.DB.THONGTINDANGKIs.ToList();
         }
         public static string[] getColumnName(string name)
         {
@@ -769,18 +769,18 @@ namespace QuanLiKhachSan.Model
 
 
         // END
-        public static DSDANGKYTB themNguoiDangKi(DSDANGKYTB nv)
+        public static THONGTINDANGKI themNguoiDangKi(THONGTINDANGKI nv)
         {
-            DSDANGKYTB res = new DSDANGKYTB();
-            res = DataProvider.ISCreated.DB.DSDANGKYTBs.Add(nv);
+            THONGTINDANGKI res = new THONGTINDANGKI();
+            res = DataProvider.ISCreated.DB.THONGTINDANGKIs.Add(nv);
             DataProvider.ISCreated.DB.SaveChanges();
             return res;
         }
-        public static bool xoaNguoiDangKi(DSDANGKYTB nv)
+        public static bool xoaNguoiDangKi(THONGTINDANGKI nv)
         {
             try
             {
-                DataProvider.ISCreated.DB.DSDANGKYTBs.Remove(nv);
+                DataProvider.ISCreated.DB.THONGTINDANGKIs.Remove(nv);
             }
             catch (Exception)
             {
@@ -790,11 +790,11 @@ namespace QuanLiKhachSan.Model
         }
         public static string tenLoaiThongBao(int loaiThongBao)
         {
-            LOAITB res = new LOAITB();
-            res = DataProvider.ISCreated.DB.LOAITBs.Find(loaiThongBao);
+            HASTAG res = new HASTAG();
+            res = DataProvider.ISCreated.DB.HASTAGs.Find(loaiThongBao);
             if (res != null)
             {
-                return res.LOAITB1;
+                return res.Name;
             }
             return "";
         }
