@@ -36,7 +36,14 @@ namespace QuanLiKhachSan.ViewModel
         private BindingList<THEDANGKI> _dsDaDangKi;
         public BindingList<THEDANGKI> dsDaDangKi
         {
-            get => _dsDaDangKi; set
+            get
+            {
+
+
+                return _dsDaDangKi;
+
+            }
+            set
             {
                 OnPropertyChanged(ref _dsDaDangKi, value);
             }
@@ -48,20 +55,17 @@ namespace QuanLiKhachSan.ViewModel
         public PopUpDangKiThongBaoViewModel()
         {
             BindingList<HASTAG> listHashtag = DatabaseQueryTN.danhSachHashtag();
-
             MappingManager mappingManager2 = new MappingManager();
             mappingManager2.AddRule(new string[] { "HastagID" }, new string[] { "ID" }, new ClassCopyOneToOne());
             mappingManager2.AddRule(new string[] { "Name" }, new string[] { "Name" }, new ClassCopyOneToOne());
             dsHashTag = BusinessModel.ChuyenDoiDanhSach<HASTAG, THEDANGKI>(listHashtag, mappingManager2);
 
-            //Danh sách đã đăng kí lấy từ CSDL
-            BindingList<HASTAG> listHashtag_ddk = DatabaseQueryTN.danhSachHashtagCuaNhanVien(UserService.GetCurrentUser.NhanVienID);
-            dsDaDangKi = BusinessModel.ChuyenDoiDanhSach<HASTAG, THEDANGKI>(listHashtag_ddk, mappingManager2);
-
             DangKiThongBaoCommand = new RelayCommand<HASTAG>((p) => { return true; }, (p) =>
             {
-
-                int nvid =  UserService.GetCurrentUser.NhanVienID;
+                //Danh sách đã đăng kí lấy từ CSDL
+                BindingList<HASTAG> listHashtag_ddk = DatabaseQueryTN.danhSachHashtagCuaNhanVien(UserService.GetCurrentUser.NhanVienID);
+                dsDaDangKi = BusinessModel.ChuyenDoiDanhSach<HASTAG, THEDANGKI>(listHashtag_ddk, mappingManager2);
+                int nvid = UserService.GetCurrentUser.NhanVienID;
                 //Kiểm tra đã đăng kí rồi thì hiện thông báo
                 if (dsDaDangKi.Contains(HasTagChon))
                 {
