@@ -83,6 +83,7 @@ namespace QuanLiKhachSan.ViewModel
                         newSubriber.HastagID = HasTagChon.ID;
                         newSubriber.NgayDangKi = DateTime.Now;
                         DatabaseQueryTN.themNguoiDangKi(newSubriber);
+                        ObserverService.Instance.Subcribe(newSubriber.NhanVienID, newSubriber.HastagID);
                     }
                     catch (Exception)
                     {
@@ -95,6 +96,7 @@ namespace QuanLiKhachSan.ViewModel
             XoaThongBaoCommand = new RelayCommand<THEDANGKI>((p) => { return true; }, (p) =>
             {
                 DatabaseQueryTN.xoaNguoiDangKiByID(p.ID, UserService.GetCurrentUser.NhanVienID);
+                ObserverService.Instance.Unsubcribe(UserService.GetCurrentUser.NhanVienID, p.ID);
                 dsDaDangKi.Remove(p);
             });
 
