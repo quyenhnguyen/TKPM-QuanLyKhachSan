@@ -191,6 +191,10 @@ namespace QuanLiKhachSan.ViewModel
 
                 if (dialog.ShowDialog() == true)
                 {
+
+                    ObserverService obs = ObserverService.Instance;
+                    string msg = "";
+                    //obs.GuiThongBao(3, TieuDe, NoiDung);
                     //Cập nhật lại hóa đơn hiện tại với ngày checkout vào csdl
                     DateTime TG = ((LeTanDialogCheckOutViewModel)dialog.DataContext).NgayCheckOut;
                     HoaDonDangThue = DatabaseQuery.checkOutHoaDon(HoaDonDangThue, TG);
@@ -208,6 +212,8 @@ namespace QuanLiKhachSan.ViewModel
 
                     //ĐỔi giao diện
                     DatabaseQuery.MyMessageBox("Check out thành công!");
+                    msg += HoaDonDangThue.MaHoaDon + "|" +HoaDonDangThue.KHACHHANG.HoTen + "|" + HoaDonDangThue.NHANVIEN.HoTen + "|" + HoaDonDangThue.NgayTao.ToString() + "|" + HoaDonDangThue.Phong.ToString() + "|" + HoaDonDangThue.ThoiGianThue.ToString() + "|" +HoaDonDangThue.ThoiGianTra.ToString() + "|" + HoaDonDangThue.TongTien.ToString();
+                    obs.GuiThongBao(3, HoaDonDangThue.MaHoaDon.ToString(), msg);
                     isCheckout = true;
                 }
             });
