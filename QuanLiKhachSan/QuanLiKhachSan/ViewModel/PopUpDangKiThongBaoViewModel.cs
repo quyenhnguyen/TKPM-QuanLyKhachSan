@@ -59,11 +59,13 @@ namespace QuanLiKhachSan.ViewModel
             mappingManager2.AddRule(new string[] { "HastagID" }, new string[] { "ID" }, new ClassCopyOneToOne());
             mappingManager2.AddRule(new string[] { "Name" }, new string[] { "Name" }, new ClassCopyOneToOne());
             dsHashTag = BusinessModel.ChuyenDoiDanhSach<HASTAG, THEDANGKI>(listHashtag, mappingManager2);
+            BindingList<HASTAG> listHashtag_ddk = DatabaseQueryTN.danhSachHashtagCuaNhanVien(UserService.GetCurrentUser.NhanVienID);
+            dsDaDangKi = BusinessModel.ChuyenDoiDanhSach<HASTAG, THEDANGKI>(listHashtag_ddk, mappingManager2);
 
             DangKiThongBaoCommand = new RelayCommand<HASTAG>((p) => { return true; }, (p) =>
             {
                 //Danh sách đã đăng kí lấy từ CSDL
-                BindingList<HASTAG> listHashtag_ddk = DatabaseQueryTN.danhSachHashtagCuaNhanVien(UserService.GetCurrentUser.NhanVienID);
+                listHashtag_ddk = DatabaseQueryTN.danhSachHashtagCuaNhanVien(UserService.GetCurrentUser.NhanVienID);
                 dsDaDangKi = BusinessModel.ChuyenDoiDanhSach<HASTAG, THEDANGKI>(listHashtag_ddk, mappingManager2);
                 int nvid = UserService.GetCurrentUser.NhanVienID;
                 //Kiểm tra đã đăng kí rồi thì hiện thông báo

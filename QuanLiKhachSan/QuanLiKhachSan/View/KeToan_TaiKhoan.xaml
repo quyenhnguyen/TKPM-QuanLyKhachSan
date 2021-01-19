@@ -331,8 +331,8 @@
                                          Width="150"
                                          Height="100"
                                          Margin="20"
-                                         Cursor="Hand"
-                                         Visibility="Hidden">
+                                         Visibility="Hidden"
+                                         Cursor="Hand">
                         <Button Height="Auto"
                                 Background="White"
                                 BorderThickness="0"
@@ -371,6 +371,7 @@
                                          Width="150"
                                          Height="100"
                                          Margin="20"
+                                         Visibility="Hidden"
                                          Cursor="Hand">
                         <Button Height="Auto"
                                 Background="White"
@@ -589,6 +590,7 @@
                     <!--  BUtton Dang ki thong bao  -->
                     <materialDesign:Card Grid.Column="4"
                                          Width="150"
+                                         Visibility="Hidden"
                                          Height="100"
                                          Margin="20"
                                          Cursor="Hand">
@@ -619,6 +621,7 @@
                                                VerticalAlignment="Center"
                                                FontSize="{DynamicResource CoChuNho}"
                                                Foreground="Gray"
+                                               Visibility="Hidden"
                                                Text="Đăng kí thông báo" />
                                 </Grid>
                             </Button.Content>
@@ -735,8 +738,7 @@
                                          Width="150"
                                          Height="100"
                                          Margin="20"
-                                         Cursor="Hand"
-                                         Visibility="Hidden">
+                                         Cursor="Hand">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonUp">
                                 <i:InvokeCommandAction />
@@ -766,6 +768,48 @@
                                        Foreground="Gray"
                                        Text="Trợ giúp" />
                         </Grid>
+                    </materialDesign:Card>
+
+
+
+                    <!--  BUtton Giao Diện  -->
+                    <materialDesign:Card Grid.Column="2"
+                                         Visibility="Hidden"
+                                         Width="150"
+                                         Height="100"
+                                         Margin="20"
+                                         Cursor="Hand">
+                        <Button Height="Auto"
+                                Background="White"
+                                BorderThickness="0"
+                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
+                            <Button.Content>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="3*" />
+                                        <RowDefinition Height="5" />
+                                        <RowDefinition Height="2*" />
+                                    </Grid.RowDefinitions>
+                                    <StackPanel HorizontalAlignment="Center"
+                                                VerticalAlignment="Center">
+                                        <materialDesign:PackIcon Width="40"
+                                                                 Height="40"
+                                                                 Foreground="{DynamicResource MauTenPhong}"
+                                                                 Kind="ThemeLightDark" />
+                                    </StackPanel>
+                                    <Separator Grid.Row="1"
+                                               Margin="5,0"
+                                               BorderBrush="{DynamicResource XamDam}"
+                                               BorderThickness="1" />
+                                    <TextBlock Grid.Row="2"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="{DynamicResource CoChuNho}"
+                                               Foreground="Gray"
+                                               Text="Đổi giao diện" />
+                                </Grid>
+                            </Button.Content>
+                        </Button>
                     </materialDesign:Card>
 
                     <!--  BUtton Dang ki thong bao  -->
@@ -806,47 +850,6 @@
                             </Button.Content>
                         </Button>
                     </materialDesign:Card>
-
-                    <!--  BUtton Giao Diện  -->
-                    <materialDesign:Card Grid.Column="2"
-                                         Width="150"
-                                         Height="100"
-                                         Margin="20"
-                                         Cursor="Hand">
-                        <Button Height="Auto"
-                                Background="White"
-                                BorderThickness="0"
-                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
-                            <Button.Content>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="3*" />
-                                        <RowDefinition Height="5" />
-                                        <RowDefinition Height="2*" />
-                                    </Grid.RowDefinitions>
-                                    <StackPanel HorizontalAlignment="Center"
-                                                VerticalAlignment="Center">
-                                        <materialDesign:PackIcon Width="40"
-                                                                 Height="40"
-                                                                 Foreground="{DynamicResource MauTenPhong}"
-                                                                 Kind="ThemeLightDark" />
-                                    </StackPanel>
-                                    <Separator Grid.Row="1"
-                                               Margin="5,0"
-                                               BorderBrush="{DynamicResource XamDam}"
-                                               BorderThickness="1" />
-                                    <TextBlock Grid.Row="2"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"
-                                               FontSize="{DynamicResource CoChuNho}"
-                                               Foreground="Gray"
-                                               Text="Đổi giao diện" />
-                                </Grid>
-                            </Button.Content>
-                        </Button>
-                    </materialDesign:Card>
-
-
 
 
                 </StackPanel>

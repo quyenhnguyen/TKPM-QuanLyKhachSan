@@ -52,6 +52,8 @@ namespace QuanLiKhachSan.ViewModel
             btnTaiKhoan_Command = new RelayCommand<object>((p) => { return CurrentDataContext != ucTaiKhoan; }, (p) =>
               {
                   txtTitle = "QUẢN LÍ TÀI KHOẢN";
+                  ucTaiKhoan = new LeTanTaiKhoanViewModel();
+
                   CurrentDataContext = ucTaiKhoan;
               });
             btnDangXuat_Command = new RelayCommand<object>((p) => { return true; }, (p) =>
