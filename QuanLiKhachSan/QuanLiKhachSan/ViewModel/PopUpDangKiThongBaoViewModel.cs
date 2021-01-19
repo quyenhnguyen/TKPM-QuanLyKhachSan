@@ -35,25 +35,24 @@ namespace QuanLiKhachSan.ViewModel
 
         public PopUpDangKiThongBaoViewModel()
         {
-            //listLap = DatabaseQueryTN.getLoaiTB();
 
-            //XoaThongBaoCommand = new RelayCommand<LOAITHONGBAO>((p) => { return true; }, (p) =>
-            //{
-            //    //listLap.Remove(p);
-            //});
             MappingManager mappingManager2 = new MappingManager();
             mappingManager2.AddRule(new string[] { "HastagID" }, new string[] { "ID" }, new ClassCopyOneToOne());
             mappingManager2.AddRule(new string[] { "Name" }, new string[] { "Name" }, new ClassCopyOneToOne());
+            BindingList<HASTAG> listHashtag = DatabaseQueryTN.danhSachHashtag();
+            dsHashTag = new BindingList<THEDANGKI>();
+            foreach (HASTAG item in listHashtag)
+            {
+                THEDANGKI tbb = new THEDANGKI();
+                mappingManager2.MapObjectToObject<HASTAG, THEDANGKI>(item, tbb);
+                dsHashTag.Add(tbb);
+            }
 
+            XoaThongBaoCommand = new RelayCommand<LOAITHONGBAO>((p) => { return true; }, (p) =>
+            {
+                //listLap.Remove(p);
+            });
 
-
-            HASTAG tba = new HASTAG();
-            tba.HastagID = 100;
-            tba.Name = "Thong bao 100";
-
-            THEDANGKI tbb = new THEDANGKI();
-
-            mappingManager2.MapObjectToObject<HASTAG, THEDANGKI>(tba, tbb);
         }
     }
 }

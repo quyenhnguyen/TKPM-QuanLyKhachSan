@@ -18,7 +18,7 @@ DataContext="{StaticResource PopUpDoiThongBaoVM}"
         HorizontalAlignment="Center"
         VerticalAlignment="Center">
 
-        <ListView Name="ListLaptop" ItemsSource="{Binding listLap}"
+        <ListView Name="ListLaptop" ItemsSource="{Binding dsHashTag}"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListLaptop_SelectionChanged">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>

@@ -798,6 +798,11 @@ namespace QuanLiKhachSan.Model
             }
             return "";
         }
+        public static BindingList<HASTAG> danhSachHashtag()
+        {
+            BindingList<HASTAG> temp = new BindingList<HASTAG>(DataProvider.ISCreated.DB.HASTAGs.ToArray());
+            return temp;
+        }
     }
 }
 
